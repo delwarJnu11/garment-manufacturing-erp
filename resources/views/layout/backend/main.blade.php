@@ -9,7 +9,7 @@
 			content="width=device-width, initial-scale=1.0, user-scalable=0" />
 		<meta
 			name="description"
-			content="POS - Bootstrap Admin Template" />
+			content="Garments Manufacturing ERP SOFTWARE" />
 		<meta
 			name="keywords"
 			content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects" />
@@ -19,7 +19,7 @@
 		<meta
 			name="robots"
 			content="noindex, nofollow" />
-		<title>Dreams Pos Admin Template</title>
+		<title>Garments Manufacturing ERP SOFTWARE</title>
 
 		<script
 			src="{{asset('assets')}}/js/theme-script.js"
@@ -63,6 +63,7 @@
 		<link
 			rel="stylesheet"
 			href="{{asset('assets')}}/css/style.css" />
+            @yield('css')
 	</head>
 
 	<body>
@@ -165,5 +166,6 @@
 			integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
 			data-cf-beacon='{"rayId":"90e33fd83af0a475","version":"2025.1.0","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"3ca157e612a14eccbb30cf6db6691c29","b":1}'
 			crossorigin="anonymous"></script>
+            @yield('script')
 	</body>
 </html>
