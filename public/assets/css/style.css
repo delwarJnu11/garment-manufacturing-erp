@@ -17880,7 +17880,7 @@ body.mini-sidebar.expand-menu
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
-    background: #ffa500;
+    background: purple;
     border-radius: 10px 0px 0px 10px;
     z-index: 3;
     width: 41px;
@@ -23816,7 +23816,7 @@ body.mini-sidebar.expand-menu
 .dash-widget .dash-widgetimg span {
     width: 48px;
     height: 48px;
-    background: rgba(249, 110, 111, 0.12);
+    background: #b277df3b;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
