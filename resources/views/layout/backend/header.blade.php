@@ -316,8 +316,7 @@
                         href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html"><i
                             class="me-2" data-feather="settings"></i>Settings</a>
                     <hr class="m-0" />
-                    <a class="dropdown-item logout pb-0"
-                        href="https://dreamspos.dreamstechnologies.com/html/template/signin.html"><img
+                    <a class="dropdown-item logout pb-0" href="  {{ url('/logout') }}"><img
                             src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/log-out.svg"
                             class="me-2" alt="img" />Logout</a>
                 </div>

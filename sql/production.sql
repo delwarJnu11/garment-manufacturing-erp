@@ -1,7 +1,7 @@
 -- 1. Production Planning
 
 CREATE TABLE production_plans (
-    production_plan_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     plan_name VARCHAR(255) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE production_plans (
 );
 
 CREATE TABLE production_plan_items (
-    production_plan_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     production_plan_id INT REFERENCES production_plans(production_plan_id),
     product_id INT REFERENCES products(product_id),  -- Assuming you have a Products table
     planned_quantity DECIMAL(10, 2) NOT NULL,
