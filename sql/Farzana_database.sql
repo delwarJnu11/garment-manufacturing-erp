@@ -321,83 +321,77 @@ CREATE TABLE payment_methods (
 
 
  
-Inventory Overview
-📈
- Stock Analytics
-2️⃣
- Products Management
+-- Inventory Overview
+--  Stock Analytics
 
-🏷️
- Product Categories
-📋
- Products List
-🔍 Barcode & RFID Lookup
-3️⃣
- Warehouse Management
+--  Products Management
 
-🏠
- Warehouses
-📦
- Storage Locations
-4️⃣
- Stock Movements
+--  Product Categories
+--  Products List
+-- Barcode & RFID Lookup
 
-📥 Stock In (Goods Receipt Notes - GRN)
-📤 Stock Out (Shipments)
-🔄 Stock Transfers
-5️⃣ Stock Adjustments
+--  Warehouse Management
 
-⚖️ Adjust Stock Levels
-🔧 Manual Stock Updates
-6️⃣ Inventory Valuation
+--  Warehouses
+--  Storage Locations
 
-💰 FIFO, LIFO, Weighted Average
-📄 Valuation Reports
-7️⃣ Suppliers & Purchases
+--  Stock Movements
 
-🏢 Suppliers
-🛒 Purchases
-📑 Purchase Details
-8️⃣ Reorder & Alerts
+--   Stock In (Goods Receipt Notes - GRN)
+--   Stock Out (Shipments)
+--   Stock Transfers
+--  Stock Adjustments 
+--   Adjust Stock Levels
+-- Manual Stock Updates
+-- 6️⃣ Inventory Valuation
 
-🚨 Low Stock Alerts
-📌 Reorder Management
-9️⃣ Reports & Audits
+-- 💰 FIFO, LIFO, Weighted Average
+-- 📄 Valuation Reports
+-- 7️⃣ Suppliers & Purchases
 
-📋 Inventory Reports
-🔍 Stock Ledger
-✅ Audit & Cycle Counting
-🔟 Settings & Configurations
+-- 🏢 Suppliers
+-- 🛒 Purchases
+-- 📑 Purchase Details
+-- 8️⃣ Reorder & Alerts
 
-⚙️ Inventory Rules
-🔗 Integration Settings
-🛒 Sales & Order Management
-1️⃣ Dashboard
+-- 🚨 Low Stock Alerts
+-- 📌 Reorder Management
+-- 9️⃣ Reports & Audits
 
-📊 Sales Overview
-📈 Sales Reports
- Customers
+-- 📋 Inventory Reports
+-- 🔍 Stock Ledger
+-- ✅ Audit & Cycle Counting
+-- 🔟 Settings & Configurations
 
- Customer List
-📞 Contact Details
-3️ Orders Management
+-- ⚙️ Inventory Rules
+-- 🔗 Integration Settings
+-- 🛒 Sales & Order Management
+-- 1️⃣ Dashboard
 
- New Orders
- Order Tracking
- Order Fulfillment
-4️ Payments & Invoices
+-- 📊 Sales Overview
+-- 📈 Sales Reports
+--  Customers
 
- Payments
- Invoices
-5️ Sales Analytics
+--  Customer List
+-- 📞 Contact Details
+-- 3️ Orders Management
 
- Reports & Insights
- Order Trends
-6️ Discounts & Promotions
+--  New Orders
+--  Order Tracking
+--  Order Fulfillment
+-- 4️ Payments & Invoices
 
-🎟️ Coupons
- Special Offers
-7️ Settings & Configurations
+--  Payments
+--  Invoices
+-- 5️ Sales Analytics
 
- Payment Methods
-🔗 API Integration
+--  Reports & Insights
+--  Order Trends
+-- 6️ Discounts & Promotions
+
+-- 🎟️ Coupons
+--  Special Offers
+-- 7️ Settings & Configurations
+
+--  Payment Methods
+-- 🔗 API Integration
