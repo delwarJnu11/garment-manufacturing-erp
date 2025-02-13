@@ -11238,6 +11238,7 @@ table.dataTable thead > tr > th.no-sort.sorting::after {
 }
 .login-page-wrapper {
     margin: 0 !important;
+    padding: 0 !important;
 }
 @media (max-width: 991.98px) {
     .page-wrapper {
@@ -24552,7 +24553,8 @@ body.mini-sidebar.expand-menu
 }
 .login-wrapper .login-content {
     width: 50%;
-    height: 100vh;
+    margin: 0 auto;
+    /* height: 100vh; */
     padding: 24px;
     overflow: auto;
     display: -webkit-box;

@@ -45,8 +45,9 @@
         </div>
     </form>
 
-   
+
 </x-guest-layout> --}}
+
 <!DOCTYPE html>
 <html lang="en" data-layout-mode="light_mode">
 
@@ -58,7 +59,7 @@
         content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects" />
     <meta name="author" content="Dreamguys - Bootstrap Admin Template" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Garments Manufacturing ERP SOFTWARE</title>
+    <title>LOGIN | Garments Manufacturing ERP SOFTWARE</title>
 
     <script
 			src="{{asset('assets')}}/js/theme-script.js"
@@ -112,7 +113,7 @@
                                     </a> --}}
                                 <div class="login-userheading">
                                     <h3>Sign In</h3>
-                                    <h4>Access the Dreamspos panel using your email and passcode.</h4>
+                                    <h4>Access the Garments ERP panel using your email and password.</h4>
                                 </div>
                                 <div class="form-login mb-3">
                                     <label class="form-label">Email Address</label>
@@ -125,13 +126,14 @@
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
                                 <div class="form-login mb-3">
-                                    <label class="form-label">Password</label>
+                                    <label class="form-label" for="password">Password</label>
                                     <div class="pass-group">
                                         <input type="password" value="{{ old('password') }}"
                                             class="pass-input form-control" id="password" name="password" required
-                                            autocomplete="current-password">
+                                            autocomplete="password">
                                         <span class="fas toggle-password fa-eye-slash"></span>
                                     </div>
+                                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 </div>
                                 <div class="form-login authentication-check">
                                     <div class="row">
@@ -153,7 +155,7 @@
                                     <button type="submit" class="btn btn-login">Sign In</button>
                                 </div>
                                 <div class="signinform">
-                                    <h4>New on our platform?<a href="register.html" class="hover-a"> Create an
+                                    <h4>New on our platform?<a href="{{route('register')}}" class="hover-a"> Create an
                                             account</a></h4>
                                 </div>
                             </div>
