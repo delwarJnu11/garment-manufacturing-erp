@@ -10,7 +10,7 @@ CREATE TABLE products (
     offer_price DECIMAL(10,2) DEFAULT(0.00),
     description varchar (200),
     weight INT,
-    size INT,
+    size_id INT,
     is_raw_material INT NOT NULL,
     barcode VARCHAR(255) UNIQUE NULL,
     rfid VARCHAR(255) UNIQUE NULL,
@@ -21,7 +21,12 @@ CREATE TABLE products (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
+CREATE TABLE sizes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    size_name VARCHAR(50) NOT NULL, -- e.g., Small, Medium, Large, XL
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
 
 CREATE TABLE categories (
@@ -92,6 +97,28 @@ CREATE TABLE purchases(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+CREATE TABLE purchase_returns (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    purchase_id INT NOT NULL, -- Reference to purchases table
+    supplier_id INT NOT NULL, -- Reference to suppliers table
+    return_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_return_amount DECIMAL(10, 2) NOT NULL, -- Total return amount
+    reason TEXT NULL, -- Reason for return
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+CREATE TABLE purchase_return_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    purchase_return_id INT NOT NULL, -- Reference to purchase_returns table
+    product_id INT NOT NULL, -- Reference to products table
+    quantity INT NOT NULL, -- Quantity returned
+    price DECIMAL(10,2) DEFAULT(0.00) NOT NULL, -- Price per product
+    total_return_price DECIMAL(10,2) NOT NULL, -- Total price of returned products
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 
 CREATE TABLE purchase_details(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -178,6 +205,17 @@ CREATE TABLE adjustment_types (
     name VARCHAR(50) NOT NULL -- Damage, Loss, Manual Adjustment
 );
 
+CREATE TABLE low_stock_alerts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL, -- Reference to products table
+    warehouse_id INT NOT NULL, -- Reference to warehouses table
+    current_stock INT NOT NULL, -- Current stock level
+    min_stock_level INT NOT NULL, -- Minimum stock level for the product
+    alert_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date when the alert was triggered
+    status VARCHAR(50) DEFAULT 'Pending', -- Status of the alert (e.g., Pending, Resolved)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
 ________________________________________
 -- 2️⃣ Sales & Order Management Module
@@ -208,6 +246,28 @@ CREATE TABLE orders (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+CREATE TABLE order_returns (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL, -- Reference to orders table
+    customer_id INT NOT NULL, -- Reference to customers table
+    return_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_return_amount DECIMAL(10, 2) NOT NULL, -- Total amount for the return
+    reason TEXT NULL, -- Reason for return
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+CREATE TABLE order_return_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_return_id INT NOT NULL, -- Reference to order_returns table
+    product_id INT NOT NULL, -- Reference to products table
+    quantity INT NOT NULL, -- Quantity returned
+    price DECIMAL(10,2) DEFAULT(0.00) NOT NULL, -- Price per product
+    total_return_price DECIMAL(10,2) NOT NULL, -- Total price of returned products
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 ________________________________________
 2.3 Order Items Table
 Stores items in an order.
@@ -255,4 +315,89 @@ CREATE TABLE payment_methods (
 );
 
 
+                       📦 Inventory & Warehouse Management
+1️⃣
+ Dashboard
 
+
+ 
+Inventory Overview
+📈
+ Stock Analytics
+2️⃣
+ Products Management
+
+🏷️
+ Product Categories
+📋
+ Products List
+🔍 Barcode & RFID Lookup
+3️⃣
+ Warehouse Management
+
+🏠
+ Warehouses
+📦
+ Storage Locations
+4️⃣
+ Stock Movements
+
+📥 Stock In (Goods Receipt Notes - GRN)
+📤 Stock Out (Shipments)
+🔄 Stock Transfers
+5️⃣ Stock Adjustments
+
+⚖️ Adjust Stock Levels
+🔧 Manual Stock Updates
+6️⃣ Inventory Valuation
+
+💰 FIFO, LIFO, Weighted Average
+📄 Valuation Reports
+7️⃣ Suppliers & Purchases
+
+🏢 Suppliers
+🛒 Purchases
+📑 Purchase Details
+8️⃣ Reorder & Alerts
+
+🚨 Low Stock Alerts
+📌 Reorder Management
+9️⃣ Reports & Audits
+
+📋 Inventory Reports
+🔍 Stock Ledger
+✅ Audit & Cycle Counting
+🔟 Settings & Configurations
+
+⚙️ Inventory Rules
+🔗 Integration Settings
+🛒 Sales & Order Management
+1️⃣ Dashboard
+
+📊 Sales Overview
+📈 Sales Reports
+ Customers
+
+ Customer List
+📞 Contact Details
+3️ Orders Management
+
+ New Orders
+ Order Tracking
+ Order Fulfillment
+4️ Payments & Invoices
+
+ Payments
+ Invoices
+5️ Sales Analytics
+
+ Reports & Insights
+ Order Trends
+6️ Discounts & Promotions
+
+🎟️ Coupons
+ Special Offers
+7️ Settings & Configurations
+
+ Payment Methods
+🔗 API Integration
