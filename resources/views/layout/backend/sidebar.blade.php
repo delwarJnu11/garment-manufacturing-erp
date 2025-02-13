@@ -59,7 +59,7 @@
                         <li class="submenu">
                             <a href="javascript:void(0);">
                                 <i data-feather="shopping-bag"></i>
-                                <span> Warehuose</span>
+                                <span> Warehuouse</span>
                                 <span
                                     class="menu-arrow"></span></a>
                             <ul>
@@ -67,12 +67,44 @@
                                 <li>
                                     <a href="{{ url('/roles') }}">Stock Movement</a></li>
                                 <li>
-                                    <a href="{{ url('/roles') }}">Storage location</a></li>
+                                    <a href="{{ url('/roles') }}">Stock In</a></li>
+                                <li>
+                                    <a href="{{ url('/roles') }}">Stock Out</a></li>
+                                <li>
+                                    <a href="{{ url('/roles') }}">Stock Transfer</a></li>
+                                <li>
+                                    <a href="{{ url('/roles') }}">Stock Adjustment</a></li>
+                                <li>
+                                    <a href="{{ url('/roles') }}">Stock Adjustment</a></li>
                                 {{-- <li>
                                     <a href="{{ url('/roles') }}">Categories</a></li>
                                 <li> --}}
                                     {{-- <a href="{{ url('/roles') }}">Product Size</a></li>
                                     <a href="{{ url('/roles') }}">Print Barcode & RFID</a></li> --}}
+                            </ul>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="javascript:void(0);">
+                                <i data-feather="shopping-bag"></i>
+                                <span> Suppliers & Purchases</span>
+                                <span
+                                    class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="{{ url('/roles') }}">Suppliers</a></li>
+                                <li>
+                                    <a href="{{ url('/roles') }}">Purchase</a></li>
+                                <li>
+                                    <a href="{{ url('/roles') }}">Purchase Details</a></li>
+                                <li>
+                                    <a href="{{ url('/roles') }}">Reorder & Alert</a></li>
+                                <li>
+                                    <a href="{{ url('/roles') }}">Low Stock Alerts</a></li>
+                                <li>
+                                    <a href="{{ url('/roles') }}">Stock Adjustment</a></li>
+                                <li>
+                                    <a href="{{ url('/roles') }}">Stock Adjustment</a></li>
+                              
                             </ul>
                         </li>
 
