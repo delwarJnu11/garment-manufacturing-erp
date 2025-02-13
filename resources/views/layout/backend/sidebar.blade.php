@@ -19,44 +19,13 @@
                                         href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
                                         class="active">Admin Dashboard</a>
                                 </li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/sales-dashboard.html">Sales Dashboard</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="submenu">
-                            <a href="javascript:void(0);"><i data-feather="smartphone"></i><span>Application</span><span class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);"><i data-feather="users"></i><span>Users</span><span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="https://dreamspos.dreamstechnologies.com/html/template/chat.html">Chat</a></li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Call<span class="menu-arrow inside-submenu"></span></a>
-                                    <ul>
-                                        <li>
-                                            <a href="https://dreamspos.dreamstechnologies.com/html/template/video-call.html">Video Call</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://dreamspos.dreamstechnologies.com/html/template/audio-call.html">Audio Call</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://dreamspos.dreamstechnologies.com/html/template/call-history.html">Call History</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/calendar.html">Calendar</a>
-                                </li>
-                                <li><a href="https://dreamspos.dreamstechnologies.com/html/template/email.html">Email</a></li>
-                                <li><a href="https://dreamspos.dreamstechnologies.com/html/template/todo.html">To Do</a></li>
-                                <li><a href="https://dreamspos.dreamstechnologies.com/html/template/notes.html">Notes</a></li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/file-manager.html">File Manager</a>
-                                </li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/social-feed.html">Social Feed</a>
-                                </li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/kanban-view.html">Kanban</a>
-                                </li>
+                                <li><a href="{{route('users.index')}}">All User</a></li>
+                                <li><a href="{{url('/roles')}}">All Roles</a></li>
                             </ul>
                         </li>
                     </ul>
