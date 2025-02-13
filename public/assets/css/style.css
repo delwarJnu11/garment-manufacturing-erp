@@ -11236,6 +11236,9 @@ table.dataTable thead > tr > th.no-sort.sorting::after {
     -ms-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
+.login-page-wrapper {
+    margin: 0 !important;
+}
 @media (max-width: 991.98px) {
     .page-wrapper {
         margin: 0;
