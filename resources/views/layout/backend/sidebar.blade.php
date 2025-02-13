@@ -23,17 +23,12 @@
                                 <li><a href="{{ url('/roles') }}">All Roles</a></li>
                             </ul>
                         </li>
-
-                        
-
                         <li class="submenu">
                             <a href="javascript:void(0);">
                                 <i data-feather="shopping-bag"></i>
                                 <span> Inventory </span>
-                               
                             <ul>
                                 <li>
-
                                     <a href="{{ route('users.index') }}">Inventiories
                                     </a>
                                 </li>
