@@ -50,7 +50,8 @@
         <div class="account-content">
 				<div class="login-wrapper register-wrap" style="margin: 10px 0;">
                     <div class="login-content" style="background-color: #fff; border-radius: 5px; box-shadow: 2px 2px 5px 2px #dedede;">
-                        <form action="signin.html" style="width: 100%;">
+                        <form action="{{route('register')}}" method="POST" style="width: 100%;">
+                            @csrf
                             <div class="login-userset">
                                 <div class="login-logo logo-normal">
                                    <img src="assets/img/logo.png" alt="img">
@@ -65,28 +66,29 @@
                                <div class="form-login">
                                    <label>Name</label>
                                    <div class="form-addons">
-                                       <input type="text" class="form-control">
+                                       <input type="text" name="name" value="{{old('name')}}" class="form-control">
                                        <img src="{{asset('assets')}}/img/icons/user-icon.svg" alt="img">
                                    </div>
                                </div>
                                <div class="form-login">
                                    <label>Email Address</label>
                                    <div class="form-addons">
-                                       <input type="text" class="form-control">
+                                       <input type="text" class="form-control" name="email" value="{{old('email')}}">
                                        <img src="{{asset('assets')}}/img/icons/mail.svg" alt="img">
                                    </div>
                                </div>
                                <div class="form-login">
                                    <label>Password</label>
                                    <div class="pass-group">
-                                       <input type="password" class="pass-input">
+                                       <input type="password" class="pass-input" name="password" value="{{old('password')}}">
                                        <span class="fas toggle-password fa-eye-slash"></span>
                                    </div>
                                </div>
                                <div class="form-login">
                                    <label>Confirm Passworrd</label>
                                    <div class="pass-group">
-                                       <input type="password" class="pass-inputs">
+                                       <input type="password" class="pass-inputs"
+                            name="password_confirmation" required autocomplete="new-password">
                                        <span class="fas toggle-passwords fa-eye-slash"></span>
                                    </div>
                                </div>
