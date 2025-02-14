@@ -194,26 +194,52 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">HRM</h6>
                     <ul>
-                        <li>
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/employees-grid.html"><i data-feather="user"></i><span>Employees</span></a>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><i data-feather="users"></i><span>Employee</span><span class="menu-arrow"></span></a>
+                            <ul>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Position</a>
+                                </li>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-admin.html">Employee</a>
+                                </li>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-admin.html">Employee Performance</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li>
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/department-grid.html"><i data-feather="users"></i><span>Departments</span></a>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><i data-feather="user"></i><span>Department</span><span class="menu-arrow"></span></a>
+                            <ul>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Department</a>
+                                </li>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-admin.html">Sub Department</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li>
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/designation.html"><i data-feather="git-merge"></i><span>Designation</span></a>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><i data-feather="git-merge"></i><span>Designation</span><span class="menu-arrow"></span></a>
+                            <ul>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Designation List</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li>
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/shift.html"><i data-feather="shuffle"></i><span>Shifts</span></a>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><i data-feather="shuffle"></i><span>Shift</span><span class="menu-arrow"></span></a>
+                            <ul>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Shift</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><i data-feather="book-open"></i><span>Attendence</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Employee</a>
-                                </li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-admin.html">Admin</a>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Attendence List</a>
                                 </li>
                             </ul>
                         </li>
@@ -221,10 +247,7 @@
                             <a href="javascript:void(0);"><i data-feather="calendar"></i><span>Leaves</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/leaves-admin.html">Admin Leaves</a>
-                                </li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/leaves-employee.html">Employee Leaves</a>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/leaves-admin.html">Manage Leave</a>
                                 </li>
                                 <li>
                                     <a href="https://dreamspos.dreamstechnologies.com/html/template/leave-types.html">Leave Types</a>
@@ -241,6 +264,30 @@
                                     <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Employee Salary</a>
                                 </li>
                                 <li><a href="https://dreamspos.dreamstechnologies.com/html/template/payslip.html">Payslip</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html"><i data-feather="dollar-sign"></i><span>Award</span><span class="menu-arrow"></span></a>
+                            <ul>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Award List</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html"><i data-feather="dollar-sign"></i><span>Notice Board</span><span class="menu-arrow"></span></a>
+                            <ul>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Notice</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html"><i data-feather="dollar-sign"></i><span>TimeSheet</span><span class="menu-arrow"></span></a>
+                            <ul>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Time</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
