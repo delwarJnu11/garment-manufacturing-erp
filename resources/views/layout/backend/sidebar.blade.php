@@ -337,6 +337,23 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="submenu">
+                            <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html"><i data-feather="dollar-sign"></i><span>Reports</span><span class="menu-arrow"></span></a>
+                            <ul>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Attendence Report</a>
+                                </li>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Leave Report</a>
+                                </li>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Employee Report</a>
+                                </li>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Payroll</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li class="submenu-open">
