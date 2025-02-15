@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/users/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles.store');
 });
 
 require __DIR__ . '/auth.php';
