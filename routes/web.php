@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
+use App\Models\Category_type;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -28,6 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/roles', [RoleController::class, 'index'])->name('roles.index');
     Route::get('/users/roles/create', [RoleController::class, 'create'])->name('roles.create');
     Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles.store');
+    Route::resource('status', StatusController::class);
+    Route::resource('category_list', CategoryController::class);
+    Route::resource('category_type', CategoryTypeController::class);
 });
 
 require __DIR__ . '/auth.php';

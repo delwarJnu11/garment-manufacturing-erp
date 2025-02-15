@@ -21,21 +21,52 @@ CREATE TABLE products (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-CREATE TABLE sizes (
+
+-- Category Type Table (Finished Goods, Work-in-Process)
+CREATE TABLE category_types (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    size_name VARCHAR(50) NOT NULL, -- e.g., Small, Medium, Large, XL
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    name VARCHAR(100) NOT NULL UNIQUE -- Example: 'Finished Goods', 'Work-in-Process'
 );
 
-
+-- Categories Table (Jeans, T-Shirts, etc.)
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    description TEXT NULL,
+    category_type_id INT NOT NULL,   -- Links to category_types table
+    name VARCHAR(255) NOT NULL,      -- Example: 'Jeans', 'T-Shirts'
+    description TEXT DEFAULT NULL,   -- Description of the category
+    status_id INT NOT NULL,          -- Links to category_status table
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+-- Status Table (Active, Inactive)
+CREATE TABLE statuses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE -- Example: 'Active', 'Inactive'
+);
+
+
+
+-- Attributes Table
+CREATE TABLE category_attributes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    attribute_name VARCHAR(255) NOT NULL UNIQUE, -- Example: 'Size', 'Color', 'Fabric Type'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Category Attributes Mapping Table (To support multiple attributes per category)
+CREATE TABLE category_attribute_values (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
+    attribute_id INT NOT NULL,
+    attribute_value VARCHAR(255) NOT NULL, -- Example: 'Large', 'Red', 'Cotton'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+
+
 
 CREATE TABLE manufacturers(
     id INT AUTO_INCREMENT PRIMARY KEY,
