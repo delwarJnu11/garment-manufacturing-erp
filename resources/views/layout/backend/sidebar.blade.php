@@ -68,13 +68,13 @@
                                     </ul>
                                 </li>
                                 <li><a href="">Budgeting & Forecasting</a>
-                            <ul>
-                                <li><a href="">Budget Creation</a></li>
-                                <li><a href="">Forecasting</a></li>
-                                <li><a href="">Variance Analysis</a></li>
-                                <li><a href="">Cash Flow Projections</a></li>
-                            </ul>
-                            </li>
+                                    <ul>
+                                        <li><a href="">Budget Creation</a></li>
+                                        <li><a href="">Forecasting</a></li>
+                                        <li><a href="">Variance Analysis</a></li>
+                                        <li><a href="">Cash Flow Projections</a></li>
+                                    </ul>
+                                </li>
 
                                 <li><a href="javascript:void(0);">Financial Reporting</a>
                                     <ul>
@@ -86,9 +86,22 @@
                                         <li><a href="">Consolidated Financial Reports</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">Fixed Asset Maangement</a></li>
-                                <li><a href="">Taxation Management</a></li>
-                                <li><a href="">Financial Integration</a></li>
+                                <li><a href="">Fixed Asset Maangement</a>
+                                    <ul>
+                                        <li><a href="">Asset Register</a></li>
+                                        <li><a href="">Depreciation</a></li>
+                                        <li><a href="">Asset Disposal</a></li>
+                                        <li><a href="">Asset Reports</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="">Taxation Management</a>
+                                    <ul>
+                                        <li><a href="">Tax Setup</a></li>
+                                        <li><a href="">Tax Calculations</a></li>
+                                        <li><a href="">Tax Filing Reports</a></li>
+                                        <li><a href="">Tax Deduction at Source</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
 
