@@ -1,45 +1,92 @@
-<div
-    class="sidebar"
-    id="sidebar">
+<div class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
-        <div
-            id="sidebar-menu"
-            class="sidebar-menu">
+        <div id="sidebar-menu" class="sidebar-menu">
             <ul>
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Main</h6>
                     <ul>
                         <li class="submenu">
-                            <a
-                                href="javascript:void(0);"
-                                class="subdrop active"><i data-feather="grid"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);" class="subdrop active"><i
+                                    data-feather="grid"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li>
-                                    <a
-                                        href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
                                         class="active">Admin Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/sales-dashboard.html">Sales Dashboard</a>
                                 </li>
                             </ul>
                         </li>
+
                         <li class="submenu">
-                            <a href="javascript:void(0);"><i data-feather="smartphone"></i><span>Application</span><span class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);"><i data-feather="users"></i><span>Users</span><span
+                                    class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="https://dreamspos.dreamstechnologies.com/html/template/chat.html">Chat</a></li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Call<span class="menu-arrow inside-submenu"></span></a>
+                                <li><a href="{{ route('users.index') }}">All User</a></li>
+                                <li><a href="{{ url('/roles') }}">All Roles</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li class="submenu">
+                            <a href="javascript:void(0);">
+                                <i data-feather="shopping-bag"></i>
+                                <span>Inventory</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <ul>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="layers"></i>
+                                        <span>Categories</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
                                     <ul>
-                                        <li>
-                                            <a href="https://dreamspos.dreamstechnologies.com/html/template/video-call.html">Video Call</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://dreamspos.dreamstechnologies.com/html/template/audio-call.html">Audio Call</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://dreamspos.dreamstechnologies.com/html/template/call-history.html">Call History</a>
-                                        </li>
+                                        <li><a href="{{ url('/category_list') }}"> Category List</a></li>
+                                        <li><a href="{{ url('/category_type') }}"> Category Types</a></li>
+                                        <li><a href="{{ url('/categories/add') }}"> Add Category</a></li>
+                                        <li><a href="{{ url('/categories/attributes') }}">Manage Attributes</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="shopping-bag"></i>
+                                        <span>Products</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/products') }}">Product List</a></li>
+                                        <li><a href="{{ url('/products/add') }}"> Add Product</a></li>
+                                        <li><a href="{{ url('/products/variants') }}">Product Variants</a></li>
+                                        <li><a href="{{ url('/products/pricing') }}"> Pricing & Costing</a></li>
+                                        <li><a href="{{ url('/products/stock') }}"> Stock Management</a></li>
+                                        <li><a href="{{ url('/products/barcode') }}"> Print Barcode & QR</a></li>
+                                        <li><a href="{{ url('/products/bom') }}">Bill of Materials (BOM)</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="dollar-sign"></i>
+                                        <span>Inventory Valuation</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/inventory/valuation/fifo') }}">FIFO</a></li>
+                                        <li><a href="{{ url('/inventory/valuation/lifo') }}">LIFO</a></li>
+                                        <li><a href="{{ url('/inventory/valuation/weighted') }}">Weighted Average</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- 📋 Inventory Reports -->
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="clipboard"></i>
+                                        <span>Inventory Reports</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/inventory/reports/stock-ledger') }}">🔍 Stock Ledger</a></li>
+                                        <li><a href="{{ url('/inventory/reports/audit') }}">✅ Audit & Cycle Counting</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -194,52 +241,26 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">HRM</h6>
                     <ul>
-                        <li class="submenu">
-                            <a href="javascript:void(0);"><i data-feather="users"></i><span>Employee</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Position</a>
-                                </li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-admin.html">Employee</a>
-                                </li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-admin.html">Employee Performance</a>
-                                </li>
-                            </ul>
+                        <li>
+                            <a href="https://dreamspos.dreamstechnologies.com/html/template/employees-grid.html"><i data-feather="user"></i><span>Employees</span></a>
                         </li>
-                        <li class="submenu">
-                            <a href="javascript:void(0);"><i data-feather="user"></i><span>Department</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Department</a>
-                                </li>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-admin.html">Sub Department</a>
-                                </li>
-                            </ul>
+                        <li>
+                            <a href="https://dreamspos.dreamstechnologies.com/html/template/department-grid.html"><i data-feather="users"></i><span>Departments</span></a>
                         </li>
-                        <li class="submenu">
-                            <a href="javascript:void(0);"><i data-feather="git-merge"></i><span>Designation</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Designation List</a>
-                                </li>
-                            </ul>
+                        <li>
+                            <a href="https://dreamspos.dreamstechnologies.com/html/template/designation.html"><i data-feather="git-merge"></i><span>Designation</span></a>
                         </li>
-                        <li class="submenu">
-                            <a href="javascript:void(0);"><i data-feather="shuffle"></i><span>Shift</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Shift</a>
-                                </li>
-                            </ul>
+                        <li>
+                            <a href="https://dreamspos.dreamstechnologies.com/html/template/shift.html"><i data-feather="shuffle"></i><span>Shifts</span></a>
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><i data-feather="book-open"></i><span>Attendence</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Attendence List</a>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-employee.html">Employee</a>
+                                </li>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/attendance-admin.html">Admin</a>
                                 </li>
                             </ul>
                         </li>
@@ -247,7 +268,10 @@
                             <a href="javascript:void(0);"><i data-feather="calendar"></i><span>Leaves</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/leaves-admin.html">Manage Leave</a>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/leaves-admin.html">Admin Leaves</a>
+                                </li>
+                                <li>
+                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/leaves-employee.html">Employee Leaves</a>
                                 </li>
                                 <li>
                                     <a href="https://dreamspos.dreamstechnologies.com/html/template/leave-types.html">Leave Types</a>
@@ -264,30 +288,6 @@
                                     <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Employee Salary</a>
                                 </li>
                                 <li><a href="https://dreamspos.dreamstechnologies.com/html/template/payslip.html">Payslip</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html"><i data-feather="dollar-sign"></i><span>Award</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Award List</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html"><i data-feather="dollar-sign"></i><span>Notice Board</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Notice</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html"><i data-feather="dollar-sign"></i><span>TimeSheet</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li>
-                                    <a href="https://dreamspos.dreamstechnologies.com/html/template/payroll-list.html">Time</a>
-                                </li>
                             </ul>
                         </li>
                     </ul>
