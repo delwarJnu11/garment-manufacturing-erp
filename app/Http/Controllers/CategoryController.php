@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(10);
+        $categories = Category::with('category_type', 'status')->paginate(10);
         return view('pages.inventory.category.category_list.categories', compact('categories'));
     }
 
