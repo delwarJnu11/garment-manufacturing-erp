@@ -286,25 +286,24 @@
             <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
                 <span class="user-info">
                     <span class="user-letter">
-                        <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/profiles/avator1.jpg"
-                            alt="" class="img-fluid" />
+                        <img src="{{ asset('uploads') }}/users/{{ Auth::user()->image }}" alt=""
+                            class="img-fluid" />
                     </span>
                     <span class="user-detail">
-                        <span class="user-name">John Smilga</span>
-                        <span class="user-role">Super Admin</span>
+                        <span class="user-name">{{ Auth::user()->name }}</span>
+                        <span class="user-role">{{ Auth::user()->role->name }}</span>
                     </span>
                 </span>
             </a>
             <div class="dropdown-menu menu-drop-user">
                 <div class="profilename">
                     <div class="profileset">
-                        <span class="user-img"><img
-                                src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/profiles/avator1.jpg"
+                        <span class="user-img"><img src="{{ asset('uploads') }}/users/{{ Auth::user()->image }}"
                                 alt="" />
                             <span class="status online"></span></span>
                         <div class="profilesets">
-                            <h6>John Smilga</h6>
-                            <h5>Super Admin</h5>
+                            <h6>{{ Auth::user()->name }}</h6>
+                            <h5>{{ Auth::user()->role->name }}</h5>
                         </div>
                     </div>
                     <hr class="m-0" />
