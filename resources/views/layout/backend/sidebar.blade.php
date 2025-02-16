@@ -27,6 +27,115 @@
                         {{-- PRODUCTION MODULE MENU START --}}
 
                         {{-- PRODUCTION MODULE MENU END --}}
+
+                        {{-- Start HR & Workforce Management --}}
+
+                <li class="submenu">
+                    <a href="javascript:void(0);"><i data-feather="file-minus"></i><span>HR & Workforce Management</span><span class="menu-arroww"></span></a>
+                    <ul>
+                        <li class="submenu submenu-two">
+                            <a href="javascript:void(0);">Department<span
+                                    class="menu-arrow inside-submenu"></span></a>
+                            <ul>
+                                <li><a href="javascript:void(0);">Department</a></li>
+                                <li><a href="javascript:void(0);">Sub Department</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu submenu-two">
+                            <a href="javascript:void(0);">Employee<span
+                                    class="menu-arrow inside-submenu"></span></a>
+                            <ul>
+                                <li><a href="javascript:void(0);">Position</a></li>
+                                <li><a href="javascript:void(0);">Employee</a></li>
+                                <li><a href="javascript:void(0);">Employee Performance</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu submenu-two">
+                            <a href="javascript:void(0);">Attendance<span
+                                    class="menu-arrow inside-submenu"></span></a>
+                            <ul>
+                                <li><a href="javascript:void(0);">Attendance Form</a></li>
+                                <li><a href="javascript:void(0);">Attendance List</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu submenu-two">
+                            <a href="javascript:void(0);">Leave<span
+                                    class="menu-arrow inside-submenu"></span></a>
+                            <ul>
+                                <li class="submenu submenu-two submenu-three">
+                                    <a href="javascript:void(0);">Leave<span
+                                            class="menu-arrow inside-submenu inside-submenu-two"></span></a>
+                                    <ul>
+                                        <li><a href="javascript:void(0);">Leave Type</a></li>
+                                        <li><a href="javascript:void(0);">Leave Approval</a></li>
+                                        <li><a href="javascript:void(0);">Leave Application</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="javascript:void(0);">Holiday</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu submenu-two">
+                            <a href="javascript:void(0);">Payroll<span
+                                    class="menu-arrow inside-submenu"></span></a>
+                            <ul>
+                                <li><a href="javascript:void(0);">Salary Advance</a></li>
+                                <li><a href="javascript:void(0);">Set Salary</a></li>
+                                <li><a href="javascript:void(0);">Payslip</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu submenu-two">
+                            <a href="javascript:void(0);">Notice Board<span
+                                    class="menu-arrow inside-submenu"></span></a>
+                            <ul>
+                                <li><a href="javascript:void(0);">Notice</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu submenu-two">
+                            <a href="javascript:void(0);">Recruitment<span
+                                    class="menu-arrow inside-submenu"></span></a>
+                            <ul>
+                                <li><a href="javascript:void(0);">Candidate List</a></li>
+                                <li><a href="javascript:void(0);">Interview</a></li>
+                                <li><a href="javascript:void(0);">Candidate Selection</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu submenu-two">
+                            <a href="javascript:void(0);">Procurement<span
+                                    class="menu-arrow inside-submenu"></span></a>
+                            <ul>
+                                <li><a href="javascript:void(0);">Request</a></li>
+                                <li><a href="javascript:void(0);">Quotation</a></li>
+                                <li><a href="javascript:void(0);">Bid analysis</a></li>
+                                <li><a href="javascript:void(0);">Purchase Order</a></li>
+                                <li><a href="javascript:void(0);">Goods Received</a></li>
+                                <li><a href="javascript:void(0);">Vendors</a></li>
+                                <li><a href="javascript:void(0);">Commitees</a></li>
+                                <li><a href="javascript:void(0);">Units</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu submenu-two">
+                            <a href="javascript:void(0);">Award<span
+                                    class="menu-arrow inside-submenu"></span></a>
+                            <ul>
+                                <li><a href="javascript:void(0);">Award List</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu submenu-two">
+                            <a href="javascript:void(0);">Reports<span
+                                    class="menu-arrow inside-submenu"></span></a>
+                            <ul>
+                                <li><a href="javascript:void(0);">Attendance Report</a></li>
+                                <li><a href="javascript:void(0);">Leave Report</a></li>
+                                <li><a href="javascript:void(0);">Employee Report</a></li>
+                                <li><a href="javascript:void(0);">Payroll</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                 {{-- End HR & Workforce Management --}}
+
+
                         {{-- FINANCE & ACCOUNTS MODULE MENU START --}}
                         <li class="submenu"><a href="javascript:void(0);"><i data-feather="users"></i><span>Finance &
                                     Accounts</span><span class="menu-arrow"></span></a>
@@ -341,7 +450,6 @@
                         </li>
                     </ul>
                 </li>
-
 
 
                     </ul>
