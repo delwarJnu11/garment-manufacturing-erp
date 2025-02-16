@@ -34,7 +34,7 @@
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/fontawesome.min.css" />
     <link rel="stylesheet" href="{{ asset('assets') }}/css/all.min.css" />
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/style.css" />
     @yield('css')

@@ -25,7 +25,86 @@
                         </li>
                         {{-- USER MODULE MENU END --}}
                         {{-- PRODUCTION MODULE MENU START --}}
+                        <li class="submenu">
+                            <a href="javascript:void(0);" class="subdrop"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-file-minus">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="9" y1="15" x2="15" y2="15"></line>
+                                </svg><span>Production</span><span class="menu-arrow"></span></a>
+                            <ul style="display: block;">
+                                {{-- BOM MENU --}}
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);" class="subdrop">Bill Of Materials<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul style="display: block;">
+                                        <li><a href="javascript:void(0);">BoM's Product</a></li>
+                                        <li><a href="javascript:void(0);">Production Planning</a></li>
+                                        <li><a href="javascript:void(0);">Cost Estimation</a></li>
+                                    </ul>
+                                </li>
+                                {{-- Work ORDER PROCESS MENU --}}
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);" class="subdrop">Work Order Process<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul style="display: block;">
+                                        <li><a href="javascript:void(0);">Create Work Orders</a></li>
+                                        <li><a href="javascript:void(0);">Track Production Progess</a></li>
+                                        <li><a href="javascript:void(0);">Track Production Worker</a></li>
+                                        <li><a href="javascript:void(0);">Work Order Prioritization</a></li>
+                                        <li><a href="javascript:void(0);">Barcode Integration</a></li>
+                                        <li><a href="javascript:void(0);">Work Order History</a></li>
+                                    </ul>
+                                </li>
+                                {{-- Work ORDER PROCESS MENU --}}
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);" class="subdrop">Production Scheduling<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul style="display: block;">
+                                        <li><a href="javascript:void(0);">Track Invertory Stocks</a></li>
+                                        <li><a href="javascript:void(0);">Chart Vissualization</a></li>
+                                        <li><a href="javascript:void(0);">Production Priority</a></li>
+                                        <li><a href="javascript:void(0);">Manage Production Shift</a></li>
+                                    </ul>
+                                </li>
+                                {{-- MACHINE MONITORING MENU --}}
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);" class="subdrop">Machine Monitoring<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul style="display: block;">
+                                        <li><a href="javascript:void(0);">Track Maintenance History</a></li>
+                                        <li><a href="javascript:void(0);">Real Time Machine Monitoring</a></li>
+                                        <li><a href="javascript:void(0);">Resource Cost Tracking</a></li>
+                                        <li><a href="javascript:void(0);">Energy Consumtion Monitoring</a></li>
+                                    </ul>
+                                </li>
+                                {{-- QC MENU --}}
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);" class="subdrop">Quality Control<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul style="display: block;">
+                                        <li><a href="javascript:void(0);">Track Maintenance History</a></li>
+                                        <li><a href="javascript:void(0);">Real Time Machine Monitoring</a></li>
+                                        <li><a href="javascript:void(0);">Resource Cost Tracking</a></li>
+                                        <li><a href="javascript:void(0);">Energy Consumtion Monitoring</a></li>
+                                    </ul>
+                                </li>
+                                {{-- Waste Track MENU --}}
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);" class="subdrop">Track Wastage<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul style="display: block;">
+                                        <li><a href="javascript:void(0);">Track Maintenance History</a></li>
+                                        <li><a href="javascript:void(0);">Real Time Machine Monitoring</a></li>
+                                        <li><a href="javascript:void(0);">Resource Cost Tracking</a></li>
+                                        <li><a href="javascript:void(0);">Energy Consumtion Monitoring</a></li>
+                                    </ul>
+                                </li>
 
+                            </ul>
+                        </li>
                         {{-- PRODUCTION MODULE MENU END --}}
                         {{-- FINANCE & ACCOUNTS MODULE MENU START --}}
                         <li class="submenu"><a href="javascript:void(0);"><i data-feather="users"></i><span>Finance &
