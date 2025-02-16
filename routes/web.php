@@ -32,9 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/roles', [RoleController::class, 'index'])->name('roles.index');
     Route::get('/users/roles/create', [RoleController::class, 'create'])->name('roles.create');
     Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles.store');
-    Route::resource('status', StatusController::class);
-    Route::resource('category_list', CategoryController::class);
-    Route::resource('category_type', CategoryTypeController::class);
+    // Route::resource('status', StatusController::class);
+    // Route::resource('category_list', CategoryController::class);
+    // Route::resource('category_type', CategoryTypeController::class);
 });
 
 require __DIR__ . '/auth.php';
