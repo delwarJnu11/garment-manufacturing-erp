@@ -3,7 +3,7 @@
     
 
 <table class="table table-striped table-bordered">
-    <thead class="thead-info">
+    <thead class="thead-primary">
         <tr>
             <th>#</th>
             <th>Category Name</th>
@@ -18,10 +18,11 @@
         <tr>
             <td>{{$category['id']}}</td>
             <td>{{$category['name']}}</td>
-            <td>{{$category['category_type_id']}}</td>
+            <td>{{ $category->category_type->name ?? 'N/A' }}</td>
             <td>{{$category['description']}}</td>
-            
-            <td><span class="badge badge-success">Active</span></td>
+            <td>
+                <x-status-badge :status='$category->status'></x-status-badge>
+            </td>
             <td class="action-table-data">
                 <div class="edit-delete-action">
                     <a class="me-2 p-2 mb-0" href="javascript:void(0);">

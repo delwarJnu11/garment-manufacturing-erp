@@ -34,4 +34,12 @@ Route::get('/users/roles', [RoleController::class, 'index'])->name('roles.index'
 Route::get('/users/roles/create', [RoleController::class, 'create'])->name('roles.create');
 Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles.store');
 
+/**
+ * Invetory/category 
+ **/
+Route::resource('status', StatusController::class);
+Route::resource('category', CategoryController::class);
+
+Route::resource('category_type', CategoryTypeController::class);
+
 require __DIR__ . '/auth.php';
