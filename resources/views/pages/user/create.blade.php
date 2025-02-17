@@ -25,6 +25,7 @@
                                     <input type="text" name="name" value="{{ old('name') }}" class="form-control">
                                     <img src="{{ asset('assets') }}/img/icons/user-icon.svg" alt="img">
                                 </div>
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
                             <div class="form-login col-md-6">
                                 <label>Email Address</label>
@@ -32,6 +33,7 @@
                                     <input type="text" class="form-control" name="email" value="{{ old('email') }}">
                                     <img src="{{ asset('assets') }}/img/icons/mail.svg" alt="img">
                                 </div>
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
                         </div>
                         <div class="row">
@@ -41,6 +43,7 @@
                                     <input type="password" class="pass-input" name="password" value="{{ old('password') }}">
                                     <span class="fas toggle-password fa-eye-slash"></span>
                                 </div>
+                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
                             </div>
                             <div class="form-login col-md-6">
                                 <label>Confirm Passworrd</label>
@@ -49,6 +52,7 @@
                                         autocomplete="new-password">
                                     <span class="fas toggle-passwords fa-eye-slash"></span>
                                 </div>
+                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                             </div>
                         </div>
                         <div class="row">
@@ -69,6 +73,7 @@
                                 <label>Upload Image</label>
                                 <input style="padding: 8px 0" type="file" name="image" class="form-control">
                             </div>
+                            <x-input-error :messages="$errors->get('image')" class="mt-2" />
                         </div>
 
                         <div class="form-login authentication-check">
