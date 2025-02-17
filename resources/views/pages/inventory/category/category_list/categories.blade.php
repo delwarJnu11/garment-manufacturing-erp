@@ -1,15 +1,19 @@
 @extends('layout.backend.main')
 @section('page_content')
-    
 
+<x-message-banner/>
+
+
+<div class="card flex-fill">
+    <div class="card-header">
+        <h5 class="card-title "><a href="{{url('category/create')}}" class=" btn btn-info p-3 rounded ">Add Category</a></h5>
+    </div>
 <table class="table table-striped table-bordered">
     <thead class="thead-primary">
         <tr>
             <th>#</th>
             <th>Category Name</th>
-            <th>Type</th>
             <th>Description</th>
-            <th>Status</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -18,25 +22,36 @@
         <tr>
             <td>{{$category['id']}}</td>
             <td>{{$category['name']}}</td>
-            <td>{{ $category->category_type->name ?? 'N/A' }}</td>
             <td>{{$category['description']}}</td>
-            <td>
-                <x-status-badge :status='$category->status'></x-status-badge>
-            </td>
+          
             <td class="action-table-data">
                 <div class="edit-delete-action">
-                    <a class="me-2 p-2 mb-0" href="javascript:void(0);">
+                    <a class="me-2 p-2 mb-0" href="{{url('category')}}/{{$category['id']}}/show">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye action-eye">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                             <circle cx="12" cy="12" r="3"></circle>
                         </svg>
                     </a>
-                    <a class="me-2 p-2" href="#">
+                    <a class="me-2 p-2" href="{{url('category')}}/{{$category['id']}}/edit">
                         <i data-feather="edit" class="feather-edit"></i>
                     </a>
-                    <a class="confirm-text p-2" href="javascript:void(0);">
+                    {{-- <form action="{{ url('category/' . $category->id) }}" method="post" onsubmit="return confirm('Are you sure todelte')>
+                        @csrf
+                        @method('DELETE')
+                    <a class="confirm-text p-2" href="{{ url('category/' . $category->id) }} " onclick="return confirm('Are you sure todelte')">
                         <i data-feather="trash-2" class="feather-trash-2"></i>
                     </a>
+                </form> --}}
+
+                <form action="{{ url('category/' . $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="confirm-text p-2 bg-transparent border-none">
+                        <i data-feather="trash-2" class="feather-trash-2"></i>
+                    </button>
+                </form>
+              
+                
                 </div>
             {{-- <td>
                 <a href="{{ url('/categories/view/1') }}" class="btn btn-info btn-sm">View</a>
@@ -88,4 +103,8 @@
         </tr> --}}
     </tbody>
 </table>
+
+<div class="d-flex justify-content-end">
+    {{$categories->links( 'pagination::bootstrap-5')}}
+</div>
 @endsection

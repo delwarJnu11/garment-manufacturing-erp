@@ -12,7 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('category_type', 'status')->paginate(10);
+        $categories = Category::paginate(3);
         return view('pages.inventory.category.category_list.categories', compact('categories'));
     }
 
@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.inventory.category.category_list.create');
     }
 
     /**
@@ -29,7 +29,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:4',
+            'description' => 'required|min:5',
+
+        ]);
+
+        $categorie = new Category();
+
+        $categorie->name  = $request->name;
+        $categorie->description  = $request->description;
+        if ($categorie->save()) {
+            redirect('category')->with('success', 'Category Added Successfully');
+        }
+        redirect('category')->with('error', 'Something went wrong. Please try again.');
     }
 
     /**
@@ -45,22 +58,43 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::find($id);
+        return view('pages.inventory.category.category_list.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:4',
+            'description' => 'required|min:5',
+        ]);
+
+        $category = Category::find($id);
+
+        $category->name  = $request->name;
+        $category->description  = $request->description;
+
+        if ($category->save()) {
+            return redirect('category')->with('success', 'Category Updated Successfully');
+        }
+
+        return redirect('category')->with('error', 'Update failed');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect('category')->with('success', 'Category deleted successfully');
     }
 }
