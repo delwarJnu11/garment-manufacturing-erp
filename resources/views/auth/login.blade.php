@@ -3,47 +3,47 @@
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
-        @csrf
+@csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+<!-- Email Address -->
+<div>
+    <x-input-label for="email" :value="__('Email')" />
+    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+</div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+<!-- Password -->
+<div class="mt-4">
+    <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+    <x-text-input id="password" class="block mt-1 w-full"
+        type="password"
+        name="password"
+        required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+</div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+<!-- Remember Me -->
+<div class="block mt-4">
+    <label for="remember_me" class="inline-flex items-center">
+        <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
+        <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+    </label>
+</div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+<div class="flex items-center justify-end mt-4">
+    @if (Route::has('password.request'))
+    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+        {{ __('Forgot your password?') }}
+    </a>
+    @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
+    <x-primary-button class="ms-3">
+        {{ __('Log in') }}
+    </x-primary-button>
+</div>
+</form>
 
 
 </x-guest-layout> --}}
@@ -62,8 +62,8 @@
     <title>LOGIN | Garments Manufacturing ERP SOFTWARE</title>
 
     <script
-			src="{{asset('assets')}}/js/theme-script.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/theme-script.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon"
@@ -93,7 +93,7 @@
 
 <body
     style="
-    background: linear-gradient(rgba(0, 0, 0,0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('assets') }}/img/login-bg.jpg') center/cover no-repeat fixed;
+    background: linear-gradient(rgba(0, 0, 0,0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('assets') }}/img/login-bg.jpg'), center/cover no-repeat fixed;
     height: 100vh;
     margin: 0;
     display: flex;
@@ -163,7 +163,7 @@
                                 <div class="form-login">
                                     <button type="submit" class="btn btn-login">Sign In</button>
                                 </div>
-                                <div class="signinform">
+                                <div class="signinform text-center">
                                     <h4>New on our platform?<a href="{{ route('register') }}" class="hover-a"> Create
                                             an
                                             account</a></h4>
@@ -191,45 +191,45 @@
 
     <!-- jQuery -->
     <script
-			src="{{asset('assets')}}/js/jquery-3.7.1.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/jquery-3.7.1.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Feather Icon JS -->
     <script
-			src="{{asset('assets')}}/js/feather.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/feather.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Slimscroll JS -->
     <script
-			src="{{asset('assets')}}/js/jquery.slimscroll.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/jquery.slimscroll.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Bootstrap Core JS -->
     <script
-			src="{{asset('assets')}}/js/bootstrap.bundle.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/bootstrap.bundle.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Chart JS -->
     <script
-			src="{{asset('assets')}}/js/plugins/apexchart/apexcharts.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/plugins/apexchart/apexcharts.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
     <script
-			src="{{asset('assets')}}/js/plugins/apexchart/chart-data.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/plugins/apexchart/chart-data.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Sweetalert 2 -->
     <script
-			src="{{asset('assets')}}/js/plugins/sweetalert/sweetalert2.all.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/plugins/sweetalert/sweetalert2.all.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
     <script
-			src="{{asset('assets')}}/js/plugins/sweetalert/sweetalerts.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/plugins/sweetalert/sweetalerts.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Custom JS -->
 
     <script
-			src="{{asset('assets')}}/js/script.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/script.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <script src="{{ asset('assets') }}/js/rocket-loader.min.js" data-cf-settings="6bc737fdedebc88b41732761-|49" defer>
     </script>
