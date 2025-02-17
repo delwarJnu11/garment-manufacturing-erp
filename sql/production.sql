@@ -38,131 +38,131 @@ CREATE TABLE demand_forecasts (
 
 -- 3. Inventory Management
 
-CREATE TABLE products ( 
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_name VARCHAR(255) NOT NULL,
-    product_code VARCHAR(50) UNIQUE,
-    description TEXT,
-    category_id INT REFERENCES product_categories(category_id), -- optional
-    reorder_level DECIMAL(10,2),
-    reorder_quantity DECIMAL(10,2),
-    units VARCHAR(50),
-    created_by INT REFERENCES users(user_id),
-    last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE products ( 
+--     product_id INT AUTO_INCREMENT PRIMARY KEY,
+--     product_name VARCHAR(255) NOT NULL,
+--     product_code VARCHAR(50) UNIQUE,
+--     description TEXT,
+--     category_id INT REFERENCES product_categories(category_id), -- optional
+--     reorder_level DECIMAL(10,2),
+--     reorder_quantity DECIMAL(10,2),
+--     units VARCHAR(50),
+--     created_by INT REFERENCES users(user_id),
+--     last_updated_by INT REFERENCES users(user_id)
+-- );
 
-CREATE TABLE product_categories (  -- Optional: for grouping products
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
-    category_name VARCHAR(255) NOT NULL,
-    description TEXT,
-    created_by INT REFERENCES users(user_id),
-    last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE product_categories (  -- Optional: for grouping products
+--     category_id INT AUTO_INCREMENT PRIMARY KEY,
+--     category_name VARCHAR(255) NOT NULL,
+--     description TEXT,
+--     created_by INT REFERENCES users(user_id),
+--     last_updated_by INT REFERENCES users(user_id)
+-- );
 
 
-CREATE TABLE inventory (
-    inventory_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT REFERENCES products(product_id),
-    location_id INT REFERENCES locations(location_id), -- where the item is stored.
-    batch_lot_number VARCHAR(255),
-    quantity_on_hand DECIMAL(10, 2) NOT NULL DEFAULT 0,
-    unit_cost DECIMAL(10,2),
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INT REFERENCES users(user_id),
-    last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE inventory (
+--     inventory_id INT AUTO_INCREMENT PRIMARY KEY,
+--     product_id INT REFERENCES products(product_id),
+--     location_id INT REFERENCES locations(location_id), -- where the item is stored.
+--     batch_lot_number VARCHAR(255),
+--     quantity_on_hand DECIMAL(10, 2) NOT NULL DEFAULT 0,
+--     unit_cost DECIMAL(10,2),
+--     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     created_by INT REFERENCES users(user_id),
+--     last_updated_by INT REFERENCES users(user_id)
+-- );
 
-CREATE TABLE locations (
-    location_id INT AUTO_INCREMENT PRIMARY KEY,
-    location_name VARCHAR(255) NOT NULL,
-    location_type VARCHAR(50), -- Warehouse, Production Line, etc.
-    description TEXT,
-    created_by INT REFERENCES users(user_id),
-    last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE locations (
+--     location_id INT AUTO_INCREMENT PRIMARY KEY,
+--     location_name VARCHAR(255) NOT NULL,
+--     location_type VARCHAR(50), -- Warehouse, Production Line, etc.
+--     description TEXT,
+--     created_by INT REFERENCES users(user_id),
+--     last_updated_by INT REFERENCES users(user_id)
+-- );
 
 
 -- 4. Workforce Management
 
-CREATE TABLE employees (
-    employee_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    employee_code VARCHAR(50) UNIQUE,
-    hire_date DATE,
-    job_title VARCHAR(255),
-    department_id INT REFERENCES departments(department_id),
-    skills TEXT,
-    contact_information TEXT,
-    created_by INT REFERENCES users(user_id),
-    last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE employees (
+--     employee_id INT AUTO_INCREMENT PRIMARY KEY,
+--     first_name VARCHAR(255) NOT NULL,
+--     last_name VARCHAR(255) NOT NULL,
+--     employee_code VARCHAR(50) UNIQUE,
+--     hire_date DATE,
+--     job_title VARCHAR(255),
+--     department_id INT REFERENCES departments(department_id),
+--     skills TEXT,
+--     contact_information TEXT,
+--     created_by INT REFERENCES users(user_id),
+--     last_updated_by INT REFERENCES users(user_id)
+-- );
 
-CREATE TABLE departments (
-    department_id INT AUTO_INCREMENT PRIMARY KEY,
-    department_name VARCHAR(255) NOT NULL,
-    description TEXT,
-    created_by INT REFERENCES users(user_id),
-    last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE departments (
+--     department_id INT AUTO_INCREMENT PRIMARY KEY,
+--     department_name VARCHAR(255) NOT NULL,
+--     description TEXT,
+--     created_by INT REFERENCES users(user_id),
+--     last_updated_by INT REFERENCES users(user_id)
+-- );
 
-CREATE TABLE shifts (
-    shift_id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id INT REFERENCES employees(employee_id),
-    shift_date DATE NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME NOT NULL,
-    notes TEXT,
-    created_by INT REFERENCES users(user_id),
-    last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE shifts (
+--     shift_id INT AUTO_INCREMENT PRIMARY KEY,
+--     employee_id INT REFERENCES employees(employee_id),
+--     shift_date DATE NOT NULL,
+--     start_time TIME NOT NULL,
+--     end_time TIME NOT NULL,
+--     notes TEXT,
+--     created_by INT REFERENCES users(user_id),
+--     last_updated_by INT REFERENCES users(user_id)
+-- );
 
-CREATE TABLE task_assignments (
-    task_assignment_id INT AUTO_INCREMENT PRIMARY KEY,
-    shift_id INT REFERENCES shifts(shift_id),
-    task_description VARCHAR(255),
-    task_priority VARCHAR(50),
-    status VARCHAR(50),  -- E.g., "Assigned", "In Progress", "Completed"
-    due_date DATE,
-    actual_completion_date DATE,
-    notes TEXT,
-    created_by INT REFERENCES users(user_id),
-    last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE task_assignments (
+--     task_assignment_id INT AUTO_INCREMENT PRIMARY KEY,
+--     shift_id INT REFERENCES shifts(shift_id),
+--     task_description VARCHAR(255),
+--     task_priority VARCHAR(50),
+--     status VARCHAR(50),  -- E.g., "Assigned", "In Progress", "Completed"
+--     due_date DATE,
+--     actual_completion_date DATE,
+--     notes TEXT,
+--     created_by INT REFERENCES users(user_id),
+--     last_updated_by INT REFERENCES users(user_id)
+-- );
 
-CREATE TABLE attendance (
-    attendance_id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id INT REFERENCES employees(employee_id),
-    attendance_date DATE NOT NULL,
-    clock_in TIME,
-    clock_out TIME,
-    hours_worked DECIMAL(5, 2),
-    notes TEXT,
-    created_by INT REFERENCES users(user_id),
-    last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE attendance (
+--     attendance_id INT AUTO_INCREMENT PRIMARY KEY,
+--     employee_id INT REFERENCES employees(employee_id),
+--     attendance_date DATE NOT NULL,
+--     clock_in TIME,
+--     clock_out TIME,
+--     hours_worked DECIMAL(5, 2),
+--     notes TEXT,
+--     created_by INT REFERENCES users(user_id),
+--     last_updated_by INT REFERENCES users(user_id)
+-- );
 
-CREATE TABLE training_sessions (
-    training_session_id INT AUTO_INCREMENT PRIMARY KEY,
-    training_name VARCHAR(255) NOT NULL,
-    description TEXT,
-    start_date DATE,
-    end_date DATE,
-    trainer VARCHAR(255),
-    created_by INT REFERENCES users(user_id),
-    last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE training_sessions (
+--     training_session_id INT AUTO_INCREMENT PRIMARY KEY,
+--     training_name VARCHAR(255) NOT NULL,
+--     description TEXT,
+--     start_date DATE,
+--     end_date DATE,
+--     trainer VARCHAR(255),
+--     created_by INT REFERENCES users(user_id),
+--     last_updated_by INT REFERENCES users(user_id)
+-- );
 
-CREATE TABLE employee_training (
-  employee_training_id INT AUTO_INCREMENT PRIMARY KEY,
-  employee_id INT REFERENCES employees(employee_id),
-  training_session_id INT REFERENCES training_sessions(training_session_id),
-  completion_date DATE,
-  certification_valid_until DATE,
-  notes TEXT,
-  created_by INT REFERENCES users(user_id),
-  last_updated_by INT REFERENCES users(user_id)
-);
+-- CREATE TABLE employee_training (
+--   employee_training_id INT AUTO_INCREMENT PRIMARY KEY,
+--   employee_id INT REFERENCES employees(employee_id),
+--   training_session_id INT REFERENCES training_sessions(training_session_id),
+--   completion_date DATE,
+--   certification_valid_until DATE,
+--   notes TEXT,
+--   created_by INT REFERENCES users(user_id),
+--   last_updated_by INT REFERENCES users(user_id)
+-- );
 
 -- 5. Quality Control
 

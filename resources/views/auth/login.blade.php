@@ -91,7 +91,16 @@
     @yield('css')
 </head>
 
-<body>
+<body
+    style="
+    background: linear-gradient(rgba(0, 0, 0,0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('assets') }}/img/login-bg.jpg') center/cover no-repeat fixed;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+">
     <div id="global-loader">
         <div class="whirly-loader"></div>
     </div>
@@ -99,7 +108,7 @@
     <div class="main-wrapper">
         <div class="page-wrapper login-page-wrapper" style="min-height: 0 !important">
             {{-- <div class="content"> --}}
-            <div class="account-content">
+            <div class="account-content" style="background: #fff; border-radius: 5px">
                 <div class="login-wrapper">
                     <div class="login-content">
                         <form method="POST" action="{{ route('login') }}">
@@ -155,7 +164,8 @@
                                     <button type="submit" class="btn btn-login">Sign In</button>
                                 </div>
                                 <div class="signinform">
-                                    <h4>New on our platform?<a href="{{route('register')}}" class="hover-a"> Create an
+                                    <h4>New on our platform?<a href="{{ route('register') }}" class="hover-a"> Create
+                                            an
                                             account</a></h4>
                                 </div>
                             </div>
