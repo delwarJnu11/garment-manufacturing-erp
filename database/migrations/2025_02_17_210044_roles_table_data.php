@@ -5,17 +5,13 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRolesTable extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
-    public function up(): void {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
+    public function up(): void
+    {
         DB:: table('roles')->insert([
             ['name' => 'admin'],
             ['name' => 'Super Admin'],
@@ -36,10 +32,16 @@ class CreateRolesTable extends Migration {
         ]);
     }
 
+
+
     /**
      * Reverse the migrations.
      */
-    public function down(): void {
-        Schema::dropIfExists('roles');
+    public function down(): void
+    {
+        //
     }
-}
+};
+
+// Migration command
+// php artisan migrate --path=database/migrations/2025_02_17_210044_roles_table_data.php

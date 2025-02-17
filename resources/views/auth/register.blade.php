@@ -149,14 +149,14 @@
                         @csrf
                         <div class="login-userset">
                             <div class="login-logo logo-normal">
-                                <img src="assets/img/logo.png" alt="img">
+                                <!-- <img src="assets/img/logo.png" alt="img"> -->
                             </div>
-                            <a href="index.html" class="login-logo logo-white">
-                                <img src="assets/img/logo-white.png" alt="">
+                            <a href="index.html" class="login-logo">
+                                <img src="{{ asset('assets') }}/img/user.png}" width="100px" height="100px" alt="User Icon">
                             </a>
                             <div class="login-userheading">
                                 <h3>Register</h3>
-                                <h4>Create New Garments ERP Account</h4>
+                                <h4>Create New User Account</h4>
                             </div>
                             <div class="row">
                                 <div class="form-login col-md-6">
@@ -211,7 +211,7 @@
                                 </div>
                                 <div class="col-md-6 form-login">
                                     <label>Upload Image</label>
-                                    <input style="padding: 8px 0" type="file" name="image" class="form-control">
+                                    <input style="padding-block: 8px" type="file" name="image" class="form-control">
                                 </div>
                                 <x-input-error :messages="$errors->get('image')" class="mt-2" />
                             </div>
@@ -234,8 +234,8 @@
                             <div class="form-login">
                                 <button type="submit" class="btn btn-login">Sign Up</button>
                             </div>
-                            <div class="signinform">
-                                <h4>Already have an account ? <a href="signin.html" class="hover-a">Sign In Instead</a></h4>
+                            <div class="signinform text-center">
+                                <h4>Already have an account ? <a href={{ route('login') }} class="hover-a">Sign In Instead</a></h4>
                             </div>
                         </div>
                     </form>

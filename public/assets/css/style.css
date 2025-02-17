@@ -16918,7 +16918,7 @@ div#global-loader .whirly-loader:not(:required) {
 }
 .sidebar .sidebar-menu,
 .sidebars .sidebar-menu {
-    padding: 24px;
+    padding: 24px 12px;
 }
 .sidebar .sidebar-menu > ul > li,
 .sidebars .sidebar-menu > ul > li {

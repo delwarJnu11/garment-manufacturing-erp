@@ -26,7 +26,7 @@
                         {{-- USER MODULE MENU END --}}
                         {{-- PRODUCTION MODULE MENU START --}}
                         <li class="submenu">
-                            <a href="javascript:void(0);" class="subdrop"><svg xmlns="http://www.w3.org/2000/svg"
+                            <a href="javascript:void(0);" class=""><svg xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-file-minus">
@@ -37,7 +37,7 @@
                             <ul style="display: block;">
                                 {{-- BOM MENU --}}
                                 <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="subdrop">Bill Of Materials<span
+                                    <a href="javascript:void(0);" class="">Bill Of Materials<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul style="display: block;">
                                         <li><a href="javascript:void(0);">BoM's Product</a></li>
@@ -47,7 +47,7 @@
                                 </li>
                                 {{-- Work ORDER PROCESS MENU --}}
                                 <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="subdrop">Work Order Process<span
+                                    <a href="javascript:void(0);" class="">Work Order Process<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul style="display: block;">
                                         <li><a href="javascript:void(0);">Create Work Orders</a></li>
@@ -60,7 +60,7 @@
                                 </li>
                                 {{-- Work ORDER PROCESS MENU --}}
                                 <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="subdrop">Production Scheduling<span
+                                    <a href="javascript:void(0);" class="">Production Scheduling<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul style="display: block;">
                                         <li><a href="javascript:void(0);">Track Invertory Stocks</a></li>
@@ -71,7 +71,7 @@
                                 </li>
                                 {{-- MACHINE MONITORING MENU --}}
                                 <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="subdrop">Machine Monitoring<span
+                                    <a href="javascript:void(0);" class="">Machine Monitoring<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul style="display: block;">
                                         <li><a href="javascript:void(0);">Track Maintenance History</a></li>
@@ -82,7 +82,7 @@
                                 </li>
                                 {{-- QC MENU --}}
                                 <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="subdrop">Quality Control<span
+                                    <a href="javascript:void(0);" class="">Quality Control<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul style="display: block;">
                                         <li><a href="javascript:void(0);">Track Maintenance History</a></li>
@@ -93,7 +93,7 @@
                                 </li>
                                 {{-- Waste Track MENU --}}
                                 <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="subdrop">Track Wastage<span
+                                    <a href="javascript:void(0);" class="">Track Wastage<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul style="display: block;">
                                         <li><a href="javascript:void(0);">Track Maintenance History</a></li>
@@ -110,8 +110,8 @@
                         {{-- Start HR & Workforce Management --}}
 
                         <li class="submenu">
-                            <a href="javascript:void(0);"><i data-feather="file-minus"></i><span>HR & Workforce
-                                    Management</span><span class="menu-arroww"></span></a>
+                            <a href="javascript:void(0);"><i data-feather="file-minus"></i><span>HR & Workforce</span><span
+                            class="menu-arrow"></span></a>
                             <ul>
                                 <li class="submenu submenu-two">
                                     <a href="javascript:void(0);">Department<span
@@ -220,7 +220,8 @@
                         <li class="submenu"><a href="javascript:void(0);"><i data-feather="users"></i><span>Finance &
                                     Accounts</span><span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="">General Ledger</a>
+                                <li class="submenu submenu-two"><a href="">General Ledger<span
+                                class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Chart of Accounts</a></li>
                                         <li><a href="">Journal Entries</a>
@@ -229,7 +230,8 @@
                                         <li><a href="">Account Reconciliation</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">Accounts Payable</a>
+                                <li class="submenu submenu-two"><a href="">Accounts Payable<span
+                                class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Suppliers</a></li>
                                         <li><a href="">Invoices</a></li>
@@ -237,7 +239,8 @@
                                         <li><a href="">Aging Reports</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">Accounts Receivable</a>
+                                <li class="submenu submenu-two"><a href="">Accounts Receivable<span
+                                class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Customers</a></li>
                                         <li><a href="">Invoices</a></li>
@@ -245,7 +248,8 @@
                                         <li><a href="">Customer Statement</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">Cash & Bank Management</a>
+                                <li class="submenu submenu-two"><a href="">Cash & Bank Management<span
+                                class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Bank Accounts</a></li>
                                         <li><a href="">Bank Reconciliation</a></li>
@@ -254,14 +258,16 @@
                                         <li><a href="">Bank Transfers</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">Inventory Valuation and Costing</a>
+                                <li class="submenu submenu-two"><a href="">Inventory Valuation and Costing<span
+                                class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Inventory Overview</a></li>
                                         <li><a href="">Costing Methods</a></li>
                                         <li><a href="">Cost of Goods Manufactured</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">Payroll & Employee Costing</a>
+                                <li class="submenu submenu-two"><a href="">Payroll & Employee Costing<span
+                                class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Employee Records</a></li>
                                         <li><a href="">Payroll</a></li>
@@ -271,7 +277,8 @@
                                         <li><a href="">Payslips & Reporting</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">Budgeting & Forecasting</a>
+                                <li class="submenu submenu-two"><a href="">Budgeting & Forecasting<span
+                                class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Budget Creation</a></li>
                                         <li><a href="">Forecasting</a></li>
@@ -280,7 +287,8 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="javascript:void(0);">Financial Reporting</a>
+                                <li class="submenu submenu-two"><a href="javascript:void(0);">Financial Reporting<span
+                                class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Balance Sheet</a></li>
                                         <li><a href="">Profit & Loss Statement</a></li>
@@ -290,7 +298,8 @@
                                         <li><a href="">Consolidated Financial Reports</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">Fixed Asset Maangement</a>
+                                <li class="submenu submenu-two"><a href="">Fixed Asset Maangement<span
+                                class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Asset Register</a></li>
                                         <li><a href="">Depreciation</a></li>
@@ -298,7 +307,8 @@
                                         <li><a href="">Asset Reports</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">Taxation Management</a>
+                                <li class="submenu submenu-two"><a href="">Taxation Management<span
+                                class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Tax Setup</a></li>
                                         <li><a href="">Tax Calculations</a></li>
@@ -443,7 +453,8 @@
                         <li class="submenu">
                             <a href="javascript:void(0);">
                                 <i data-feather="shopping-cart"></i>
-                                <span>Sales & Order Management</span>
+                                <span>Sales & Order<span
+                                class="menu-arrow"></span></span>
                             </a>
                             <ul>
                                 <!-- Orders -->
@@ -511,7 +522,8 @@
                         <li class="submenu">
                             <a href="javascript:void(0);">
                                 <i data-feather="truck"></i>
-                                <span>Suppliers & Purchases</span>
+                                <span>Suppliers & Purchases<span
+                                class="menu-arrow"></span></span>
                             </a>
                             <ul>
                                 <!-- Suppliers -->
