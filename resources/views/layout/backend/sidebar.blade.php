@@ -398,7 +398,7 @@
                                     <li><a href="{{ url('/suppliers/contracts') }}">Supplier Contracts</a></li>
                                 </ul>
                             </li>
-                    
+
                             <!-- Purchase Orders -->
                             <li class="submenu">
                                 <a href="javascript:void(0);">
@@ -413,7 +413,7 @@
                                     <li><a href="{{ url('/purchases/completed') }}">Completed Purchases</a></li>
                                 </ul>
                             </li>
-                    
+
                             <!-- Payments -->
                             <li class="submenu">
                                 <a href="javascript:void(0);">
@@ -427,7 +427,7 @@
                                     <li><a href="{{ url('/payments/completed') }}">Completed Payments</a></li>
                                 </ul>
                             </li>
-                    
+
                             <!-- Purchase Reports -->
                             <li class="submenu">
                                 <a href="javascript:void(0);">
@@ -442,7 +442,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     {{-- Sale &  & Order Management --}}
                     <li class="submenu">
                         <a href="javascript:void(0);">
@@ -465,7 +465,7 @@
                                     <li><a href="{{ url('/orders/cancelled') }}">Cancelled Orders</a></li>
                                 </ul>
                             </li>
-                    
+
                             <!-- Customers -->
                             <li class="submenu">
                                 <a href="javascript:void(0);">
@@ -479,7 +479,7 @@
                                     <li><a href="{{ url('/customers/groups') }}">Customer Groups</a></li>
                                 </ul>
                             </li>
-                    
+
                             <!-- Invoices & Payments -->
                             <li class="submenu">
                                 <a href="javascript:void(0);">
@@ -493,7 +493,7 @@
                                     <li><a href="{{ url('/refunds') }}">Refunds</a></li>
                                 </ul>
                             </li>
-                    
+
                             <!-- Sales Reports -->
                             <li class="submenu">
                                 <a href="javascript:void(0);">
@@ -509,10 +509,10 @@
                             </li>
                         </ul>
                     </li>
-                    
-                    
-                    
-                    
+
+
+
+
                     {{-- Warehouse mangement --}}
                     <li class="submenu">
                         <a href="javascript:void(0);">
@@ -533,7 +533,7 @@
                                     <li><a href="{{ url('/warehouses/add') }}">Add Warehouse</a></li>
                                 </ul>
                             </li>
-                    
+
                             <!-- Storage Locations -->
                             <li class="submenu">
                                 <a href="javascript:void(0);">
@@ -545,7 +545,7 @@
                                     <li><a href="{{ url('/storage-locations/add') }}">Add Storage Location</a></li>
                                 </ul>
                             </li>
-                    
+
                             <!-- Stock Movements -->
                             <li class="submenu">
                                 <a href="javascript:void(0);">
@@ -563,7 +563,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
 
 
                     </ul>
