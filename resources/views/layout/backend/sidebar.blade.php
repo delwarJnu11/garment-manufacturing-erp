@@ -109,110 +109,111 @@
 
                         {{-- Start HR & Workforce Management --}}
 
-                <li class="submenu">
-                    <a href="javascript:void(0);"><i data-feather="file-minus"></i><span>HR & Workforce Management</span><span class="menu-arroww"></span></a>
-                    <ul>
-                        <li class="submenu submenu-two">
-                            <a href="javascript:void(0);">Department<span
-                                    class="menu-arrow inside-submenu"></span></a>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><i data-feather="file-minus"></i><span>HR & Workforce
+                                    Management</span><span class="menu-arroww"></span></a>
                             <ul>
-                                <li><a href="javascript:void(0);">Department</a></li>
-                                <li><a href="javascript:void(0);">Sub Department</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu submenu-two">
-                            <a href="javascript:void(0);">Employee<span
-                                    class="menu-arrow inside-submenu"></span></a>
-                            <ul>
-                                <li><a href="javascript:void(0);">Position</a></li>
-                                <li><a href="javascript:void(0);">Employee</a></li>
-                                <li><a href="javascript:void(0);">Employee Performance</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu submenu-two">
-                            <a href="javascript:void(0);">Attendance<span
-                                    class="menu-arrow inside-submenu"></span></a>
-                            <ul>
-                                <li><a href="javascript:void(0);">Attendance Form</a></li>
-                                <li><a href="javascript:void(0);">Attendance List</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu submenu-two">
-                            <a href="javascript:void(0);">Leave<span
-                                    class="menu-arrow inside-submenu"></span></a>
-                            <ul>
-                                <li class="submenu submenu-two submenu-three">
-                                    <a href="javascript:void(0);">Leave<span
-                                            class="menu-arrow inside-submenu inside-submenu-two"></span></a>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Department<span
+                                            class="menu-arrow inside-submenu"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Leave Type</a></li>
-                                        <li><a href="javascript:void(0);">Leave Approval</a></li>
-                                        <li><a href="javascript:void(0);">Leave Application</a></li>
+                                        <li><a href="javascript:void(0);">Department</a></li>
+                                        <li><a href="javascript:void(0);">Sub Department</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="javascript:void(0);">Holiday</a></li>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Employee<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="javascript:void(0);">Position</a></li>
+                                        <li><a href="javascript:void(0);">Employee</a></li>
+                                        <li><a href="javascript:void(0);">Employee Performance</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Attendance<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="javascript:void(0);">Attendance Form</a></li>
+                                        <li><a href="javascript:void(0);">Attendance List</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Leave<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li class="submenu submenu-two submenu-three">
+                                            <a href="javascript:void(0);">Leave<span
+                                                    class="menu-arrow inside-submenu inside-submenu-two"></span></a>
+                                            <ul>
+                                                <li><a href="javascript:void(0);">Leave Type</a></li>
+                                                <li><a href="javascript:void(0);">Leave Approval</a></li>
+                                                <li><a href="javascript:void(0);">Leave Application</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="javascript:void(0);">Holiday</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Payroll<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="javascript:void(0);">Salary Advance</a></li>
+                                        <li><a href="javascript:void(0);">Set Salary</a></li>
+                                        <li><a href="javascript:void(0);">Payslip</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Notice Board<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="javascript:void(0);">Notice</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Recruitment<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="javascript:void(0);">Candidate List</a></li>
+                                        <li><a href="javascript:void(0);">Interview</a></li>
+                                        <li><a href="javascript:void(0);">Candidate Selection</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Procurement<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="javascript:void(0);">Request</a></li>
+                                        <li><a href="javascript:void(0);">Quotation</a></li>
+                                        <li><a href="javascript:void(0);">Bid analysis</a></li>
+                                        <li><a href="javascript:void(0);">Purchase Order</a></li>
+                                        <li><a href="javascript:void(0);">Goods Received</a></li>
+                                        <li><a href="javascript:void(0);">Vendors</a></li>
+                                        <li><a href="javascript:void(0);">Commitees</a></li>
+                                        <li><a href="javascript:void(0);">Units</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Award<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="javascript:void(0);">Award List</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Reports<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="javascript:void(0);">Attendance Report</a></li>
+                                        <li><a href="javascript:void(0);">Leave Report</a></li>
+                                        <li><a href="javascript:void(0);">Employee Report</a></li>
+                                        <li><a href="javascript:void(0);">Payroll</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
-                        <li class="submenu submenu-two">
-                            <a href="javascript:void(0);">Payroll<span
-                                    class="menu-arrow inside-submenu"></span></a>
-                            <ul>
-                                <li><a href="javascript:void(0);">Salary Advance</a></li>
-                                <li><a href="javascript:void(0);">Set Salary</a></li>
-                                <li><a href="javascript:void(0);">Payslip</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu submenu-two">
-                            <a href="javascript:void(0);">Notice Board<span
-                                    class="menu-arrow inside-submenu"></span></a>
-                            <ul>
-                                <li><a href="javascript:void(0);">Notice</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu submenu-two">
-                            <a href="javascript:void(0);">Recruitment<span
-                                    class="menu-arrow inside-submenu"></span></a>
-                            <ul>
-                                <li><a href="javascript:void(0);">Candidate List</a></li>
-                                <li><a href="javascript:void(0);">Interview</a></li>
-                                <li><a href="javascript:void(0);">Candidate Selection</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu submenu-two">
-                            <a href="javascript:void(0);">Procurement<span
-                                    class="menu-arrow inside-submenu"></span></a>
-                            <ul>
-                                <li><a href="javascript:void(0);">Request</a></li>
-                                <li><a href="javascript:void(0);">Quotation</a></li>
-                                <li><a href="javascript:void(0);">Bid analysis</a></li>
-                                <li><a href="javascript:void(0);">Purchase Order</a></li>
-                                <li><a href="javascript:void(0);">Goods Received</a></li>
-                                <li><a href="javascript:void(0);">Vendors</a></li>
-                                <li><a href="javascript:void(0);">Commitees</a></li>
-                                <li><a href="javascript:void(0);">Units</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu submenu-two">
-                            <a href="javascript:void(0);">Award<span
-                                    class="menu-arrow inside-submenu"></span></a>
-                            <ul>
-                                <li><a href="javascript:void(0);">Award List</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu submenu-two">
-                            <a href="javascript:void(0);">Reports<span
-                                    class="menu-arrow inside-submenu"></span></a>
-                            <ul>
-                                <li><a href="javascript:void(0);">Attendance Report</a></li>
-                                <li><a href="javascript:void(0);">Leave Report</a></li>
-                                <li><a href="javascript:void(0);">Employee Report</a></li>
-                                <li><a href="javascript:void(0);">Payroll</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
 
-                 {{-- End HR & Workforce Management --}}
+                        {{-- End HR & Workforce Management --}}
 
 
                         {{-- FINANCE & ACCOUNTS MODULE MENU START --}}
@@ -309,6 +310,7 @@
                         </li>
                         {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
 
+                        {{-- Inventory & Warehouse mangement --}}
                         <li class="submenu">
                             <a href="javascript:void(0);">
                                 <i data-feather="shopping-bag"></i>
@@ -327,6 +329,63 @@
                                         <li><a href="{{ url('/category_type') }}"> Category Types</a></li>
                                         <li><a href="{{ url('/categories/add') }}"> Add Category</a></li>
                                         <li><a href="{{ url('/categories/attributes') }}">Manage Attributes</a></li>
+                                    </ul>
+                                </li>
+
+                                {{-- Warehouse mangement --}}
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="package"></i>
+                                        <span>Warehouse Management</span>
+                                        
+                                    </a>
+                                    <ul>
+                                        <!-- Warehouses -->
+                                        <li class="submenu">
+                                            <a href="javascript:void(0);">
+                                                <i data-feather="home"></i>
+                                                <span>Warehouses</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+                                            <ul>
+                                                <li><a href="{{ url('/warehouses') }}">Warehouse List</a></li>
+                                                <li><a href="{{ url('/warehouses/add') }}">Add Warehouse</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <!-- Storage Locations -->
+                                        <li class="submenu">
+                                            <a href="javascript:void(0);">
+                                                <i data-feather="map"></i>
+                                                <span>Storage Locations</span>
+                                            </a>
+                                            <ul>
+                                                <li><a href="{{ url('/storage-locations') }}">Location List</a></li>
+                                                <li><a href="{{ url('/storage-locations/add') }}">Add Storage
+                                                        Location</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <!-- Stock Movements -->
+                                        <li class="submenu">
+                                            <a href="javascript:void(0);">
+                                                <i data-feather="shuffle"></i>
+                                                <span>Stock Movements</span>
+                                                <span class="menu-arrow"></span>
+                                            </a>
+                                            <ul>
+                                                <li><a href="{{ url('/stock-movements/in') }}">Stock In (Goods Receipt
+                                                        Notes - GRN)</a></li>
+                                                <li><a href="{{ url('/stock-movements/out') }}">Stock Out
+                                                        (Shipments)</a></li>
+                                                <li><a href="{{ url('/stock-movements/transfers') }}">Stock
+                                                        Transfers</a></li>
+                                                <li><a href="{{ url('/stock-movements/adjustments') }}">Stock
+                                                        Adjustments</a></li>
+                                                <li><a href="{{ url('/stock-movements/adjust-levels') }}">Adjust Stock
+                                                        Levels</a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
 
@@ -377,193 +436,140 @@
                                 </li>
                             </ul>
                         </li>
+                        
 
-                    {{--Suppliers & purchase  --}}
-                    <li class="submenu">
-                        <a href="javascript:void(0);">
-                            <i data-feather="truck"></i>
-                            <span>Suppliers & Purchases</span>
-                        </a>
-                        <ul>
-                            <!-- Suppliers -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="user-check"></i>
-                                    <span>Suppliers</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/suppliers') }}">Supplier List</a></li>
-                                    <li><a href="{{ url('/suppliers/add') }}">Add Supplier</a></li>
-                                    <li><a href="{{ url('/suppliers/contracts') }}">Supplier Contracts</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Purchase Orders -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="file-text"></i>
-                                    <span>Purchase Orders</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/purchases') }}">Purchase Order List</a></li>
-                                    <li><a href="{{ url('/purchases/create') }}">Create Purchase Order</a></li>
-                                    <li><a href="{{ url('/purchases/pending') }}">Pending Purchases</a></li>
-                                    <li><a href="{{ url('/purchases/completed') }}">Completed Purchases</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Payments -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="credit-card"></i>
-                                    <span>Payments</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/payments/suppliers') }}">Supplier Payments</a></li>
-                                    <li><a href="{{ url('/payments/pending') }}">Pending Payments</a></li>
-                                    <li><a href="{{ url('/payments/completed') }}">Completed Payments</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Purchase Reports -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="bar-chart-2"></i>
-                                    <span>Purchase Reports</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/reports/purchases') }}">Purchase Summary</a></li>
-                                    <li><a href="{{ url('/reports/supplier-performance') }}">Supplier Performance</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    {{-- Sale &  & Order Management --}}
-                    <li class="submenu">
-                        <a href="javascript:void(0);">
-                            <i data-feather="shopping-cart"></i>
-                            <span>Sales & Order Management</span>
-                        </a>
-                        <ul>
-                            <!-- Orders -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="file-text"></i>
-                                    <span>Orders</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/orders') }}">Order List</a></li>
-                                    <li><a href="{{ url('/orders/create') }}">Create Order</a></li>
-                                    <li><a href="{{ url('/orders/pending') }}">Pending Orders</a></li>
-                                    <li><a href="{{ url('/orders/completed') }}">Completed Orders</a></li>
-                                    <li><a href="{{ url('/orders/cancelled') }}">Cancelled Orders</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Customers -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="users"></i>
-                                    <span>Customers</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/customers') }}">Customer List</a></li>
-                                    <li><a href="{{ url('/customers/add') }}">Add Customer</a></li>
-                                    <li><a href="{{ url('/customers/groups') }}">Customer Groups</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Invoices & Payments -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="credit-card"></i>
-                                    <span>Invoices & Payments</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/invoices') }}">Invoices</a></li>
-                                    <li><a href="{{ url('/payments') }}">Payments</a></li>
-                                    <li><a href="{{ url('/refunds') }}">Refunds</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Sales Reports -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="bar-chart-2"></i>
-                                    <span>Sales Reports</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/reports/sales') }}">Sales Summary</a></li>
-                                    <li><a href="{{ url('/reports/revenue') }}">Revenue Report</a></li>
-                                    <li><a href="{{ url('/reports/customers') }}">Customer Sales Report</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    
-                    
-                    
-                    {{-- Warehouse mangement --}}
-                    <li class="submenu">
-                        <a href="javascript:void(0);">
-                            <i data-feather="package"></i>
-                            <span>Warehouse Management</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <ul>
-                            <!-- Warehouses -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="home"></i>
-                                    <span>Warehouses</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/warehouses') }}">Warehouse List</a></li>
-                                    <li><a href="{{ url('/warehouses/add') }}">Add Warehouse</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Storage Locations -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="map"></i>
-                                    <span>Storage Locations</span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/storage-locations') }}">Location List</a></li>
-                                    <li><a href="{{ url('/storage-locations/add') }}">Add Storage Location</a></li>
-                                </ul>
-                            </li>
-                    
-                            <!-- Stock Movements -->
-                            <li class="submenu">
-                                <a href="javascript:void(0);">
-                                    <i data-feather="shuffle"></i>
-                                    <span>Stock Movements</span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url('/stock-movements/in') }}">Stock In (Goods Receipt Notes - GRN)</a></li>
-                                    <li><a href="{{ url('/stock-movements/out') }}">Stock Out (Shipments)</a></li>
-                                    <li><a href="{{ url('/stock-movements/transfers') }}">Stock Transfers</a></li>
-                                    <li><a href="{{ url('/stock-movements/adjustments') }}">Stock Adjustments</a></li>
-                                    <li><a href="{{ url('/stock-movements/adjust-levels') }}">Adjust Stock Levels</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    
+                        {{-- Suppliers & purchase  --}}
+                        <li class="submenu">
+                            <a href="javascript:void(0);">
+                                <i data-feather="truck"></i>
+                                <span>Suppliers & Purchases</span>
+                            </a>
+                            <ul>
+                                <!-- Suppliers -->
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="user-check"></i>
+                                        <span>Suppliers</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/suppliers') }}">Supplier List</a></li>
+                                        <li><a href="{{ url('/suppliers/add') }}">Add Supplier</a></li>
+                                        <li><a href="{{ url('/suppliers/contracts') }}">Supplier Contracts</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Purchase Orders -->
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="file-text"></i>
+                                        <span>Purchase Orders</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/purchases') }}">Purchase Order List</a></li>
+                                        <li><a href="{{ url('/purchases/create') }}">Create Purchase Order</a></li>
+                                        <li><a href="{{ url('/purchases/pending') }}">Pending Purchases</a></li>
+                                        <li><a href="{{ url('/purchases/completed') }}">Completed Purchases</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Payments -->
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="credit-card"></i>
+                                        <span>Payments</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/payments/suppliers') }}">Supplier Payments</a></li>
+                                        <li><a href="{{ url('/payments/pending') }}">Pending Payments</a></li>
+                                        <li><a href="{{ url('/payments/completed') }}">Completed Payments</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Purchase Reports -->
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="bar-chart-2"></i>
+                                        <span>Purchase Reports</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/reports/purchases') }}">Purchase Summary</a></li>
+                                        <li><a href="{{ url('/reports/supplier-performance') }}">Supplier
+                                                Performance</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {{-- Sale &  & Order Management --}}
+                        <li class="submenu">
+                            <a href="javascript:void(0);">
+                                <i data-feather="shopping-cart"></i>
+                                <span>Sales & Order Management</span>
+                            </a>
+                            <ul>
+                                <!-- Orders -->
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="file-text"></i>
+                                        <span>Orders</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/orders') }}">Order List</a></li>
+                                        <li><a href="{{ url('/orders/create') }}">Create Order</a></li>
+                                        <li><a href="{{ url('/orders/pending') }}">Pending Orders</a></li>
+                                        <li><a href="{{ url('/orders/completed') }}">Completed Orders</a></li>
+                                        <li><a href="{{ url('/orders/cancelled') }}">Cancelled Orders</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Customers -->
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="users"></i>
+                                        <span>Customers</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/customers') }}">Customer List</a></li>
+                                        <li><a href="{{ url('/customers/add') }}">Add Customer</a></li>
+                                        <li><a href="{{ url('/customers/groups') }}">Customer Groups</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Invoices & Payments -->
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="credit-card"></i>
+                                        <span>Invoices & Payments</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/invoices') }}">Invoices</a></li>
+                                        <li><a href="{{ url('/payments') }}">Payments</a></li>
+                                        <li><a href="{{ url('/refunds') }}">Refunds</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Sales Reports -->
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="bar-chart-2"></i>
+                                        <span>Sales Reports</span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li><a href="{{ url('/reports/sales') }}">Sales Summary</a></li>
+                                        <li><a href="{{ url('/reports/revenue') }}">Revenue Report</a></li>
+                                        <li><a href="{{ url('/reports/customers') }}">Customer Sales Report</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
 
 
                     </ul>
