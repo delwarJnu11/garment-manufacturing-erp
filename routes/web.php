@@ -42,4 +42,10 @@ Route::resource('category', CategoryController::class);
 
 Route::resource('category_type', CategoryTypeController::class);
 
+Route::get('check',function(){
+    return view('pages.error.eror404');
+});
+
+
+
 require __DIR__ . '/auth.php';

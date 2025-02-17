@@ -57,7 +57,6 @@ CREATE TABLE `cache_locks` (
 
 --
 -- Table structure for table `categories`
---
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
