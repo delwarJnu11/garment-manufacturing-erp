@@ -7,22 +7,6 @@ CREATE TABLE customers (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE orders (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT,
-    order_number VARCHAR(50) UNIQUE NOT NULL,
-    style_name VARCHAR(100),
-    fabric_type VARCHAR(100),
-    color VARCHAR(50),
-    trims TEXT,
-    order_quantity INT NOT NULL,
-    size_breakdown JSON,
-    delivery_date DATE,
-    status ENUM('Pending', 'In Progress', 'Completed', 'Canceled') DEFAULT 'Pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-);
 
 CREATE TABLE production_plans (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -37,7 +21,7 @@ CREATE TABLE production_plans (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (order_id) REFERENCES orders(id)
-    FOREIGN KEY (order_id) REFERENCES orders(id)
+    FOREIGN KEY (production_plan_status_id) REFERENCES production_plan_statuses(id)
 );
 
 CREATE TABLE production_plan_statuses(
@@ -47,24 +31,92 @@ CREATE TABLE production_plan_statuses(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
 
-CREATE TABLE work_orders (
+CREATE TABLE production_work_sections(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+);
+
+CREATE TABLE production_work_statuses(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+);
+
+CREATE TABLE production_work_orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
     production_plan_id INT,
-    section ENUM('Cutting', 'Sewing', 'Finishing'),
+    production_work_section_id INT NOT NULL,
+    production_work_status_id INT NOT NULL,--('Pending', 'Completed') DEFAULT 'Pending',
     assigned_to INT,
     target_quantity INT,
     actual_quantity INT,
-    status ENUM('Pending', 'Completed') DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (production_plan_id) REFERENCES production_plans(id),
+    FOREIGN KEY (production_work_status_id) REFERENCES production_work_statuses(id),
     FOREIGN KEY (assigned_to) REFERENCES users(id)
 );
 
+-- Production Floor Management
+CREATE TABLE cutting_section (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    fabric_used DECIMAL(10,2),
+    panels_cut INT,
+    defective_pieces INT,
+    status ENUM('Pending', 'Completed') DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
+CREATE TABLE sewing_section (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    tasks_completed INT,
+    machine_downtime DECIMAL(10,2),
+    operator_performance DECIMAL(10,2),
+    defect_count INT,
+    status ENUM('Pending', 'Completed') DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
+CREATE TABLE finishing_section (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    inspections_done INT,
+    pressing_done INT,
+    packaging_done INT,
+    shipment_ready BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
+-- Wastage Management
+CREATE TABLE wastage (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    wastage_type ENUM('Material', 'Production'),
+    quantity DECIMAL(10,2),
+    reason TEXT,
+    cost DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
+
 -- Cost Estimation & Control
-CREATE TABLE cost_estimations (
+CREATE TABLE prodcution_cost_estimations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
     material_cost DECIMAL(10,2),
@@ -101,52 +153,53 @@ CREATE TABLE material_usage (
     FOREIGN KEY (material_id) REFERENCES materials(id)
 );
 
--- Inventory & Suppliers
-CREATE TABLE suppliers (
+-- Quality Control
+CREATE TABLE quality_inspections_stages(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    contact_person VARCHAR(100),
-    phone VARCHAR(20),
-    email VARCHAR(100),
-    address TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE inventory (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    material_id INT,
-    quantity_available DECIMAL(10,2),
-    reorder_level INT,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (material_id) REFERENCES materials(id)
 );
 
--- Quality Control
+CREATE TABLE quality_inspections_statuses(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+);
+
 CREATE TABLE quality_inspections (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
-    inspection_stage ENUM('Inline', 'Final') NOT NULL,
+    quality_inspections_stage_id INT NOT NULL, --ENUM('Inline', 'Final') NOT NULL,
+    quality_inspections_status_id INT NOT NULL, --ENUM('Passed', 'Failed', 'Rework') DEFAULT 'Passed',
     AQL_level VARCHAR(10),
     defects_found INT,
     rework_needed BOOLEAN DEFAULT FALSE,
-    status ENUM('Passed', 'Failed', 'Rework') DEFAULT 'Passed',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (order_id) REFERENCES orders(id)
+    FOREIGN KEY (quality_inspections_stage_id) REFERENCES quality_inspections_stages(id)
+    FOREIGN KEY (quality_inspections_status_id) REFERENCES quality_inspections_statuses(id)
+);
+
+CREATE TABLE defect_severity(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
 
 CREATE TABLE defects (
     id INT AUTO_INCREMENT PRIMARY KEY,
     inspection_id INT,
+    defect_severity_id INT NOT NULL, --ENUM('Minor', 'Major', 'Critical'),
     defect_type VARCHAR(100),
-    severity ENUM('Minor', 'Major', 'Critical'),
     corrective_action TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (inspection_id) REFERENCES quality_inspections(id)
+    FOREIGN KEY (defect_severity_id) REFERENCES defect_severity(id)
 );
 
 -- Reporting & Security
