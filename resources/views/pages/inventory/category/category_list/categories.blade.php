@@ -79,14 +79,7 @@
                     <a class="me-2 p-2" href="{{url('category')}}/{{$category['id']}}/edit">
                         <i data-feather="edit" class="feather-edit"></i>
                     </a>
-                    {{-- <form action="{{ url('category/' . $category->id) }}" method="post" onsubmit="return confirm('Are you sure todelte')>
-                        @csrf
-                        @method('DELETE')
-                    <a class="confirm-text p-2" href="{{ url('category/' . $category->id) }} " onclick="return confirm('Are you sure todelte')">
-                        <i data-feather="trash-2" class="feather-trash-2"></i>
-                    </a>
-                </form> --}}
-
+                  
                 <form action="{{ url('category/' . $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete?')">
                     @csrf
                     @method('DELETE')
@@ -110,3 +103,8 @@
     {{$categories->links( 'pagination::bootstrap-5')}}
 </div>
 @endsection
+
+<div class="d-flex justify-content-center">
+    
+
+</div>

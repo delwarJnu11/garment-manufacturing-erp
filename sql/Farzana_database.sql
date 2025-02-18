@@ -354,6 +354,7 @@ CREATE TABLE order_returns (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 CREATE TABLE order_return_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_return_id INT NOT NULL, -- Reference to order_returns table
@@ -366,8 +367,7 @@ CREATE TABLE order_return_details (
 );
 
 ________________________________________
-2.3 Order Items Table
-Stores items in an order.
+
 CREATE TABLE order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
@@ -404,8 +404,7 @@ CREATE TABLE payment_statuses (
     name VARCHAR(50) NOT NULL -- Pending, Paid, Failed, Refunded
 );
 ________________________________________
-2.7 Payment Methods Table
-Stores available payment methods.
+
 CREATE TABLE payment_methods (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL -- Stripe, PayPal, Bank Transfer, Cash
