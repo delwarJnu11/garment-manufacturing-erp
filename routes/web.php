@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssetStatusController;
+use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\ProfileController;
@@ -48,6 +49,8 @@ Route::get('check',function(){
 });
 
 Route::resource('assetRegister', AssetStatusController::class);
+Route::resource('assetTypes', AssetTypesController::class);
+// Route::resource('createAssetType', AssetTypesController::class);
 
 
 
