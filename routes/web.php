@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\ProfileController;
@@ -45,6 +46,8 @@ Route::resource('category_type', CategoryTypeController::class);
 Route::get('check',function(){
     return view('pages.error.eror404');
 });
+
+Route::resource('assetRegister', AssetStatusController::class);
 
 
 
