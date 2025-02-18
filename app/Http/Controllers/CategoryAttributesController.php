@@ -52,32 +52,64 @@ class CategoryAttributesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(category_attributes $category_attributes)
+    public function show(string $id)
     {
-        //
+        $categoryattribute = category_attributes::find($id);
+		return view('pages.inventory.category.category_attributes.show',compact( 'categoryattribute'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(category_attributes $category_attributes)
+    public function edit(string $id)
     {
-        //
+
+        $category_attribute = category_attributes::find($id);
+        return view('pages.inventory.category.category_attributes.edit',compact('category_attribute'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, category_attributes $category_attributes)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            
+            'category_id' => 'required',
+            'category_type' => 'required',
+            'name' => 'required',
+            'attribute_value' => 'required',
+        ]);
+
+    
+        $category_attribute = category_attributes::find($id);
+        $category_attribute->category_id = $request->category_id;
+        $category_attribute->category_type_id = $request->category_type;
+        $category_attribute->name = $request->name;
+        $category_attribute->attribute_value = $request->attribute_value;
+
+        if($category_attribute->save()){
+            return  redirect('category')->with('success', 'Category Updated Successfully');
+        }
+        return  redirect('category')->with('error', 'Somthing Went wrong');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(category_attributes $category_attributes)
+    public function destroy(string $id)
     {
-        //
+        $category = category_attributes::find($id);
+    
+        if (!$category) {
+            return redirect('category')->with('error', 'Category Not Found');
+        }
+    
+        $category->delete();
+        
+        return redirect('category')->with('success', 'Category Deleted Successfully');
     }
+    
 }
