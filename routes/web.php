@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssetStatusController;
+use App\Http\Controllers\CategoryAttributesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\ProfileController;
@@ -39,13 +40,18 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
  * Invetory/category 
  **/
 Route::resource('status', StatusController::class);
-Route::resource('category', CategoryController::class);
+Route::resource('category_value', CategoryController::class);
 
-Route::resource('category_type', CategoryTypeController::class);
 
 Route::get('check',function(){
     return view('pages.error.eror404');
 });
+
+Route::resource('category', CategoryAttributesController::class);
+
+/**
+ *END Invetory/category 
+ **/
 
 Route::resource('assetRegister', AssetStatusController::class);
 
