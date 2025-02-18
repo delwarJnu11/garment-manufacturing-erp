@@ -336,12 +336,19 @@ ________________________________________
 
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
-    order_status_id INT NOT NULL, -- Reference to order_statuses table
-    total_amount DECIMAL(10,2) NOT NULL,
-    payment_status_id INT NOT NULL, -- Reference to payment_statuses table
+    customer_id INT,
+    order_number VARCHAR(50) UNIQUE NOT NULL,
+    style_name VARCHAR(100),
+    fabric_type VARCHAR(100),
+    color VARCHAR(50),
+    trims TEXT,
+    order_quantity INT NOT NULL,
+    size_breakdown JSON,
+    delivery_date DATE,
+    status ENUM('Pending', 'In Progress', 'Completed', 'Canceled') DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
 CREATE TABLE order_returns (

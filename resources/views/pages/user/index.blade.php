@@ -1,7 +1,7 @@
 @extends('layout.backend.main');
 
 @section('page_content')
-    <x-page-header heading="Users" btnText="User" />
+    <x-page-header href="{{ route('users.create') }}" heading="Users" btnText="User" />
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
