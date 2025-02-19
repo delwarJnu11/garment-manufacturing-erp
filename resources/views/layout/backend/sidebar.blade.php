@@ -336,7 +336,7 @@
                                     </a>
                                     <ul>
                                         <li><a href="{{ url('/category') }}"> Category List</a></li>
-                                        <li><a href="{{ url('/category_type') }}"> Category Types</a></li>
+                                        <li><a href="{{ url('/categoryTypes') }}"> Category Types</a></li>
                                         <li><a href="{{ url('/categories/add') }}"> Add Category</a></li>
                                         <li><a href="{{ url('/categories/attributes') }}">Manage Attributes</a></li>
                                     </ul>
