@@ -49,6 +49,7 @@ Route::get('check', function () {
 });
 
 Route::resource('category', CategoryAttributesController::class);
+Route::resource('categoryTypes', CategoryTypeController::class);
 
 
 /**

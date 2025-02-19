@@ -1,8 +1,6 @@
 -- 1️⃣   Inventory & Warehouse Management Module
 ________________________________________
 
-
-
 -- categories
 CREATE TABLE categories (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -333,23 +331,56 @@ ________________________________________
 -- 2.2 Orders Table
 
 
-
-CREATE TABLE orders (
+CREATE TABLE statuses (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT,
-    order_number VARCHAR(50) UNIQUE NOT NULL,
-    style_name VARCHAR(100),
+    name VARCHAR(50) NOT NULL UNIQUE -- ('Pending', 'In Progress', 'Completed', 'Canceled') DEFAULT 'Pending',
+);
+
+
+CREATE TABLE orders ( 
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    customer_id INT, 
+    order_number VARCHAR(50) UNIQUE NOT NULL, 
+    style_name VARCHAR(100), 
     fabric_type VARCHAR(100),
-    color VARCHAR(50),
+    color VARCHAR(50), 
     trims TEXT,
     order_quantity INT NOT NULL,
-    size_breakdown JSON,
-    delivery_date DATE,
-    status ENUM('Pending', 'In Progress', 'Completed', 'Canceled') DEFAULT 'Pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-);
+    delivery_date DATE, 
+    status_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
+     );
+
+
+
+
+CREATE TABLE order_sizes ( 
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT, 
+    size VARCHAR(20) NOT NULL, -- Example: S, M, L, XL quantity INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+  );    
+ 
+
+
+
+-- CREATE TABLE orders (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     customer_id INT,
+--     order_number VARCHAR(50) UNIQUE NOT NULL,
+--     style_name VARCHAR(100),
+--     fabric_type VARCHAR(100),
+--     color VARCHAR(50),
+--     trims TEXT,
+--     order_quantity INT NOT NULL,
+--     size_breakdown JSON,
+--     delivery_date DATE,
+--     status ENUM('Pending', 'In Progress', 'Completed', 'Canceled') DEFAULT 'Pending',
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--     FOREIGN KEY (customer_id) REFERENCES customers(id)
+-- );
 
 CREATE TABLE order_returns (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -418,83 +449,3 @@ CREATE TABLE payment_methods (
 );
 
 
-                       📦 Inventory & Warehouse Management
-1️⃣
- Dashboard
-
-
- 
--- Inventory Overview
---  Stock Analytics
-
---  Products Management
-
---  Product Categories
---  Products List
--- Barcode & RFID Lookup
-
---  Warehouse Management
-
---  Warehouses
---  Storage Locations
-
---  Stock Movements
-
---   Stock In (Goods Receipt Notes - GRN)
---   Stock Out (Shipments)
---   Stock Transfers
---  Stock Adjustments 
---   Adjust Stock Levels
--- Manual Stock Updates
--- 6️⃣ Inventory Valuation
-
--- 💰 FIFO, LIFO, Weighted Average
--- 📄 Valuation Reports
--- 7️⃣ Suppliers & Purchases
-
--- 🏢 Suppliers
--- 🛒 Purchases
--- 📑 Purchase Details
--- 8️⃣ Reorder & Alerts
-
--- 🚨 Low Stock Alerts
--- 📌 Reorder Management
--- 9️⃣ Reports & Audits
-
--- 📋 Inventory Reports
--- 🔍 Stock Ledger
--- ✅ Audit & Cycle Counting
--- 🔟 Settings & Configurations
-
--- ⚙️ Inventory Rules
--- 🔗 Integration Settings
--- 🛒 Sales & Order Management
--- 1️⃣ Dashboard
-
--- 📊 Sales Overview
--- 📈 Sales Reports
---  Customers
-
---  Customer List
--- 📞 Contact Details
--- 3️ Orders Management
-
---  New Orders
---  Order Tracking
---  Order Fulfillment
--- 4️ Payments & Invoices
-
---  Payments
---  Invoices
--- 5️ Sales Analytics
-
---  Reports & Insights
---  Order Trends
--- 6️ Discounts & Promotions
-
--- 🎟️ Coupons
---  Special Offers
--- 7️ Settings & Configurations
-
---  Payment Methods
--- 🔗 API Integration
