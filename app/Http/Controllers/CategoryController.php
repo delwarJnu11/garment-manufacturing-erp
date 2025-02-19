@@ -40,9 +40,9 @@ class CategoryController extends Controller
         $categorie->name  = $request->name;
         $categorie->description  = $request->description;
         if ($categorie->save()) {
-            redirect('category')->with('success', 'Category Added Successfully');
+           return redirect('category')->with('success', 'Category Added Successfully');
         }
-        redirect('category')->with('error', 'Something went wrong. Please try again.');
+        return  redirect('category')->with('error', 'Something went wrong. Please try again.');
     }
 
     /**

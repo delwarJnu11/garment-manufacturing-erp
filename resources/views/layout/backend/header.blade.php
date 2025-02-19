@@ -2,14 +2,17 @@
     <!-- Logo -->
     <div class="header-left active">
         <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html" class="logo logo-normal">
-            <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo.png" alt="" />
+            <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo.png" alt="" /> -->
+             <h1 class="text-center">M<span class="text-primary">ERP</span></h1>
         </a>
         <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html" class="logo logo-white">
-            <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-white.png" alt="" />
+            <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-white.png" alt="" /> -->
+            <h1 class="text-center">M<span class="text-primary">ERP</span></h1>
         </a>
         <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html" class="logo-small">
-            <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-small.png"
-                alt="" />
+            <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-small.png" -->
+                <!-- alt="" /> -->
+                <h4 class="text-center">M<span class="text-primary">ERP</span></h4>
         </a>
         <a id="toggle_btn" href="javascript:void(0);">
             <i data-feather="chevrons-left" class="feather-16"></i>

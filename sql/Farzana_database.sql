@@ -336,12 +336,19 @@ ________________________________________
 
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
-    order_status_id INT NOT NULL, -- Reference to order_statuses table
-    total_amount DECIMAL(10,2) NOT NULL,
-    payment_status_id INT NOT NULL, -- Reference to payment_statuses table
+    customer_id INT,
+    order_number VARCHAR(50) UNIQUE NOT NULL,
+    style_name VARCHAR(100),
+    fabric_type VARCHAR(100),
+    color VARCHAR(50),
+    trims TEXT,
+    order_quantity INT NOT NULL,
+    size_breakdown JSON,
+    delivery_date DATE,
+    status ENUM('Pending', 'In Progress', 'Completed', 'Canceled') DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
 CREATE TABLE order_returns (
@@ -354,6 +361,7 @@ CREATE TABLE order_returns (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 CREATE TABLE order_return_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_return_id INT NOT NULL, -- Reference to order_returns table
@@ -366,8 +374,7 @@ CREATE TABLE order_return_details (
 );
 
 ________________________________________
-2.3 Order Items Table
-Stores items in an order.
+
 CREATE TABLE order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
@@ -404,8 +411,7 @@ CREATE TABLE payment_statuses (
     name VARCHAR(50) NOT NULL -- Pending, Paid, Failed, Refunded
 );
 ________________________________________
-2.7 Payment Methods Table
-Stores available payment methods.
+
 CREATE TABLE payment_methods (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL -- Stripe, PayPal, Bank Transfer, Cash
