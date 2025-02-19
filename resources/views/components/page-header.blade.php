@@ -5,7 +5,7 @@
             <h6>Manage Your {{ $heading }}</h6>
         </div>
     </div>
-    
+
     <ul class="table-top-head">
         <li>
             <a data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Pdf" data-bs-original-title="Pdf"><img
@@ -44,13 +44,10 @@
         </li>
     </ul>
     <div class="page-btn">
-<<<<<<< HEAD
         <a {{ $attributes }} class="btn btn-added"><svg xmlns="http://www.w3.org/2000/svg" width="24"
                 height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-=======
         <a {{$attributes}} class="btn btn-added"><svg xmlns="http://www.w3.org/2000/svg"
                 width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
->>>>>>> 2f1e7ed7f95ddfa4518b8e20addb0b130b77db61
                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle me-2">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="8" x2="12" y2="16"></line>

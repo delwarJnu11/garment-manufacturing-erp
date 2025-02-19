@@ -4,6 +4,10 @@ use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\CategoryAttributesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
+use App\Http\Controllers\HrmDepartmentController;
+use App\Http\Controllers\HrmStatusController;
+use App\Http\Controllers\HrmStatusesController;
+use App\Http\Controllers\HrmSubDepartmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StatusController;
@@ -36,8 +40,25 @@ Route::get('/users/roles', [RoleController::class, 'index'])->name('roles.index'
 Route::get('/users/roles/create', [RoleController::class, 'create'])->name('roles.create');
 Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles.store');
 
+
+
+ /**
+     * Start Hr & Workforce Management.
+ */
+
+// Start Route
+Route::resource('hrm_status', HrmStatusesController::class);
+
+// Route::get('hrm_status', function(){
+//     echo "hello hrm_status";
+// });
+
+// End Route
+
+
+
 /**
- * Invetory/category 
+ * Invetory/category
  **/
 Route::resource('status', StatusController::class);
 Route::resource('category_value', CategoryController::class);
@@ -50,7 +71,7 @@ Route::get('check',function(){
 Route::resource('category', CategoryAttributesController::class);
 
 /**
- *END Invetory/category 
+ *END Invetory/category
  **/
 
 Route::resource('assetRegister', AssetStatusController::class);
