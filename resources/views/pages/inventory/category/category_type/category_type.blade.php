@@ -1,20 +1,23 @@
 @extends('layout.backend.main')
 @section('page_content')
 
+{{-- <x-page-header heading="CategoryTypes" btnText ="CategoryTypes" hrf="{{url('CategoryTypes/create')}}"/> --}}
+
+<x-page-header heading="CategoryTypes" btnText="CategoryTypes" href="{{ url('CategoryTypes/create') }}" />
 <table class="table table-striped table-bordered">
-    <thead class="thead-info">
+    <thead class="thead-primary">
         <tr>
             <th>#</th>
             <th> Name</th>
         </tr>
     </thead>
     <tbody>
-       @forelse ($category_types as $categgory_type)
+       @forelse ($category_types as $category_type)
        <tr>
-        <td>{{$categgory_type['id']}}</td>
+        <td>{{$category_type['id']}}</td>
         <td>
           
-            {{$categgory_type['name']}}</td>
+            {{$category_type['name']}}</td>
          
            
         {{-- <td>

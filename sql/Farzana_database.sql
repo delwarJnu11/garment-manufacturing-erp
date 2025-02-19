@@ -1,8 +1,6 @@
 -- 1️⃣   Inventory & Warehouse Management Module
 ________________________________________
 
-
-
 -- categories
 CREATE TABLE categories (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -333,23 +331,56 @@ ________________________________________
 -- 2.2 Orders Table
 
 
-
-CREATE TABLE orders (
+CREATE TABLE statuses (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT,
-    order_number VARCHAR(50) UNIQUE NOT NULL,
-    style_name VARCHAR(100),
+    name VARCHAR(50) NOT NULL UNIQUE -- ('Pending', 'In Progress', 'Completed', 'Canceled') DEFAULT 'Pending',
+);
+
+
+CREATE TABLE orders ( 
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    customer_id INT, 
+    order_number VARCHAR(50) UNIQUE NOT NULL, 
+    style_name VARCHAR(100), 
     fabric_type VARCHAR(100),
-    color VARCHAR(50),
+    color VARCHAR(50), 
     trims TEXT,
     order_quantity INT NOT NULL,
-    size_breakdown JSON,
-    delivery_date DATE,
-    status ENUM('Pending', 'In Progress', 'Completed', 'Canceled') DEFAULT 'Pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-);
+    delivery_date DATE, 
+    status_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
+     );
+
+
+
+
+CREATE TABLE order_sizes ( 
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT, 
+    size VARCHAR(20) NOT NULL, -- Example: S, M, L, XL quantity INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+  );    
+ 
+
+
+
+-- CREATE TABLE orders (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     customer_id INT,
+--     order_number VARCHAR(50) UNIQUE NOT NULL,
+--     style_name VARCHAR(100),
+--     fabric_type VARCHAR(100),
+--     color VARCHAR(50),
+--     trims TEXT,
+--     order_quantity INT NOT NULL,
+--     size_breakdown JSON,
+--     delivery_date DATE,
+--     status ENUM('Pending', 'In Progress', 'Completed', 'Canceled') DEFAULT 'Pending',
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--     FOREIGN KEY (customer_id) REFERENCES customers(id)
+-- );
 
 CREATE TABLE order_returns (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -418,9 +449,6 @@ CREATE TABLE payment_methods (
 );
 
 
-                       📦 Inventory & Warehouse Management
-1️⃣
- Dashboard
 
 
  
@@ -498,3 +526,5 @@ CREATE TABLE payment_methods (
 
 --  Payment Methods
 -- 🔗 API Integration
+
+
