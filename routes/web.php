@@ -42,14 +42,16 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
  **/
 Route::resource('status', StatusController::class);
 Route::resource('category_value', CategoryController::class);
+Route::resource('categoryType', CategoryTypeController::class);
 
 
-Route::get('check',function(){
+Route::get('check', function () {
     return view('pages.error.eror404');
 });
 
 Route::resource('category', CategoryAttributesController::class);
 Route::resource('categoryTypes', CategoryTypeController::class);
+
 
 /**
  *END Invetory/category 
