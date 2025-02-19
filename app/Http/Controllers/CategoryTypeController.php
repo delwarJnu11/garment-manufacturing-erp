@@ -12,7 +12,7 @@ class CategoryTypeController extends Controller
      */
     public function index()
     {
-        $category_types = Category_type::all();
+        $category_types = Category_type::with('category')->paginate(4);
         return view('pages.inventory.category.category_type.category_type', compact('category_types'));
     }
 
