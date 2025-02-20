@@ -93,6 +93,7 @@ Route::resource('categoryTypes', CategoryTypeController::class);
  * Suppliers and Purcahse
  */
 
+
 Route::resource('suppliers', InvSuppliersController::class);
 
 /**

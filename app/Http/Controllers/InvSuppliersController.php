@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\inv_suppliers;
 use Illuminate\Http\Request;
 
+
 class InvSuppliersController extends Controller
 {
     /**

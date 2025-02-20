@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        
         Schema::create('company_profiles', function (Blueprint $table) { // ✅ Use plural table name
             $table->id();
             $table->string('company_name');

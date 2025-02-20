@@ -8,6 +8,7 @@
                 <table class="table dashboard-expired-products">
                     <thead>
                         <tr>
+                            
                             <th>Photo</th>
                             <th>First Name</th>
                             <th>Last Name</th>
