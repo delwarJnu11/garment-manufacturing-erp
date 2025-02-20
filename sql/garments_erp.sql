@@ -9,6 +9,14 @@
 -- 1️⃣   Inventory & Warehouse Management Module
 ________________________________________
 
+CREATE TABLE category_types (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    category_id INT,
+    type_name VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 -- categories
 CREATE TABLE categories (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -17,12 +25,7 @@ CREATE TABLE categories (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE category_types (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    category_id INT,
-    type_name VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+
 
 CREATE TABLE category_attributes (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -52,6 +55,7 @@ CREATE TABLE products (
     category_id INT NOT NULL, -- Reference to categories table
     uom_id INT NOT NULL, -- Reference to unit_of_measurements table
     valuation_method_id INT NOT NULL, -- Reference to valuation_methods table
+    photo VARCHAR(200)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -73,7 +77,7 @@ CREATE TABLE uom(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE statuses(
+CREATE TABLE status(
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -88,6 +92,8 @@ CREATE TABLE warehouses (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+
 CREATE TABLE storage_locations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     warehouse_id INT NOT NULL, -- Reference to warehouses table
@@ -102,39 +108,66 @@ CREATE TABLE storage_locations (
 CREATE TABLE stock_in (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL, -- Reference to products table
-    warehouse_id INT NOT NULL, -- Reference to warehouses table
     quantity INT NOT NULL, -- Quantity received
+    warehouse_id INT NOT NULL, -- Reference to warehouses table
+    transaction_type_id int ,
+    lot_id int,
+    description text,
     received_by INT NOT NULL, -- User ID of person receiving stock
     received_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date of receiving
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
-CREATE TABLE stock_out (
+CREATE TABLE lots (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL, -- Reference to products table
+    quantity INT NOT NULL, -- Quantity received
+    cost_price double,
+    sales_price double,
     warehouse_id INT NOT NULL, -- Reference to warehouses table
-    quantity INT NOT NULL, -- Quantity shipped
-    shipped_to VARCHAR(255) NOT NULL, -- Destination (e.g., Customer, Factory Unit)
-    shipped_by INT NOT NULL, -- User ID of person shipping stock
-    shipped_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date of shipping
+    transaction_type_id int ,
+    description text,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+
+
+
+
+
+-- CREATE TABLE stock_out (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     product_id INT NOT NULL, -- Reference to products table
+--     warehouse_id INT NOT NULL, -- Reference to warehouses table
+--     quantity INT NOT NULL, -- Quantity shipped
+--     shipped_to VARCHAR(255) NOT NULL, -- Destination (e.g., Customer, Factory Unit)
+--     shipped_by INT NOT NULL, -- User ID of person shipping stock
+--     shipped_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date of shipping
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
+
 CREATE TABLE stock_transfers (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
     from_warehouse_id INT NOT NULL, -- From warehouse
     to_warehouse_id INT NOT NULL, -- To warehouse
-    quantity INT NOT NULL, -- Quantity transferred
     transferred_by INT NOT NULL, -- User ID
     transferred_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Transfer date
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+CREATE TABLE stock_transfers_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL, -- Reference to products table
+    quantity INT NOT NULL, -- Quantity transferred
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
 --END Inventory Stock
+
+
 
 -- Inventory Valuation 
 CREATE TABLE valuation_methods (
@@ -144,16 +177,16 @@ CREATE TABLE valuation_methods (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE stock_ledger (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    transaction_type VARCHAR(50) NOT NULL, -- Stock In, Stock Out, Transfer
-    quantity INT NOT NULL, -- Quantity involved
-    balance INT NOT NULL, -- Remaining stock balance
-    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date of transaction
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE stock_ledger (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     product_id INT NOT NULL, -- Reference to products table
+--     transaction_type VARCHAR(50) NOT NULL, -- Stock In, Stock Out, Transfer
+--     quantity INT NOT NULL, -- Quantity involved
+--     balance INT NOT NULL, -- Remaining stock balance
+--     transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date of transaction
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
 CREATE TABLE inventory_audit (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -188,7 +221,7 @@ CREATE TABLE suppliers(
 CREATE TABLE purchases(
     id INT AUTO_INCREMENT PRIMARY KEY,
     supplier_id INT NOT NULL,
-    product_id INT NOT NULL,
+    lot_id int,
     status_id int NOT NULL,
     order_total DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
     paid_amount DECIMAL(10,2) DEFAULT(0.00),
@@ -200,6 +233,19 @@ CREATE TABLE purchases(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+CREATE TABLE purchase_details(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    purchase_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
+    discount_price DECIMAL(10,2) DEFAULT(0.00),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
 
 CREATE TABLE purchase_returns (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -223,16 +269,7 @@ CREATE TABLE purchase_return_details (
 );
 
 
-CREATE TABLE purchase_details(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    purchase_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    price DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
-    discount_price DECIMAL(10,2) DEFAULT(0.00),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+
 
 -- CREATE TABLE customers(
 --     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -262,20 +299,29 @@ ________________________________________
 -- 1.5 Stock Movements Table
 
 
-CREATE TABLE stock_movements (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    warehouse_id INT NOT NULL,
-    movement_type_id INT NOT NULL, -- Reference to movement_types table
-    quantity INT NOT NULL,
-    reference VARCHAR(255) NULL, -- GRN, invoice, transfer reference
-    movement_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+-- CREATE TABLE stock_movements (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     product_id INT NOT NULL,
+--     warehouse_id INT NOT NULL,
+--     movement_type_id INT NOT NULL, -- Reference to movement_types table
+--     quantity INT NOT NULL,
+--     reference VARCHAR(255) NULL, -- GRN, invoice, transfer reference
+--     movement_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
 ________________________________________
 -- 1.6 Stock Adjustment Table
 
 
 CREATE TABLE stock_adjustment (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    warehouse_id INT NOT NULL,
+    adjustment_type_id INT NOT NULL, -- Reference to adjustment_types table
+    quantity_adjusted INT NOT NULL,
+    reason TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE stock_adjustment_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
     warehouse_id INT NOT NULL,
@@ -308,17 +354,17 @@ CREATE TABLE adjustment_types (
     name VARCHAR(50) NOT NULL -- Damage, Loss, Manual Adjustment
 );
 
-CREATE TABLE low_stock_alerts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    warehouse_id INT NOT NULL, -- Reference to warehouses table
-    current_stock INT NOT NULL, -- Current stock level
-    min_stock_level INT NOT NULL, -- Minimum stock level for the product
-    alert_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date when the alert was triggered
-    status VARCHAR(50) DEFAULT 'Pending', -- Status of the alert (e.g., Pending, Resolved)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE low_stock_alerts (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     product_id INT NOT NULL, -- Reference to products table
+--     warehouse_id INT NOT NULL, -- Reference to warehouses table
+--     current_stock INT NOT NULL, -- Current stock level
+--     min_stock_level INT NOT NULL, -- Minimum stock level for the product
+--     alert_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date when the alert was triggered
+--     status VARCHAR(50) DEFAULT 'Pending', -- Status of the alert (e.g., Pending, Resolved)
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
 ________________________________________
 -- 2️⃣ Sales & Order Management Module
@@ -464,6 +510,35 @@ CREATE TABLE payment_methods (
 * Author: DELWAR HOSSAIN
 */
 
+-- BOM
+
+CREATE TABLE bom (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    material_cost DECIMAL(10,2),
+    labor_cost DECIMAL(10,2),
+    overhead_cost DECIMAL(10,2),
+    utility_cost DECIMAL(10,2),
+    total_cost DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
+
+CREATE TABLE bom_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    bom_id INT,
+    material_id INT,
+    quantity_used DECIMAL(10,2),
+    unit_cost
+    wastage DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (material_id) REFERENCES materials(id)
+);
+
 
 CREATE TABLE production_plans (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -477,8 +552,8 @@ CREATE TABLE production_plans (
     end_date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
-    -- FOREIGN KEY (production_plan_status_id) REFERENCES production_plan_statuses(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+    FOREIGN KEY (production_plan_status_id) REFERENCES production_plan_statuses(id)
 );
 
 CREATE TABLE production_plan_statuses(
@@ -514,16 +589,17 @@ CREATE TABLE production_work_orders (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    -- FOREIGN KEY (order_id) REFERENCES orders(id),
-    -- FOREIGN KEY (production_plan_id) REFERENCES production_plans(id),
-    -- FOREIGN KEY (production_work_status_id) REFERENCES production_work_statuses(id),
-    -- FOREIGN KEY (assigned_to) REFERENCES users(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (production_plan_id) REFERENCES production_plans(id),
+    FOREIGN KEY (production_work_status_id) REFERENCES production_work_statuses(id),
+    FOREIGN KEY (assigned_to) REFERENCES users(id)
 );
 
--- Cost Estimation & Control
-CREATE TABLE prodcution_cost_estimations (
+-- Production
+CREATE TABLE prodcutions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
+    bom_id INT,
     material_cost DECIMAL(10,2),
     labor_cost DECIMAL(10,2),
     overhead_cost DECIMAL(10,2),
@@ -531,32 +607,21 @@ CREATE TABLE prodcution_cost_estimations (
     total_cost DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
-CREATE TABLE materials (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    type ENUM('Fabric', 'Trim', 'Accessory') NOT NULL,
-    supplier_id INT,
-    unit_price DECIMAL(10,2),
-    wastage_allowance DECIMAL(5,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    -- FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
-);
-
-CREATE TABLE material_usage (
+CREATE TABLE production_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
     material_id INT,
     quantity_used DECIMAL(10,2),
+    unit_cost
     wastage DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id),
-    -- FOREIGN KEY (material_id) REFERENCES materials(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (material_id) REFERENCES materials(id)
 );
 
 -- Production Floor Management
@@ -569,7 +634,7 @@ CREATE TABLE cutting_section (
     status ENUM('Pending', 'Completed') DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 CREATE TABLE sewing_section (
@@ -582,7 +647,7 @@ CREATE TABLE sewing_section (
     status ENUM('Pending', 'Completed') DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 CREATE TABLE finishing_section (
@@ -594,7 +659,7 @@ CREATE TABLE finishing_section (
     shipment_ready BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 -- Wastage Management
@@ -614,7 +679,7 @@ CREATE TABLE wastage (
     cost DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 -- Quality Control
@@ -642,9 +707,9 @@ CREATE TABLE quality_inspections (
     rework_needed BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
-    -- FOREIGN KEY (quality_inspections_stage_id) REFERENCES quality_inspections_stages(id)
-    -- FOREIGN KEY (quality_inspections_status_id) REFERENCES quality_inspections_statuses(id)
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+    FOREIGN KEY (quality_inspections_stage_id) REFERENCES quality_inspections_stages(id)
+    FOREIGN KEY (quality_inspections_status_id) REFERENCES quality_inspections_statuses(id)
 );
 
 CREATE TABLE defect_severity(
@@ -662,8 +727,8 @@ CREATE TABLE defects (
     corrective_action TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (inspection_id) REFERENCES quality_inspections(id)
-    -- FOREIGN KEY (defect_severity_id) REFERENCES defect_severity(id)
+    FOREIGN KEY (inspection_id) REFERENCES quality_inspections(id)
+    FOREIGN KEY (defect_severity_id) REFERENCES defect_severity(id)
 );
 
 -- Reporting & Security
@@ -673,7 +738,7 @@ CREATE TABLE reports (
     generated_by INT,
     data JSON,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (generated_by) REFERENCES users(id)
+    FOREIGN KEY (generated_by) REFERENCES users(id)
 );
 
 CREATE TABLE audit_logs (
@@ -682,7 +747,7 @@ CREATE TABLE audit_logs (
     action VARCHAR(255),
     module_affected VARCHAR(100),
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE settings (
