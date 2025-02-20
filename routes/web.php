@@ -5,7 +5,7 @@ use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\CategoryAttributesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
-use App\Http\Controllers\HrmDepartmentController;
+use App\Http\Controllers\HrmDepartmentsController;
 use App\Http\Controllers\HrmStatusController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\HrmSubDepartmentController;
@@ -51,18 +51,19 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
 
 
 
- /**
-     * Start Hr & Workforce Management.
+/**
+ * Start Route Hr & Workforce Management.
  */
 
-// Start Route
+Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
 Route::resource('hrm_status', HrmStatusesController::class);
 
-// Route::get('hrm_status', function(){
-//     echo "hello hrm_status";
-// });
+Route::get('hrm_departments/delete/{id}', [HrmDepartmentsController::class, 'destroy']);
+Route::resource('hrm_departments', HrmDepartmentsController::class);
 
-// End Route
+ /**
+     * End Route Hr & Workforce Management.
+ */
 
 
 

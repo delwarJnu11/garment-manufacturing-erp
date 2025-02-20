@@ -199,7 +199,7 @@
                                 <div class="form-login col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">User Role</label>
-                                        <select class="select form-control" name="role_id">
+                                        <select class="form-select" name="role_id">
                                             <option>Select User Role</option>
                                             @forelse ($roles as $role)
                                                 <option value="{{ $role->id }}">{{ $role->name }}</option>

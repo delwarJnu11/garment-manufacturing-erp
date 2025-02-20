@@ -585,7 +585,7 @@
                         </li>
                         {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
 
-                        <<<<<<< HEAD======={{-- Inventory & Warehouse mangement --}} <li class="submenu">
+                    {{-- Inventory & Warehouse mangement --}} <li class="submenu">
                             <a href="javascript:void(0);">
                                 <i data-feather="shopping-bag"></i>
                                 <span>Inventory</span>
@@ -847,7 +847,7 @@
                     </ul>
                 </li>
                 {{-- END Suppliers & purchase  --}}
-                >>>>>>> 7abba29e73d223ef2c261f42d21e62cb4a6000f0
+
 
             </ul>
             </li>

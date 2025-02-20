@@ -12,7 +12,7 @@ class HrmStatusesController extends Controller
      */
     public function index()
     {
-        $status = Hrm_statuses::all();
+        $status = Hrm_statuses::paginate(5);
         // print_r($status);
 
         return view('pages.hrm.hrm_status.index', compact('status'));
@@ -48,9 +48,10 @@ class HrmStatusesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Hrm_statuses $hrm_statuses)
+    public function show(Hrm_statuses $hrm_statuses, $id)
     {
-        //
+        $status = Hrm_statuses::find($id);
+        return view('pages.hrm.hrm_status.show', compact('status'));
     }
 
     /**
@@ -85,8 +86,12 @@ class HrmStatusesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Hrm_statuses $hrm_statuses)
+    public function destroy(Hrm_statuses $hrm_statuses, $id)
     {
-        //
+
+        $del = Hrm_statuses::destroy($id);
+        if ($del) {
+            return redirect('hrm_status')->with('success', "Status has been Deleted");
+        }
     }
 }
