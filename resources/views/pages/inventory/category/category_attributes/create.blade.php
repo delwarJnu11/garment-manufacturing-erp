@@ -27,7 +27,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">User Category</label>
                                         <select class="select form-control" name="category_id">
-                                            <option>Select User Role</option>
+                                            <option>Select  Category</option>
                                             @forelse ($category as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @empty
