@@ -5,7 +5,7 @@
             <h6>Manage Your {{ $heading }}</h6>
         </div>
     </div>
-    
+
     <ul class="table-top-head">
         <li>
             <a data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Pdf" data-bs-original-title="Pdf"><img

@@ -1,7 +1,7 @@
 
 -- Statuses
 
-CREATE TABLE statuses (
+CREATE TABLE hrm_statuses (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
     description TEXT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE statuses (
 
 -- Attendance
 
-CREATE TABLE attendance_monthly (
+CREATE TABLE hrm_attendance_monthlyes (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     employee_id BIGINT UNSIGNED NOT NULL,
     year SMALLINT NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE attendance_monthly (
 
 -- Awards
 
-CREATE TABLE awards (
+CREATE TABLE hrm_awards (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     employee_id BIGINT UNSIGNED NOT NULL,
     award_name VARCHAR(255) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE awards (
 
 -- Departments
 
-CREATE TABLE departments (
+CREATE TABLE hrm_departments (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     statuses_id BIGINT UNSIGNED NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE departments (
 
 
 
-CREATE TABLE sub_departments (
+CREATE TABLE hrm_sub_departments (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     departments_id BIGINT UNSIGNED NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE sub_departments (
 
 -- Employee
 
-CREATE TABLE employee_positions (
+CREATE TABLE hrm_employee_positions (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE employee_positions (
 );
 
 
-CREATE TABLE designations (
+CREATE TABLE hrm_designations (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     department_id INT UNSIGNED NOT NULL,
@@ -92,17 +92,16 @@ CREATE TABLE designations (
 
 
 
-CREATE TABLE employees (
+CREATE TABLE hrm_employees (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     phone VARCHAR(20) UNIQUE NULL,
     gender VARCHAR(20) UNIQUE NULL,
     date_of_birth DATE NULL,
     hire_date DATE NOT NULL,
     department_id BIGINT UNSIGNED NOT NULL,
-    position_id BIGINT UNSIGNED NOT NULL,
+    positions_id BIGINT UNSIGNED NOT NULL,
     salary DECIMAL(10,2) NOT NULL,
     designations_id BIGINT UNSIGNED NOT NULL,
     statuses_id BIGINT UNSIGNED NOT NULL,
@@ -117,9 +116,9 @@ CREATE TABLE employees (
 
 
 
-CREATE TABLE employee_performance (
+CREATE TABLE hrm_employee_performances (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    employee_id BIGINT UNSIGNED NOT NULL,
+    employees_id BIGINT UNSIGNED NOT NULL,
     reviewer_id BIGINT UNSIGNED NOT NULL,
     review_period_start DATE NOT NULL,
     review_period_end DATE NOT NULL,
@@ -127,13 +126,13 @@ CREATE TABLE employee_performance (
     feedback TEXT NULL,
     goals TEXT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
 -- Leave
 
-CREATE TABLE weekly_holiday (
+CREATE TABLE hrm_weekly_holiday (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     day ENUM('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday') NOT NULL,
@@ -144,7 +143,7 @@ CREATE TABLE weekly_holiday (
 
 
 
-CREATE TABLE `leave_holidays` (
+CREATE TABLE `hrm_leave_holidays` (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     holiday_name VARCHAR(255) NOT NULL,
     holiday_form_date DATE NOT NULL,
@@ -158,7 +157,7 @@ CREATE TABLE `leave_holidays` (
 
 
 
-CREATE TABLE leave_applications (
+CREATE TABLE hrm_leave_applications (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT UNSIGNED NOT NULL,
     leave_type VARCHAR(255) NOT NULL,
@@ -174,7 +173,7 @@ CREATE TABLE leave_applications (
 );
 
 
-CREATE TABLE leave_application_approver (
+CREATE TABLE hrm_leave_application_approvers (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     leave_application_id BIGINT UNSIGNED NOT NULL,
     approver_user_id BIGINT UNSIGNED NOT NULL, -- The user who is the approver (foreign key to users table)
@@ -191,7 +190,7 @@ CREATE TABLE leave_application_approver (
 
  -- Notice Board
 
-CREATE TABLE noticeboard (
+CREATE TABLE hrm_noticeboards (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
@@ -209,7 +208,7 @@ CREATE TABLE noticeboard (
 
 -- Payroll Advanched Salary
 
-CREATE TABLE `payroll_advanced_salary` (
+CREATE TABLE `hrm_payroll_advanced_salaryes` (
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `employee_id` INT UNSIGNED NOT NULL,
     `amount` DECIMAL(10, 2) NOT NULL,
@@ -225,7 +224,7 @@ CREATE TABLE `payroll_advanced_salary` (
 
 
 
-CREATE TABLE `payroll_manage_employee_salary` (
+CREATE TABLE `hrm_payroll_manage_employee_salaryes` (
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `employee_id` INT UNSIGNED NOT NULL,
     `basic_salary` DECIMAL(10, 2) NOT NULL,
@@ -245,7 +244,7 @@ CREATE TABLE `payroll_manage_employee_salary` (
 
 
 
-CREATE TABLE payroll_employee_salary (
+CREATE TABLE hrm_payroll_employee_salaryes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     employee_id INT NOT NULL,               -- Foreign key reference to employees table
     basic_salary DECIMAL(15, 2) NOT NULL,    -- Basic salary of the employee
@@ -262,7 +261,7 @@ CREATE TABLE payroll_employee_salary (
 
  -- Recruitment
 
-CREATE TABLE `recruitment_candidatelist` (
+CREATE TABLE `hrm_recruitment_candidatelists` (
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `first_name` VARCHAR(255) NOT NULL,
     `last_name` VARCHAR(255) NOT NULL,
@@ -283,7 +282,7 @@ CREATE TABLE `recruitment_candidatelist` (
 Total marks	Selection	Action
 
 
-CREATE TABLE `recruitment_interview` (
+CREATE TABLE `hrm_recruitment_interviewes` (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
@@ -300,7 +299,7 @@ CREATE TABLE `recruitment_interview` (
 
 
 
-CREATE TABLE `Candidate selection` (
+CREATE TABLE `hrm_Candidate selections` (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
@@ -316,7 +315,7 @@ CREATE TABLE `Candidate selection` (
 -- Training
 
 
-CREATE TABLE training_list (
+CREATE TABLE hrm_training_lists (
     id INT AUTO_INCREMENT PRIMARY KEY,
     training_name VARCHAR(255) NOT NULL,
     description TEXT,
@@ -331,7 +330,7 @@ CREATE TABLE training_list (
 
 
 
-CREATE TABLE `trainers` (
+CREATE TABLE `hrm_trainers` (
     `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `first_name` VARCHAR(255) NOT NULL,
     `last_name` VARCHAR(255) NOT NULL,
@@ -350,7 +349,7 @@ CREATE TABLE `trainers` (
 
 -- Timesheet
 
-CREATE TABLE `timesheets` (
+CREATE TABLE `hrm_timesheets` (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     employee_id BIGINT UNSIGNED NOT NULL,
     date DATE NOT NULL,
@@ -367,7 +366,7 @@ CREATE TABLE `timesheets` (
  -- Procurement
 
 
-CREATE TABLE procurement_requests (
+CREATE TABLE hrm_procurement_requests (
     id INT AUTO_INCREMENT PRIMARY KEY,
     requester_id INT NOT NULL,
     department_id INT NOT NULL,
@@ -383,7 +382,7 @@ CREATE TABLE procurement_requests (
 
 
 
-CREATE TABLE procurement_orders (
+CREATE TABLE hrm_procurement_orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     request_id INT NOT NULL,
     supplier_id INT NOT NULL,
@@ -400,7 +399,7 @@ CREATE TABLE procurement_orders (
 
 
 
-CREATE TABLE suppliers (
+CREATE TABLE hrm_suppliers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     contact_person VARCHAR(255),
@@ -414,7 +413,7 @@ CREATE TABLE suppliers (
 
 
 
-CREATE TABLE procurement_items (
+CREATE TABLE hrm_procurement_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
     item_name VARCHAR(255) NOT NULL,
@@ -427,7 +426,7 @@ CREATE TABLE procurement_items (
 
 
 
-CREATE TABLE procurement_approvals (
+CREATE TABLE hrm_procurement_approvals (
     id INT AUTO_INCREMENT PRIMARY KEY,
     request_id INT NOT NULL,
     approver_id INT NOT NULL,
@@ -442,7 +441,7 @@ CREATE TABLE procurement_approvals (
 
 
 
-CREATE TABLE procurement_payments (
+CREATE TABLE hrm_procurement_payments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
     payment_date DATE,
@@ -457,7 +456,7 @@ CREATE TABLE procurement_payments (
 
 
 
-CREATE TABLE procurement_audit_logs (
+CREATE TABLE hrm_procurement_audit_logs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     action VARCHAR(255) NOT NULL,
