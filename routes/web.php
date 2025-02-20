@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssetStatusController;
+use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\CategoryAttributesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
@@ -29,12 +30,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+/**
+ * Users and Roles Memu Start
+ **/
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+Route::post('/users/update', [UserController::class, 'update'])->name('users.update');
 Route::get('/users/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::get('/users/roles/create', [RoleController::class, 'create'])->name('roles.create');
 Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles.store');
+/**
+ * Users and Roles Memu END
+ **/
 
 /**
  * Invetory/category 
@@ -57,6 +66,8 @@ Route::resource('categoryTypes', CategoryTypeController::class);
  **/
 
 Route::resource('assetRegister', AssetStatusController::class);
+Route::resource('assetTypes', AssetTypesController::class);
+// Route::resource('createAssetType', AssetTypesController::class);
 
 
 

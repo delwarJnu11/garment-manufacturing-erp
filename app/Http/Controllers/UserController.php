@@ -36,7 +36,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'    => ['required', 'string',  'max:255'],
+            'name'    => ['required', 'string', 'max:255'],
             'email'    => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role_id'  => ['required', 'exists:roles,id'],
@@ -48,7 +48,6 @@ class UserController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $imageName = time() . '_' . $file->getClientOriginalName();
-            // $file->storeAs('uploads/users', $imageName, 'public');
             $request->file('image')->move(public_path('uploads/users'), $imageName);
         }
 
@@ -81,7 +80,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::find($id);
+        $roles = Role::all();
+        return view('pages.user.edit', compact('user', 'roles'));
     }
 
     /**
