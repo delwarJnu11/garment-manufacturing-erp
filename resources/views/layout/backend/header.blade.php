@@ -315,7 +315,7 @@
                         <i class="me-2" data-feather="user"></i>
                         My Profile</a>
                     <a class="dropdown-item"
-                        href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html"><i
+                        href="{{route('companyProfile.index')}}"><i
                             class="me-2" data-feather="settings"></i>Settings</a>
                     <hr class="m-0" />
                     <a class="dropdown-item logout pb-0" href="  {{ url('/logout') }}"><img

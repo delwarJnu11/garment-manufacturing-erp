@@ -12,7 +12,8 @@ class InvSuppliersController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers = inv_suppliers::paginate(5);
+        return view('pages.inventory.Suppliers.suppliers', compact('suppliers'));
     }
 
     /**

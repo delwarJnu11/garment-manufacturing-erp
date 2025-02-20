@@ -5,6 +5,32 @@
 * Author: FARZANA AKTER
 */
 
+-- GARMENTS Profile
+CREATE TABLE garment_profile (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    company_name VARCHAR(255) NOT NULL-- Stores the name of the company.
+    established_year INT,-- Year the company was established.
+    company_type VARCHAR(255),-- Type of company (e.g., Garments Manufacturer, Exporter).
+    business_address VARCHAR(255),-- The physical address of the factory.
+    head_office VARCHAR(255),-- head_office: The head office address.
+    contact_number VARCHAR(20),-- contact_number: Company contact phone number.
+    email VARCHAR(100),-- email: Official company email address.
+    website VARCHAR(255),-- website: Link to the company's website.
+    factory_size VARCHAR(100),-- factory_size: Size of the factory (in square feet or meters).
+    production_capacity VARCHAR(255),
+-- production_capacity: The monthly production capacity (e.g., "500,000 pcs/month").
+    number_of_employees INT,-- Total number of employees in the company.
+    machinery_equipment TEXT,-- List or details of key machinery and equipment used.
+    product_categories TEXT,-- Types of garments produced (e.g., T-shirts, Polo Shirts).
+    export_markets TEXT,--- Markets where the company exports (e.g., USA, Europe).
+    major_buyers TEXT,-- List of major buyers/brands.
+    certifications TEXT,--: Certifications obtained (e.g., ISO, WRAP).
+    sustainability_initiatives TEXT,--Eco-friendly practices, energy, and water conservation.
+    compliance_standards TEXT,-- Ethical sourcing and compliance standards.
+    lead_time VARCHAR(100),-- Standard production lead time.
+    shipping_logistics TEXT,-- Details about shipping and logistics methods.
+    payment_terms VARCHAR(100)-- Accepted payment methods (e.g., LC, TT, Cash).
+);
 
 -- 1️⃣   Inventory & Warehouse Management Module
 ________________________________________
@@ -30,6 +56,7 @@ CREATE TABLE categories (
 CREATE TABLE category_attributes (
     id INT PRIMARY KEY AUTO_INCREMENT,
     category_id INT,
+    category_type_id INT,
     attribute_name VARCHAR(255),
     attribute_value VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -510,35 +537,6 @@ CREATE TABLE payment_methods (
 * Author: DELWAR HOSSAIN
 */
 
--- BOM
-
-CREATE TABLE bom (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
-    material_cost DECIMAL(10,2),
-    labor_cost DECIMAL(10,2),
-    overhead_cost DECIMAL(10,2),
-    utility_cost DECIMAL(10,2),
-    total_cost DECIMAL(10,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
-);
-
-
-CREATE TABLE bom_details (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    bom_id INT,
-    material_id INT,
-    quantity_used DECIMAL(10,2),
-    unit_cost
-    wastage DECIMAL(10,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (material_id) REFERENCES materials(id)
-);
-
 
 CREATE TABLE production_plans (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -552,8 +550,8 @@ CREATE TABLE production_plans (
     end_date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
-    FOREIGN KEY (production_plan_status_id) REFERENCES production_plan_statuses(id)
+    -- FOREIGN KEY (order_id) REFERENCES orders(id)
+    -- FOREIGN KEY (production_plan_status_id) REFERENCES production_plan_statuses(id)
 );
 
 CREATE TABLE production_plan_statuses(
@@ -589,14 +587,46 @@ CREATE TABLE production_work_orders (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (production_plan_id) REFERENCES production_plans(id),
-    FOREIGN KEY (production_work_status_id) REFERENCES production_work_statuses(id),
-    FOREIGN KEY (assigned_to) REFERENCES users(id)
+    -- FOREIGN KEY (order_id) REFERENCES orders(id),
+    -- FOREIGN KEY (production_plan_id) REFERENCES production_plans(id),
+    -- FOREIGN KEY (production_work_status_id) REFERENCES production_work_statuses(id),
+    -- FOREIGN KEY (assigned_to) REFERENCES users(id)
 );
 
--- Production
-CREATE TABLE prodcutions (
+
+-- BOM
+
+CREATE TABLE bom (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    material_cost DECIMAL(10,2),
+    labor_cost DECIMAL(10,2),
+    overhead_cost DECIMAL(10,2),
+    utility_cost DECIMAL(10,2),
+    total_cost DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    -- FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
+
+CREATE TABLE bom_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    bom_id INT,
+    material_id INT,
+    quantity_used DECIMAL(10,2),
+    unit_cost
+    wastage DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    -- FOREIGN KEY (order_id) REFERENCES orders(id),
+    -- FOREIGN KEY (material_id) REFERENCES materials(id)
+);
+
+
+
+-- Cost Estimation & Control
+CREATE TABLE prodcution_cost_estimations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
     bom_id INT,
@@ -607,11 +637,11 @@ CREATE TABLE prodcutions (
     total_cost DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
+    -- FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 
-CREATE TABLE production_details (
+CREATE TABLE material_usage (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
     material_id INT,
@@ -620,9 +650,24 @@ CREATE TABLE production_details (
     wastage DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (material_id) REFERENCES materials(id)
+    -- FOREIGN KEY (order_id) REFERENCES orders(id),
+    -- FOREIGN KEY (material_id) REFERENCES materials(id)
 );
+
+-- CREATE TABLE materials (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     name VARCHAR(100) NOT NULL,
+--     type ENUM('Fabric', 'Trim', 'Accessory') NOT NULL,
+--     supplier_id INT,
+--     unit_price DECIMAL(10,2),
+--     wastage_allowance DECIMAL(5,2),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+--     -- FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
+-- );
+
+
 
 -- Production Floor Management
 CREATE TABLE cutting_section (
@@ -634,7 +679,7 @@ CREATE TABLE cutting_section (
     status ENUM('Pending', 'Completed') DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
+    -- FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 CREATE TABLE sewing_section (
@@ -647,7 +692,7 @@ CREATE TABLE sewing_section (
     status ENUM('Pending', 'Completed') DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
+    -- FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 CREATE TABLE finishing_section (
@@ -659,7 +704,7 @@ CREATE TABLE finishing_section (
     shipment_ready BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
+    -- FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 -- Wastage Management
@@ -679,7 +724,7 @@ CREATE TABLE wastage (
     cost DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
+    -- FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 -- Quality Control
@@ -707,9 +752,9 @@ CREATE TABLE quality_inspections (
     rework_needed BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
-    FOREIGN KEY (quality_inspections_stage_id) REFERENCES quality_inspections_stages(id)
-    FOREIGN KEY (quality_inspections_status_id) REFERENCES quality_inspections_statuses(id)
+    -- FOREIGN KEY (order_id) REFERENCES orders(id)
+    -- FOREIGN KEY (quality_inspections_stage_id) REFERENCES quality_inspections_stages(id)
+    -- FOREIGN KEY (quality_inspections_status_id) REFERENCES quality_inspections_statuses(id)
 );
 
 CREATE TABLE defect_severity(
@@ -727,8 +772,8 @@ CREATE TABLE defects (
     corrective_action TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (inspection_id) REFERENCES quality_inspections(id)
-    FOREIGN KEY (defect_severity_id) REFERENCES defect_severity(id)
+    -- FOREIGN KEY (inspection_id) REFERENCES quality_inspections(id)
+    -- FOREIGN KEY (defect_severity_id) REFERENCES defect_severity(id)
 );
 
 -- Reporting & Security
@@ -738,7 +783,7 @@ CREATE TABLE reports (
     generated_by INT,
     data JSON,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (generated_by) REFERENCES users(id)
+    -- FOREIGN KEY (generated_by) REFERENCES users(id)
 );
 
 CREATE TABLE audit_logs (
@@ -747,7 +792,7 @@ CREATE TABLE audit_logs (
     action VARCHAR(255),
     module_affected VARCHAR(100),
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    -- FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE settings (
