@@ -9,6 +9,7 @@ use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\HrmDepartmentController;
 use App\Http\Controllers\HrmStatusController;
 use App\Http\Controllers\HrmStatusesController;
+use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentController;
 use App\Http\Controllers\InvSuppliersController;
 use App\Http\Controllers\ProductController;
@@ -46,7 +47,7 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
-Route::post('/users/update', [UserController::class, 'update'])->name('users.update');
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::get('/users/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::get('/users/roles/create', [RoleController::class, 'create'])->name('roles.create');
 Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles.store');
@@ -54,8 +55,18 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
  * Users and Roles Memu END
  **/
 
+/**
+ * Production Memu START
+ **/
 
+ Route::resource('production_plan_status', ProductionPlanStatusesController::class);
 
+/**
+ * Production Memu END
+ **/
+
+/**
+ * Start Hr & Workforce Management.
 /**
  * Start Hr & Workforce Management.
  */
@@ -68,8 +79,6 @@ Route::resource('hrm_status', HrmStatusesController::class);
 // });
 
 // End Route
-
-
 
 /**
  * Invetory/category
@@ -92,6 +101,7 @@ Route::get('check', function () {
 Route::resource('category', CategoryAttributesController::class);
 Route::resource('categoryTypes', CategoryTypeController::class);
 
+
 /**
  * Suppliers and Purcahse
  */
@@ -106,7 +116,5 @@ Route::resource('valuations', ValuationMethodsController::class);
 Route::resource('assetRegister', AssetStatusController::class);
 Route::resource('assetTypes', AssetTypesController::class);
 // Route::resource('createAssetType', AssetTypesController::class);
-
-
 
 require __DIR__ . '/auth.php';

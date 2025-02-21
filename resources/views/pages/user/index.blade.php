@@ -1,4 +1,5 @@
 @extends('layout.backend.main');
+<?php use Carbon\Carbon; ?>
 
 @section('page_content')
     <x-page-header href="{{ route('users.create') }}" heading="Users" btnText="User" />
@@ -34,7 +35,7 @@
                                 <td><a href="javascript:void(0);">{{ $user->email }}</a></td>
                                 <td>01749497676</td>
                                 <td>{{ $user->role->name }}</td>
-                                <td>{{ $user->created_at }}</td>
+                                <td>{{ Carbon::parse($user->created_at)->format('d M, Y') }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <a class="me-2 p-2 mb-0" href="javascript:void(0);">
@@ -60,6 +61,11 @@
                     </tbody>
                 </table>
             </div>
+
+        </div>
+        <!-- Pagination Links -->
+        <div class="d-flex justify-content-end p-3">
+            {{ $users->links('vendor.pagination.custom') }}
         </div>
     </div>
 @endsection

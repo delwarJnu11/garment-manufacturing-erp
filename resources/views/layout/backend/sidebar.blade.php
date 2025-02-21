@@ -6,7 +6,7 @@
                     <h6 class="submenu-hdr">Main</h6>
                     <ul>
                         <li class="submenu">
-                            <a href="javascript:void(0);" class="subdrop active"><i
+                            <a href="javascript:void(0);" class="subdrop"><i
                                     data-feather="grid"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
@@ -16,93 +16,66 @@
                             </ul>
                         </li>
                         {{-- USER MODULE MENU START --}}
-                        <li class="submenu"><a href="javascript:void(0);"><i
-                                    data-feather="users"></i><span>Users</span><span class="menu-arrow"></span></a>
+                        <!-- <li class="submenu">
+                            <a href="javascript:void(0);">
+                                <i data-feather="users"></i>
+                                <span>Users</span>
+                                <span class="menu-arrow"></span>
+                            </a>
                             <ul>
-                                <li><a href="{{ route('users.index') }}">All User</a></li>
-                                <li><a href="{{ route('roles.index') }}">All Roles</a></li>
+                                <li><a href="{{ route('users.index') }}" class="{{ request()->is('users') ? 'active' : '' }}">All Users</a></li>
+                                <li><a href="{{ route('roles.index') }}" class="{{ request()->is('roles') ? 'active' : '' }}">All Roles</a></li>
+                            </ul>
+                        </li> -->
+
+                        <li class="submenu">
+                            <a
+                                href="javascript:void(0);"
+                                class="subdrop {{request()->routeIs('users') || request()->routeIs('roles')? 'active':''}}"><i data-feather="users"></i><span>User Management</span><span class="menu-arrow"></span></a>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="{{route('users.index')}}"
+                                        class="{{request()->routeIs('users') ? 'active':''}}">All Users</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('roles.index')}}" class="{{request()->routeIs('roles') ? 'active':''}}">All Roles</a>
+                                </li>
                             </ul>
                         </li>
+
                         {{-- USER MODULE MENU END --}}
                         {{-- PRODUCTION MODULE MENU START --}}
                         <li class="submenu">
-                            <a href="javascript:void(0);" class=""><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-file-minus">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                    <polyline points="14 2 14 8 20 8"></polyline>
-                                    <line x1="9" y1="15" x2="15" y2="15"></line>
-                                </svg><span>Production</span><span class="menu-arrow"></span></a>
-                            <ul style="display: block;">
-                                {{-- BOM MENU --}}
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="">Bill Of Materials<span
-                                            class="menu-arrow inside-submenu"></span></a>
-                                    <ul style="display: block;">
-                                        <li><a href="javascript:void(0);">BoM's Product</a></li>
-                                        <li><a href="javascript:void(0);">Production Planning</a></li>
-                                        <li><a href="javascript:void(0);">Cost Estimation</a></li>
+                            <a
+                                href="javascript:void(0);"
+                                class="subdrop {{request()->routeIs('production') ? 'active':''}}"><i data-feather="users"></i><span>Production Management</span><span class="menu-arrow"></span></a>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="javascript:void(0);"
+                                        class="subdrop {{request()->routeIs('production') ? 'active':''}}"><i data-feather="users"></i><span>Bill Of Materials</span><span class="menu-arrow"></span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="" class="">BOM's Product</a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="">Cost Estimation</a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="">Production Planning</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('production_plan_status.index')}}" class="{{request()->is('production_plan_status.index') ? 'active' : ''}}">Production Planning Status</a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="">Production Planning Section</a>
+                                        </li>
                                     </ul>
                                 </li>
-                                {{-- Work ORDER PROCESS MENU --}}
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="">Work Order Process<span
-                                            class="menu-arrow inside-submenu"></span></a>
-                                    <ul style="display: block;">
-                                        <li><a href="javascript:void(0);">Create Work Orders</a></li>
-                                        <li><a href="javascript:void(0);">Track Production Progess</a></li>
-                                        <li><a href="javascript:void(0);">Track Production Worker</a></li>
-                                        <li><a href="javascript:void(0);">Work Order Prioritization</a></li>
-                                        <li><a href="javascript:void(0);">Barcode Integration</a></li>
-                                        <li><a href="javascript:void(0);">Work Order History</a></li>
-                                    </ul>
+                                <li>
+                                    <a href="{{route('roles.index')}}" class="{{request()->routeIs('roles') ? 'active':''}}">All Roles</a>
                                 </li>
-                                {{-- Work ORDER PROCESS MENU --}}
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="">Production Scheduling<span
-                                            class="menu-arrow inside-submenu"></span></a>
-                                    <ul style="display: block;">
-                                        <li><a href="javascript:void(0);">Track Invertory Stocks</a></li>
-                                        <li><a href="javascript:void(0);">Chart Vissualization</a></li>
-                                        <li><a href="javascript:void(0);">Production Priority</a></li>
-                                        <li><a href="javascript:void(0);">Manage Production Shift</a></li>
-                                    </ul>
-                                </li>
-                                {{-- MACHINE MONITORING MENU --}}
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="">Machine Monitoring<span
-                                            class="menu-arrow inside-submenu"></span></a>
-                                    <ul style="display: block;">
-                                        <li><a href="javascript:void(0);">Track Maintenance History</a></li>
-                                        <li><a href="javascript:void(0);">Real Time Machine Monitoring</a></li>
-                                        <li><a href="javascript:void(0);">Resource Cost Tracking</a></li>
-                                        <li><a href="javascript:void(0);">Energy Consumtion Monitoring</a></li>
-                                    </ul>
-                                </li>
-                                {{-- QC MENU --}}
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="">Quality Control<span
-                                            class="menu-arrow inside-submenu"></span></a>
-                                    <ul style="display: block;">
-                                        <li><a href="javascript:void(0);">Track Maintenance History</a></li>
-                                        <li><a href="javascript:void(0);">Real Time Machine Monitoring</a></li>
-                                        <li><a href="javascript:void(0);">Resource Cost Tracking</a></li>
-                                        <li><a href="javascript:void(0);">Energy Consumtion Monitoring</a></li>
-                                    </ul>
-                                </li>
-                                {{-- Waste Track MENU --}}
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);" class="">Track Wastage<span
-                                            class="menu-arrow inside-submenu"></span></a>
-                                    <ul style="display: block;">
-                                        <li><a href="javascript:void(0);">Track Maintenance History</a></li>
-                                        <li><a href="javascript:void(0);">Real Time Machine Monitoring</a></li>
-                                        <li><a href="javascript:void(0);">Resource Cost Tracking</a></li>
-                                        <li><a href="javascript:void(0);">Energy Consumtion Monitoring</a></li>
-                                    </ul>
-                                </li>
-
                             </ul>
                         </li>
                         {{-- PRODUCTION MODULE MENU END --}}
@@ -587,8 +560,12 @@
                         </li>
                         {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
 
+<<<<<<< HEAD
+                </li>
+=======
             </ul>
             </li>
+>>>>>>> 339dedb1e7a0e77277cf6dafb1174466dc336d16
             </ul>
         </div>
     </div>
