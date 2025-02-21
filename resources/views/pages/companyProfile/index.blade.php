@@ -3,15 +3,13 @@
     @section('page_content')
     
     
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Company Profile</h1>
+    <div class="container mt-3">
+        <h1 class="text-center mb-4 " style="color:#c20dc5">Company Profile</h1>
     
         <form action="{{ route('companyProfile.update', $companyProfile->id) }}" method="POST">
             @csrf
             @method('PUT')
         
-        
-    
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
