@@ -44,9 +44,18 @@
                                         <a class="me-2 p-2" href="{{ route('suppliers.edit', $supplier->id) }}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                        <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class=" confirm-delete"  onclick="return confirm('Are you sure?')" style="color: red;width:10%; border:none">
+                                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                            </button>
+                                        </form>
+                                        
+
+                                        {{-- <a class="confirm-text p-2" href="javascript:void(0);">
                                             <i data-feather="trash-2" class="feather-trash-2"></i>
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 </td>
                             </tr>

@@ -43,7 +43,7 @@ class InvSuppliersController extends Controller
             $file = $request->file('photo');
 
             //         // Supplier name without spaces
-            $supplierName = preg_replace('/\s+/', '', $request->first_name); // স্পেস রিমুভ করা হলো
+            $supplierName = preg_replace('/\s+/', '', $request->first_name); // remove space
             $fileName = time() . $supplierName . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/suppliers'), $fileName);
         } else {
@@ -94,7 +94,7 @@ class InvSuppliersController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            // পুরানো ছবি মুছে ফেলা (যদি সেট করা থাকে এবং default না হয়)
+            // পdelete old image
             if ($supplier->photo && $supplier->photo !== 'default.png') {
                 $oldPhotoPath = public_path('uploads/suppliers/' . $supplier->photo);
                 if (file_exists($oldPhotoPath)) {
@@ -126,8 +126,19 @@ class InvSuppliersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(inv_suppliers $inv_suppliers)
+    public function destroy($id)
     {
-        //
+        $supplier = inv_suppliers::findOrFail($id);
+        if ($supplier->photo && $supplier->photo !== 'default.png') {
+            $photoPath = public_path('uploads/suppliers/' . $supplier->photo);
+            if (file_exists($photoPath)) {
+                unlink($photoPath);
+            }
+        }
+        $supplier->delete();
+        return redirect('suppliers')->with('success', 'Supplier deleted successfully');
     }
+
+    
+
 }
