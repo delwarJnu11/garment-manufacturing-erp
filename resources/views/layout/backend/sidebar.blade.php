@@ -168,8 +168,10 @@
                                     </a>
                                     <ul>
                                         <li><a href="{{ url('/products') }}">Product List</a></li>
-                                        <li><a href="{{ url('/products/add') }}"> Add Product</a></li>
+                                        <li><a href="{{ url('/products/create') }}"> Add Product</a></li>
                                         <li><a href="{{ url('/products/variants') }}">Product Variants</a></li>
+                                        <li><a href="{{ url('uoms') }}">Units of Mesures</a></li>
+
                                         <li><a href="{{ url('/products/pricing') }}"> Pricing & Costing</a></li>
                                         <li><a href="{{ url('/products/stock') }}"> Stock Management</a></li>
                                         <li><a href="{{ url('/products/barcode') }}"> Print Barcode & QR</a></li>
@@ -213,7 +215,7 @@
                         <li class="submenu">
                             <a href="javascript:void(0);">
                                 <i data-feather="shopping-cart"></i>
-                                <span> Order & Suppliers<span class="menu-arrow"></span></span>
+                                <span> Order & Customers<span class="menu-arrow"></span></span>
                             </a>
                             <ul>
                                 <!-- Orders -->
@@ -286,7 +288,7 @@
                             <ul>
                                 <!-- Suppliers -->
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">
+                                    <a href="">
                                         <i data-feather="user-check"></i>
                                         <span>Suppliers</span>
                                         <span class="menu-arrow"></span>
@@ -558,7 +560,12 @@
                         </li>
                         {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
 
+<<<<<<< HEAD
                 </li>
+=======
+            </ul>
+            </li>
+>>>>>>> 339dedb1e7a0e77277cf6dafb1174466dc336d16
             </ul>
         </div>
     </div>

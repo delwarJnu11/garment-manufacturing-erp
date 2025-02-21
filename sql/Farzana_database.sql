@@ -312,6 +312,88 @@ CREATE TABLE low_stock_alerts (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+--1 Product Module: Adding a Product
+
+-- Step 1: Insert a new product into the `products` table.
+INSERT INTO products (name, sku, description, unit_price, offer_price, weight, size_id, is_raw_material, barcode, rfid, category_attributes_id, uom_id, valuation_method_id, photo)
+VALUES ('T-Shirt', 'TSH-001', 'Cotton T-shirt with logo', 10.99, 9.99, 200, 1, 0, '0123456789123', 'RFID123456', 1, 1, 1, 'tshirt.jpg');
+
+-- Step 2: Insert category attributes (if needed) in the `category_attributes` table.
+-- Assuming you are associating the product with a category (Men's Wear, Women's Wear).
+INSERT INTO category_attributes (category_id, category_type_id, attribute_name, attribute_value)
+VALUES (1, 1, 'Color', 'Red');
+
+-- End of cycle 1: This cycle involves the `products` and `category_attributes` tables.
+-- Tables involved: 2 (products, category_attributes)
+
+-- Stock In Module: Receiving Stock into the Warehouse
+
+-- Step 1: Insert a new stock entry into the `stock_in` table (when stock arrives at the warehouse).
+INSERT INTO stock_in (product_id, quantity, warehouse_id, transaction_type_id, lot_id, description, received_by)
+VALUES (1, 500, 1, 1, 1, 'Received new stock from Supplier A', 1);
+
+-- Step 2: Update inventory levels for the received stock in the `inventory` table.
+INSERT INTO inventory (warehouse_id, product_id, lot_id, quantity, min_stock_level, valuation_method_id)
+VALUES (1, 1, 1, 500, 50, 1);  -- Assuming FIFO as the valuation method
+
+-- End of cycle 2: This cycle involves the `stock_in` and `inventory` tables.
+-- Tables involved: 2 (stock_in, inventory)
+
+-- Purchase Module: Create a Purchase Order
+
+-- Step 1: Insert a new purchase order into the `purchases` table.
+INSERT INTO purchases (supplier_id, lot_id, status_id, order_total, paid_amount, discount, vat, delivery_date, shipping_address, description)
+VALUES (1, 1, 1, 5000.00, 2500.00, 500.00, 250.00, '2025-02-28', 'Warehouse A, Dhaka', 'Bulk order of T-Shirts');
+
+-- Step 2: Insert supplier details into the `suppliers` table (if not already added).
+INSERT INTO suppliers (first_name, last_name, email, phone, address, photo)
+VALUES ('John', 'Doe', 'supplier@example.com', '+8801712345678', '123 Main Street, Dhaka', 'john_doe.jpg');
+
+-- End of cycle 3: This cycle involves the `purchases` and `suppliers` tables.
+-- Tables involved: 2 (purchases, suppliers)
+
+
+-- Product Variants Module: Creating Variants (e.g., different sizes/colors)
+
+-- Step 1: Insert product variants (sizes/colors) into the `product_variants` table.
+INSERT INTO product_variants (product_id, variant_name)
+VALUES (1, 'Red - Small'), (1, 'Blue - Medium');
+
+-- End of cycle 4: This cycle involves the `product_variants` table.
+-- Tables involved: 1 (product_variants)
+
+-- Stock Adjustment Module: Adjusting Stock
+
+-- Step 1: Insert a new stock adjustment (for loss, damage, or correction) into the `stock_adjustment` table.
+INSERT INTO stock_adjustment (product_id, warehouse_id, adjustment_type_id, quantity_adjusted, reason)
+VALUES (1, 1, 1, -5, 'Lost during transport');  -- Adjustment type 1: Loss
+
+-- End of cycle 5: This cycle involves the `stock_adjustment` table.
+-- Tables involved: 1 (stock_adjustment)
+
+-- Stock Transfer Module: Transferring Stock Between Warehouses
+
+-- Step 1: Insert a new stock transfer record into the `stock_transfers` table.
+INSERT INTO stock_transfers (from_warehouse_id, to_warehouse_id, transferred_by)
+VALUES (1, 2, 1);  -- Transferring from Warehouse 1 to Warehouse 2
+
+-- End of cycle 6: This cycle involves the `stock_transfers` table.
+-- Tables involved: 1 (stock_transfers)
+
+
+-- Purchase Returns Module: Returning Damaged Goods
+
+-- Step 1: Insert a return record into the `purchase_returns` table.
+INSERT INTO purchase_returns (purchase_id, supplier_id, total_return_amount, reason)
+VALUES (1, 1, 1000.00, 'Defective items');
+
+-- Step 2: Insert returned item details into the `purchase_return_details` table.
+INSERT INTO purchase_return_details (purchase_return_id, product_id, quantity, price, total_return_price)
+VALUES (1, 1, 10, 5.00, 50.00);  -- Returning 10 items, $5.00 each
+
+-- End of cycle 7: This cycle involves the `purchase_returns` and `purchase_return_details` tables.
+-- Tables involved: 2 (purchase_returns, purchase_return_details)
+
 ________________________________________
 -- 2️⃣ Sales & Order Management Module
 -- 2.1 Customers Table
@@ -448,4 +530,110 @@ CREATE TABLE payment_methods (
     name VARCHAR(50) NOT NULL -- Stripe, PayPal, Bank Transfer, Cash
 );
 
+
+. Category Attributes
+category_id links to a category table (not included in the script).
+category_type_id links to a category type (presumably another table).
+2. Products
+category_attributes_id references category_attributes.id.
+size_id might reference a sizes table (not shown).
+uom_id references uom.id (Unit of Measurement).
+valuation_method_id references valuation_methods.id (FIFO/LIFO methods).
+3. Product Variants
+product_id references products.id.
+4. UOM (Unit of Measurement)
+Standalone table, used by products to define units (e.g., pieces, kilograms).
+
+
+
+5. Status (Order/Purchase Status)
+Standalone table, linked to purchases/orders by status_id.
+6. Warehouses
+Standalone table, used by inventory, stock_in, stock_transfers, etc.
+7. Lots
+product_id links to products.id.
+warehouse_id links to warehouses.id.
+transaction_type_id (not shown, could be linked to a transaction types table).
+8. Stock In
+product_id links to products.id.
+warehouse_id links to warehouses.id.
+lot_id links to lots.id.
+transaction_type_id links to transaction_types.id (not shown).
+9. Stock Transfers
+from_warehouse_id and to_warehouse_id link to warehouses.id.
+10. Inventory
+warehouse_id links to warehouses.id.
+product_id links to products.id.
+lot_id links to lots.id (for batch tracking).
+valuation_method_id links to valuation_methods.id (FIFO/LIFO).
+11. Suppliers
+Standalone table, linked by supplier_id to purchases, purchase_returns, etc.
+12. Purchases
+supplier_id links to suppliers.id.
+lot_id links to lots.id.
+status_id links to status.id.
+13. Purchase Returns
+purchase_id links to purchases.id.
+supplier_id links to suppliers.id.
+14. Stock Adjustment
+product_id links to products.id.
+warehouse_id links to warehouses.id.
+adjustment_type_id links to adjustment_types.id (Damage, Loss, etc.).
+15. Valuation Methods
+Used by products and inventory to determine stock valuation method (FIFO/LIFO).
+16. Adjustment Types
+Used in the stock_adjustment table to categorize the type of adjustment (e.g., damage, loss).
+
+
+Based on the tables you provided, here s the relational structure that links them:
+
+1. Category Attributes
+category_id links to a category table (not included in the script).
+category_type_id links to a category type (presumably another table).
+2. Products
+category_attributes_id references category_attributes.id.
+size_id might reference a sizes table (not shown).
+uom_id references uom.id (Unit of Measurement).
+valuation_method_id references valuation_methods.id (FIFO/LIFO methods).
+3. Product Variants
+product_id references products.id.
+4. UOM (Unit of Measurement)
+Standalone table, used by products to define units (e.g., pieces, kilograms).
+5. Status (Order/Purchase Status)
+Standalone table, linked to purchases/orders by status_id.
+6. Warehouses
+Standalone table, used by inventory, stock_in, stock_transfers, etc.
+7. Lots
+product_id links to products.id.
+warehouse_id links to warehouses.id.
+transaction_type_id (not shown, could be linked to a transaction types table).
+8. Stock In
+product_id links to products.id.
+warehouse_id links to warehouses.id.
+lot_id links to lots.id.
+transaction_type_id links to transaction_types.id (not shown).
+9. Stock Transfers
+from_warehouse_id and to_warehouse_id link to warehouses.id.
+10. Inventory
+warehouse_id links to warehouses.id.
+product_id links to products.id.
+lot_id links to lots.id (for batch tracking).
+valuation_method_id links to valuation_methods.id (FIFO/LIFO).
+11. Suppliers
+Standalone table, linked by supplier_id to purchases, purchase_returns, etc.
+12. Purchases
+supplier_id links to suppliers.id.
+lot_id links to lots.id.
+status_id links to status.id.
+13. Purchase Returns
+purchase_id links to purchases.id.
+supplier_id links to suppliers.id.
+14. Stock Adjustment
+product_id links to products.id.
+warehouse_id links to warehouses.id.
+adjustment_type_id links to adjustment_types.id (Damage, Loss, etc.).
+15. Valuation Methods
+Used by products and inventory to determine stock valuation method (FIFO/LIFO).
+16. Adjustment Types
+Used in the stock_adjustment table to categorize the type of adjustment (e.g., damage, loss).
 
