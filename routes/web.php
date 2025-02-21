@@ -11,10 +11,13 @@ use App\Http\Controllers\HrmStatusController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\HrmSubDepartmentController;
 use App\Http\Controllers\InvSuppliersController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ValuationMethodsController;
 use App\Models\Category_type;
 use Illuminate\Support\Facades\Route;
 
@@ -92,10 +95,10 @@ Route::resource('categoryTypes', CategoryTypeController::class);
 /**
  * Suppliers and Purcahse
  */
-
-
 Route::resource('suppliers', InvSuppliersController::class);
-
+Route::resource('uoms', UOMController::class);
+Route::resource('products', ProductController::class);
+Route::resource('valuations', ValuationMethodsController::class);
 /**
  *END Invetory/category
  **/

@@ -195,8 +195,10 @@
                                     </a>
                                     <ul>
                                         <li><a href="{{ url('/products') }}">Product List</a></li>
-                                        <li><a href="{{ url('/products/add') }}"> Add Product</a></li>
+                                        <li><a href="{{ url('/products/create') }}"> Add Product</a></li>
                                         <li><a href="{{ url('/products/variants') }}">Product Variants</a></li>
+                                        <li><a href="{{ url('uoms') }}">Units of Mesures</a></li>
+
                                         <li><a href="{{ url('/products/pricing') }}"> Pricing & Costing</a></li>
                                         <li><a href="{{ url('/products/stock') }}"> Stock Management</a></li>
                                         <li><a href="{{ url('/products/barcode') }}"> Print Barcode & QR</a></li>

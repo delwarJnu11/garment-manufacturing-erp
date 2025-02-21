@@ -5,7 +5,7 @@
         <div class="login-wrapper register-wrap" style="margin: 10px 0;">
             <div class="login-content"
                 style="background-color: #fff; border-radius: 5px; box-shadow: 2px 2px 5px 2px #dedede;">
-                <form action="{{ route('categoryType.store') }}" method="POST" style="width: 100%;" enctype="multipart/form-data">
+                <form action="{{ route('uoms.store') }}" method="POST" style="width: 100%;" enctype="multipart/form-data">
                     @csrf
                     <div class="login-userset">
                         <div class="login-logo logo-normal">
@@ -15,39 +15,18 @@
                             <img src="assets/img/logo-white.png" alt="">
                         </a>
                         <div class="login-userheading">
-                            <h4>Create New Category type</h4>
+                            <h4>Create Units</h4>
                         </div>
                         <div class="row">
                             <div class="form-login col-md-12">
                         
                                 <div class="form-addons">
-                              
-                                    <div class="mb-3">
-                                        <label class="form-label">Category</label>
-                                        <select class="select form-control" name="category_id">
-                                            <option>Select Category</option>
-                                            @forelse ($category as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @empty
-                                                <option>No Category Found!</option>
-                                            @endforelse
-                                        </select>
-                                    </div>
+                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+                                   
                                 </div>
-                                <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
                         </div>
-                        <div class="form-login col-md-12">
-                            <label> Category Type</label>
-                            <div class="form-addons">
-                                <input type="text" name="name" value="{{ old('name') }}" class="form-control">
-                               
-                            </div>
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                        </div>
-                        
-
-
                         
                         <div class="form-login">
                             <button type="submit" class="btn btn-login">Submit</button>

@@ -66,143 +66,225 @@ CREATE TABLE category_attributes (
 
 
 -- Product 
-
+-- Table: Products (Stores product details)
 CREATE TABLE products (
-    id INT AUTO_INCREMENT PRIMARY KEY, -- Unique product ID
-    name VARCHAR(255) NOT NULL, -- Product name
-    sku VARCHAR(100) UNIQUE NOT NULL, -- Unique SKU for tracking
-    description TEXT NULL, -- Product description
-    unit_price DECIMAL(10,2) DEFAULT(0.00), -- Selling price per unit
-    offer_price DECIMAL(10,2) DEFAULT(0.00), -- Discounted price
-    weight INT NULL, -- Weight in grams/kilograms
-    size_id INT, -- Reference to size table
-    is_raw_material INT NOT NULL, -- 1 = Raw Material, 0 = Finished Product
-    barcode VARCHAR(255) UNIQUE NULL, -- Barcode for scanning
-    rfid VARCHAR(255) UNIQUE NULL, -- RFID for tracking
-    category_id INT NOT NULL, -- Reference to categories table
-    uom_id INT NOT NULL, -- Reference to unit_of_measurements table
-    valuation_method_id INT NOT NULL, -- Reference to valuation_methods table
-    photo VARCHAR(200)
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    name VARCHAR(255) NOT NULL, -- 'T-Shirt', 'Jeans', 'Jacket'
+    sku VARCHAR(100) UNIQUE NOT NULL, -- 'TSH-001', 'JNS-002', 'JKT-003'
+    description TEXT NULL, -- 'Cotton T-shirt with logo'
+    unit_price DECIMAL(10,2) DEFAULT(0.00), -- 10.99, 25.50, 40.00
+    offer_price DECIMAL(10,2) DEFAULT(0.00), -- 9.99, 22.00, 38.00
+    weight INT NULL, -- 200 (grams), 500, 1000
+    size_id INT, -- 1 (S), 2 (M), 3 (L)
+    is_raw_material TINYINT NOT NULL, -- 1 (Yes - Fabric), 0 (No - Finished Goods)
+    barcode VARCHAR(255) UNIQUE NULL, -- '0123456789123'
+    rfid VARCHAR(255) UNIQUE NULL, -- 'RFID123456'
+    category_attributes_id INT NOT NULL, -- 1 (Men's Wear), 2 (Women's Wear)
+    uom_id INT NOT NULL, -- 1 (Pieces), 2 (Kilograms)
+    valuation_method_id INT NOT NULL, -- 1 (FIFO), 2 (LIFO)
+    photo VARCHAR(200), -- 'tshirt.jpg', 'jeans.jpg'
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
+-- Table: Product Variants (Different sizes/colors)
 CREATE TABLE product_variants (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    variant_name VARCHAR(255) NOT NULL, -- Variant name (e.g., Small, Medium, Large)
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    product_id INT NOT NULL, -- 1 (T-Shirt), 2 (Jeans)
+    variant_name VARCHAR(255) NOT NULL, -- 'Red - Small', 'Blue - Medium'
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
-CREATE TABLE uom(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- Table: UOM (Unit of Measurement)
+CREATE TABLE uoms (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    name VARCHAR(100) NOT NULL -- 'Pieces', 'Kilograms', 'Liters'
 );
 
-CREATE TABLE status(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- Table: Status (Order/Purchase Status)
+CREATE TABLE status (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    name VARCHAR(100) NOT NULL -- 'Pending', 'Approved', 'Rejected'
 );
 
--- warehouses Management
+-- Table: Warehouses (Storage locations)
 CREATE TABLE warehouses (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL, -- Warehouse name
-    location VARCHAR(255) NOT NULL, -- Warehouse location
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    name VARCHAR(255) NOT NULL, -- 'Main Warehouse', 'Secondary Storage'
+    location VARCHAR(255) NOT NULL -- 'Dhaka, Bangladesh'
 );
 
-
-CREATE TABLE storage_locations (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    warehouse_id INT NOT NULL, -- Reference to warehouses table
-    location_name VARCHAR(255) NOT NULL, -- Section name (e.g., Aisle 1, Rack 2)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
---End warehouses Management
-
--- Inventory Stock
-CREATE TABLE stock_in (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    quantity INT NOT NULL, -- Quantity received
-    warehouse_id INT NOT NULL, -- Reference to warehouses table
-    transaction_type_id int ,
-    lot_id int,
-    description text,
-    received_by INT NOT NULL, -- User ID of person receiving stock
-    received_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date of receiving
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- Table: Lots (Batch Tracking)
 CREATE TABLE lots (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    product_id INT NOT NULL, -- 1 (T-Shirt), 2 (Jeans)
+    quantity INT NOT NULL, -- 500, 1000, 250
+    cost_price DECIMAL(10,2), -- 5.50, 20.00, 15.75
+    sales_price DECIMAL(10,2), -- 10.99, 25.50, 40.00
+    warehouse_id INT NOT NULL, -- 1 (Main Warehouse)
+    transaction_type_id INT, -- 1 (Stock In), 2 (Sales)
+    description TEXT, -- 'New stock received from supplier'
+    expiration_date DATE NULL, -- '2025-12-31' (for perishable stock)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Table: Stock Movement (Stock In)
+CREATE TABLE stock_in (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    product_id INT NOT NULL, -- 1 (T-Shirt), 2 (Jeans)
+    quantity INT NOT NULL, -- 500, 200
+    warehouse_id INT NOT NULL, -- 1 (Main Warehouse)
+    transaction_type_id INT, -- 1 (Purchase), 2 (Return)
+    lot_id INT, -- 1 (Batch 001)
+    description TEXT, -- 'Received new stock from Supplier A'
+    received_by INT NOT NULL, -- 1 (Admin), 2 (Warehouse Staff)
+    received_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Table: Stock Transfers (Movement between warehouses)
+CREATE TABLE stock_transfers (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    from_warehouse_id INT NOT NULL, -- 1 (Main Warehouse)
+    to_warehouse_id INT NOT NULL, -- 2 (Outlet Store)
+    transferred_by INT NOT NULL, -- 1 (Admin)
+    transferred_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Table: Inventory (Current Stock Levels)
+CREATE TABLE inventory (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    warehouse_id INT NOT NULL, -- 1 (Main Warehouse)
+    product_id INT NOT NULL, -- 1 (T-Shirt)
+    lot_id INT NULL, -- 1 (Batch 001)
+    quantity INT NOT NULL DEFAULT 0, -- 1000, 500
+    min_stock_level INT NOT NULL DEFAULT 0, -- 50 (Reorder level)
+    valuation_method_id INT NOT NULL DEFAULT 1, -- 1 (FIFO), 2 (LIFO)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Table: Suppliers
+CREATE TABLE suppliers (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    first_name VARCHAR(80) NOT NULL, -- 'John'
+    last_name VARCHAR(80) NOT NULL, -- 'Doe'
+    email VARCHAR(150) UNIQUE NOT NULL, -- 'supplier@example.com'
+    phone VARCHAR(20) UNIQUE NOT NULL, -- '+8801712345678'
+    address VARCHAR(255) NOT NULL, -- '123 Main Street, Dhaka'
+    photo VARCHAR(255) NOT NULL, -- 'john_doe.jpg'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Table: Purchases (Orders from Suppliers)
+CREATE TABLE purchases (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    supplier_id INT NOT NULL, -- 1 (Supplier A)
+    lot_id INT NULL, -- 1 (Batch 001)
+    status_id INT NOT NULL, -- 1 (Pending), 2 (Approved)
+    order_total DECIMAL(10,2) DEFAULT(0.00) NOT NULL, -- 5000.00
+    paid_amount DECIMAL(10,2) DEFAULT(0.00), -- 2500.00
+    discount DECIMAL(10,2) DEFAULT(0.00), -- 500.00
+    vat DECIMAL(10,2) DEFAULT(0.00), -- 250.00
+    delivery_date DATE, -- '2025-02-28'
+    shipping_address VARCHAR(255), -- 'Warehouse A, Dhaka'
+    description TEXT, -- 'Bulk order of T-Shirts'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE inventory (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    quantity INT NOT NULL, -- Quantity received
-    cost_price double,
-    sales_price double,
-    warehouse_id INT NOT NULL, -- Reference to warehouses table
-    transaction_type_id int ,
-    description text,
+    warehouse_id INT NOT NULL,  -- Store warehouse ID manually (No FK)
+    product_id INT NOT NULL,  -- Store product ID manually (No FK)
+    quantity INT NOT NULL DEFAULT 0,  -- Current stock level
+    min_stock_level INT NOT NULL DEFAULT 0,  -- Minimum stock before reorder
+    
+    -- NEW ADDITIONS:
+    lot_id INT NULL,  -- Lot tracking (helps with FIFO/LIFO)
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Last update time
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 
+-- Table: Purchase Returns
+CREATE TABLE purchase_returns (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    purchase_id INT NOT NULL, -- 1 (Purchase 001)
+    supplier_id INT NOT NULL, -- 1 (Supplier A)
+    return_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_return_amount DECIMAL(10, 2) NOT NULL, -- 1000.00
+    reason TEXT NULL, -- 'Defective items'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+-- Table: Purchase Return Details (Tracks returned items in purchase returns)
+CREATE TABLE purchase_return_details (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    purchase_return_id INT NOT NULL, -- Reference to purchase_returns table (1, 2, 3)
+    product_id INT NOT NULL, -- Reference to products table (101, 102)
+    quantity INT NOT NULL, -- 10, 5, 2 (Number of items returned)
+    price DECIMAL(10,2) DEFAULT(0.00) NOT NULL, -- 5.00, 10.99 (Price per product)
+    total_return_price DECIMAL(10,2) NOT NULL, -- 50.00, 54.95 (Total returned value)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Table: Stock Adjustment (Records stock changes due to loss, damage, or corrections)
+CREATE TABLE stock_adjustment (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    product_id INT NOT NULL, -- 101 (T-Shirt)
+    warehouse_id INT NOT NULL, -- 1 (Main Warehouse)
+    adjustment_type_id INT NOT NULL, -- 1 (Loss), 2 (Damage), 3 (Correction)
+    quantity_adjusted INT NOT NULL, -- -5 (Lost 5), 3 (Added 3 due to correction)
+    reason TEXT NULL, -- 'Stock lost during transport'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table: Stock Adjustment Details (More granular breakdown of stock adjustments)
+CREATE TABLE stock_adjustment_details (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    product_id INT NOT NULL, -- 101 (T-Shirt)
+    warehouse_id INT NOT NULL, -- 1 (Main Warehouse)
+    adjustment_type_id INT NOT NULL, -- 1 (Loss), 2 (Damage), 3 (Correction)
+    quantity_adjusted INT NOT NULL, -- -5 (Lost 5), 3 (Added 3 due to correction)
+    reason TEXT NULL, -- 'Damaged items returned'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table: Valuation Methods (Defines inventory valuation methods like FIFO, LIFO)
+CREATE TABLE valuation_methods (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- 1, 2, 3...
+    method_name VARCHAR(50) NOT NULL -- 'FIFO', 'LIFO', 'Weighted Average'
+);
 
 
+________________________________________
+-- 1.6 Stock Adjustment Table
 
 
--- CREATE TABLE stock_out (
+CREATE TABLE adjustment_types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL -- Damage, Loss, Manual Adjustment
+);
+
+________________________________________
+
+-- CREATE TABLE storage_locations (
 --     id INT AUTO_INCREMENT PRIMARY KEY,
---     product_id INT NOT NULL, -- Reference to products table
 --     warehouse_id INT NOT NULL, -- Reference to warehouses table
---     quantity INT NOT NULL, -- Quantity shipped
---     shipped_to VARCHAR(255) NOT NULL, -- Destination (e.g., Customer, Factory Unit)
---     shipped_by INT NOT NULL, -- User ID of person shipping stock
---     shipped_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date of shipping
+--     location_name VARCHAR(255) NOT NULL, -- Section name (e.g., Aisle 1, Rack 2)
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 --     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 -- );
-
-CREATE TABLE stock_transfers (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    from_warehouse_id INT NOT NULL, -- From warehouse
-    to_warehouse_id INT NOT NULL, -- To warehouse
-    transferred_by INT NOT NULL, -- User ID
-    transferred_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Transfer date
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-CREATE TABLE stock_transfers_details (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    quantity INT NOT NULL, -- Quantity transferred
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
---END Inventory Stock
-
-
-
--- Inventory Valuation 
-CREATE TABLE valuation_methods (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    method_name VARCHAR(255) NOT NULL, -- FIFO, LIFO, Weighted Average
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
 
 -- CREATE TABLE stock_ledger (
 --     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -214,115 +296,6 @@ CREATE TABLE valuation_methods (
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 --     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 -- );
-
-CREATE TABLE inventory_audit (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    warehouse_id INT NOT NULL, -- Reference to warehouses table
-    product_id INT NOT NULL, -- Reference to products table
-    counted_quantity INT NOT NULL, -- Quantity found during audit
-    recorded_quantity INT NOT NULL, -- Expected quantity
-    variance INT NOT NULL, -- Difference between counted and recorded
-    audit_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date of audit
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
---END Inventory Valuation 
-
-
--- END  Inventory & Warehouse Management Module
-
-
-CREATE TABLE suppliers(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(80) NOT NULL,
-    last_name VARCHAR(80) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-    phone VARCHAR(20) UNIQUE NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    photo VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE purchases(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    supplier_id INT NOT NULL,
-    lot_id int,
-    status_id int NOT NULL,
-    order_total DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
-    paid_amount DECIMAL(10,2) DEFAULT(0.00),
-    discount DECIMAL(10,2) DEFAULT(0.00),
-    vat DECIMAL(10,2) DEFAULT(0.00),
-    delivery_date DATE,
-    shipping_address VARCHAR (255),
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE purchase_details(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    purchase_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    price DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
-    discount_price DECIMAL(10,2) DEFAULT(0.00),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-
-
-CREATE TABLE purchase_returns (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    purchase_id INT NOT NULL, -- Reference to purchases table
-    supplier_id INT NOT NULL, -- Reference to suppliers table
-    return_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    total_return_amount DECIMAL(10, 2) NOT NULL, -- Total return amount
-    reason TEXT NULL, -- Reason for return
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-CREATE TABLE purchase_return_details (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    purchase_return_id INT NOT NULL, -- Reference to purchase_returns table
-    product_id INT NOT NULL, -- Reference to products table
-    quantity INT NOT NULL, -- Quantity returned
-    price DECIMAL(10,2) DEFAULT(0.00) NOT NULL, -- Price per product
-    total_return_price DECIMAL(10,2) NOT NULL, -- Total price of returned products
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-
-
-
--- CREATE TABLE customers(
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     first_name VARCHAR(80) NOT NULL,
---     last_name VARCHAR(80) NOT NULL,
---     email VARCHAR(150) UNIQUE NOT NULL,
---     phone VARCHAR(20) UNIQUE NOT NULL,
---     address VARCHAR(255) NOT NULL,
---     photo VARCHAR(255) NOT NULL,
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
--- );
-________________________________________
--- 1.4 Inventory Table
-
-
-CREATE TABLE inventory (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    warehouse_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL DEFAULT 0,
-    min_stock_level INT NOT NULL DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-________________________________________
 -- 1.5 Stock Movements Table
 
 
@@ -335,51 +308,18 @@ ________________________________________
 --     reference VARCHAR(255) NULL, -- GRN, invoice, transfer reference
 --     movement_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 -- );
-________________________________________
--- 1.6 Stock Adjustment Table
 
-
-CREATE TABLE stock_adjustment (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    warehouse_id INT NOT NULL,
-    adjustment_type_id INT NOT NULL, -- Reference to adjustment_types table
-    quantity_adjusted INT NOT NULL,
-    reason TEXT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-CREATE TABLE stock_adjustment_details (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    warehouse_id INT NOT NULL,
-    adjustment_type_id INT NOT NULL, -- Reference to adjustment_types table
-    quantity_adjusted INT NOT NULL,
-    reason TEXT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-________________________________________
--- 1.7 Valuation Methods Table
-
-
-CREATE TABLE valuation_methods (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    method_name VARCHAR(50) NOT NULL -- FIFO, LIFO, Weighted Average
-);
-________________________________________
--- 1.8 Stock Movement Types Table
-
-CREATE TABLE movement_types (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL -- Receipt, Shipment, Transfer
-);
-________________________________________
--- 1.9 Stock Adjustment Types Table
-
-
-CREATE TABLE adjustment_types (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL -- Damage, Loss, Manual Adjustment
-);
+-- CREATE TABLE stock_out (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     product_id INT NOT NULL, -- Reference to products table
+--     warehouse_id INT NOT NULL, -- Reference to warehouses table
+--     quantity INT NOT NULL, -- Quantity shipped
+--     shipped_to VARCHAR(255) NOT NULL, -- Destination (e.g., Customer, Factory Unit)
+--     shipped_by INT NOT NULL, -- User ID of person shipping stock
+--     shipped_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date of shipping
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
 -- CREATE TABLE low_stock_alerts (
 --     id INT AUTO_INCREMENT PRIMARY KEY,
