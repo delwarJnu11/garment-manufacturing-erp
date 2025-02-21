@@ -10,7 +10,7 @@ class RoleController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        $roles = Role::paginate(5);
+        $roles = Role::paginate(4);
         return view('pages.user.role.index', compact('roles'));
     }
 

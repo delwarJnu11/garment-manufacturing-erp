@@ -92,10 +92,7 @@
                             </div>
                         </div>
                         <div class="form-login">
-                            <button type="submit" class="btn btn-login">Sign Up</button>
-                        </div>
-                        <div class="signinform">
-                            <h4>Already have an account ? <a href="signin.html" class="hover-a">Sign In Instead</a></h4>
+                            <button type="submit" class="btn btn-login">Register User</button>
                         </div>
                     </div>
                 </form>

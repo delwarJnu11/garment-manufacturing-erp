@@ -350,7 +350,7 @@ CREATE TABLE orders (
     status_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
-     );
+);
 
 
 
@@ -360,7 +360,7 @@ CREATE TABLE order_sizes (
     order_id INT, 
     size VARCHAR(20) NOT NULL, -- Example: S, M, L, XL quantity INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
-  );    
+);    
  
 
 

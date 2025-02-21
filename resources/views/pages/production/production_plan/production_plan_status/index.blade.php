@@ -1,14 +1,9 @@
 @extends('layout.backend.main');
 @section('css')
-<style>
-    .small{
-        margin-right: 10px;
-    }
-</style>
-@endsection
+
 <?php use Carbon\Carbon; ?>
 @section('page_content')
-    <x-page-header href="{{ route('roles.create') }}" heading="User Roles" btnText="Role" />
+    <x-page-header href="{{ route('production_plan_status.create') }}" heading="Production Status" btnText="Status" />
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
@@ -16,21 +11,21 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Role Name</th>
+                            <th>Production Status Name</th>
                             <th>Created Date</th>
                             <th>Created Time</th>
                             <th class="no-sort">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($roles as $role)
+                        @forelse ($production_plan_status as $status)
                             <tr>
                                 <td>
-                                    {{ $role->id }}
+                                    {{ $status->id }}
                                 </td>
-                                <td>{{ $role->name }}</td>
-                                <td>{{ Carbon::parse($role->created_at)->format('d M, Y') }}</td>
-                                <td>{{ Carbon::parse($role->created_at)->format('h.i A') }}</td>
+                                <td>{{ $status->name }}</td>
+                                <td>{{ Carbon::parse($status->created_at)->format('d M, Y') }}</td>
+                                <td>{{ Carbon::parse($status->created_at)->format('h.i A') }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <a class="me-2 p-2 mb-0" href="javascript:void(0);">
@@ -60,9 +55,7 @@
                 </table>
             </div>
         </div>
-        <!-- Pagination Links -->
-        <div class="d-flex justify-content-end p-3">
-            {{ $roles->links('vendor.pagination.custom') }}
-        </div>
+
     </div>
 @endsection
+
