@@ -38,7 +38,7 @@
                                 {{-- <td>{{ $supplier->created_at }}</td> --}}
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0" href="javascript:void(0);">
+                                        <a class="me-2 p-2 mb-0" href="{{ route('suppliers.show', $supplier->id) }}">
                                             <i data-feather="eye" class="feather-eye"></i>
                                         </a>
                                         <a class="me-2 p-2" href="{{ route('suppliers.edit', $supplier->id) }}">
@@ -57,7 +57,14 @@
                         @endforelse
                     </tbody>
                 </table>
+               
             </div>
         </div>
+
     </div>
+    <div class="d-flex justify-content-end mt-3">
+        {{ $suppliers->links() }}
+    </div>
+    
 @endsection
+

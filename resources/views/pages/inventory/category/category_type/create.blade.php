@@ -5,7 +5,7 @@
         <div class="login-wrapper register-wrap" style="margin: 10px 0;">
             <div class="login-content"
                 style="background-color: #fff; border-radius: 5px; box-shadow: 2px 2px 5px 2px #dedede;">
-                <form action="{{ route('category.store') }}" method="POST" style="width: 100%;" enctype="multipart/form-data">
+                <form action="{{ route('categoryType.store') }}" method="POST" style="width: 100%;" enctype="multipart/form-data">
                     @csrf
                     <div class="login-userset">
                         <div class="login-logo logo-normal">
@@ -16,14 +16,13 @@
                         </a>
                         <div class="login-userheading">
                             <h3>Register</h3>
-                            <h4>Create New Category value</h4>
+                            <h4>Create New Category tYpe</h4>
                         </div>
                         <div class="row">
-                            <div class="form-login col-md-6">
+                            <div class="form-login col-md-12">
                         
                                 <div class="form-addons">
-                                    {{-- <input type="text" name="category_id" value="{{ old('category_id') }}" class="form-control"> --}}
-                                    
+                              
                                     <div class="mb-3">
                                         <label class="form-label">User Category</label>
                                         <select class="select form-control" name="category_id">
@@ -36,48 +35,20 @@
                                         </select>
                                     </div>
                                 </div>
-                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                            </div>
-
-                            <div class="form-login col-md-6">
-                            
-                                    <div class="mb-3">
-                                        <label class="form-label"> Category Type</label>
-                                        <select class="select form-control" name="category_type">
-                                            <option>Select category Type</option>
-                                            @forelse ($category_type as $cate_type)
-                                                <option value="{{ $cate_type->id }}">{{ $cate_type->name }}</option>
-                                            @empty
-                                                <option>No Category Type Found!</option>
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                </div>
-                                <x-input-error :messages="$errors->get('category_type')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-login col-md-6">
-                                <label>Category Attribute</label>
-                                <div class="pass-group">
-                                    <input type="text" class="pass-input" name="name" value="{{ old('name') }}">
-                                   
-                                </div>
-                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                            </div>
-
-                          
-                        </div>
-
-                        <div class="form-login col-md-6">
-                            <label> Attribute Value</label>
+                        <div class="form-login col-md-12">
+                            <label> Category Type</label>
                             <div class="form-addons">
-                                <input type="text" name="attribute_value" value="{{ old('attribute_value') }}" class="form-control">
+                                <input type="text" name="name" value="{{ old('name') }}" class="form-control">
                                
                             </div>
-                            <x-input-error :messages="$errors->get('attribute_value')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                         
+
+
                         
                         <div class="form-login">
                             <button type="submit" class="btn btn-login">Submit</button>

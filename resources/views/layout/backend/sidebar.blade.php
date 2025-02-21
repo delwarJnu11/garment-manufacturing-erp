@@ -240,7 +240,7 @@
                         <li class="submenu">
                             <a href="javascript:void(0);">
                                 <i data-feather="shopping-cart"></i>
-                                <span> Order & Suppliers<span class="menu-arrow"></span></span>
+                                <span> Order & Customers<span class="menu-arrow"></span></span>
                             </a>
                             <ul>
                                 <!-- Orders -->
