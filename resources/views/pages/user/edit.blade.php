@@ -3,16 +3,17 @@
 @section('page_content')
     <div class="account-content">
         <?php
-        // echo '<pre>';
-        // print_r($roles);
-        // print_r($user);
-        // die();
+            // echo '<pre>';
+            // print_r($roles);
+            // print_r($user);
+            // die();
         ?>
         <div class="login-wrapper register-wrap" style="margin: 10px 0;">
             <div class="login-content"
                 style="background-color: #fff; border-radius: 5px; box-shadow: 2px 2px 5px 2px #dedede;">
-                <form action="{{ route('users.store') }}" method="POST" style="width: 100%;" enctype="multipart/form-data">
+                <form action="{{ route('users.update', $user->id) }}" method="POST" style="width: 100%;">
                     @csrf
+                    @method('PUT')
                     <div class="login-userset">
                         <div class="login-logo logo-normal">
                             <img src="assets/img/logo.png" alt="img">
@@ -58,9 +59,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-login" style="width: 200px">
-                            <button type="submit" class="btn btn-login">Update</button>
-                        </div>
+                        <x-form-button>Update User</x-form-button>
                     </div>
                 </form>
 

@@ -8,6 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class inv_suppliers extends Model
 {
     use HasFactory;
-    protected $fillable =['first_name','last_name','email','phone','address','photo'];
-    
+    protected $fillable = ['first_name', 'last_name', 'email', 'phone', 'address', 'photo'];
 }
