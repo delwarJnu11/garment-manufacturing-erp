@@ -2,7 +2,7 @@
 
 @section('page_content')
 <x-success/>
-    <x-page-header href="{{ route('hrm_sub_departments.create') }}" heading="Department" btnText=" Department" />
+    <x-page-header href="{{ route('hrm_designations.create') }}" heading="Department" btnText=" Department" />
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
@@ -10,7 +10,7 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Sub_Department Name</th>
+                            <th>Designation Name</th>
                             <th>Department Name</th>
                             <th>Status</th>
                             <th>Description</th>
@@ -19,17 +19,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($departments as $department)
+                        @forelse ($designations as $designation)
                             <tr>
-                                <td>{{ $department->id }}</td>
-                                <td>{{ $department->name }}</td>
-                                <td>{{ $department->departments_id }}</td>
-                                <td>{{ $department->statuses_id }}</td>
+                                <td>{{ $designation->id }}</td>
+                                <td>{{ $designation->title }}</td>
+                                <td>{{ $designation->departments_id }}</td>
+                                <td>{{ $designation->statuses_id }}</td>
                                 <td>{{ $department->description }}</td>
-                                <td>{{ $department->created_at }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_sub_departments/{$department->id}")}}">
+                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_designations/{$designations->id}")}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"
@@ -38,10 +37,10 @@
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
                                         </a>
-                                        <a class="me-2 p-2" href="{{url("hrm_sub_departments/$department->id/edit")}}">
+                                        <a class="me-2 p-2" href="{{url("hrm_designations/$designations->id/edit")}}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <a class="confirm-textt p-2" href="{{url("hrm_sub_departments/delete/$department->id")}}">
+                                        <a class="confirm-textt p-2" href="{{url("hrm_designations/delete/$designations->id")}}">
                                             <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Status? This action cannot be undone!');">
                                                 Yes, Delete></i>
                                         </a>
