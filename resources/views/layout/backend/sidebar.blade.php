@@ -560,12 +560,8 @@
                         </li>
                         {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
 
-<<<<<<< HEAD
-                </li>
-=======
             </ul>
             </li>
->>>>>>> 339dedb1e7a0e77277cf6dafb1174466dc336d16
             </ul>
         </div>
     </div>
