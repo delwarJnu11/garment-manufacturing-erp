@@ -10,6 +10,7 @@
             <thead class="thead-primary">
                 <tr>
                     <th>#</th>
+                    <th>Photo</th>
                     <th>Product Name</th>
                     <th>SKU</th>
                     <th>Description</th>
@@ -23,14 +24,22 @@
                     <th>Category</th>
                     <th>UOM</th>
                     <th>Valuation Method</th>
-                    <th>Photo</th>
+                    
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($products as $product)
                     <tr>
+                       
                         <td>{{ $product->id }}</td>
+                        <td>
+                            @if($product->photo)
+                                <img src="{{ asset($product->photo) }}" alt="{{ $product->name }}" width="50">
+                            @else
+                                No Image
+                            @endif
+                        </td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->sku }}</td>
                         <td>{{ $product->description }}</td>
@@ -43,11 +52,12 @@
                         </td>
                         <td>{{ $product->barcode }}</td>
                         <td>{{ $product->rfid }}</td>
-                        <td>{{ $product->category_attributes_id }}</td>
+                        <td>{{ $product->category_id }}</td>
                         <td>{{ $product->uom_id }}</td>
                         <td>{{ $product->valuation_method_id }}</td>
-                        <td><img src="{{ asset('uploads/products/'.$product->photo) }}" alt="{{ $product->name }}" width="50"></td>
 
+                        {{-- <td><img src="{{ asset('uploads/products/'.$product->photo) }}" alt="{{ $product->name }}" width="50"></td> --}}
+                     
                         <td class="action-table-data">
                             <a href="{{ route('products.show', $product->id) }}">
                                 <i data-feather="eye" class="feather-eye"></i>
