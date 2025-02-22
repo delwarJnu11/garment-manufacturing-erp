@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\category_attributes;
+use App\Models\Category;
+
 use App\Models\Product;
 use App\Models\Uom;
 use App\Models\Valuation_methods;
@@ -24,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = category_attributes::all();
+        $categories = Category::all();
         $uoms = Uom::all();
         $valuation_methods = Valuation_methods::all();
         return view('pages.inventory.purchase.products.create', compact('categories', 'uoms', 'valuation_methods'));
@@ -42,7 +43,7 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'unit_price' => 'required|numeric|min:0',
             'offer_price' => 'nullable|numeric|min:0',
-            'weight' => 'required|numeric|min:0',
+            'weight' => 'nullable|numeric|min:0',
             'size_id' => 'required|integer',
             'is_raw_material' => 'required|boolean',
             'barcode' => 'nullable|string|max:255',

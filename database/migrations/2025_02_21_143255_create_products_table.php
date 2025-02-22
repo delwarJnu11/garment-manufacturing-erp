@@ -23,7 +23,7 @@ return new class extends Migration
             $table->boolean('is_raw_material')->default(0); // 1 (Yes - Fabric), 0 (No - Finished Goods)
             $table->string('barcode')->nullable()->unique(); // '0123456789123'
             $table->string('rfid')->nullable()->unique(); // 'RFID123456'
-            $table->integer('category_attributes_id'); // 1 (Men's Wear), 2 (Women's Wear)
+            $table->integer('category_id'); // 1 (Men's Wear), 2 (Women's Wear)
             $table->integer('uom_id'); // 1 (Pieces), 2 (Kilograms)
             $table->integer('valuation_method_id'); // 1 (FIFO), 2 (LIFO)
             $table->string('photo')->nullable(); // 'tshirt.jpg', 'jeans.jpg'
