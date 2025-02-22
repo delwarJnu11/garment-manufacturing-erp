@@ -15,6 +15,7 @@
                                         class="">Account Dashboard</a></li>
                             </ul>
                         </li>
+<<<<<<< HEAD
                         {{-- USER MODULE MENU START --}}
                         <!-- <li class="submenu">
                             <a href="javascript:void(0);">
@@ -45,6 +46,8 @@
                         </li>
 
                         {{-- USER MODULE MENU END --}}
+=======
+>>>>>>> e5dc94116112ae55f5f7779be4e9c519b9a70f35
                         {{-- PRODUCTION MODULE MENU START --}}
                         <li class="submenu">
                             <a
@@ -567,10 +570,28 @@
 
 <<<<<<< HEAD
                 </li>
+<<<<<<< HEAD
 =======
             </ul>
             </li>
 >>>>>>> 339dedb1e7a0e77277cf6dafb1174466dc336d16
+=======
+                {{-- USER MODULE MENU START --}}
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr">Users</h6>
+                    <ul>
+                        <li class="submenu"><a href="javascript:void(0);" class="subdrop">
+                                <i data-feather="users"></i>
+                                <span>Users</span><span class="menu-arrow"></span></a></li>
+                        <ul>
+                            <li><a href="{{ route('users.index') }}">All User</a></li>
+                            <li><a href="{{ route('roles.index') }}">All Roles</a></li>
+                        </ul>
+                    </ul>
+                </li>
+                {{-- USER MODULE MENU END --}}
+
+>>>>>>> e5dc94116112ae55f5f7779be4e9c519b9a70f35
             </ul>
         </div>
     </div>
