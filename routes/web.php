@@ -89,7 +89,7 @@ Route::resource('hrm_status', HrmStatusesController::class);
 Route::resource('companyProfile', CompanyProfileController::class);
 
 Route::resource('status', StatusController::class);
-Route::resource('category_value', CategoryController::class);
+Route::resource('category_list', CategoryController::class);
 Route::resource('categoryType', CategoryTypeController::class);
 
 

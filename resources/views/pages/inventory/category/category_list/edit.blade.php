@@ -7,7 +7,7 @@
         <h5 class="card-title text-center bg-primary p-3">Edit Category</h5>
     </div>
     <div class="card-body">
-        <form action="{{route('category.update',$category['id'])}}" method="POST">
+        <form action="{{route('category_list.update',$category['id'])}}" method="POST">
             @csrf
             @method('PATCH')
             <div class="row mb-3">
@@ -20,9 +20,9 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label class="col-lg-3 col-form-label">Description</label>
+                <label class="col-lg-3 col-form-label">Finished Category</label>
                 <div class="col-lg-9">
-                    <input type="text" class="form-control" name="description"  value="{{$category['description']}}">
+                    <input type="text" class="form-control" name="finished_category"  value="{{$category['finished_category']}}">
                 </div>
             </div>
            

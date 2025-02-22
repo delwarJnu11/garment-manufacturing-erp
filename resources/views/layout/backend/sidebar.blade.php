@@ -95,10 +95,10 @@
                                         <span class="menu-arrow"></span>
                                     </a>
                                     <ul>
-                                        <li><a href="{{ url('/category') }}"> Category List</a></li>
-                                        <li><a href="{{ url('/categoryType') }}"> Category Types</a></li>
-                                        <li><a href="{{ url('/categories/add') }}"> Add Category</a></li>
-                                        <li><a href="{{ url('/categories/attributes') }}">Manage Attributes</a></li>
+                                        <li><a href="{{ url('/category_list') }}"> Category List</a></li>
+                                        {{-- <li><a href="{{ url('/categoryType') }}"> Category Types</a></li> --}}
+                                        <li><a href="{{ url('/category_list/create') }}"> Add Category</a></li>
+                                        <li><a href="{{ url('/category') }}">Manage Attributes</a></li>
                                     </ul>
                                 </li>
 
@@ -560,12 +560,8 @@
                         </li>
                         {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
 
-<<<<<<< HEAD
-                </li>
-=======
             </ul>
             </li>
->>>>>>> 339dedb1e7a0e77277cf6dafb1174466dc336d16
             </ul>
         </div>
     </div>
