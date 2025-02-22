@@ -2,7 +2,7 @@
 
 @section('page_content')
 <x-success/>
-    <x-page-header href="{{ route('hrm_employee_positions.create') }}" heading="Employee Position" btnText=" Position" />
+    <x-page-header href="{{ route('hrm_designations.create') }}" heading="Department" btnText=" Department" />
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
@@ -10,26 +10,25 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Position Name</th>
+                            <th>Designation Name</th>
                             <th>Department Name</th>
                             <th>Status</th>
-                            <th>Salary</th>
                             <th>Description</th>
+                            <th>Created At</th>
                             <th class="no-sort">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($positions as $position)
+                        @forelse ($designations as $designation)
                             <tr>
-                                <td>{{ $position->id }}</td>
-                                <td>{{ $position->name }}</td>
-                                <td>{{ $position->department_id }}</td>
-                                <td>{{ $position->statuses_id }}</td>
-                                <td>{{ $position->salary }}</td>
-                                <td>{{ $position->description }}</td>
+                                <td>{{ $designation->id }}</td>
+                                <td>{{ $designation->name }}</td>
+                                <td>{{ $designation->departments_id }}</td>
+                                <td>{{ $designation->statuses_id }}</td>
+                                <td>{{ $designation->description }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_employee_positions/{$position->id}")}}">
+                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_designations/{$designation->id}")}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"
@@ -38,11 +37,11 @@
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
                                         </a>
-                                        <a class="me-2 p-2" href="{{url("hrm_employee_positions/$position->id/edit")}}">
+                                        <a class="me-2 p-2" href="{{url("hrm_designations/$designation->id/edit")}}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <a class="confirm-textt p-2" href="{{url("hrm_employee_positions/delete/$position->id")}}">
-                                            <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Position? This action cannot be undone!');">
+                                        <a class="confirm-textt p-2" href="{{url("hrm_designations/delete/$designation->id")}}">
+                                            <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Status? This action cannot be undone!');">
                                                 Yes, Delete></i>
                                         </a>
                                         {{-- <form action="{{url("hrm_status/{$data['id']}")}}" method="post">
@@ -67,7 +66,7 @@
                 </table>
             </div>
             <div class="d-flex justify-content-end mt-5">
-                {!! $positions->links('pagination::bootstrap-5') !!}
+                {!! $designations->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>

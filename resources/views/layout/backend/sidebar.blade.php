@@ -363,15 +363,22 @@
                                     <a href="javascript:void(0);">Department<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Department</a></li>
-                                        <li><a href="javascript:void(0);">Sub Department</a></li>
+                                        <li><a href="{{route('hrm_departments.index')}}">Department</a></li>
+                                        <li><a href="{{route('hrm_sub_departments.index')}}">Sub Department</a></li>
+                                    </ul>
+                                </li>
+                                <li class="submenu submenu-two">
+                                    <a href="javascript:void(0);">Designation<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="{{route('hrm_designations.index')}}">Designation List</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu submenu-two">
                                     <a href="javascript:void(0);">Employee<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Position</a></li>
+                                        <li><a href="{{route('hrm_employee_positions.index')}}">Position</a></li>
                                         <li><a href="javascript:void(0);">Employee</a></li>
                                         <li><a href="javascript:void(0);">Employee Performance</a></li>
                                     </ul>
