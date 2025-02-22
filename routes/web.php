@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\HrmDepartmentController;
+use App\Http\Controllers\HrmDepartmentsController;
 use App\Http\Controllers\HrmStatusController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
@@ -71,7 +72,7 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
  * Start Hr & Workforce Management.
  */
 
-// Start Route
+Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
 Route::resource('hrm_status', HrmStatusesController::class);
 
 // Route::get('hrm_status', function(){
