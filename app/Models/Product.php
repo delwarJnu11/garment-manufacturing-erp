@@ -25,5 +25,4 @@ class Product extends Model
         'valuation_method_id',
         'photo'
     ];
-    
 }

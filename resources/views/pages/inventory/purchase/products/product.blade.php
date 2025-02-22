@@ -16,7 +16,7 @@
                     <th>Description</th>
                     <th>Unit Price</th>
                     <th>Offer Price</th>
-                    <th>Weight</th>
+                    {{-- <th>Weight</th> --}}
                     <th>Size</th>
                     <th>Raw Material</th>
                     <th>Barcode</th>
@@ -45,7 +45,7 @@
                         <td>{{ $product->description }}</td>
                         <td>${{ number_format($product->unit_price, 2) }}</td>
                         <td>${{ number_format($product->offer_price, 2) }}</td>
-                        <td>{{ $product->weight }} grams</td>
+                        {{-- <td>{{ $product->weight }} grams</td> --}}
                         <td>{{ $product->size_id == 1 ? 'Small' : 'Large' }}</td>
                         <td>
                             <input type="checkbox" {{ $product->is_raw_material ? 'checked' : '' }} disabled>
