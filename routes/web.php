@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountTypesController;
 use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\CategoryAttributesController;
@@ -56,6 +57,7 @@ Route::resource('category', CategoryAttributesController::class);
 
 Route::resource('assetRegister', AssetStatusController::class);
 Route::resource('assetTypes', AssetTypesController::class);
+Route::resource('accountTypes', AccountTypesController::class);
 // Route::resource('createAssetType', AssetTypesController::class);
 
 
