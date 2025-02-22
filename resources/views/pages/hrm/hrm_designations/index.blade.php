@@ -22,13 +22,13 @@
                         @forelse ($designations as $designation)
                             <tr>
                                 <td>{{ $designation->id }}</td>
-                                <td>{{ $designation->title }}</td>
+                                <td>{{ $designation->name }}</td>
                                 <td>{{ $designation->departments_id }}</td>
                                 <td>{{ $designation->statuses_id }}</td>
-                                <td>{{ $department->description }}</td>
+                                <td>{{ $designation->description }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_designations/{$designations->id}")}}">
+                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_designations/{$designation->id}")}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"
@@ -37,10 +37,10 @@
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
                                         </a>
-                                        <a class="me-2 p-2" href="{{url("hrm_designations/$designations->id/edit")}}">
+                                        <a class="me-2 p-2" href="{{url("hrm_designations/$designation->id/edit")}}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <a class="confirm-textt p-2" href="{{url("hrm_designations/delete/$designations->id")}}">
+                                        <a class="confirm-textt p-2" href="{{url("hrm_designations/delete/$designation->id")}}">
                                             <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Status? This action cannot be undone!');">
                                                 Yes, Delete></i>
                                         </a>
@@ -66,7 +66,7 @@
                 </table>
             </div>
             <div class="d-flex justify-content-end mt-5">
-                {!! $departments->links('pagination::bootstrap-5') !!}
+                {!! $designations->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>

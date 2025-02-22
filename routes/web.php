@@ -9,6 +9,7 @@ use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\HrmDepartmentController;
 use App\Http\Controllers\HrmDepartmentsController;
 use App\Http\Controllers\HrmDesignationsController;
+use App\Http\Controllers\HrmEmployeePositionsController;
 use App\Http\Controllers\HrmStatusController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
@@ -68,6 +69,7 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
  * Production Memu END
  **/
 
+
 /**
  * Start Hr & Workforce Management.
 **/
@@ -75,14 +77,18 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
 Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
 Route::resource('hrm_status', HrmStatusesController::class);
 
-Route::get('hrm_departments/delete{id}/',[HrmDepartmentsController::class,'destroy'] );
+Route::get('hrm_departments/delete/{id}/',[HrmDepartmentsController::class,'destroy'] );
 Route::resource('hrm_departments', HrmDepartmentsController::class);
 
-Route::get('hrm_sub_departments/delete{id}/',[HrmSubDepartmentsController::class,'destroy'] );
+Route::get('hrm_sub_departments/delete/{id}/',[HrmSubDepartmentsController::class,'destroy'] );
 Route::resource('hrm_sub_departments', HrmSubDepartmentsController::class);
 
-Route::get('hrm_designations/delete{id}/',[HrmDesignationsController::class,'destroy'] );
+Route::get('hrm_designations/delete/{id}/',[HrmDesignationsController::class,'destroy'] );
 Route::resource('hrm_designations', HrmDesignationsController::class);
+
+Route::get('hrm_employee_positions/delete/{id}/',[HrmEmployeePositionsController::class,'destroy'] );
+Route::resource('hrm_employee_positions', HrmEmployeePositionsController::class);
+
 
 
 /**
