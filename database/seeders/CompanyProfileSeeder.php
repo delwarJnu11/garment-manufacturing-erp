@@ -15,14 +15,15 @@ class CompanyProfileSeeder extends Seeder
     public function run()
     {
         DB::table('company_profiles')->insert([
-            'company_name' => 'ABC Garments Ltd.',
+            'id'=>1,
+            'company_name' => 'MERP Garments Ltd.',
             'established_year' => 2005,
             'company_type' => 'Garments Manufacturer & Exporter',
             'business_address' => '123 Factory Road, City, Country',
             'head_office' => '456 Head Office Avenue, City, Country',
             'contact_number' => '+1234567890',
             'email' => 'info@abcgarments.com',
-            'website' => 'https://www.abcgarments.com',
+            'website' => 'https://www.merpgarments.com',
             'factory_size' => '50000 sqft',
             'production_capacity' => '500,000 pcs/month',
             'number_of_employees' => 1500,
