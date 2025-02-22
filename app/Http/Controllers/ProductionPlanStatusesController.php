@@ -50,32 +50,43 @@ class ProductionPlanStatusesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Production_plan_statuses $production_plan_statuses)
+    public function show(Production_plan_statuses $production_plan_status)
     {
-        //
+        return view('pages.production.production_plan.production_plan_status.show', compact('production_plan_status'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Production_plan_statuses $production_plan_statuses)
+    public function edit(Production_plan_statuses $production_plan_status)
     {
-        //
+        return view('pages.production.production_plan.production_plan_status.edit', compact('production_plan_status'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Production_plan_statuses $production_plan_statuses)
+    public function update(Request $request, Production_plan_statuses $production_plan_status)
     {
-        //
+
+        $request->validate([
+            'status_name'    => ['required', 'string', 'max:255'],
+        ]);
+
+        $production_plan_status->update([
+            'name' => $request->status_name,
+        ]);
+
+        return redirect()->route('production_plan_status.index')->with('success', 'Production status updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Production_plan_statuses $production_plan_statuses)
+    public function destroy(Production_plan_statuses $production_plan_status)
     {
-        //
+        $production_plan_status->delete();
+
+        return redirect()->route('production_plan_status.index')->with('success', 'Production status deleted successfully!');
     }
 }

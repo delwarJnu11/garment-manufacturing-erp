@@ -29,17 +29,18 @@
                         </li> -->
 
                         <li class="submenu">
-                            <a
-                                href="javascript:void(0);"
-                                class="subdrop {{request()->routeIs('users') || request()->routeIs('roles')? 'active':''}}"><i data-feather="users"></i><span>User Management</span><span class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);"
+                                class="subdrop {{ request()->routeIs('users') || request()->routeIs('roles') ? 'active' : '' }}"><i
+                                    data-feather="users"></i><span>User Management</span><span
+                                    class="menu-arrow"></span></a>
                             <ul>
                                 <li>
-                                    <a
-                                        href="{{route('users.index')}}"
-                                        class="{{request()->routeIs('users') ? 'active':''}}">All Users</a>
+                                    <a href="{{ route('users.index') }}"
+                                        class="{{ request()->routeIs('users') ? 'active' : '' }}">All Users</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('roles.index')}}" class="{{request()->routeIs('roles') ? 'active':''}}">All Roles</a>
+                                    <a href="{{ route('roles.index') }}"
+                                        class="{{ request()->routeIs('roles') ? 'active' : '' }}">All Roles</a>
                                 </li>
                             </ul>
                         </li>
@@ -47,14 +48,16 @@
                         {{-- USER MODULE MENU END --}}
                         {{-- PRODUCTION MODULE MENU START --}}
                         <li class="submenu">
-                            <a
-                                href="javascript:void(0);"
-                                class="subdrop {{request()->routeIs('production') ? 'active':''}}"><i data-feather="users"></i><span>Production Management</span><span class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);"
+                                class="subdrop {{ request()->routeIs('production') ? 'active' : '' }}"><i
+                                    data-feather="users"></i><span>Production Management</span><span
+                                    class="menu-arrow"></span></a>
                             <ul>
                                 <li>
-                                    <a
-                                        href="javascript:void(0);"
-                                        class="subdrop {{request()->routeIs('production') ? 'active':''}}"><i data-feather="users"></i><span>Bill Of Materials</span><span class="menu-arrow"></span></a>
+                                    <a href="javascript:void(0);"
+                                        class="subdrop {{ request()->routeIs('production') ? 'active' : '' }}"><i
+                                            data-feather="users"></i><span>Bill Of Materials</span><span
+                                            class="menu-arrow"></span></a>
                                     <ul>
                                         <li>
                                             <a href="" class="">BOM's Product</a>
@@ -66,7 +69,9 @@
                                             <a href="" class="">Production Planning</a>
                                         </li>
                                         <li>
-                                            <a href="{{route('production_plan_status.index')}}" class="{{request()->is('production_plan_status.index') ? 'active' : ''}}">Production Planning Status</a>
+                                            <a href="{{ route('production_plan_status.index') }}"
+                                                class="{{ request()->is('production_plan_status.index') ? 'active' : '' }}">Production
+                                                Planning Status</a>
                                         </li>
                                         <li>
                                             <a href="" class="">Production Planning Section</a>
@@ -74,7 +79,8 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="{{route('roles.index')}}" class="{{request()->routeIs('roles') ? 'active':''}}">All Roles</a>
+                                    <a href="{{ route('roles.index') }}"
+                                        class="{{ request()->routeIs('roles') ? 'active' : '' }}">All Roles</a>
                                 </li>
                             </ul>
                         </li>
@@ -560,8 +566,8 @@
                         </li>
                         {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
 
-            </ul>
-            </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
