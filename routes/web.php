@@ -37,7 +37,7 @@ Route::get('/users/roles/create', [RoleController::class, 'create'])->name('role
 Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles.store');
 
 /**
- * Invetory/category 
+ * Invetory/category
  **/
 Route::resource('status', StatusController::class);
 Route::resource('category_value', CategoryController::class);
