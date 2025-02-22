@@ -1,4 +1,11 @@
 @extends('layout.backend.main');
+@section('css')
+<style>
+    .small{
+        margin-right: 10px;
+    }
+</style>
+@endsection
 <?php use Carbon\Carbon; ?>
 @section('page_content')
     <x-page-header href="{{ route('roles.create') }}" heading="User Roles" btnText="Role" />
@@ -52,6 +59,10 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        <!-- Pagination Links -->
+        <div class="d-flex justify-content-end p-3">
+            {{ $roles->links('vendor.pagination.custom') }}
         </div>
     </div>
 @endsection

@@ -20,19 +20,38 @@
                         </div>
                         <div class="row">
                             <div class="form-login col-md-6">
-                                <label>Category Name</label>
+                        
                                 <div class="form-addons">
-                                    <input type="text" name="category_id" value="{{ old('category_id') }}" class="form-control">
+                                    {{-- <input type="text" name="category_id" value="{{ old('category_id') }}" class="form-control"> --}}
                                     
+                                    <div class="mb-3">
+                                        <label class="form-label">User Category</label>
+                                        <select class="select form-control" name="category_id">
+                                            <option>Select Category</option>
+                                            @forelse ($category as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @empty
+                                                <option>No Category Found!</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
                                 </div>
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
 
                             <div class="form-login col-md-6">
-                                <label>Category Type</label>
-                                <div class="form-addons">
-                                    <input type="text" class="form-control" name="category_type" value="{{ old('category_type') }}">
-                                   
+                            
+                                    <div class="mb-3">
+                                        <label class="form-label"> Category Type</label>
+                                        <select class="select form-control" name="category_type">
+                                            <option>Select category Type</option>
+                                            @forelse ($category_type as $cate_type)
+                                                <option value="{{ $cate_type->id }}">{{ $cate_type->name }}</option>
+                                            @empty
+                                                <option>No Category Type Found!</option>
+                                            @endforelse
+                                        </select>
+                                    </div>
                                 </div>
                                 <x-input-error :messages="$errors->get('category_type')" class="mt-2" />
                             </div>
@@ -59,28 +78,6 @@
                             <x-input-error :messages="$errors->get('attribute_value')" class="mt-2" />
                         </div>
                         
-
-                        {{-- <div class="row">
-                            <div class="form-login col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">User Role</label>
-                                    <select class="select form-control" name="role_id">
-                                        <option>Select User Role</option>
-                                        @forelse ($roles as $role)
-                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                        @empty
-                                            <option>No Role Found!</option>
-                                        @endforelse
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 form-login">
-                                <label>Upload Image</label>
-                                <input style="padding: 8px 0" type="file" name="image" class="form-control">
-                            </div>
-                            <x-input-error :messages="$errors->get('image')" class="mt-2" />
-                        </div> --}}
-
                         
                         <div class="form-login">
                             <button type="submit" class="btn btn-login">Submit</button>

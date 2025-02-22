@@ -1348,8 +1348,8 @@ button:focus {
 .btn.btn-primary.focus,
 .btn.btn-primary:active,
 .btn.btn-primary.active {
-    background-color: #ff8d1f !important;
-    border: 1px solid #ff8d1f !important;
+    background-color: rgb(105, 8, 105) !important;
+    border: 1px solid rgb(105, 8, 105)!important;
     box-shadow: 0 3px 10px rgba(255, 159, 67, 0.5);
     color: #ffffff !important;
 }

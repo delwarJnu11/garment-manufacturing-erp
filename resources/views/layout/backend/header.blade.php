@@ -1,18 +1,18 @@
 <div class="header" style="background: #e5e5e5">
     <!-- Logo -->
     <div class="header-left active">
-        <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html" class="logo logo-normal">
+        <a href="dashboard" class="logo logo-normal">
             <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo.png" alt="" /> -->
-             <h1 class="text-center">M<span class="text-primary">ERP</span></h1>
+             <h1 title="Manufacturing ERP" class="text-center ms-5" style="font-family: Sigmar;">M<span class="text-primary">ERP</span></h1>
         </a>
-        <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html" class="logo logo-white">
+        <a href="dashboard" class="logo logo-white">
             <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-white.png" alt="" /> -->
-            <h1 class="text-center">M<span class="text-primary">ERP</span></h1>
+            <h1 title="Manufacturing ERP" class="text-center ms-5" style="font-family: Sigmar;">M<span class="text-primary">ERP</span></h1>
         </a>
-        <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html" class="logo-small">
+        <a href="dashboard" class="logo-small">
             <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-small.png" -->
                 <!-- alt="" /> -->
-                <h4 class="text-center">M<span class="text-primary">ERP</span></h4>
+                <h4 title="Manufacturing ERP" class="text-center" style="font-family: Sigmar;">M<span class="text-primary">ERP</span></h4>
         </a>
         <a id="toggle_btn" href="javascript:void(0);">
             <i data-feather="chevrons-left" class="feather-16"></i>
@@ -315,7 +315,7 @@
                         <i class="me-2" data-feather="user"></i>
                         My Profile</a>
                     <a class="dropdown-item"
-                        href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html"><i
+                        href="{{route('companyProfile.index')}}"><i
                             class="me-2" data-feather="settings"></i>Settings</a>
                     <hr class="m-0" />
                     <a class="dropdown-item logout pb-0" href="  {{ url('/logout') }}"><img
