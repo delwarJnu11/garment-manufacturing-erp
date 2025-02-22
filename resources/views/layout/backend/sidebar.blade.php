@@ -569,6 +569,7 @@
                         {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 </li>
 <<<<<<< HEAD
 =======
@@ -592,6 +593,10 @@
                 {{-- USER MODULE MENU END --}}
 
 >>>>>>> e5dc94116112ae55f5f7779be4e9c519b9a70f35
+=======
+            </ul>
+            </li>
+>>>>>>> 267756bee0c749cd76ca8b844682cbc76983d20a
             </ul>
         </div>
     </div>

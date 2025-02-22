@@ -12,7 +12,11 @@ class HrmStatusesController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         $status = Hrm_statuses::all();
+=======
+        $status = Hrm_statuses::paginate(5);
+>>>>>>> 267756bee0c749cd76ca8b844682cbc76983d20a
         // print_r($status);
 
         return view('pages.hrm.hrm_status.index', compact('status'));
@@ -48,9 +52,16 @@ class HrmStatusesController extends Controller
     /**
      * Display the specified resource.
      */
+<<<<<<< HEAD
     public function show(Hrm_statuses $hrm_statuses)
     {
         //
+=======
+    public function show(Hrm_statuses $hrm_statuses, $id)
+    {
+        $status = Hrm_statuses::find($id);
+        return view('pages.hrm.hrm_status.show', compact('status'));
+>>>>>>> 267756bee0c749cd76ca8b844682cbc76983d20a
     }
 
     /**
@@ -85,8 +96,18 @@ class HrmStatusesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+<<<<<<< HEAD
     public function destroy(Hrm_statuses $hrm_statuses)
     {
         //
+=======
+    public function destroy(Hrm_statuses $hrm_statuses, $id)
+    {
+
+        $del = Hrm_statuses::destroy($id);
+        if ($del) {
+            return redirect('hrm_status')->with('success', "Status has been Deleted");
+        }
+>>>>>>> 267756bee0c749cd76ca8b844682cbc76983d20a
     }
 }
