@@ -1,9 +1,14 @@
 <?php
 
 use App\Http\Controllers\AssetStatusController;
+use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\CategoryAttributesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
+use App\Http\Controllers\HrmDepartmentsController;
+use App\Http\Controllers\HrmStatusController;
+use App\Http\Controllers\HrmStatusesController;
+use App\Http\Controllers\HrmSubDepartmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StatusController;
@@ -29,31 +34,62 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+/**
+ * Users and Roles Memu Start
+ **/
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+Route::post('/users/update', [UserController::class, 'update'])->name('users.update');
 Route::get('/users/roles', [RoleController::class, 'index'])->name('roles.index');
 Route::get('/users/roles/create', [RoleController::class, 'create'])->name('roles.create');
 Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles.store');
+/**
+ * Users and Roles Memu END
+ **/
+
+
+
+/**
+ * Start Route Hr & Workforce Management.
+ */
+
+Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
+Route::resource('hrm_status', HrmStatusesController::class);
+
+Route::get('hrm_departments/delete/{id}', [HrmDepartmentsController::class, 'destroy']);
+Route::resource('hrm_departments', HrmDepartmentsController::class);
+
+ /**
+     * End Route Hr & Workforce Management.
+ */
+
+
 
 /**
  * Invetory/category
  **/
 Route::resource('status', StatusController::class);
 Route::resource('category_value', CategoryController::class);
+Route::resource('categoryType', CategoryTypeController::class);
 
 
-Route::get('check',function(){
+Route::get('check', function () {
     return view('pages.error.eror404');
 });
 
 Route::resource('category', CategoryAttributesController::class);
+Route::resource('categoryTypes', CategoryTypeController::class);
+
 
 /**
- *END Invetory/category 
+ *END Invetory/category
  **/
 
 Route::resource('assetRegister', AssetStatusController::class);
+Route::resource('assetTypes', AssetTypesController::class);
+// Route::resource('createAssetType', AssetTypesController::class);
 
 
 

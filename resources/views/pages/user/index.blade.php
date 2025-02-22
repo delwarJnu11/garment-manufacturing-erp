@@ -46,7 +46,7 @@
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
                                         </a>
-                                        <a class="me-2 p-2" href="#">
+                                        <a class="me-2 p-2" href="{{ route('users.edit', $user->id) }}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
                                         <a class="confirm-text p-2" href="javascript:void(0);">

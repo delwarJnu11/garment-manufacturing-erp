@@ -12,24 +12,24 @@ class Category extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'category_type_id',
-        'name',
-        'description',
-        'status_id',
+        'name'
     ];
 
-
+    // 'category_type_id',
+    //         'name',
+    //         'description',
+    //         'status_id',
 
     /**
      * Define the relationship with Category_type.
      */
-    public function category_type(): BelongsTo
-    {
-        return $this->belongsTo(Category_type::class, 'category_type_id');
-    }
+    // public function category_type(): BelongsTo
+    // {
+    //     return $this->belongsTo(Category_type::class, 'category_type_id');
+    // }
 
-    public function status()
-    {
-        return $this->belongsTo(Status::class, 'status_id');
-    }
+    // public function status()
+    // {
+    //     return $this->belongsTo(Status::class, 'status_id');
+    // }
 }

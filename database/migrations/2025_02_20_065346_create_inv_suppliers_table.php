@@ -11,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_attributes', function (Blueprint $table) {
+        Schema::create('inv_suppliers', function (Blueprint $table) {
             $table->id();
+            $table->string('first_name', 80);
+            $table->string('last_name', 80);
+            $table->string('email', 150)->unique();
+            $table->string('phone', 20)->unique();
+            $table->string('address', 255);
+            $table->string('photo', 255);
             $table->timestamps();
+        
         });
     }
 
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_attributes');
+        Schema::dropIfExists('inv_suppliers');
     }
 };

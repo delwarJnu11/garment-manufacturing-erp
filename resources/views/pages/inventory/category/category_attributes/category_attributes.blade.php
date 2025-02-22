@@ -7,20 +7,6 @@
 <div class="card flex-fill">
     
     <x-page-header heading="Category" btnText="category" href="{{ url('category/create') }}" />
-
-    {{-- <div class="card-header">
-        <h5 class="card-title "><a href="{{url('category/Value')}}" class=" btn btn-info p-3 rounded ">Add Category</a></h5>
-    </div>
-
-    <div class="page-header">
-        <div class="add-item d-flex">
-            <div class="page-title">
-                <h4>Category Value List</h4>
-                <h6>Manage Your Category</h6>
-            </div>
-        </div>
-     --}}
-
 <table class="table table-striped table-bordered">
     <thead class="thead-primary">
         <tr>
@@ -36,14 +22,18 @@
         @forelse ($category_attributes as $category)
         <tr>
             <td>{{$category['id']}}</td>
-            <td>{{$category['category_id']}}</td>
-            <td>{{$category['category_type_id']}}</td>
+            {{-- <td>{{$category['category_id']}}</td> --}}
+            <td>{{$category->category? $category->category->name: "no category here"}}</td>
+            <td>{{$category->category_type? $category->category_type->name: "no category Type here"}}</td>
             <td>{{$category['name']}}</td>
             <td>{{$category['attribute_value']}}</td>
           
             <td class="action-table-data">
                 <div class="edit-delete-action">
-                    <a class="me-2 p-2 mb-0" href="{{url('category.show', $category->id)}}">
+                    <a class="me-2 p-2 mb-0" href="{{url('category')}}/{{$category['id']}}/show">
+                        {{-- <a class="me-2 p-2 mb-0" href="{{ route('category.show', $category->id) }}"> --}}
+
+
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye action-eye">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                             <circle cx="12" cy="12" r="3"></circle>
