@@ -11,8 +11,8 @@
                 <tr>
                     <th>#</th>
                     <th>Category Name</th>
-                    {{-- <th>category type</th> --}}
-                    <th>Category Attribute </th>
+                    <th>category type</th>
+                    <th>Category </th>
                     <th>category value</th>
                     <th>Actions</th>
                 </tr>
@@ -23,7 +23,7 @@
                         <td>{{ $category['id'] }}</td>
                         {{-- <td>{{$category['category_id']}}</td> --}}
                         <td>{{ $category->category ? $category->category->name : 'no category here' }}</td>
-                        {{-- <td>{{ $category->category_type ? $category->category_type->name : 'no category Type here' }}</td> --}}
+                        <td>{{ $category->category_type ? $category->category_type->name : 'no category Type here' }}</td>
                         <td>{{ $category['name'] }}</td>
                         <td>{{ $category['attribute_value'] }}</td>
 
