@@ -4,11 +4,7 @@
 @if (session('success'))
 <div class="alert alert-success">{{ session('success') }}</div>
 @endif
-<<<<<<< HEAD
-    <x-page-header href="{{ route('hrm_status.create') }}" heading="Status" btnText="Add Status" />
-=======
     <x-page-header href="{{ route('hrm_status.create') }}" heading="Status" btnText=" Status" />
->>>>>>> 267756bee0c749cd76ca8b844682cbc76983d20a
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">

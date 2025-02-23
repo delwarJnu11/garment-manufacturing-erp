@@ -36,15 +36,20 @@
                     </div>
                     <div class="form-check">
                         <label class="col-lg-2 col-form-label">Gender :</label>
+
                         <div class="form-check form-check-inline">
-                            <label  class="form-check-label">Male :</label>
-                            <input type="radio" name="gender" value="{{old('phone')}}" class="form-check-input">
+                            <input type="radio" name="gender" value="male" class="form-check-input"
+                                {{ old('gender') == 'male' ? 'checked' : '' }}>
+                            <label class="form-check-label">Male</label>
                         </div>
+
                         <div class="form-check form-check-inline">
-                            <label  class="form-check-label">Female</label>
-                            <input type="radio" name="gender" value="{{old('phone')}}" class="form-check-input" >
+                            <input type="radio" name="gender" value="female" class="form-check-input"
+                                {{ old('gender') == 'female' ? 'checked' : '' }}>
+                            <label class="form-check-label">Female</label>
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Date Of Birth :</label>
                         <div class="col-lg-10">
@@ -56,46 +61,46 @@
                         <label class="col-lg-2 col-form-label">Department Name :</label>
                         <div class="col-lg-10">
                             {{-- <input type="text" name="statuses_id" value="{{old('statuses_id')}}" class="form-control" placeholder="Enter Status Name..."  autocomplete="name"> --}}
-                            <select name="department_id" id="departments_id"  class="form-select">
+                            <select name="department_id" id="department_id"  class="form-select" value="{{old('department_id')}}">
                                 <option value="" >Select a Department </option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                 @endforeach
                             </select>
-                            <x-input-error :messages="$errors->get('departments_id')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Employee Position :</label>
                         <div class="col-lg-10">
                             {{-- <input type="text" name="statuses_id" value="{{old('statuses_id')}}" class="form-control" placeholder="Enter Status Name..."  autocomplete="name"> --}}
-                            <select name="statuses_id" id="statuses_id"  class="form-select">
+                            <select name="positions_id" id="positions_id"  class="form-select" value="{{old('positions_id')}}">
                                 <option value="" >Select a Position </option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}">{{ $position->name }}</option>
                                 @endforeach
                             </select>
-                            <x-input-error :messages="$errors->get('statuses_id')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('positions_id')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Employee Designation:</label>
                         <div class="col-lg-10">
                             {{-- <input type="text" name="statuses_id" value="{{old('statuses_id')}}" class="form-control" placeholder="Enter Status Name..."  autocomplete="name"> --}}
-                            <select name="statuses_id" id="statuses_id"  class="form-select">
-                                <option value="" >Select a Position </option>
+                            <select name="designations_id	" id="designations_id	"  class="form-select" value="{{old('designations_id')}}">
+                                <option value="" >Select a Designation </option>
                                 @foreach ($designations as $designation)
                                     <option value="{{ $designation->id }}">{{ $designation->name }}</option>
                                 @endforeach
                             </select>
-                            <x-input-error :messages="$errors->get('statuses_id')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('designations_id	')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Status :</label>
                         <div class="col-lg-10">
                             {{-- <input type="text" name="statuses_id" value="{{old('statuses_id')}}" class="form-control" placeholder="Enter Status Name..."  autocomplete="name"> --}}
-                            <select name="statuses_id" id="statuses_id"  class="form-select">
+                            <select name="statuses_id" id="statuses_id"  class="form-select" value="{{old('statuses_id')}}">
                                 <option value="" >Select a Status </option>
                                 @foreach ($status as $data)
                                     <option value="{{ $data->id }}">{{ $data->name }}</option>

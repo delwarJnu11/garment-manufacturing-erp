@@ -16,6 +16,7 @@ use App\Http\Controllers\HrmStatusController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentController;
+use App\Http\Controllers\HrmSubDepartmentsController;
 use App\Http\Controllers\InvSuppliersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
