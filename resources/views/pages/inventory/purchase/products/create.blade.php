@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Is Raw Material?</label>
                         <div class="d-flex">
@@ -80,7 +80,7 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -92,14 +92,14 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3 d-none" id="size_field">
+                    {{-- <div class="col-md-6 mb-3 d-none" id="size_field">
                         <label class="form-label">Size</label>
                         <select name="size_id" class="form-select">
                             <option value="1">Small</option>
                             <option value="2">Medium</option>
                             <option value="3">Large</option>
                         </select>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="row">
