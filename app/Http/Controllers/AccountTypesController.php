@@ -12,7 +12,7 @@ class AccountTypesController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.accounts.accountTypes.index');
     }
 
     /**

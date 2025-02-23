@@ -24,10 +24,11 @@
                                 <label>Category Name</label>
                                 <div class="form-addons">
                                     <input type="text" name="category_id" value="{{$category_attribute['category_id']}}" class="form-control">
+                                    
                                 </div>
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
-{{-- 
+
                             <div class="form-login col-md-6">
                                 <label>Category Type</label>
                                 <div class="form-addons">
@@ -35,7 +36,7 @@
                                    
                                 </div>
                                 <x-input-error :messages="$errors->get('category_type')" class="mt-2" />
-                            </div> --}}
+                            </div>
                         </div>
                         <div class="row">
                             <div class="form-login col-md-6">

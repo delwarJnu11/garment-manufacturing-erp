@@ -39,7 +39,7 @@
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
 
-                            {{-- <div class="form-login col-md-6">
+                            <div class="form-login col-md-6">
                             
                                     <div class="mb-3">
                                         <label class="form-label"> Category Type</label>
@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                                 <x-input-error :messages="$errors->get('category_type')" class="mt-2" />
-                            </div> --}}
+                            </div>
                         </div>
                         <div class="row">
                             <div class="form-login col-md-6">
