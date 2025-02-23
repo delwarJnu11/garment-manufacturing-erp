@@ -15,14 +15,14 @@ class CompanyProfileSeeder extends Seeder
     public function run()
     {
         DB::table('company_profiles')->insert([
-            'company_name' => 'ABC Garments Ltd.',
+            'company_name' => 'DRHF Garments Ltd.',
             'established_year' => 2005,
             'company_type' => 'Garments Manufacturer & Exporter',
             'business_address' => '123 Factory Road, City, Country',
             'head_office' => '456 Head Office Avenue, City, Country',
-            'contact_number' => '+1234567890',
+            'contact_number' => '+88015510000000',
             'email' => 'info@abcgarments.com',
-            'website' => 'https://www.abcgarments.com',
+            'website' => 'https://www.drhfgarments.com',
             'factory_size' => '50000 sqft',
             'production_capacity' => '500,000 pcs/month',
             'number_of_employees' => 1500,
