@@ -13,15 +13,15 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Buyer Name</label>
-                            <select name="buyer_id" class="form-select" id="category_dropdown">
+                            <select name="buyer_id" class="form-select" id="buyer_dropdown">
                                 <option value="">Select a Category</option>
                                 <option value="">Select a Category</option>
                                 <option value="">Select a Category</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Order Status</label>
-                            <select name="status_id" class="form-select" id="category_dropdown">
+                            <label class="form-label">Supervisor Name</label>
+                            <select name="supervisor_id" class="form-select" id="supervisor_dropdown">
                                 <option value="">Select a Category</option>
                                 <option value="">Select a Category</option>
                                 <option value="">Select a Category</option>
@@ -31,59 +31,38 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Style Name</label>
-                            <input type="number" step="0.01" name="style_name" class="form-control" required>
+                            <label class="form-label">Order Status</label>
+                            <select name="status_id" class="form-select" id="status_dropdown">
+                                <option value="">Select a Category</option>
+                                <option value="">Select a Category</option>
+                                <option value="">Select a Category</option>
+                            </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Fabric Type</label>
-                            <select name="category_id" class="form-select" id="category_dropdown">
+                            <select name="fabric_type_id" class="form-select" id="fabric_dropdown">
                                 <option value="">Select a Category</option>
                                 <option value="">Select a Category</option>
                                 <option value="">Select a Category</option>
                             </select>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3 d-none" id="size_field">
-                            <label class="form-label">Color</label>
-                            <select name="size_id" class="form-select">
-                                <option value="1">Small</option>
-                                <option value="2">Medium</option>
-                                <option value="3">Large</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3 d-none" id="finished_category_field">
-                            <label class="form-label">Finished Category</label>
-                            <select name="finished_category_id" class="form-select">
-                                @foreach ($finished_categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Valuation Method</label>
-                            <select name="valuation_method_id" class="form-select">
-                                @foreach ($valuation_methods as $method)
-                                    <option value="{{ $method->id }}">{{ $method->method_name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="gsm" class="form-label">GSM</label>
+                            <input class="form-control" type="text" name="gsm" id="gsm" value="{{old('gsm')}}" placeholder="Enter GSM..." />
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Product Image</label>
-                            <input type="file" name="photo" class="form-control">
+                            <label for="delivery_date" class="form-label">Delivery Date</label>
+                            <input class="form-control" type="datetime" name="delivery_date" id="delivery_date" value="{{old('delivery_date')}}">
                         </div>
                     </div>
-
                     <div class="mb-3">
                         <label class="form-label">Description</label>
                         <textarea name="description" class="form-control" rows="3" placeholder="Enter product description"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Save Product</button>
+                    <button type="submit" class="btn btn-primary">Create Order</button>
                 </form>
             </div>
         </div>

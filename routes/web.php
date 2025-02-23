@@ -6,6 +6,7 @@ use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\CategoryAttributesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\HrmDepartmentController;
 use App\Http\Controllers\HrmDepartmentsController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentController;
 use App\Http\Controllers\InvSuppliersController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -69,7 +71,6 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
 
 /**
  * Start Hr & Workforce Management.
-/**
  * Start Hr & Workforce Management.
  */
 
@@ -111,6 +112,12 @@ Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
 Route::resource('products', ProductController::class);
 Route::resource('valuations', ValuationMethodsController::class);
+
+/*
+ * Sales and Orders
+ */
+Route::resource('orders', OrderController::class);
+Route::resource('colors', ColorController::class);
 /**
  *END Invetory/category
  **/
