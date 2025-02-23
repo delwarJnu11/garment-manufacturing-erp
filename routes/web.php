@@ -96,6 +96,8 @@ Route::get('hrm_employees/delete/{id}/',[HrmEmployeesController::class,'destroy'
 Route::resource('hrm_employees', HrmEmployeesController::class);
 
 
+
+
 /**
  * End Hr & Workforce Management.
  */

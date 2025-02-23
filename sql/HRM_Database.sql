@@ -95,6 +95,7 @@ CREATE TABLE hrm_designations (
 CREATE TABLE hrm_employees (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
+    employee_id VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     phone VARCHAR(20) UNIQUE NULL,
     gender VARCHAR(20) UNIQUE NULL,
@@ -105,12 +106,29 @@ CREATE TABLE hrm_employees (
     salary DECIMAL(10,2) NOT NULL,
     designations_id BIGINT UNSIGNED NOT NULL,
     statuses_id BIGINT UNSIGNED NOT NULL,
+    branch VARCHAR(100) NOT NULL,
+    certificate VARCHAR(100) NOT NULL,
+    photo VARCHAR(100) NOT NULL,
     address TEXT NULL,
+    resume  TEXT NULL,
     city VARCHAR(100) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
 
+CREATE TABLE employee_bank_accounts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT NOT NULL,
+    bank_name VARCHAR(255) NOT NULL,
+    account_number VARCHAR(50) NOT NULL UNIQUE,
+    account_type ENUM('Savings', 'Current', 'Salary') NOT NULL,
+    ifsc_code VARCHAR(20) NOT NULL,  -- For India, can be replaced with SWIFT/BIC for international
+    branch_name VARCHAR(255),
+    branch_location VARCHAR(200),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
+);
 
 
 CREATE TABLE hrm_employee_performances (

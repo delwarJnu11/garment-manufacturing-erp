@@ -11,6 +11,7 @@
                     <thead>
                         <tr>
                             <th>Id</th>
+                            <th><a class="btn btn-primary" href="{{url("pages/hrm/employee/employee_details")}}">EmployeeID</a></th>
                             <th>Employee Name</th>
                             <th>Email Number</th>
                             <th>Phone Number</th>
@@ -31,6 +32,7 @@
                         @forelse ($employees as $employee)
                             <tr>
                                 <td>{{ $employee->id }}</td>
+                                <td>{{ $employee->employee_id }}</td>
                                 <td>{{ $employee->name }}</td>
                                 <td>{{ $employee->email }}</td>
                                 <td>{{ $employee->phone }}</td>
@@ -79,6 +81,7 @@
                                 </td>
                             </tr>
                         @empty
+                        <td>Do not data found</td>
                         @endforelse
                     </tbody>
                 </table>

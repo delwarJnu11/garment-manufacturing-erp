@@ -11,8 +11,15 @@
                 <h5 class="card-title">Create Department</h5>
             </div>
             <div class="card-body">
-                <form action="{{url('/hrm_employees')}}" method="POST">
+                <form action="{{url('/hrm_employees')}}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <div class="row mb-3">
+                        <label class="col-lg-2 col-form-label">EmployeeID :</label>
+                        <div class="col-lg-10">
+                            <input type="text" name="employee_id" value="{{old('employee_id')}}" class="form-control" placeholder="Enter Employee Name..."  autocomplete="name">
+                            <x-input-error :messages="$errors->get('employee_id')" class="mt-2" />
+                        </div>
+                    </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Employee Name :</label>
                         <div class="col-lg-10">
@@ -114,6 +121,34 @@
                         <div class="col-lg-10">
                             <input type="text" name="salary" value="{{old('salary')}}" class="form-control" placeholder="Enter Salary..."  autocomplete="name">
                             <x-input-error :messages="$errors->get('salary')" class="mt-2" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-lg-2 col-form-label">Branch :</label>
+                        <div class="col-lg-10">
+                            <input type="text" name="branch" value="{{old('branch')}}" class="form-control" placeholder="Enter Salary..."  autocomplete="name">
+                            <x-input-error :messages="$errors->get('branch')" class="mt-2" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-lg-2 col-form-label">Photo :</label>
+                        <div class="col-lg-10">
+                            <input type="file" name="photo" value="{{old('photo')}}" class="form-control" placeholder="Enter Salary..."  autocomplete="name">
+                            <x-input-error :messages="$errors->get('photo')" class="mt-2" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-lg-2 col-form-label">Resume :</label>
+                        <div class="col-lg-10">
+                            <input type="file" name="resume" value="{{old('resume')}}" class="form-control" placeholder="Enter Salary..."  autocomplete="name">
+                            <x-input-error :messages="$errors->get('resume')" class="mt-2" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-lg-2 col-form-label">Certificate :</label>
+                        <div class="col-lg-10">
+                            <input type="file" name="certificate" value="{{old('certificate')}}" class="form-control" placeholder="Enter Salary..."  autocomplete="name">
+                            <x-input-error :messages="$errors->get('certificate')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
