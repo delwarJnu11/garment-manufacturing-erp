@@ -61,7 +61,7 @@
 
     <!-- Pagination -->
     <div class="d-flex justify-content-end">
-        {{ $categories->links('pagination::bootstrap-5') }}
+        {{ $categories->links('vendor.pagination.custom') }}
     </div>
 </div>
 

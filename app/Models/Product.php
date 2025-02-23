@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
@@ -25,4 +26,16 @@ class Product extends Model
         'valuation_method_id',
         'photo'
     ];
+
+    function category():BelongsTo{
+        return $this->belongsTo(Category::class,'category_id');
+    }
+
+    function uom():BelongsTo{
+        return $this->belongsTo(Uom::class,'uom_id');
+    }
+    function valuation_method():BelongsTo{
+        return $this->belongsTo(Valuation_methods::class,'valuation_method_id');
+    }
+
 }
