@@ -32,7 +32,7 @@ class CategoryTypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_id' => 'nullable',
+            'category_id' => 'required',
             'name' => 'required',
 
         ]);

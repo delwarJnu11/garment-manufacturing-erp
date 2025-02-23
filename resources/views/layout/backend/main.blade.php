@@ -9,11 +9,14 @@
         content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects" />
     <meta name="author" content="Dreamguys - Bootstrap Admin Template" />
     <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Sigmar&display=swap" rel="stylesheet">
     <title>Garments Manufacturing ERP SOFTWARE</title>
 
     <script
-			src="{{asset('assets')}}/js/theme-script.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/theme-script.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon"
@@ -83,45 +86,45 @@
 
     <!-- jQuery -->
     <script
-			src="{{asset('assets')}}/js/jquery-3.7.1.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/jquery-3.7.1.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Feather Icon JS -->
     <script
-			src="{{asset('assets')}}/js/feather.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/feather.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Slimscroll JS -->
     <script
-			src="{{asset('assets')}}/js/jquery.slimscroll.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/jquery.slimscroll.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Bootstrap Core JS -->
     <script
-			src="{{asset('assets')}}/js/bootstrap.bundle.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/bootstrap.bundle.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Chart JS -->
     <script
-			src="{{asset('assets')}}/js/plugins/apexchart/apexcharts.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/plugins/apexchart/apexcharts.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
     <script
-			src="{{asset('assets')}}/js/plugins/apexchart/chart-data.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/plugins/apexchart/chart-data.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Sweetalert 2 -->
     <script
-			src="{{asset('assets')}}/js/plugins/sweetalert/sweetalert2.all.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/plugins/sweetalert/sweetalert2.all.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
     <script
-			src="{{asset('assets')}}/js/plugins/sweetalert/sweetalerts.min.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/plugins/sweetalert/sweetalerts.min.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Custom JS -->
 
     <script
-			src="{{asset('assets')}}/js/script.js"
-			type="6bc737fdedebc88b41732761-text/javascript"></script>
+        src="{{asset('assets')}}/js/script.js"
+        type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <script src="{{ asset('assets') }}/js/rocket-loader.min.js" data-cf-settings="6bc737fdedebc88b41732761-|49" defer>
     </script>

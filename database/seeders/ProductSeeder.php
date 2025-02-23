@@ -28,7 +28,7 @@ class ProductSeeder extends Seeder
             'is_raw_material' => $faker->boolean, // Random true/false for raw material
             'barcode' => $faker->ean13, // Random barcode
             'rfid' => 'RFID' . $faker->randomNumber(6, true), // Random RFID number
-            'category_id' => 1, // Example category ID
+            'category_attributes_id' => 1, // Example category ID
             'uom_id' => 1, // Example UOM ID (e.g. Pieces)
             'valuation_method_id' => 1, // Example valuation method ID (e.g. FIFO)
             'photo' => 'product_image.jpg', // Example image file
