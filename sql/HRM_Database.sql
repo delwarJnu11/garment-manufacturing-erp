@@ -99,7 +99,7 @@ CREATE TABLE hrm_employees (
     phone VARCHAR(20) UNIQUE NULL,
     gender VARCHAR(20) UNIQUE NULL,
     date_of_birth DATE NULL,
-    hire_date DATE NOT NULL,
+    joining_date DATE NOT NULL,
     department_id BIGINT UNSIGNED NOT NULL,
     positions_id BIGINT UNSIGNED NOT NULL,
     salary DECIMAL(10,2) NOT NULL,
@@ -107,9 +107,6 @@ CREATE TABLE hrm_employees (
     statuses_id BIGINT UNSIGNED NOT NULL,
     address TEXT NULL,
     city VARCHAR(100) NULL,
-    state VARCHAR(100) NULL,
-    country VARCHAR(100) NULL,
-    zip_code VARCHAR(20) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );

@@ -10,6 +10,7 @@ use App\Http\Controllers\HrmDepartmentController;
 use App\Http\Controllers\HrmDepartmentsController;
 use App\Http\Controllers\HrmDesignationsController;
 use App\Http\Controllers\HrmEmployeePositionsController;
+use App\Http\Controllers\HrmEmployeesController;
 use App\Http\Controllers\HrmStatusController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
@@ -89,6 +90,8 @@ Route::resource('hrm_designations', HrmDesignationsController::class);
 Route::get('hrm_employee_positions/delete/{id}/',[HrmEmployeePositionsController::class,'destroy'] );
 Route::resource('hrm_employee_positions', HrmEmployeePositionsController::class);
 
+Route::get('hrm_employees/delete/{id}/',[HrmEmployeesController::class,'destroy'] );
+Route::resource('hrm_employees', HrmEmployeesController::class);
 
 
 /**

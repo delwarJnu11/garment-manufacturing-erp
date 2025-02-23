@@ -379,7 +379,7 @@
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="{{route('hrm_employee_positions.index')}}">Position</a></li>
-                                        <li><a href="javascript:void(0);">Employee</a></li>
+                                        <li><a href="{{route('hrm_employees.index')}}">Employee</a></li>
                                         <li><a href="javascript:void(0);">Employee Performance</a></li>
                                     </ul>
                                 </li>
