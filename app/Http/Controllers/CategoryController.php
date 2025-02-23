@@ -12,8 +12,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(7);
-        return view('pages.inventory.category.category_list.category', compact('categories'));
+        $categories = Category::paginate(3);
+        return view('pages.inventory.category.category_list.categories', compact('categories'));
     }
 
     /**
@@ -31,18 +31,26 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:4',
-            'is_raw_material' => 'nullable|boolean', // Ensure it's a boolean (0 or 1)
+            'description' => 'required|min:5',
+
         ]);
 
-        $category = new Category();
-        $category->name = $request->name;
-        $category->is_raw_material = $request->has('is_raw_material') ? 1 : 0; // Handle checkbox
+        $categorie = new Category();
 
-        if ($category->save()) {
-            return redirect()->route('category_list.index')->with('success', 'Category Created Successfully');
+        $categorie->name  = $request->name;
+        $categorie->description  = $request->description;
+        if ($categorie->save()) {
+           return redirect('category')->with('success', 'Category Added Successfully');
         }
+        return  redirect('category')->with('error', 'Something went wrong. Please try again.');
+    }
 
-        return redirect()->route('category_list.index')->with('error', 'Something went wrong. Please try again.');
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
     }
 
     /**
@@ -50,30 +58,34 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $category = Category::findOrFail($id);
+        $category = Category::find($id);
         return view('pages.inventory.category.category_list.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, string $id)
     {
         $request->validate([
             'name' => 'required|min:4',
-            'is_raw_material' => 'nullable|boolean',
+            'description' => 'required|min:5',
         ]);
 
-        $category = Category::findOrFail($id);
-        $category->name = $request->name;
-        $category->is_raw_material = $request->has('is_raw_material') ? 1 : 0;
+        $category = Category::find($id);
+
+        $category->name  = $request->name;
+        $category->description  = $request->description;
 
         if ($category->save()) {
-            return redirect()->route('category_list.index')->with('success', 'Category Updated Successfully');
+            return redirect('category')->with('success', 'Category Updated Successfully');
         }
 
-        return redirect()->route('category_list.index')->with('error', 'Update failed');
+        return redirect('category')->with('error', 'Update failed');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -83,6 +95,6 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('category_list.index')->with('success', 'Category deleted successfully');
+        return redirect('category')->with('success', 'Category deleted successfully');
     }
 }

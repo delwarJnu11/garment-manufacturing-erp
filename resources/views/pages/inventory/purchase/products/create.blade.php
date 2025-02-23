@@ -21,6 +21,7 @@
                 @csrf
 
                 <div class="row">
+
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Product Name</label>
                         <input type="text" name="name" class="form-control" required>
@@ -28,6 +29,20 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label">SKU</label>
                         <input type="text" name="sku" class="form-control" required>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                  
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Barcode</label>
+                        <input type="text" name="barcode" class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">RFID</label>
+                        <input type="text" name="rfid" class="form-control">
                     </div>
                 </div>
 
@@ -61,27 +76,28 @@
                         <select name="category_id" class="form-select" id="category_dropdown">
                             <option value="">Select a Category</option>
                             @foreach($finished_categories as $category)
-                                <option value="{{ $category->id }}" data-type="finished">{{ $category->name }}</option>
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
                 <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Unit of Measurement (UOM)</label>
+                        <select name="uom_id" class="form-select">
+                            <option value="">Select UOM</option>
+                            @foreach($uoms as $uom)
+                                <option value="{{ $uom->id }}">{{ $uom->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="col-md-6 mb-3 d-none" id="size_field">
                         <label class="form-label">Size</label>
                         <select name="size_id" class="form-select">
                             <option value="1">Small</option>
                             <option value="2">Medium</option>
                             <option value="3">Large</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 mb-3 d-none" id="finished_category_field">
-                        <label class="form-label">Finished Category</label>
-                        <select name="finished_category_id" class="form-select">
-                            @foreach($finished_categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -118,7 +134,6 @@
         let rawMaterialNo = document.getElementById("raw_material_no");
         let categoryDropdown = document.getElementById("category_dropdown");
         let sizeField = document.getElementById("size_field");
-        let finishedCategoryField = document.getElementById("finished_category_field");
 
         let rawMaterialCategories = @json($raw_material_categories);
         let finishedCategories = @json($finished_categories);
@@ -136,10 +151,8 @@
 
             if (isRawMaterial) {
                 sizeField.classList.add("d-none");
-                finishedCategoryField.classList.add("d-none");
             } else {
                 sizeField.classList.remove("d-none");
-                finishedCategoryField.classList.remove("d-none");
             }
         }
 

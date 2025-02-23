@@ -1,5 +1,6 @@
-<?php
+213<?php
 
+use App\Http\Controllers\AccountTypesController;
 use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\CategoryAttributesController;
@@ -15,7 +16,6 @@ use App\Http\Controllers\HrmStatusController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentController;
-use App\Http\Controllers\HrmSubDepartmentsController;
 use App\Http\Controllers\InvSuppliersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -70,10 +70,11 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
  * Production Memu END
  **/
 
-
 /**
  * Start Hr & Workforce Management.
-**/
+/**
+ * Start Hr & Workforce Management.
+ */
 
 Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
 Route::resource('hrm_status', HrmStatusesController::class);
@@ -114,7 +115,7 @@ Route::resource('hrm_employees', HrmEmployeesController::class);
 Route::resource('companyProfile', CompanyProfileController::class);
 
 Route::resource('status', StatusController::class);
-Route::resource('category_list', CategoryController::class);
+Route::resource('category_value', CategoryController::class);
 Route::resource('categoryType', CategoryTypeController::class);
 
 
@@ -140,6 +141,7 @@ Route::resource('valuations', ValuationMethodsController::class);
 
 Route::resource('assetRegister', AssetStatusController::class);
 Route::resource('assetTypes', AssetTypesController::class);
+Route::resource('accountTypes', AccountTypesController::class);
 // Route::resource('createAssetType', AssetTypesController::class);
 
 require __DIR__ . '/auth.php';

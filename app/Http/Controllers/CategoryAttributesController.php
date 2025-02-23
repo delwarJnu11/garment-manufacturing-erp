@@ -14,7 +14,7 @@ class CategoryAttributesController extends Controller
      */
     public function index()
     {
-        $category_attributes = category_attributes::with('category')->paginate(4);
+        $category_attributes = category_attributes::with('category', 'category_type')->paginate(4);
         return view('pages.inventory.category.category_attributes.category_attributes', compact('category_attributes'));
     }
 
@@ -24,8 +24,8 @@ class CategoryAttributesController extends Controller
     public function create()
     {
         $category = Category::all();
-      
-        return view('pages.inventory.category.category_attributes.create', compact('category'));
+        $category_type = Category_type::all();
+        return view('pages.inventory.category.category_attributes.create', compact('category', 'category_type'));
     }
 
     /**
@@ -36,13 +36,14 @@ class CategoryAttributesController extends Controller
         $request->validate([
 
             'category_id' => 'required',
+            'category_type' => 'required',
             'name' => 'required',
             'attribute_value' => 'required',
         ]);
 
         $category_attribute = new category_attributes();
         $category_attribute->category_id = $request->category_id;
-        // $category_attribute->category_type_id = $request->category_type;
+        $category_attribute->category_type_id = $request->category_type;
         $category_attribute->name = $request->name;
         $category_attribute->attribute_value = $request->attribute_value;
 
