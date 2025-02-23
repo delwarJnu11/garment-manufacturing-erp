@@ -404,20 +404,6 @@
                 </li>
             </ul>
             </li>
-            {{-- USER MODULE MENU START --}}
-            {{-- <li class="submenu-open">
-                <h6 class="submenu-hdr">Users</h6>
-                <ul>
-                    <li class="submenu"><a href="javascript:void(0);" class="subdrop">
-                            <i data-feather="users"></i>
-                            <span>Users</span><span class="menu-arrow"></span></a></li>
-                    <ul>
-                        <li><a href="{{ route('users.index') }}">All User</a></li>
-                        <li><a href="{{ route('roles.index') }}">All Roles</a></li>
-                    </ul>
-                </ul>
-            </li> --}}
-            {{-- USER MODULE MENU END --}}
         </div>
     </div>
 </div>

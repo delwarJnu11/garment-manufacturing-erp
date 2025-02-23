@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Size;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
+<<<<<<< HEAD
         // Insert dummy data
         DB::table('sizes')->insert([
             ['name' => 'Small', 'created_at' => now(), 'updated_at' => now()],
@@ -25,6 +27,11 @@ return new class extends Migration
             ['name' => 'Large', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Extra Large', 'created_at' => now(), 'updated_at' => now()],
         ]);
+=======
+        // insert Demo Data
+        Size::create(['name' => 'Small']);
+        Size::create(['name' => 'Medium']);
+>>>>>>> development
     }
 
     /**
