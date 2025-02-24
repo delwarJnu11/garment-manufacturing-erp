@@ -14,7 +14,7 @@ class InvSuppliersController extends Controller
     public function index()
     {
         $suppliers = inv_suppliers::paginate(4);
-        return view('pages.inventory.Suppliers.suppliers', compact('suppliers'));
+        return view('pages.purchase_&_supliers.Suppliers.suppliers', compact('suppliers'));
     }
 
     /**
@@ -22,7 +22,7 @@ class InvSuppliersController extends Controller
      */
     public function create()
     {
-        return view('pages.inventory.Suppliers.create');
+        return view('pages.purchase_&_supliers.Suppliers.create');
     }
 
     /**
@@ -67,7 +67,7 @@ class InvSuppliersController extends Controller
     public function show(inv_suppliers $inv_suppliers, $id)
     {
         $supplier = inv_suppliers::findOrFail($id);
-        return view('pages.inventory.Suppliers.show', compact('supplier'));
+        return view('pages.purchase_&_supliers.Suppliers.show', compact('supplier'));
     }
 
     /**
@@ -75,7 +75,7 @@ class InvSuppliersController extends Controller
      */
     public function edit(inv_suppliers $supplier)
     {
-        return view('pages.inventory.suppliers.edit', compact('supplier'));
+        return view('pages.purchase_&_supliers.Suppliers.edit', compact('supplier'));
     }
 
 
@@ -138,7 +138,4 @@ class InvSuppliersController extends Controller
         $supplier->delete();
         return redirect('suppliers')->with('success', 'Supplier deleted successfully');
     }
-
-    
-
 }

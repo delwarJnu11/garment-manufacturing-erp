@@ -118,21 +118,63 @@ CREATE TABLE stock_in (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 CREATE TABLE lots (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    quantity INT NOT NULL, -- Quantity received
-    cost_price double,
-    sales_price double,
+    raw_material_id INT NOT NULL, -- Reference to raw_materials table
+    quantity INT NOT NULL, -- Quantity of raw material received
+    cost_price DOUBLE,
     warehouse_id INT NOT NULL, -- Reference to warehouses table
-    transaction_type_id int ,
-    description text,
+    description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE purchase_orders(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    supplier_id INT NOT NULL,
+    lot_id INT, -- Foreign key referencing 'lots' table (for raw materials)
+    status_id INT NOT NULL,
+    order_total DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
+    paid_amount DECIMAL(10,2) DEFAULT(0.00),
+    discount DECIMAL(10,2) DEFAULT(0.00),
+    vat DECIMAL(10,2) DEFAULT(0.00),
+    delivery_date DATE,
+    shipping_address VARCHAR(255),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (lot_id) REFERENCES lots(id) ON DELETE SET NULL
+);
 
 
+
+CREATE TABLE suppliers(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(80) NOT NULL,
+    last_name VARCHAR(80) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    photo VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE purchase_orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    supplier_id INT NOT NULL,
+    status_id INT NOT NULL,
+    order_total DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
+    paid_amount DECIMAL(10,2) DEFAULT(0.00),
+    discount DECIMAL(10,2) DEFAULT(0.00),
+    vat DECIMAL(10,2) DEFAULT(0.00),
+    delivery_date DATE,
+    shipping_address VARCHAR (255),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
 
 
@@ -206,44 +248,6 @@ CREATE TABLE inventory_audit (
 -- END  Inventory & Warehouse Management Module
 
 
-CREATE TABLE suppliers(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(80) NOT NULL,
-    last_name VARCHAR(80) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-    phone VARCHAR(20) UNIQUE NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    photo VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE purchases(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    supplier_id INT NOT NULL,
-    lot_id int,
-    status_id int NOT NULL,
-    order_total DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
-    paid_amount DECIMAL(10,2) DEFAULT(0.00),
-    discount DECIMAL(10,2) DEFAULT(0.00),
-    vat DECIMAL(10,2) DEFAULT(0.00),
-    delivery_date DATE,
-    shipping_address VARCHAR (255),
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE purchase_details(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    purchase_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    price DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
-    discount_price DECIMAL(10,2) DEFAULT(0.00),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
 
 
 
