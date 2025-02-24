@@ -9,10 +9,9 @@
                             <a href="javascript:void(0);" class="subdrop"><i
                                     data-feather="grid"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
-                                        class="active">Admin Dashboard</a></li>
-                                <li><a href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
-                                        class="">Account Dashboard</a></li>
+                                <li><a href="{{ url('dashboard') }}" class="active">Admin Dashboard</a></li>
+                                <li><a href="{{ url('dashboard') }}" class="">Account Dashboard</a></li>
+                                <!-- https://dreamspos.dreamstechnologies.com/html/template/index.html -->
                             </ul>
                         </li>
                         {{-- USER MODULE MENU START --}}
@@ -300,6 +299,12 @@
                                 </svg><span>Finance &
                                     Accounts</span><span class="menu-arrow"></span></a>
                             <ul>
+                                <li class="submenu submenu-two"><a href="">Reports<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="{{ url('reports/finance') }}">Financial Statements</a></li>
+                                    </ul>
+                                </li>
                                 <li class="submenu submenu-two"><a href="">General Ledger<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
