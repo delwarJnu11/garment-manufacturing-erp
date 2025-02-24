@@ -15,14 +15,13 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('sku', 100)->unique(); // 'TSH-001', 'JNS-002', 'JKT-003'
-            $table->text('description')->nullable(); // 'Cotton T-shirt with logo'
-            $table->string('barcode')->nullable()->unique(); // '0123456789123'
-            $table->integer('category_id'); // 1 (Men's Wear), 2 (Women's Wear)
-            $table->integer('uom_id'); // 1 (Pieces), 2 (Kilograms)
-           
-            $table->string('photo')->nullable(); // 'tshirt.jpg', 'jeans.jpg'
-            $table->timestamps(); // created_at, updated_at
+            $table->string('sku', 100)->unique();
+            $table->text('description')->nullable();
+            $table->string('barcode')->nullable()->unique();
+            $table->integer('category_id');
+            $table->integer('uom_id');
+            $table->string('photo')->nullable();
+            $table->timestamps();
         });
 
         Product::create([
@@ -34,7 +33,7 @@ return new class extends Migration
             'photo' => 'tshirt.jpg',
             'description' => 'Cotton T-shirt with logo'
         ]);
-    
+
         Product::create([
             'name' => 'Jeans',
             'sku' => 'JNS-002',
@@ -44,7 +43,7 @@ return new class extends Migration
             'photo' => 'jeans.jpg',
             'description' => 'Classic blue jeans'
         ]);
-    
+
         Product::create([
             'name' => 'Jacket',
             'sku' => 'JKT-003',
@@ -54,8 +53,6 @@ return new class extends Migration
             'photo' => 'jacket.jpg',
             'description' => 'Warm winter jacket'
         ]);
-    
-
     }
 
 
