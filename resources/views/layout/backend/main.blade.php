@@ -65,8 +65,8 @@
         @include('layout.backend.horizontal_sidebar')
         <!-- /Sidebar -->
 
-        <div class="page-wrapper">
-            <div class="content">
+        <div class="page-wrapper position-relative">
+            <div class="content" style="min-height: 84.5vh;">
                 @yield('page_content')
             </div>
             @include('layout.backend.footer')

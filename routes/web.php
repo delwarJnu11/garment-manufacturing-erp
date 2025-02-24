@@ -1,6 +1,8 @@
 
 <?php
 
+use App\Http\Controllers\AccountGroupsController;
+use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\AccountTypesController;
 use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\AssetTypesController;
@@ -23,6 +25,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
@@ -127,6 +130,10 @@ Route::resource('colors', ColorController::class);
 Route::resource('assetRegister', AssetStatusController::class);
 Route::resource('assetTypes', AssetTypesController::class);
 Route::resource('accountTypes', AccountTypesController::class);
+Route::resource('accounts', AccountsController::class);
+Route::resource('accountTypes', AccountTypesController::class);
+Route::resource('accountGroups', AccountGroupsController::class);
+Route::resource('transactions', TransactionsController::class);
 // Route::resource('createAssetType', AssetTypesController::class);
 
 require __DIR__ . '/auth.php';
