@@ -1,10 +1,9 @@
 <?php
 
-use App\Models\Size;
+use App\Models\fabricType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,15 +12,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sizes', function (Blueprint $table) {
+        Schema::create('fabric_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 30);
+            $table->string('name');
             $table->timestamps();
         });
 
-        // insert Demo Data
-        Size::create(['name' => 'Small']);
-        Size::create(['name' => 'Medium']);
+        //Insert Demo Data
+        fabricType::create([
+            'name' => 'cotton',
+        ]);
     }
 
     /**
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sizes');
+        Schema::dropIfExists('fabric_types');
     }
 };

@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\Size;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sizes', function (Blueprint $table) {
+        Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 30);
+            $table->integer('product_id');
+            $table->integer('order_id');
+            $table->integer('size_id');
+            $table->integer('color_id');
+            $table->string('qty');
+            $table->integer('uom_id');
+            $table->decimal('subtotal');
             $table->timestamps();
         });
-
-        // insert Demo Data
-        Size::create(['name' => 'Small']);
-        Size::create(['name' => 'Medium']);
     }
 
     /**
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sizes');
+        Schema::dropIfExists('order_details');
     }
 };

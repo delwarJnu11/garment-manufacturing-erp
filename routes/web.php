@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\FabricTypeController;
 use App\Http\Controllers\HrmDepartmentController;
 use App\Http\Controllers\HrmDepartmentsController;
 use App\Http\Controllers\HrmStatusController;
@@ -18,6 +19,8 @@ use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentController;
 use App\Http\Controllers\InvSuppliersController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderDetailController;
+use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -116,10 +119,13 @@ Route::resource('products', ProductController::class);
 Route::resource('valuations', ValuationMethodsController::class);
 
 /*
- * Sales and Orders
+ *  Orders & Buyers
  */
 Route::resource('orders', OrderController::class);
+Route::resource('orders_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
+Route::resource('order_status', OrderStatusController::class);
+Route::resource('fabric_types', FabricTypeController::class);
 /**
  *END Invetory/category
  **/

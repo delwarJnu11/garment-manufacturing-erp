@@ -13,7 +13,7 @@ class BuyerController extends Controller
     public function index()
     {
         $buyers = Buyer::paginate(5);
-        return view('pages.orders_&_Buyers.Buyers.buyers', compact('buyers'));
+        return view('pages.orders_&_buyers.buyers.buyers', compact('buyers'));
     }
 
     /**
@@ -21,7 +21,7 @@ class BuyerController extends Controller
      */
     public function create()
     {
-        return view('pages.orders_&_Buyers.Buyers.create');
+        return view('pages.orders_&_buyers.buyers.create');
     }
 
     /**
