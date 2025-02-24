@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\FabricTypeController;
+use App\Http\Controllers\HrmAttendanceListController;
 use App\Http\Controllers\HrmDepartmentController;
 use App\Http\Controllers\HrmDepartmentsController;
 use App\Http\Controllers\HrmDesignationsController;
@@ -101,21 +102,24 @@ Route::resource('hrm_employees', HrmEmployeesController::class);
 Route::get('hrm_employee_performances/delete/{id}/',[HrmEmployeePerformancesController::class,'destroy'] );
 Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::class);
 
-// Route::get('hrm_employee_bank_accounts/delete/{id}/',[HrmEmployeeBankAccountsController::class,'destroy'] );
-// Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
+Route::get('hrm_employee_bank_accounts/delete/{id}/',[HrmEmployeeBankAccountsController::class,'destroy'] );
+Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
 
-Route::get('hrm_statussss', function(){
-    echo "hello hrm_status";
+Route::get('hrm_attendance_list/delete/{id}/',[HrmAttendanceListController::class,'destroy'] );
+Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
+
+Route::get('/attendence', function(){
+    echo "hello";
+});
+
+Route::get('/attendence/create', function(){
+    return view('pages.hrm.attendence.create');
 });
 
 /**
  * End Hr & Workforce Management.
  */
 
-
-// Route::get('hrm_status', function(){
-//     echo "hello hrm_status";
-// });
 
 // End Route
 

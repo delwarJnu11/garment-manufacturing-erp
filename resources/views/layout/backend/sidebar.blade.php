@@ -488,6 +488,12 @@
                                         <li><a href="javascript:void(0);">Payroll</a></li>
                                     </ul>
                                 </li>
+                            </ul>
+                        </li>
+
+                              {{-- End HR & Workforce Management --}}
+
+
                         <!-- 🔸 Order & Customers -->
                         <li class="submenu">
                             <a href="javascript:void(0);">
