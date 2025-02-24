@@ -37,8 +37,6 @@ return new class extends Migration
                     'country' => 'USA',
                     'shipping_address' => '1234 Elm Street, Springfield, IL',
                     'billing_address' => '1234 Elm Street, Springfield, IL',
-                    'created_at' => now(),
-                    'updated_at' => now(),
                 ]
             ]
         );
