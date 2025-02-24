@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // 'T-Shirt', 'Jeans', 'Jacket'
+            $table->string('name');
             $table->string('sku', 100)->unique(); // 'TSH-001', 'JNS-002', 'JKT-003'
             $table->text('description')->nullable(); // 'Cotton T-shirt with logo'
             $table->decimal('unit_price', 10, 2)->default(0.00); // 10.99, 25.50, 40.00
