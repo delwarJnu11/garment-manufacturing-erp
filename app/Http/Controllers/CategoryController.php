@@ -12,8 +12,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(3);
-        return view('pages.inventory.category.category_list.categories', compact('categories'));
+        $categories = Category::paginate(7);
+        return view('pages.inventory.category.category_list.category', compact('categories'));
     }
 
     /**
@@ -31,14 +31,13 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:4',
-            'description' => 'required|min:5',
-
+          
         ]);
 
         $categorie = new Category();
 
         $categorie->name  = $request->name;
-        $categorie->description  = $request->description;
+        // $categorie->description  = $request->description;
         if ($categorie->save()) {
            return redirect('category')->with('success', 'Category Added Successfully');
         }
@@ -70,13 +69,13 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:4',
-            'description' => 'required|min:5',
+          
         ]);
 
         $category = Category::find($id);
 
         $category->name  = $request->name;
-        $category->description  = $request->description;
+      
 
         if ($category->save()) {
             return redirect('category')->with('success', 'Category Updated Successfully');

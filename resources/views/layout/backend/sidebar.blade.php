@@ -99,10 +99,6 @@
                                 <li><a href="{{ url('/orders/pending') }}">Pending Orders</a></li>
                                 <li><a href="{{ url('/orders/pending') }}">Running Orders</a></li>
                                 <li><a href="{{ url('/orders/completed') }}">Completed Orders</a></li>
-                                <li><a href="{{ route('order_status.index') }}">Order Status</a></li>
-                                <li><a href="{{ route('colors.index') }}">Color Lists</a></li>
-                                <li><a href="{{ route('sizes.index') }}">Size Lists</a></li>
-                                <li><a href="{{ route('fabric_types.index') }}">Fabrics Types</a></li>
 
                                 <!-- 🔹 Customers -->
                                 <li><a href="{{ url('/buyers') }}">Buyers</a></li>
@@ -138,13 +134,12 @@
 
                                 <!-- 🔹 Stock Management -->
                                 <li>
-                                    <a href="{{ url('/products') }}">Stock Overview</a>
-                                </li>
+                                    <a href="{{ url('/products') }}">Stock Overview</a></li>
                                 <li>
                                     <a href="{{ url('/products/create') }}">Raw Materials</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/products') }}">Product Catelog</a>
+                                    <a href="{{ url('/products') }}">Product Catelogue</a>
                                 </li>
                                 <li><a href="{{ url('/products/variants') }}">Finished Goods</a></li>
                                 <li><a href="{{ url('/products/barcode') }}">Print Barcode & QR</a></li>
