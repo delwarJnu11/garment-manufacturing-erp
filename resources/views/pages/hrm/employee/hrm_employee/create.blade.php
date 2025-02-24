@@ -5,13 +5,13 @@
     <div class="col-md-12 col-lg-12 col-xl-12 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="card flex-fill">
             <div class="text-end">
-                <a href="{{url('/hrm_employees')}}" type="submit" class="btn btn-primary">Back</a>
+                <a href="{{url('hrm_employees')}}" type="submit" class="btn btn-primary">Back</a>
             </div>
             <div class="card-header">
-                <h5 class="card-title">Create Department</h5>
+                <h5 class="card-title">Create Employee</h5>
             </div>
             <div class="card-body">
-                <form action="{{url('/hrm_employees')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('hrm_employees')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">EmployeeID :</label>
@@ -28,9 +28,9 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-lg-2 col-form-label">Email Number :</label>
+                        <label class="col-lg-2 col-form-label">Email :</label>
                         <div class="col-lg-10">
-                            <input type="text" name="email" value="{{old('email')}}" class="form-control" placeholder="Enter Email Number..." autocomplete="email">
+                            <input type="text" name="email" value="{{old('email')}}" class="form-control" placeholder="Enter Email ..." autocomplete="email">
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
                     </div>
@@ -74,18 +74,6 @@
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-lg-2 col-form-label">Employee Position :</label>
-                        <div class="col-lg-10">
-                            <select name="positions_id" id="positions_id" class="form-select" value="{{old('positions_id')}}">
-                                <option value="">Select a Position</option>
-                                @foreach ($positions as $position)
-                                    <option value="{{ $position->id }}">{{ $position->name }}</option>
-                                @endforeach
-                            </select>
-                            <x-input-error :messages="$errors->get('positions_id')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -169,7 +157,7 @@
                         </div>
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary">Create New Position</button>
+                        <button type="submit" class="btn btn-primary">Create New Employee</button>
                     </div>
                 </form>
             </div>
