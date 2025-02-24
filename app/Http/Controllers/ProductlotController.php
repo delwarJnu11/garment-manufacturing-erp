@@ -2,24 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Raw_material;
+use App\Models\Product_lot;
+use App\Models\ProductLot;
 use Illuminate\Http\Request;
 
-class Raw_materialController extends Controller
+class ProductlotController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $raw_materials = Raw_material::paginate(10);
-        return view('pages.purchase_&_supliers.raw_materials.index', compact('raw_materials'));
+        $product_lots = ProductLot::paginate(5);
+        return view('pages.purchase_&_supliers.product_lot.index', compact('product_lots'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create() {}
+    public function create()
+    {
+        //
+    }
 
     /**
      * Store a newly created resource in storage.

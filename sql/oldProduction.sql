@@ -515,7 +515,7 @@ CREATE TABLE suppliers (
 );
 
 CREATE TABLE purchase_orders (
-    purchase_order_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     supplier_id INT REFERENCES suppliers(supplier_id),
     order_date DATE NOT NULL,
     expected_delivery_date DATE,
