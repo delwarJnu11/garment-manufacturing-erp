@@ -13,10 +13,13 @@ use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\FabricTypeController;
 use App\Http\Controllers\HrmDepartmentController;
 use App\Http\Controllers\HrmDepartmentsController;
-use App\Http\Controllers\HrmStatusController;
+use App\Http\Controllers\HrmDesignationsController;
+use App\Http\Controllers\HrmEmployeeBankAccountsController;
+use App\Http\Controllers\HrmEmployeePerformancesController;
+use App\Http\Controllers\HrmEmployeesController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
-use App\Http\Controllers\HrmSubDepartmentController;
+use App\Http\Controllers\HrmSubDepartmentsController;
 use App\Http\Controllers\InvSuppliersController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
@@ -30,7 +33,6 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
-use App\Models\Category_type;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -84,6 +86,33 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
 Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
 Route::resource('hrm_status', HrmStatusesController::class);
 
+Route::get('hrm_departments/delete/{id}/',[HrmDepartmentsController::class,'destroy'] );
+Route::resource('hrm_departments', HrmDepartmentsController::class);
+
+Route::get('hrm_sub_departments/delete/{id}/',[HrmSubDepartmentsController::class,'destroy'] );
+Route::resource('hrm_sub_departments', HrmSubDepartmentsController::class);
+
+Route::get('hrm_designations/delete/{id}/',[HrmDesignationsController::class,'destroy'] );
+Route::resource('hrm_designations', HrmDesignationsController::class);
+
+Route::get('hrm_employees/delete/{id}/',[HrmEmployeesController::class,'destroy'] );
+Route::resource('hrm_employees', HrmEmployeesController::class);
+
+Route::get('hrm_employee_performances/delete/{id}/',[HrmEmployeePerformancesController::class,'destroy'] );
+Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::class);
+
+// Route::get('hrm_employee_bank_accounts/delete/{id}/',[HrmEmployeeBankAccountsController::class,'destroy'] );
+// Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
+
+Route::get('hrm_statussss', function(){
+    echo "hello hrm_status";
+});
+
+/**
+ * End Hr & Workforce Management.
+ */
+
+
 // Route::get('hrm_status', function(){
 //     echo "hello hrm_status";
 // });
@@ -106,7 +135,7 @@ Route::resource('sizes', SizeController::class);
 // Route::resource('category', CategoryAttributesController::class);
 // Route::resource('categoryTypes', CategoryTypeController::class);
 
-// Sales & buyers 
+// Sales & buyers
 Route::resource('buyers', BuyerController::class);
 /**
  * Suppliers and Purcahse
