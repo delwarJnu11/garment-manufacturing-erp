@@ -126,8 +126,6 @@ CREATE TABLE lots (
     transaction_type_id INT, -- 1 (Stock In), 2 (Sales)
     description TEXT, -- 'New stock received from supplier'
     expiration_date DATE NULL, -- '2025-12-31' (for perishable stock)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Table: Stock Movement (Stock In)
