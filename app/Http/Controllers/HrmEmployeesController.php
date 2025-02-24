@@ -116,11 +116,18 @@ class HrmEmployeesController extends Controller
     /**
      * Display the specified resource.
      */
+    // public function show(Hrm_employees $Hrm_employees, $id)
+    // {
+    //     $employees = Hrm_employees::find($id);
+    //     return view('pages.hrm.employee.hrm_employee.show', compact('employees'));
+    // }
+
     public function show(Hrm_employees $Hrm_employees, $id)
     {
         $employees = Hrm_employees::find($id);
-        return view('pages.hrm.employee.hrm_employee.show', compact('employees'));
+        return view('pages.hrm.employee.hrm_employee.employee_details', compact('employees'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

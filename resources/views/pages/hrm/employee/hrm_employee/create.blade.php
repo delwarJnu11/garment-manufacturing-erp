@@ -16,28 +16,28 @@
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">EmployeeID :</label>
                         <div class="col-lg-10">
-                            <input type="text" name="employee_id" value="{{old('employee_id')}}" class="form-control" placeholder="Enter Employee Name..."  autocomplete="name">
+                            <input type="text" name="employee_id" value="{{old('employee_id')}}" class="form-control" placeholder="Enter Employee Name..." autocomplete="name">
                             <x-input-error :messages="$errors->get('employee_id')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Employee Name :</label>
                         <div class="col-lg-10">
-                            <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="Enter Employee Name..."  autocomplete="name">
+                            <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="Enter Employee Name..." autocomplete="name">
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Email Number :</label>
                         <div class="col-lg-10">
-                            <input type="text" name="email" value="{{old('email')}}" class="form-control" placeholder="Enter Email Number..."  autocomplete="email">
+                            <input type="text" name="email" value="{{old('email')}}" class="form-control" placeholder="Enter Email Number..." autocomplete="email">
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Phone Number :</label>
                         <div class="col-lg-10">
-                            <input type="text" name="phone" value="{{old('phone')}}" class="form-control" placeholder="Enter Phone Number..."  autocomplete="email">
+                            <input type="text" name="phone" value="{{old('phone')}}" class="form-control" placeholder="Enter Phone Number..." autocomplete="email">
                             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                         </div>
                     </div>
@@ -60,16 +60,15 @@
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Date Of Birth :</label>
                         <div class="col-lg-10">
-                            <input type="date" name="date_of_birth" value="{{old('date_of_birth')}}" class="form-control" placeholder="Enter Joining_date ..."  autocomplete="name">
+                            <input type="date" name="date_of_birth" value="{{old('date_of_birth')}}" class="form-control" placeholder="Enter Joining_date ..." autocomplete="name">
                             <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Department Name :</label>
                         <div class="col-lg-10">
-                            {{-- <input type="text" name="statuses_id" value="{{old('statuses_id')}}" class="form-control" placeholder="Enter Status Name..."  autocomplete="name"> --}}
-                            <select name="department_id" id="department_id"  class="form-select" value="{{old('department_id')}}">
-                                <option value="" >Select a Department </option>
+                            <select name="department_id" id="department_id" class="form-select" value="{{old('department_id')}}">
+                                <option value="">Select a Department</option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                 @endforeach
@@ -80,9 +79,8 @@
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Employee Position :</label>
                         <div class="col-lg-10">
-                            {{-- <input type="text" name="statuses_id" value="{{old('statuses_id')}}" class="form-control" placeholder="Enter Status Name..."  autocomplete="name"> --}}
-                            <select name="positions_id" id="positions_id"  class="form-select" value="{{old('positions_id')}}">
-                                <option value="" >Select a Position </option>
+                            <select name="positions_id" id="positions_id" class="form-select" value="{{old('positions_id')}}">
+                                <option value="">Select a Position</option>
                                 @foreach ($positions as $position)
                                     <option value="{{ $position->id }}">{{ $position->name }}</option>
                                 @endforeach
@@ -93,22 +91,20 @@
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Employee Designation:</label>
                         <div class="col-lg-10">
-                            {{-- <input type="text" name="statuses_id" value="{{old('statuses_id')}}" class="form-control" placeholder="Enter Status Name..."  autocomplete="name"> --}}
-                            <select name="designations_id	" id="designations_id	"  class="form-select" value="{{old('designations_id')}}">
-                                <option value="" >Select a Designation </option>
+                            <select name="designations_id" id="designations_id" class="form-select" value="{{old('designations_id')}}">
+                                <option value="">Select a Designation</option>
                                 @foreach ($designations as $designation)
                                     <option value="{{ $designation->id }}">{{ $designation->name }}</option>
                                 @endforeach
                             </select>
-                            <x-input-error :messages="$errors->get('designations_id	')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('designations_id')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Status :</label>
                         <div class="col-lg-10">
-                            {{-- <input type="text" name="statuses_id" value="{{old('statuses_id')}}" class="form-control" placeholder="Enter Status Name..."  autocomplete="name"> --}}
-                            <select name="statuses_id" id="statuses_id"  class="form-select" value="{{old('statuses_id')}}">
-                                <option value="" >Select a Status </option>
+                            <select name="statuses_id" id="statuses_id" class="form-select" value="{{old('statuses_id')}}">
+                                <option value="">Select a Status</option>
                                 @foreach ($status as $data)
                                     <option value="{{ $data->id }}">{{ $data->name }}</option>
                                 @endforeach
@@ -119,56 +115,56 @@
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Salary :</label>
                         <div class="col-lg-10">
-                            <input type="text" name="salary" value="{{old('salary')}}" class="form-control" placeholder="Enter Salary..."  autocomplete="name">
+                            <input type="text" name="salary" value="{{old('salary')}}" class="form-control" placeholder="Enter Salary..." autocomplete="name">
                             <x-input-error :messages="$errors->get('salary')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Branch :</label>
                         <div class="col-lg-10">
-                            <input type="text" name="branch" value="{{old('branch')}}" class="form-control" placeholder="Enter Salary..."  autocomplete="name">
+                            <input type="text" name="branch" value="{{old('branch')}}" class="form-control" placeholder="Enter Branch..." autocomplete="name">
                             <x-input-error :messages="$errors->get('branch')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Photo :</label>
                         <div class="col-lg-10">
-                            <input type="file" name="photo" value="{{old('photo')}}" class="form-control" placeholder="Enter Salary..."  autocomplete="name">
+                            <input type="file" name="photo" value="{{old('photo')}}" class="form-control" autocomplete="name">
                             <x-input-error :messages="$errors->get('photo')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Resume :</label>
                         <div class="col-lg-10">
-                            <input type="file" name="resume" value="{{old('resume')}}" class="form-control" placeholder="Enter Salary..."  autocomplete="name">
+                            <input type="file" name="resume" value="{{old('resume')}}" class="form-control" autocomplete="name">
                             <x-input-error :messages="$errors->get('resume')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Certificate :</label>
                         <div class="col-lg-10">
-                            <input type="file" name="certificate" value="{{old('certificate')}}" class="form-control" placeholder="Enter Salary..."  autocomplete="name">
+                            <input type="file" name="certificate" value="{{old('certificate')}}" class="form-control" autocomplete="name">
                             <x-input-error :messages="$errors->get('certificate')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Joining Date :</label>
                         <div class="col-lg-10">
-                            <input type="date" name="joining_date" value="{{old('joining_date')}}" class="form-control" placeholder="Enter Joining_date ..."  autocomplete="name">
+                            <input type="date" name="joining_date" value="{{old('joining_date')}}" class="form-control" autocomplete="name">
                             <x-input-error :messages="$errors->get('joining_date')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Address :</label>
                         <div class="col-lg-10">
-                            <input type="text" name="address" value="{{old('address')}}" class="form-control" placeholder="Enter Address Name..."  autocomplete="name">
+                            <input type="text" name="address" value="{{old('address')}}" class="form-control" placeholder="Enter Address..." autocomplete="name">
                             <x-input-error :messages="$errors->get('address')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">City :</label>
                         <div class="col-lg-10">
-                            <input type="text" name="city" value="{{old('city')}}" class="form-control" placeholder="Enter City Name..."  autocomplete="name">
+                            <input type="text" name="city" value="{{old('city')}}" class="form-control" placeholder="Enter City..." autocomplete="name">
                             <x-input-error :messages="$errors->get('city')" class="mt-2" />
                         </div>
                     </div>

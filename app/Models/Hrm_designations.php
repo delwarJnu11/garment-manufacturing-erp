@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hrm_designations extends Model
 {
-    //
+   
 }

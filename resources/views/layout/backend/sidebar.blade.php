@@ -378,9 +378,8 @@
                                     <a href="javascript:void(0);">Employee<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
-                                        <li><a href="{{route('hrm_employee_positions.index')}}">Position</a></li>
                                         <li><a href="{{route('hrm_employees.index')}}">Employee</a></li>
-                                        <li><a href="javascript:void(0);">Employee Performance</a></li>
+                                        <li><a href="{{route('hrm_employee_performances.index')}}">Employee Performance</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu submenu-two">

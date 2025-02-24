@@ -116,30 +116,34 @@ CREATE TABLE hrm_employees (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
 
-CREATE TABLE employee_bank_accounts (
+CREATE TABLE hrm_employee_bank_accounts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     employee_id INT NOT NULL,
     bank_name VARCHAR(255) NOT NULL,
     account_number VARCHAR(50) NOT NULL UNIQUE,
-    account_type ENUM('Savings', 'Current', 'Salary') NOT NULL,
-    ifsc_code VARCHAR(20) NOT NULL,  -- For India, can be replaced with SWIFT/BIC for international
+    bank_identifier_code VARCHAR(20) NOT NULL,
     branch_name VARCHAR(255),
     branch_location VARCHAR(200),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
 );
 
 
 CREATE TABLE hrm_employee_performances (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     employees_id BIGINT UNSIGNED NOT NULL,
-    reviewer_id BIGINT UNSIGNED NOT NULL,
-    review_period_start DATE NOT NULL,
-    review_period_end DATE NOT NULL,
-    performance_score DECIMAL(5,2) NOT NULL CHECK (performance_score BETWEEN 0 AND 100),
+    department_id BIGINT UNSIGNED NOT NULL,
+    designations_id BIGINT UNSIGNED NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    appraisal_date DATE NOT NULL,
+    terget_achievement , DECIMAL(10,2) NOT NULL,
     feedback TEXT NULL,
     goals TEXT NULL,
+    subject TEXT NULL,
+    branch TEXT NULL,
+    terget_rating VARCHAR (200) NOT NULL,
+    overall_rating VARCHAR (200) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

@@ -11,20 +11,15 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th><a class="btn btn-primary" href="{{url("pages/hrm/employee/employee_details")}}">EmployeeID</a></th>
+                            <th>EmployeeID</th>
                             <th>Employee Name</th>
                             <th>Email Number</th>
                             <th>Phone Number</th>
                             <th>Gender</th>
                             <th>Department Name</th>
-                            <th>Position Name</th>
                             <th>Designations Name</th>
                             <th>Statuses</th>
                             <th>Joining Date</th>
-                            <th>Salary</th>
-                            <th>Date Of Birth</th>
-                            <th>Address</th>
-                            <th>City</th>
                             <th class="no-sort">Action</th>
                         </tr>
                     </thead>
@@ -32,23 +27,18 @@
                         @forelse ($employees as $employee)
                             <tr>
                                 <td>{{ $employee->id }}</td>
-                                <td>{{ $employee->employee_id }}</td>
+                                <td><a class="btn btn-outline-success" href="{{url('hrm_employees/' . $employee->id)}}">{{ $employee->employee_id }}</a></td>
                                 <td>{{ $employee->name }}</td>
                                 <td>{{ $employee->email }}</td>
                                 <td>{{ $employee->phone }}</td>
                                 <td>{{ $employee->gender }}</td>
                                 <td>{{ $employee->department_id }}</td>
-                                <td>{{ $employee->positions_id }}</td>
                                 <td>{{ $employee->designations_id }}</td>
                                 <td>{{ $employee->statuses_id }}</td>
                                 <td>{{ $employee->joining_date }}</td>
-                                <td>{{ $employee->salary }}</td>
-                                <td>{{ $employee->date_of_birth }}</td>
-                                <td>{{ $employee->address }}</td>
-                                <td>{{ $employee->city }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_employees/{$employee->id}")}}">
+                                        {{-- <a class="me-2 p-2 mb-0" href="{{url("hrm_employees/{$employee->id}")}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"
@@ -56,7 +46,7 @@
                                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
-                                        </a>
+                                        </a> --}}
                                         <a class="me-2 p-2" href="{{url("hrm_employees/$employee->id/edit")}}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>

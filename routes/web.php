@@ -10,6 +10,7 @@ use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\HrmDepartmentController;
 use App\Http\Controllers\HrmDepartmentsController;
 use App\Http\Controllers\HrmDesignationsController;
+use App\Http\Controllers\HrmEmployeePerformancesController;
 use App\Http\Controllers\HrmEmployeePositionsController;
 use App\Http\Controllers\HrmEmployeesController;
 use App\Http\Controllers\HrmStatusController;
@@ -89,12 +90,11 @@ Route::resource('hrm_sub_departments', HrmSubDepartmentsController::class);
 Route::get('hrm_designations/delete/{id}/',[HrmDesignationsController::class,'destroy'] );
 Route::resource('hrm_designations', HrmDesignationsController::class);
 
-Route::get('hrm_employee_positions/delete/{id}/',[HrmEmployeePositionsController::class,'destroy'] );
-Route::resource('hrm_employee_positions', HrmEmployeePositionsController::class);
-
 Route::get('hrm_employees/delete/{id}/',[HrmEmployeesController::class,'destroy'] );
 Route::resource('hrm_employees', HrmEmployeesController::class);
 
+Route::get('hrm_employee_performances/delete/{id}/',[HrmEmployeePerformancesController::class,'destroy'] );
+Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::class);
 
 
 
