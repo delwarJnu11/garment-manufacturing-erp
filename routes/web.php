@@ -23,6 +23,7 @@ use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Raw_materialController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\StatusController;
@@ -89,21 +90,18 @@ Route::resource('hrm_status', HrmStatusesController::class);
 
 // End Route
 
-/**
- * Invetory/category
- **/
+
 /**
  * Company Profile
  */
 Route::resource('companyProfile', CompanyProfileController::class);
-
+/**
+ * Invetory/category
+ **/
 Route::resource('status', StatusController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('categoryType', CategoryTypeController::class);
-Route::get('check', function () {
-    return view('pages.error.eror404');
-});
-
+Route::resource('raw_materials',Raw_materialController::class);
 Route::resource('sizes', SizeController::class);
 // Route::resource('category', CategoryAttributesController::class);
 // Route::resource('categoryTypes', CategoryTypeController::class);

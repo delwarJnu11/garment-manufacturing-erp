@@ -233,7 +233,9 @@ create table if not exists `core_order_details`(
 
 create table if not exists `core_stock`(
     id int primary key auto_increment,
-    product_id int,
+    raw_material_id int,
+    finish_goods_id int,
+    wip_id int,
     transaction_type_id int,
     warehouse_id int,
     qty double,
