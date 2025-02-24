@@ -141,7 +141,7 @@
                                     <a href="{{ url('/products') }}">Stock Overview</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/products/create') }}">Raw Materials</a>
+                                    <a href="{{ url('/raw_materials') }}">Raw Materials</a>
                                 </li>
                                 <li>
                                     <a href="{{ url('/products') }}">Product Catelogue</a>
