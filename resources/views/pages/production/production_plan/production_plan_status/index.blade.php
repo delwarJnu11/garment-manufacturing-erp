@@ -1,7 +1,7 @@
-@extends('layout.backend.main');
-
+@extends('layout.backend.main')
 
 <?php use Carbon\Carbon; ?>
+
 @section('page_content')
     <x-page-header href="{{ route('production_plan_status.create') }}" heading="Production Status" btnText="Status" />
     <div class="card">
@@ -20,44 +20,35 @@
                     <tbody>
                         @forelse ($production_plan_status as $status)
                             <tr>
-                                <td>
-                                    {{ $status->id }}
-                                </td>
+                                <td>{{ $status->id }}</td>
                                 <td>{{ $status->name }}</td>
                                 <td>{{ Carbon::parse($status->created_at)->format('d M, Y') }}</td>
                                 <td>{{ Carbon::parse($status->created_at)->format('h.i A') }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0"
-                                            href="{{ route('production_plan_status.show', $production_plan_status) }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-eye action-eye">
-                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                                <circle cx="12" cy="12" r="3"></circle>
-                                            </svg>
+                                        <!-- Show -->
+                                        <a class="me-2 p-2 mb-0" href="{{ route('production_plan_status.show', $status->id) }}">
+                                            <i data-feather="eye" class="feather-eye"></i>
                                         </a>
-                                        <a class="me-2 p-2"
-                                            href="{{ route('production_plan_status.edit', $production_plan_status) }}">
+
+                                        <!-- Edit -->
+                                        <a class="me-2 p-2" href="{{ route('production_plan_status.edit', $status->id) }}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <a class="confirm-text p-2"
-                                            href="{{ route('production_plan_status.destroy', $production_plan_status) }}">
-                                            <i data-feather="trash-2" class="feather-trash-2"></i>
-                                        </a>
+
+                                        <!-- Delete -->
+                                        <x-delete action="{{ route('production_plan_status.destroy', $status->id) }}" />
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr class="text-danger">
-                                <th colspan="4" class="text-danger">No status found</th>
+                                <th colspan="5" class="text-danger">No status found</th>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
 @endsection

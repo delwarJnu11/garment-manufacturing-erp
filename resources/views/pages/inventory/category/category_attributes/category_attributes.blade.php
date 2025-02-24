@@ -11,8 +11,8 @@
                 <tr>
                     <th>#</th>
                     <th>Category Name</th>
-                    {{-- <th>category type</th> --}}
-                    <th>Category Attribute </th>
+                    <th>category type</th>
+                    <th>Category </th>
                     <th>category value</th>
                     <th>Actions</th>
                 </tr>
@@ -23,7 +23,7 @@
                         <td>{{ $category['id'] }}</td>
                         {{-- <td>{{$category['category_id']}}</td> --}}
                         <td>{{ $category->category ? $category->category->name : 'no category here' }}</td>
-                        {{-- <td>{{ $category->category_type ? $category->category_type->name : 'no category Type here' }}</td> --}}
+                        <td>{{ $category->category_type ? $category->category_type->name : 'no category Type here' }}</td>
                         <td>{{ $category['name'] }}</td>
                         <td>{{ $category['attribute_value'] }}</td>
 
@@ -52,7 +52,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="confirm-text "
                                         style="padding: 2 ; background:transparent; border:none; width:30; color:red">
-                                        <i data-feather="trash-2" class="feather-trash-2 "></i>
+                                        <i data-feather="trash-2" class="feather-trash-2 delete_icon"></i>
                                     </button>
                                 </form>
                             </div>

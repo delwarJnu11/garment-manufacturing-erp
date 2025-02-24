@@ -37,14 +37,11 @@ class ProductionPlanStatusesController extends Controller
         ]);
 
         // Create a new role
-        $result = Production_plan_statuses::create([
+        Production_plan_statuses::create([
             'name' => $request->status_name,
         ]);
-        if ($result) {
-            return redirect()->route('production_plan_status.index')->with('success', 'Production Status has been added successfully!');
-        } else {
-            return redirect()->back()->with('error', 'Production Status created failed!');
-        }
+        return redirect()->route('production_plan_status.index')->with('success', 'Production Status has been added successfully!');
+
     }
 
     /**
@@ -52,7 +49,7 @@ class ProductionPlanStatusesController extends Controller
      */
     public function show(Production_plan_statuses $production_plan_status)
     {
-        return view('pages.production.production_plan.production_plan_status.show', compact('production_plan_status'));
+        //
     }
 
     /**
@@ -60,7 +57,7 @@ class ProductionPlanStatusesController extends Controller
      */
     public function edit(Production_plan_statuses $production_plan_status)
     {
-        return view('pages.production.production_plan.production_plan_status.edit', compact('production_plan_status'));
+        //
     }
 
     /**
@@ -68,16 +65,7 @@ class ProductionPlanStatusesController extends Controller
      */
     public function update(Request $request, Production_plan_statuses $production_plan_status)
     {
-
-        $request->validate([
-            'status_name'    => ['required', 'string', 'max:255'],
-        ]);
-
-        $production_plan_status->update([
-            'name' => $request->status_name,
-        ]);
-
-        return redirect()->route('production_plan_status.index')->with('success', 'Production status updated successfully!');
+        //
     }
 
     /**
@@ -86,7 +74,6 @@ class ProductionPlanStatusesController extends Controller
     public function destroy(Production_plan_statuses $production_plan_status)
     {
         $production_plan_status->delete();
-
-        return redirect()->route('production_plan_status.index')->with('success', 'Production status deleted successfully!');
+        return redirect()->route('production_plan_status.index')->with('success', 'Production Status has been deleted successfully!');
     }
 }

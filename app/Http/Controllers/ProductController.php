@@ -23,10 +23,10 @@ class ProductController extends Controller
     // }
 
     public function index()
-{
-    $products = Product::with('category','uom','valuation_method')->paginate(5);
-    return view('pages.inventory.purchase.products.product', compact('products'));
-}
+    {
+        $products = Product::with('category', 'uom', 'valuation_method')->paginate(5);
+        return view('pages.inventory.purchase.products.product', compact('products'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -47,16 +47,9 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'sku' => 'required|string|max:100|unique:products,sku',
             'description' => 'nullable|string',
-            'unit_price' => 'required|numeric|min:0',
-            'offer_price' => 'nullable|numeric|min:0',
-            'weight' => 'nullable|numeric|min:0',
-            'size_id' => 'nullable|integer',
-            'is_raw_material' => 'required|in:0,1',
             'barcode' => 'nullable|string|max:255',
-            'rfid' => 'nullable|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'uom_id' => 'nullable|exists:uoms,id',
-            'valuation_method_id' => 'required|exists:valuation_methods,id',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -75,16 +68,11 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->sku = $request->sku;
         $product->description = $request->description;
-        $product->unit_price = $request->unit_price;
-        $product->offer_price = $request->offer_price;
-        $product->weight = $request->weight;
-        $product->size_id = $request->size_id;
-        $product->is_raw_material = $request->is_raw_material;
         $product->barcode = $request->barcode;
-        $product->rfid = $request->rfid;
+
         $product->category_id = $request->category_id;
         $product->uom_id = $request->uom_id;
-        $product->valuation_method_id = $request->valuation_method_id;
+
         $product->photo = $photoPath;
 
         $product->save();
@@ -92,7 +80,6 @@ class ProductController extends Controller
         Log::info("Product created:", $request->all());
 
         return redirect('/products')->with('success', 'Product added successfully!');
-
     }
 
 
@@ -100,23 +87,23 @@ class ProductController extends Controller
      * Display the specified resource.
      */
     public function show(Product $product)
-{
-    return view('pages.inventory.purchase.products.show', compact('product'));
-}
+    {
+        return view('pages.inventory.purchase.products.show', compact('product'));
+    }
 
     /**
- * Display the specified resource.
- */
-// public function show(Product $product)
-// {
-//     return view('products.show', compact('product'));
-// }
+     * Display the specified resource.
+     */
+    // public function show(Product $product)
+    // {
+    //     return view('products.show', compact('product'));
+    // }
 
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product,$id)
+    public function edit(Product $product, $id)
     {
         $product = Product::findOrFail($id);
         return view('pages.inventory.purchase.products.edit', compact('product'));
@@ -131,19 +118,11 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'sku' => 'required|string|max:100|unique:products,sku',
             'description' => 'nullable|string',
-            'unit_price' => 'required|numeric|min:0',
-            'offer_price' => 'nullable|numeric|min:0',
-            'weight' => 'nullable|numeric|min:0',
-            'size_id' => 'nullable|integer',
-            'is_raw_material' => 'required|in:0,1',
             'barcode' => 'nullable|string|max:255',
-            'rfid' => 'nullable|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'uom_id' => 'nullable|exists:uoms,id',
-            'valuation_method_id' => 'required|exists:valuation_methods,id',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
     }
 
     /**

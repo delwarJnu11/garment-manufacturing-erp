@@ -11,6 +11,7 @@ class category_attributes extends Model
     use HasFactory;
     protected $filable = [
         'category_id',
+        'category_type_id',
         'name',
         'attribute_value'
     ];
@@ -19,8 +20,8 @@ class category_attributes extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
-    // function category_type(): BelongsTo
-    // {
-    //     return $this->belongsTo(Category_type::class, 'category_type_id');
-    // }
+    function category_type(): BelongsTo
+    {
+        return $this->belongsTo(Category_type::class, 'category_type_id');
+    }
 }

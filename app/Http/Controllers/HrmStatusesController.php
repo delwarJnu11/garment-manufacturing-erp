@@ -37,12 +37,12 @@ class HrmStatusesController extends Controller
         ]);
 
         $status = new Hrm_statuses();
-        $status->name= $request->name;
-        $status->description= $request->description;
+        $status->name = $request->name;
+        $status->description = $request->description;
 
-        if($status->save()){
+        if ($status->save()) {
             return redirect()->back()->with('success', 'Status has been added successfully!');
-         } ;
+        };
     }
 
     /**
@@ -75,12 +75,12 @@ class HrmStatusesController extends Controller
         ]);
 
         $status = Hrm_statuses::find($id);
-        $status->name= $request->name;
-        $status->description= $request->description;
+        $status->name = $request->name;
+        $status->description = $request->description;
 
-        if($status->save()){
+        if ($status->save()) {
             return redirect('hrm_status')->with('success', "Status has been updated");
-         } ;
+        };
     }
 
     /**

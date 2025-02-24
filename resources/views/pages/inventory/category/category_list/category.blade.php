@@ -45,7 +45,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="confirm-text" style="background: transparent; border: none; color: red;">
-                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                <i data-feather="trash-2" class="feather-trash-2 delete_icon"></i>
                             </button>
                         </form>
                     </div>

@@ -1,3 +1,227 @@
+-- ========================================
+-- 🚀 DATABASE: Order & Buyers Management
+-- ========================================
+
+CREATE DATABASE order_management;
+USE order_management;
+
+-- ==============================
+-- 🟢 Customers Table
+-- ==============================
+CREATE TABLE customers (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    address TEXT NOT NULL,
+    company_name VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 🏷 Sample Data
+INSERT INTO customers (name, email, phone, address, company_name) VALUES
+('John Doe', 'john@example.com', '1234567890', '123 Main St, NY', 'ABC Corp'),
+('Alice Smith', 'alice@example.com', '9876543210', '456 Elm St, CA', 'XYZ Ltd');
+
+-- ==============================
+-- 🔵 Order Status Table
+-- ==============================
+CREATE TABLE order_statuses (
+    id TINYINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+-- 🏷 Sample Data
+INSERT INTO order_statuses (name) VALUES
+('Pending'),
+('Processing'),
+('Completed'),
+('Cancelled');
+
+-- ==============================
+-- 🟣 Orders Table
+-- ==============================
+CREATE TABLE orders (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    customer_id BIGINT NOT NULL,
+    order_number VARCHAR(50) UNIQUE NOT NULL,
+    order_date DATE NOT NULL,
+    status_id TINYINT NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (status_id) REFERENCES order_statuses(id)
+);
+
+-- 🏷 Sample Data
+INSERT INTO orders (customer_id, order_number, order_date, status_id, total_amount) VALUES
+(1, 'ORD-1001', '2025-02-23', 1, 150.00),
+(2, 'ORD-1002', '2025-02-22', 3, 300.00);
+
+-- ==============================
+-- 🟠 Sizes Table
+-- ==============================
+CREATE TABLE sizes (
+    id TINYINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+-- 🏷 Sample Data
+INSERT INTO sizes (name) VALUES
+('Small'),
+('Medium'),
+('Large');
+
+-- ==============================
+-- 🔴 Colors Table
+-- ==============================
+CREATE TABLE colors (
+    id TINYINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+-- 🏷 Sample Data
+INSERT INTO colors (name) VALUES
+('Red'),
+('Blue'),
+('Green'),
+('Black'),
+('White');
+
+-- ==============================
+-- 🟡 Product Categories Table
+-- ==============================
+CREATE TABLE product_categories (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL
+);
+
+-- 🏷 Sample Data
+INSERT INTO product_categories (name) VALUES
+('Clothing'),
+('Electronics'),
+('Furniture');
+
+-- ==============================
+-- 🟢 Products Table
+-- ==============================
+CREATE TABLE products (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    category_id BIGINT NOT NULL,
+    description TEXT NOT NULL,
+    stock_status BOOLEAN NOT NULL DEFAULT TRUE, -- TRUE = In Stock, FALSE = Out of Stock
+    base_price DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES product_categories(id)
+);
+
+-- 🏷 Sample Data
+INSERT INTO products (name, category_id, description, stock_status, base_price) VALUES
+('T-Shirt', 1, 'Cotton T-Shirt', TRUE, 20.00),
+('Laptop', 2, 'Gaming Laptop', TRUE, 1500.00),
+('Sofa', 3, 'Leather Sofa', FALSE, 700.00);
+
+-- ==============================
+-- 🟠 Product Variants (Size & Color)
+-- ==============================
+CREATE TABLE product_variants (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    product_id BIGINT NOT NULL,
+    size_id TINYINT NOT NULL,
+    color_id TINYINT NOT NULL,
+    variant_name VARCHAR(255) NOT NULL, -- e.g., "Medium Red"
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (size_id) REFERENCES sizes(id),
+    FOREIGN KEY (color_id) REFERENCES colors(id)
+);
+
+-- 🏷 Sample Data
+INSERT INTO product_variants (product_id, size_id, color_id, variant_name) VALUES
+(1, 2, 1, 'Medium Red'),
+(1, 3, 2, 'Large Blue');
+
+-- ==============================
+-- 🔵 Order Items (Products in Orders)
+-- ==============================
+CREATE TABLE order_items (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
+    product_variant_id BIGINT NOT NULL,
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_variant_id) REFERENCES product_variants(id)
+);
+
+-- 🏷 Sample Data
+INSERT INTO order_items (order_id, product_variant_id, quantity, unit_price, total_price) VALUES
+(1, 1, 2, 20.00, 40.00), -- 2 Medium Red T-Shirts
+(2, 2, 1, 25.00, 25.00); -- 1 Large Blue T-Shirt
+
+-- ==============================
+-- 🟣 Payment Methods Table
+-- ==============================
+CREATE TABLE payment_methods (
+    id TINYINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+-- 🏷 Sample Data
+INSERT INTO payment_methods (name) VALUES
+('Cash'),
+('Credit Card'),
+('Bank Transfer');
+
+-- ==============================
+-- 🔴 Payments Table
+-- ==============================
+CREATE TABLE payments (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
+    payment_date DATE NOT NULL,
+    amount_paid DECIMAL(10,2) NOT NULL,
+    method_id TINYINT NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'Pending', 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (method_id) REFERENCES payment_methods(id)
+);
+
+-- 🏷 Sample Data
+INSERT INTO payments (order_id, payment_date, amount_paid, method_id, status) VALUES
+(1, '2025-02-23', 150.00, 2, 'Completed'),
+(2, '2025-02-22', 100.00, 1, 'Pending');
+
+-- ==============================
+-- 🟠 Sales Reports Table (For Tracking Revenue)
+-- ==============================
+CREATE TABLE sales_reports (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
+    total_revenue DECIMAL(10,2) NOT NULL,
+    report_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
+-- 🏷 Sample Data
+INSERT INTO sales_reports (order_id, total_revenue, report_date) VALUES
+(1, 150.00, '2025-02-23'),
+(2, 300.00, '2025-02-22');
+
+
+
+
 -- 1️⃣   Inventory & Warehouse Management Module
 ________________________________________
 
@@ -529,6 +753,301 @@ CREATE TABLE payment_methods (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL -- Stripe, PayPal, Bank Transfer, Cash
 );
+
+
+
+
+
+
+
+
+
+--   {{-- Inventory & Warehouse mangement --}}
+--                 <li class="submenu">
+--                     <a href="javascript:void(0);">
+--                         <i data-feather="shopping-bag"></i>
+--                         <span>Inventory</span>
+--                         <span class="menu-arrow"></span>
+--                     </a>
+--                     <ul>
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="layers"></i>
+--                                 <span>Categories</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/category') }}"> Category List</a></li>
+--                                 <li><a href="{{ url('/categoryType') }}"> Category Types</a></li>
+--                                 <li><a href="{{ url('/categories/add') }}"> Add Category</a></li>
+--                                 <li><a href="{{ url('/categories/attributes') }}">Manage Attributes</a></li>
+--                             </ul>
+--                         </li>
+
+
+--                         {{-- Warehouse mangement --}}
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="package"></i>
+--                                 <span>Warehouse Management</span>
+
+--                             </a>
+--                             <ul>
+--                                 <!-- Warehouses -->
+--                                 <li class="submenu">
+--                                     <a href="javascript:void(0);">
+--                                         <i data-feather="home"></i>
+--                                         <span>Warehouses</span>
+--                                         <span class="menu-arrow"></span>
+--                                     </a>
+--                                     <ul>
+--                                         <li><a href="{{ url('/warehouses') }}">Warehouse List</a></li>
+--                                         <li><a href="{{ url('/warehouses/add') }}">Add Warehouse</a></li>
+--                                     </ul>
+--                                 </li>
+
+--                                 <!-- Storage Locations -->
+--                                 <li class="submenu">
+--                                     <a href="javascript:void(0);">
+--                                         <i data-feather="map"></i>
+--                                         <span>Storage Locations</span>
+--                                     </a>
+--                                     <ul>
+--                                         <li><a href="{{ url('/storage-locations') }}">Location List</a></li>
+--                                         <li><a href="{{ url('/storage-locations/add') }}">Add Storage
+--                                                 Location</a></li>
+--                                     </ul>
+--                                 </li>
+
+--                                 <!-- Stock Movements -->
+--                                 <li class="submenu">
+--                                     <a href="javascript:void(0);">
+--                                         <i data-feather="shuffle"></i>
+--                                         <span>Stock Movements</span>
+--                                         <span class="menu-arrow"></span>
+--                                     </a>
+--                                     <ul>
+--                                         <li><a href="{{ url('/stock-movements/in') }}">Stock In (Goods Receipt
+--                                                 Notes - GRN)</a></li>
+--                                         <li><a href="{{ url('/stock-movements/out') }}">Stock Out
+--                                                 (Shipments)</a></li>
+--                                         <li><a href="{{ url('/stock-movements/transfers') }}">Stock
+--                                                 Transfers</a></li>
+--                                         <li><a href="{{ url('/stock-movements/adjustments') }}">Stock
+--                                                 Adjustments</a></li>
+--                                         <li><a href="{{ url('/stock-movements/adjust-levels') }}">Adjust Stock
+--                                                 Levels</a></li>
+--                                     </ul>
+--                                 </li>
+--                             </ul>
+--                         </li>
+
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="shopping-bag"></i>
+--                                 <span>Products</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/products') }}">Product List</a></li>
+--                                 <li><a href="{{ url('/products/create') }}"> Add Product</a></li>
+--                                 <li><a href="{{ url('/products/variants') }}">Product Variants</a></li>
+--                                 <li><a href="{{ url('uoms') }}">Units of Mesures</a></li>
+
+--                                 <li><a href="{{ url('/products/pricing') }}"> Pricing & Costing</a></li>
+--                                 <li><a href="{{ url('/products/stock') }}"> Stock Management</a></li>
+--                                 <li><a href="{{ url('/products/barcode') }}"> Print Barcode & QR</a></li>
+--                                 <li><a href="{{ url('/products/bom') }}">Bill of Materials (BOM)</a></li>
+--                             </ul>
+--                         </li>
+
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="dollar-sign"></i>
+--                                 <span>Inventory Valuation</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/inventory/valuation/fifo') }}">FIFO</a></li>
+--                                 <li><a href="{{ url('/inventory/valuation/lifo') }}">LIFO</a></li>
+--                                 <li><a href="{{ url('/inventory/valuation/weighted') }}">Weighted Average</a>
+--                                 </li>
+--                             </ul>
+--                         </li>
+
+--                         <!-- 📋 Inventory Reports -->
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="clipboard"></i>
+--                                 <span>Inventory Reports</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/inventory/reports/stock-ledger') }}"> Stock Ledger</a>
+--                                 </li>
+--                                 <li><a href="{{ url('/inventory/reports/audit') }}">Audit & Cycle
+--                                         Counting</a></li>
+--                             </ul>
+--                         </li>
+--                     </ul>
+--                 </li>
+--                 {{-- END Inventory & Warehouse mangement --}}
+
+--                 {{-- Sale &  & Order Management --}}
+--                 <li class="submenu">
+--                     <a href="javascript:void(0);">
+--                         <i data-feather="shopping-cart"></i>
+--                         <span> Order & Customers<span class="menu-arrow"></span></span>
+--                     </a>
+--                     <ul>
+--                         <!-- Orders -->
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="file-text"></i>
+--                                 <span>Orders</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/orders') }}">Order List</a></li>
+--                                 <li><a href="{{ url('/orders/create') }}">Create Order</a></li>
+--                                 <li><a href="{{ url('/orders/pending') }}">Pending Orders</a></li>
+--                                 <li><a href="{{ url('/orders/completed') }}">Completed Orders</a></li>
+--                                 <li><a href="{{ url('/orders/cancelled') }}">Cancelled Orders</a></li>
+--                             </ul>
+--                         </li>
+
+--                         <!-- Customers -->
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="users"></i>
+--                                 <span>Customers</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/customers') }}">Customer List</a></li>
+--                                 <li><a href="{{ url('/customers/add') }}">Add Customer</a></li>
+--                                 <li><a href="{{ url('/customers/groups') }}">Customer Groups</a></li>
+--                             </ul>
+--                         </li>
+
+--                         <!-- Invoices & Payments -->
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="credit-card"></i>
+--                                 <span>Invoices & Payments</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/invoices') }}">Invoices</a></li>
+--                                 <li><a href="{{ url('/payments') }}">Payments</a></li>
+--                                 <li><a href="{{ url('/refunds') }}">Refunds</a></li>
+--                             </ul>
+--                         </li>
+
+--                         <!-- Sales Reports -->
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="bar-chart-2"></i>
+--                                 <span>Sales Reports</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/reports/sales') }}">Sales Summary</a></li>
+--                                 <li><a href="{{ url('/reports/revenue') }}">Revenue Report</a></li>
+--                                 <li><a href="{{ url('/reports/customers') }}">Customer Sales Report</a></li>
+--                             </ul>
+--                         </li>
+--                     </ul>
+--                 </li>
+--                 {{-- END Sale &  & Order Management --}}
+
+--                 {{-- Suppliers & purchase  --}}
+--                 <li class="submenu">
+--                     <a href="javascript:void(0);">
+--                         <i data-feather="truck"></i>
+--                         <span>Suppliers & Purchases<span class="menu-arrow"></span></span>
+--                     </a>
+--                     <ul>
+--                         <!-- Suppliers -->
+--                         <li class="submenu">
+--                             <a href="">
+--                                 <i data-feather="user-check"></i>
+--                                 <span>Suppliers</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/suppliers') }}">Supplier List</a></li>
+--                                 <li><a href="{{ url('/suppliers/add') }}">Add Supplier</a></li>
+--                                 <li><a href="{{ url('/suppliers/contracts') }}">Supplier Contracts</a></li>
+--                             </ul>
+--                         </li>
+
+--                         <!-- Purchase Orders -->
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="file-text"></i>
+--                                 <span>Purchase Orders</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/purchases') }}">Purchase Order List</a></li>
+--                                 <li><a href="{{ url('/purchases/create') }}">Create Purchase Order</a></li>
+--                                 <li><a href="{{ url('/purchases/pending') }}">Pending Purchases</a></li>
+--                                 <li><a href="{{ url('/purchases/completed') }}">Completed Purchases</a></li>
+--                             </ul>
+--                         </li>
+
+--                         <!-- Payments -->
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="credit-card"></i>
+--                                 <span>Payments</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/payments/suppliers') }}">Supplier Payments</a></li>
+--                                 <li><a href="{{ url('/payments/pending') }}">Pending Payments</a></li>
+--                                 <li><a href="{{ url('/payments/completed') }}">Completed Payments</a></li>
+--                             </ul>
+--                         </li>
+
+--                         <!-- Purchase Reports -->
+--                         <li class="submenu">
+--                             <a href="javascript:void(0);">
+--                                 <i data-feather="bar-chart-2"></i>
+--                                 <span>Purchase Reports</span>
+--                                 <span class="menu-arrow"></span>
+--                             </a>
+--                             <ul>
+--                                 <li><a href="{{ url('/reports/purchases') }}">Purchase Summary</a></li>
+--                                 <li><a href="{{ url('/reports/supplier-performance') }}">Supplier
+--                                         Performance</a></li>
+--                             </ul>
+--                         </li>
+--                     </ul>
+--                 </li>
+--                 {{-- END Suppliers & purchase  --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 . Category Attributes

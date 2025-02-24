@@ -1,5 +1,4 @@
 @extends('layout.backend.main')
-
 @section('page_content')
     <x-page-header href="{{ route('suppliers.create') }}" heading="Suppliers" btnText="Add Supplier" />
     <div class="card">
@@ -8,7 +7,6 @@
                 <table class="table dashboard-expired-products">
                     <thead>
                         <tr>
-                            
                             <th>Photo</th>
                             <th>First Name</th>
                             <th>Last Name</th>
@@ -44,18 +42,14 @@
                                         <a class="me-2 p-2" href="{{ route('suppliers.edit', $supplier->id) }}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('suppliers.destroy',$supplier->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this size?')" style="margin-bottom: 0px">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class=" confirm-delete"  onclick="return confirm('Are you sure?')" style="color: red;width:10%; border:none">
-                                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                            <button type="submit"  style="background: transparent; border: none; color: red;">
+                                                <i data-feather="trash-2" class="feather-trash-2 delete_icon" ></i>
                                             </button>
                                         </form>
-                                        
-
-                                        {{-- <a class="confirm-text p-2" href="javascript:void(0);">
-                                            <i data-feather="trash-2" class="feather-trash-2"></i>
-                                        </a> --}}
+                                    
                                     </div>
                                 </td>
                             </tr>
@@ -66,10 +60,8 @@
                         @endforelse
                     </tbody>
                 </table>
-               
             </div>
         </div>
-
     </div>
     <div class="d-flex justify-content-end mt-3">
         {{ $suppliers->links() }}
