@@ -120,7 +120,7 @@ Route::resource('valuations', ValuationMethodsController::class);
  *  Orders & Buyers
  */
 Route::resource('orders', OrderController::class);
-Route::resource('orders_details', OrderDetailController::class);
+Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);

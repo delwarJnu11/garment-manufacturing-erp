@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
+use App\Models\Order;
 use App\Models\orderDetail;
+use App\Models\Product;
+use App\Models\Size;
+use App\Models\Uom;
 use Illuminate\Http\Request;
 
 class OrderDetailController extends Controller
@@ -20,8 +25,12 @@ class OrderDetailController extends Controller
      */
     public function create()
     {
-
-        return view('pages.orders_&_buyers.order_details.create');
+        $products = Product::all();
+        $orders = Order::all();
+        $sizes = Size::all();
+        $colors = Color::all();
+        $uoms = Uom::all();
+        return view('pages.orders_&_buyers.order_details.create', compact('products', 'orders', 'sizes', 'colors', 'uoms'));
     }
 
     /**
