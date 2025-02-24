@@ -300,6 +300,12 @@
                                 </svg><span>Finance &
                                     Accounts</span><span class="menu-arrow"></span></a>
                             <ul>
+                                <li class="submenu submenu-two"><a href="">Reports<span
+                                            class="menu-arrow inside-submenu"></span></a>
+                                    <ul>
+                                        <li><a href="">Financial Statements</a></li>
+                                    </ul>
+                                </li>
                                 <li class="submenu submenu-two"><a href="">General Ledger<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
