@@ -269,19 +269,6 @@ CREATE TABLE purchase_return_details (
 );
 
 
-
-
--- CREATE TABLE customers(
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     first_name VARCHAR(80) NOT NULL,
---     last_name VARCHAR(80) NOT NULL,
---     email VARCHAR(150) UNIQUE NOT NULL,
---     phone VARCHAR(20) UNIQUE NOT NULL,
---     address VARCHAR(255) NOT NULL,
---     photo VARCHAR(255) NOT NULL,
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
--- );
 ________________________________________
 -- 1.4 Inventory Table
 
@@ -298,16 +285,6 @@ CREATE TABLE inventory (
 ________________________________________
 -- 1.5 Stock Movements Table
 
-
--- CREATE TABLE stock_movements (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     product_id INT NOT NULL,
---     warehouse_id INT NOT NULL,
---     movement_type_id INT NOT NULL, -- Reference to movement_types table
---     quantity INT NOT NULL,
---     reference VARCHAR(255) NULL, -- GRN, invoice, transfer reference
---     movement_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
 ________________________________________
 -- 1.6 Stock Adjustment Table
 
@@ -372,8 +349,9 @@ ________________________________________
 
 CREATE TABLE customers (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    photo varchar(255),
     email VARCHAR(255) UNIQUE NOT NULL,
     phone_number VARCHAR(20) NULL,
     shipping_address TEXT NULL,

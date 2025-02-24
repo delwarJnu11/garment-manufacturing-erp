@@ -1,11 +1,14 @@
-213<?php
+
+<?php
 
 use App\Http\Controllers\AccountTypesController;
 use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\AssetTypesController;
+use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\CategoryAttributesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\HrmDepartmentController;
 use App\Http\Controllers\HrmDepartmentsController;
@@ -14,9 +17,11 @@ use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentController;
 use App\Http\Controllers\InvSuppliersController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SizeController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
@@ -61,7 +66,7 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
  * Production Memu START
  **/
 
- Route::resource('production_plan_status', ProductionPlanStatusesController::class);
+Route::resource('production_plan_status', ProductionPlanStatusesController::class);
 
 /**
  * Production Memu END
@@ -69,7 +74,6 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
 
 /**
  * Start Hr & Workforce Management.
-/**
  * Start Hr & Workforce Management.
  */
 
@@ -93,17 +97,16 @@ Route::resource('companyProfile', CompanyProfileController::class);
 Route::resource('status', StatusController::class);
 Route::resource('category_value', CategoryController::class);
 Route::resource('categoryType', CategoryTypeController::class);
-
-
-
 Route::get('check', function () {
     return view('pages.error.eror404');
 });
 
+Route::resource('sizes', SizeController::class);
 Route::resource('category', CategoryAttributesController::class);
 Route::resource('categoryTypes', CategoryTypeController::class);
 
-
+// Sales & buyers 
+Route::resource('buyers', BuyerController::class);
 /**
  * Suppliers and Purcahse
  */
@@ -111,6 +114,12 @@ Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
 Route::resource('products', ProductController::class);
 Route::resource('valuations', ValuationMethodsController::class);
+
+/*
+ * Sales and Orders
+ */
+Route::resource('orders', OrderController::class);
+Route::resource('colors', ColorController::class);
 /**
  *END Invetory/category
  **/
