@@ -10,32 +10,20 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'sku',
-        'description',
-        'unit_price',
-        'offer_price',
-        'weight',
-        'size_id',
-        'is_raw_material',
-        'barcode',
-        'rfid',
-        'category_id',
-        'uom_id',
-        'valuation_method_id',
-        'photo'
-    ];
+    protected $fillable = ['name', 'sku', 'description', 'barcode', 'category_id', 'uom_id', 'photo'];
 
-    function category():BelongsTo{
-        return $this->belongsTo(Category::class,'category_id');
+
+    function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
-    function uom():BelongsTo{
-        return $this->belongsTo(Uom::class,'uom_id');
+    function uom(): BelongsTo
+    {
+        return $this->belongsTo(Uom::class, 'uom_id');
     }
-    function valuation_method():BelongsTo{
-        return $this->belongsTo(Valuation_methods::class,'valuation_method_id');
-    }
-
+    // function valuation_method(): BelongsTo
+    // {
+    //     return $this->belongsTo(Valuation_methods::class, 'valuation_method_id');
+    // }
 }

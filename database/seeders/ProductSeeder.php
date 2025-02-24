@@ -25,7 +25,7 @@ class ProductSeeder extends Seeder
             'offer_price' => $faker->randomFloat(2, 5, 50), // Random price between 5 and 50
             'weight' => $faker->numberBetween(100, 1000), // Random weight between 100 and 1000 grams
             'size_id' => 1, // Example: Size S
-            'is_raw_material' => $faker->boolean, // Random true/false for raw material
+            // 'is_raw_material' => $faker->boolean, // Random true/false for raw material
             'barcode' => $faker->ean13, // Random barcode
             'rfid' => 'RFID' . $faker->randomNumber(6, true), // Random RFID number
             'category_attributes_id' => 1, // Example category ID

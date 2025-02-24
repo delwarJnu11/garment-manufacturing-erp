@@ -4,14 +4,13 @@
 <x-message-banner/>
 
 <div class="card flex-fill">
-    <x-page-header heading="Category List" btnText="Add Category" href="{{ url('category_list/create') }}" />
+    <x-page-header heading="Category List" btnText="Add Category" href="{{ url('category/create') }}" />
 
     <table class="table table-striped table-bordered">
         <thead class="thead-primary">
             <tr>
                 <th>#</th>
                 <th>Category Name</th>
-                <th>Is Raw Material</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,13 +19,7 @@
             <tr>
                 <td>{{ $category->id }}</td>
                 <td>{{ $category->name }}</td>
-                <td>
-                    @if ($category->is_raw_material)
-                        <span class="badge bg-success">Yes</span>
-                    @else
-                        <span class="badge bg-danger">No</span>
-                    @endif
-                </td>
+                
 
                 <td class="action-table-data">
                     <div class="edit-delete-action">
@@ -41,11 +34,11 @@
                         </a>
 
                         <!-- Delete Form -->
-                        <form action="{{ url('category_list/' . $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?')">
+                        <form action="{{ url('category_list/' . $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?')" style="margin-bottom: 0">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="confirm-text" style="background: transparent; border: none; color: red;">
-                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                <i data-feather="trash-2" class="feather-trash-2 delete_icon"></i>
                             </button>
                         </form>
                     </div>

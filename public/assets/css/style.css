@@ -20,6 +20,19 @@ body {
     overflow-x: hidden;
 }
 
+.delete_icon{
+    margin-bottom: 0px !important; 
+    background: white !important;
+    padding: 6px !important;
+    border: 1px solid rgba(145, 158, 171, 0.3) !important;
+    border-radius: 8px !important;
+    width:30px !important;
+    height:30px !important;
+}
+/* .delete_icon:hover {
+    color: #092c4c;
+} */
+
 ::selection {
     background: purple;
     color: #ffffff;
@@ -1349,7 +1362,7 @@ button:focus {
 .btn.btn-primary:active,
 .btn.btn-primary.active {
     background-color: rgb(105, 8, 105) !important;
-    border: 1px solid rgb(105, 8, 105)!important;
+    border: 1px solid rgb(105, 8, 105) !important;
     box-shadow: 0 3px 10px rgba(255, 159, 67, 0.5);
     color: #ffffff !important;
 }

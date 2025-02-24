@@ -52,7 +52,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="confirm-text "
                                         style="padding: 2 ; background:transparent; border:none; width:30; color:red">
-                                        <i data-feather="trash-2" class="feather-trash-2 "></i>
+                                        <i data-feather="trash-2" class="feather-trash-2 delete_icon"></i>
                                     </button>
                                 </form>
                             </div>

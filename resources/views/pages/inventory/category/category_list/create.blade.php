@@ -18,13 +18,6 @@
                     @enderror
                 </div>
             </div>
-            <div class="row mb-3">
-                <label class="col-lg-3 col-form-label">Description</label>
-                <div class="col-lg-9">
-                    <input type="text" class="form-control" name="description">
-                </div>
-            </div>
-           
             <div class="text-end">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
