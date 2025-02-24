@@ -139,7 +139,7 @@
                                     <a href="{{ url('/products/create') }}">Raw Materials</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/products/create') }}">Product Catelog</a>
+                                    <a href="{{ url('/products') }}">Product Catelogue</a>
                                 </li>
                                 <li><a href="{{ url('/products/variants') }}">Finished Goods</a></li>
                                 <li><a href="{{ url('/products/barcode') }}">Print Barcode & QR</a></li>

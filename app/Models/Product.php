@@ -10,15 +10,8 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'sku',
-        'description',
-        'barcode',
-        'category_id',
-        'uom_id',
-        'photo'
-    ];
+    protected $fillable = ['name', 'sku', 'description', 'barcode', 'category_id', 'uom_id', 'photo'];
+
 
     function category(): BelongsTo
     {
@@ -29,8 +22,8 @@ class Product extends Model
     {
         return $this->belongsTo(Uom::class, 'uom_id');
     }
-    function valuation_method(): BelongsTo
-    {
-        return $this->belongsTo(Valuation_methods::class, 'valuation_method_id');
-    }
+    // function valuation_method(): BelongsTo
+    // {
+    //     return $this->belongsTo(Valuation_methods::class, 'valuation_method_id');
+    // }
 }

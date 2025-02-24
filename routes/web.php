@@ -95,15 +95,15 @@ Route::resource('hrm_status', HrmStatusesController::class);
 Route::resource('companyProfile', CompanyProfileController::class);
 
 Route::resource('status', StatusController::class);
-Route::resource('category_value', CategoryController::class);
+Route::resource('category', CategoryController::class);
 Route::resource('categoryType', CategoryTypeController::class);
 Route::get('check', function () {
     return view('pages.error.eror404');
 });
 
 Route::resource('sizes', SizeController::class);
-Route::resource('category', CategoryAttributesController::class);
-Route::resource('categoryTypes', CategoryTypeController::class);
+// Route::resource('category', CategoryAttributesController::class);
+// Route::resource('categoryTypes', CategoryTypeController::class);
 
 // Sales & buyers 
 Route::resource('buyers', BuyerController::class);

@@ -36,13 +36,7 @@
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->sku }}</td>
                         <td>{{ $product->description }}</td>
-                        <td>${{ number_format($product->unit_price, 2) }}</td>
-                        <td>${{ number_format($product->offer_price, 2) }}</td>
-                        {{-- <td>{{ $product->weight }} grams</td> --}}
-                        {{-- <td>{{ $product->size_id == 1 ? 'Small' : 'Large' }}</td>
-                        <td>
-                            <input type="checkbox" {{ $product->is_raw_material ? 'checked' : '' }} disabled>
-                        </td> --}}
+                        
                         <td>{{ $product->barcode }}</td>
                        
                         <td>{{ $product->category? $product->category->name:'no Category ' }}</td>
@@ -56,12 +50,12 @@
                             <a href="{{ route('products.edit', $product->id) }}">
                                 <i data-feather="edit" class="feather-edit"></i>
                             </a>
-                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline" 
-                                onsubmit="return confirm('Are you sure you want to delete?')">
+                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="margin-bottom: 0"
+                               >
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="confirm-text" style="padding: 2px; background: transparent; border: none; width: 30px; color: red">
-                                    <i data-feather="trash-2" class="feather-trash-2"></i>
+                                    <i data-feather="trash-2" class="feather-trash-2 delete_icon"></i>
                                 </button>
                             </form>
                         </td>

@@ -29,32 +29,17 @@
                     <th>Description</th>
                     <td>{{ $product->description }}</td>
                 </tr>
-                <tr>
-                    <th>Unit Price</th>
-                    <td>${{ number_format($product->unit_price, 2) }}</td>
-                </tr>
-                <tr>
-                    <th>Offer Price</th>
-                    <td>${{ number_format($product->offer_price, 2) }}</td>
-                </tr>
-                <tr>
-                    <th>Size</th>
-                    <td>{{ $product->size_id == 1 ? 'Small' : 'Large' }}</td>
-                </tr>
-                <tr>
-                    <th>Raw Material</th>
-                    <td>
-                        <input type="checkbox" {{ $product->is_raw_material ? 'checked' : '' }} disabled>
-                    </td>
-                </tr>
+                
+                
+                
                 <tr>
                     <th>Barcode</th>
                     <td>{{ $product->barcode }}</td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <th>RFID</th>
                     <td>{{ $product->rfid }}</td>
-                </tr>
+                </tr> --}}
                 <tr>
                     <th>Category</th>
                     <td>{{ $product->category ? $product->category->name : 'No Category' }}</td>
@@ -63,10 +48,7 @@
                     <th>UOM</th>
                     <td>{{ $product->uom ? $product->uom->name : 'No Units Available' }}</td>
                 </tr>
-                <tr>
-                    <th>Valuation Method</th>
-                    <td>{{ $product->valuation_method->method_name }}</td>
-                </tr>
+               
                 <tr>
                     <th>Created At</th>
                     <td>{{ $product->created_at->format('d M, Y') }}</td>

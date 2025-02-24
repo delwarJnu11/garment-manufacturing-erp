@@ -24,7 +24,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::with('category', 'uom', 'valuation_method')->paginate(5);
+        $products = Product::with('category', 'uom')->paginate(5);
         return view('pages.inventory.purchase.products.product', compact('products'));
     }
 
@@ -33,16 +33,58 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $raw_material_categories = Category::where('is_raw_material', 1)->get();
-        $finished_categories = Category::where('is_raw_material', 0)->get();
+        $categories = Category::all();
         $uoms = Uom::all();
-        $valuation_methods = Valuation_methods::all();
+        // $valuation_methods = Valuation_methods::all();
 
-        return view('pages.inventory.purchase.products.create', compact('raw_material_categories', 'finished_categories', 'uoms', 'valuation_methods'));
+        return view('pages.inventory.purchase.products.create', compact( 'categories', 'uoms'));
     }
 
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'sku' => 'required|string|max:100|unique:products,sku',
+    //         'description' => 'nullable|string',
+    //         'barcode' => 'nullable|string|max:255',
+    //         'category_id' => 'required|exists:categories,id',
+    //         'uom_id' => 'nullable|exists:uoms,id',
+    //         'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
+
+    //     // Handle file upload
+    //     if ($request->hasFile('photo')) {
+    //         $file = $request->file('photo');
+    //         $fileName = time() . '_' . $file->getClientOriginalName();
+    //         $file->move(public_path('uploads/products'), $fileName);
+    //         $photoPath = 'uploads/products/' . $fileName;
+    //     } else {
+    //         $photoPath = null;
+    //     }
+
+    //     // Save product
+    //     $product = new Product();
+    //     $product->name = $request->name;
+    //     $product->sku = $request->sku;
+    //     $product->description = $request->description;
+    //     $product->barcode = $request->barcode;
+
+    //     $product->category_id = $request->category_id;
+    //     $product->uom_id = $request->uom_id;
+
+    //     $product->photo = $photoPath;
+
+    //     $product->save();
+
+    //     // Log::info("Product created:", $request->all());
+
+    //     return redirect('products')->with('success', 'Product added successfully!');
+    // }
+
+
     public function store(Request $request)
-    {
+{
+    try {
         $request->validate([
             'name' => 'required|string|max:255',
             'sku' => 'required|string|max:100|unique:products,sku',
@@ -69,18 +111,17 @@ class ProductController extends Controller
         $product->sku = $request->sku;
         $product->description = $request->description;
         $product->barcode = $request->barcode;
-
         $product->category_id = $request->category_id;
         $product->uom_id = $request->uom_id;
-
         $product->photo = $photoPath;
-
         $product->save();
 
-        Log::info("Product created:", $request->all());
-
-        return redirect('/products')->with('success', 'Product added successfully!');
+        return redirect()->route('products.index')->with('success', 'Product added successfully!');
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
+}
+
 
 
     /**
@@ -129,7 +170,10 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Product $product)
-    {
-        //
-    }
+{
+    $product->delete();
+    return redirect('/products')->with('success', 'Product added successfully!');
+    // return redirect()->route('products')->with('success', 'Product deleted successfully');
+}
+
 }

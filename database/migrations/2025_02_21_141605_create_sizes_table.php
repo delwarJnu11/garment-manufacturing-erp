@@ -19,19 +19,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-<<<<<<< HEAD
-        // Insert dummy data
-        DB::table('sizes')->insert([
-            ['name' => 'Small', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Medium', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Large', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Extra Large', 'created_at' => now(), 'updated_at' => now()],
-        ]);
-=======
         // insert Demo Data
         Size::create(['name' => 'Small']);
         Size::create(['name' => 'Medium']);
->>>>>>> development
     }
 
     /**
