@@ -31,6 +31,9 @@ return new class extends Migration
             'price' => 100.50,     // Price per unit
             'discount_price' => 5.00,  // Discount per unit
         ]);
+
+
+        
     }
 
     /**

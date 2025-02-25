@@ -2,6 +2,7 @@
 <?php
 
 use App\Http\Controllers\AccountTypesController;
+use App\Http\Controllers\Api\ProductController as ApiProductController;
 use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\BuyerController;
@@ -34,6 +35,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -112,12 +114,6 @@ Route::get('hrm_statussss', function () {
 /**
  * End Hr & Workforce Management.
  */
-
-
-// Route::get('hrm_status', function(){
-//     echo "hello hrm_status";
-// });
-
 // End Route
 
 
@@ -133,8 +129,13 @@ Route::resource('category', CategoryController::class);
 Route::resource('categoryType', CategoryTypeController::class);
 Route::resource('raw_materials', Raw_materialController::class);
 Route::resource('sizes', SizeController::class);
-// Route::resource('category', CategoryAttributesController::class);
 // Route::resource('categoryTypes', CategoryTypeController::class);
+/**
+ * Warehouse
+ **/
+Route::resource('warehouses', WarehouseController::class);
+// Route::resource('productsApi', ApiProductController::class);
+
 
 // Sales & buyers
 Route::resource('buyers', BuyerController::class);
@@ -145,7 +146,7 @@ Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
 Route::resource('products', ProductController::class);
 Route::resource('valuations', ValuationMethodsController::class);
-Route::resource('product_lot', ProductlotController::class);
+Route::resource('product_lots', ProductlotController::class);
 
 /*
  *  Orders & Buyers

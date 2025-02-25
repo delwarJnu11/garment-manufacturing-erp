@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_id')->constrained()->onDelete('cascade'); // Foreign key for supplier
+            $table->integer('supplier_id');
             $table->integer('lot_id')->nullable();
-            $table->integer('status_id');
+            $table->unsignedBigInteger('status_id')->default(1);
+
             $table->decimal('order_total', 10, 2)->default(0.00); // Order total
             $table->decimal('paid_amount', 10, 2)->default(0.00); // Paid amount
             $table->decimal('discount', 10, 2)->default(0.00); // Discount

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Mail\supplierMail;
 use App\Models\inv_suppliers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class InvSuppliersController extends Controller
 {
@@ -14,6 +15,7 @@ class InvSuppliersController extends Controller
     public function index()
     {
         $suppliers = inv_suppliers::paginate(4);
+        // Mail::to('abc@gmail.com')->send(new supplierMail($suppliers));
         return view('pages.purchase_&_supliers.Suppliers.suppliers', compact('suppliers'));
     }
 
@@ -75,6 +77,7 @@ class InvSuppliersController extends Controller
      */
     public function edit(inv_suppliers $supplier)
     {
+       
         return view('pages.purchase_&_supliers.Suppliers.edit', compact('supplier'));
     }
 

@@ -1,7 +1,7 @@
 @extends('layout.backend.main')
 
 @section('page_content')
-<x-page-header href="{{ route('product_lots.create') }}" heading="Product Lot" btnText="Add Supplier" />
+
 @if (session('error'))
 <div class="alert alert-danger">
     <strong>Error!</strong> {{ session('error') }}
@@ -19,13 +19,12 @@
 @endif
 
 <div class="container mt-4">
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0" style="color: white">Product Lots</h4>
-        </div>
-        <div class="card-body">
+    <div class="card flex-fill">
+        <x-page-header heading="Product Lot" btnText="Add Product Lt" href="{{ url('product_lots/create') }}" />
+        
+      
             <table class="table table-bordered">
-                <thead class="table-dark">
+                <thead class="thead-primary">
                     <tr>
                         <th>ID</th>
                         <th>Raw Material ID</th>
@@ -73,6 +72,7 @@
                 </tbody>
                 
             </table>
+        </div>
 
             <!-- Pagination -->
             <div class="d-flex justify-content-center">
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 
 @endsection
