@@ -15,8 +15,8 @@
             <tr>
                 <th>Code</th>
                 <th>Name</th>
-                <th>Account Group</th>
-                <th>Is Active</th>
+                <!-- <th>Account Group</th> -->
+                <!-- <th>Is Active</th> -->
                 <th>Actions</th>
             </tr>
         </thead>

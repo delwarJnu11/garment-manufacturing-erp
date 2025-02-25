@@ -303,16 +303,21 @@
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="{{ url('reports/finance') }}">Financial Statements</a></li>
+                                        <li><a href="{{ url('reports/receivable-payable') }}">P/R Reports</a></li>
+                                        <li><a href="{{ url('reports/GeneralLedgerReports') }}">General Ledger Reports</a></li>
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two"><a href="">General Ledger<span
+                                <li class="submenu submenu-two"><a href="">Accounts<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
-                                        <li><a href="">Chart of Accounts</a></li>
+                                        <li><a href="{{ url('accounts') }}">Accounts</a></li>
+                                        <li><a href="{{ url('accountGroups') }}">Account Groups</a></li>
+                                        <li><a href="{{ url('transactions') }}">Transactions</a></li>
+                                        <!-- <li><a href="">Chart of Accounts</a></li>
                                         <li><a href="">Journal Entries</a>
                                         </li>
                                         <li><a href="">Trial Balance</a></li>
-                                        <li><a href="">Account Reconciliation</a></li>
+                                        <li><a href="">Account Reconciliation</a></li> -->
                                     </ul>
                                 </li>
                                 <li class="submenu submenu-two"><a href="">Accounts Payable<span

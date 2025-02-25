@@ -17,9 +17,15 @@
         <div class="mb-3">
             <label for="account_group_id" class="form-label">Account Group</label>
             <select class="form-control" id="account_group_id" name="account_group_id" required>
-                @foreach($accountGroups as $group)
-                <option value="{{ $group->id }}">{{ $group->name }}</option>
-                @endforeach
+                <option value="">Option</option>
+                <option value="Assets">Assets</option>
+                <option value="Equity">Equity</option>
+                <option value="Liablity">Liability</option>
+                <option value="Revenue">Revenue</option>
+                <option value="Expense">Expense</option>
+                <!-- @foreach($accountGroups as $group) -->
+                <!-- <option value="{{ $group->id }}">{{ $group->name }}</option> -->
+                <!-- @endforeach -->
             </select>
         </div>
         <div class="mb-3">

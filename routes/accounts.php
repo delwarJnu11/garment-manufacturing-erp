@@ -16,4 +16,6 @@ Route::resource('accountGroups', AccountGroupsController::class);
 Route::resource('transactions', TransactionsController::class);
 Route::prefix('reports')->group(function(){
     Route::get('finance', function(){ return view('pages.accounts.reports.finance'); });
+    Route::get('receivable-payable', function(){ return view('pages.accounts.reports.repa'); });
+    Route::get('GeneralLedgerReports', function(){ return view('pages.accounts.reports.ledger'); });
 });
