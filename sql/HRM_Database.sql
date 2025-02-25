@@ -12,14 +12,13 @@ CREATE TABLE hrm_statuses (
 
 -- Attendance
 
-CREATE TABLE hrm_attendance_monthlyes (
+CREATE TABLE hrm_attendance_list (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     employee_id BIGINT UNSIGNED NOT NULL,
-    year SMALLINT NOT NULL,
-    month TINYINT NOT NULL CHECK (month BETWEEN 1 AND 12),
-    total_working_days TINYINT UNSIGNED NOT NULL,
-    present_days TINYINT UNSIGNED NOT NULL,
-    absent_days TINYINT UNSIGNED NOT NULL,
+    date date NOT NULL,
+    statuses_id BIGINT UNSIGNED NOT NULL,
+    clock_in DATETIME DEFAULT NULL,
+    clock_out DATETIME DEFAULT NULL,
     late_days TINYINT UNSIGNED DEFAULT 0,
     leave_days TINYINT UNSIGNED DEFAULT 0,
     overtime_hours DECIMAL(5,2) DEFAULT 0.00,

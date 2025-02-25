@@ -16,7 +16,7 @@ class HrmEmployeeBankAccountsController extends Controller
         $accounts = Hrm_employee_bank_accounts::paginate(5);
          print_r( $accounts );
 
-        // return view('pages.hrm.employee.hrm_employee_bank_accounts.index', compact('accounts'));
+         //return view('pages.hrm.employee.hrm_employee_bank_accounts.index', compact('accounts'));
     }
 
     /**
