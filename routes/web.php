@@ -106,8 +106,11 @@ Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::
 Route::get('hrm_employee_bank_accounts/delete/{id}/',[HrmEmployeeBankAccountsController::class,'destroy'] );
 Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
 
-Route::get('hrm_statussss', function () {
-    echo "hello hrm_status";
+Route::get('hrm_attendance_list/delete/{id}/',[HrmAttendanceListController::class,'destroy'] );
+Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
+
+Route::get('/route', function(){
+    echo "hello";
 });
 
 /**

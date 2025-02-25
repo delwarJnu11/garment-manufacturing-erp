@@ -16,7 +16,7 @@ class HrmAttendanceListController extends Controller
         $attendences = Hrm_attendance_list::all();
          print_r($attendences );
 
-         //return view('pages.hrm.employee.Hrm_attendance_list.index', compact('attendences'));
+         //return view('pages.hrm.attendence.hrm_attendance_list.index', compact('attendences'));
     }
 
     /**
@@ -25,7 +25,7 @@ class HrmAttendanceListController extends Controller
     public function create()
     {
         $employees=Hrm_employees::all();
-        return view('pages.hrm.employee.Hrm_attendance_list.create', compact('employees'));
+        return view('pages.hrm.attendence.hrm_attendance_list.create', compact('employees'));
     }
 
     /**
@@ -61,7 +61,7 @@ class HrmAttendanceListController extends Controller
     public function show(Hrm_attendance_list $Hrm_attendance_list, $id)
     {
         $attendences = Hrm_attendance_list::find($id);
-        return view('pages.hrm.employee.Hrm_attendance_list.show', compact('attendences'));
+        return view('pages.hrm.attendence.hrm_attendance_list.show', compact('attendences'));
     }
 
     /**
@@ -73,7 +73,7 @@ class HrmAttendanceListController extends Controller
         $attendences = Hrm_attendance_list::find($id);
 
 
-        return view('pages.hrm.employee.Hrm_attendance_list.update', compact('attendences','employees'));
+        return view('pages.hrm.attendence.hrm_attendance_list.update', compact('attendences','employees'));
     }
 
     /**
