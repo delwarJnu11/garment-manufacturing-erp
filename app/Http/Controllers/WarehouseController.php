@@ -2,24 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Raw_material;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
-class Raw_materialController extends Controller
+class WarehouseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $raw_materials = Raw_material::with('uom','supplier')->paginate(10);
-        return view('pages.purchase_&_supliers.raw_materials.index', compact('raw_materials'));
+        $warehouses = Warehouse::paginate(10);
+        return view('pages.inventory.warehouse.warehouse',compact('warehouses'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create() {}
+    public function create()
+    {
+        //
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -32,7 +35,7 @@ class Raw_materialController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Warehouse $warehouse)
     {
         //
     }
@@ -40,7 +43,7 @@ class Raw_materialController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Warehouse $warehouse)
     {
         //
     }
@@ -48,7 +51,7 @@ class Raw_materialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Warehouse $warehouse)
     {
         //
     }
@@ -56,7 +59,7 @@ class Raw_materialController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Warehouse $warehouse)
     {
         //
     }

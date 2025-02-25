@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\productMail;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Uom;
 use App\Models\Valuation_methods;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
@@ -17,6 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('category', 'uom')->paginate(5);
+    
         return view('pages.purchase_&_supliers.products.product', compact('products'));
     }
 

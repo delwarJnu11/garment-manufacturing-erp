@@ -94,13 +94,13 @@ CREATE TABLE warehouses (
 );
 
 
-CREATE TABLE storage_locations (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    warehouse_id INT NOT NULL, -- Reference to warehouses table
-    location_name VARCHAR(255) NOT NULL, -- Section name (e.g., Aisle 1, Rack 2)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE storage_locations (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     warehouse_id INT NOT NULL, -- Reference to warehouses table
+--     location_name VARCHAR(255) NOT NULL, -- Section name (e.g., Aisle 1, Rack 2)
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
 --End warehouses Management
 
