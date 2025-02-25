@@ -99,6 +99,7 @@
                                     <a href="{{ url('/customers/groups') }}">Customer Groups</a>
                                 </li>
                                 <li><a href="{{ url('/orders') }}">Orders</a></li>
+                                <li><a href="{{ url('/orders/create') }}">Create Orders</a></li>
                                 <li><a href="{{ url('/orders/pending') }}">Pending Orders</a></li>
                                 <li><a href="{{ url('/orders/pending') }}">Running Orders</a></li>
                                 <li><a href="{{ url('/orders/completed') }}">Completed Orders</a></li>
@@ -141,13 +142,10 @@
                                 </li>
                                 <!-- 🔹 Warehouse & Stock -->
                                 <li><a href="{{ url('/warehouses') }}">Warehouses</a></li>
-                                <li><a href="{{ url('/storage-locations') }}">Storage Locations</a></li>
                                 <li><a href="{{ url('/stock-movements') }}">Stock Movements</a></li>
-                               
-
                                 <!-- 🔹 Stock Management -->
                                 <li>
-                                    <a href="{{ url('/products') }}">Stock Overview</a>
+                                    <a href="{{ url('/stocks') }}">Stock Overview</a>
                                 </li>
                                 
                                

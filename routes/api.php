@@ -13,11 +13,5 @@ use Illuminate\Support\Facades\Route;
 // API FOR ORDER DETAILS
 // Route::get('order_details', [OrderDetailsController::class, 'index']);
 Route::resource('aa', OrderDetailsController::class);
-
-
-Route::get('test', function () {
-    return response()->json(['message' => 'hello']);
-});
-
+Route::get('products', [ProductController::class, 'index']);
 Route::get('order', [OrderDetailsController::class, 'index']);
-
