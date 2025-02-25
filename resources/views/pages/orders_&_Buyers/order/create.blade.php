@@ -22,6 +22,7 @@
                                     <option value="">No Buyer Found!</option>
                                 @endforelse
                             </select>
+                            <x-input-error :messages="$errors->get('buyer_id')" class="mt-2" />
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Supervisor Name</label>
@@ -33,6 +34,7 @@
                                     <option value="">No Supervisor Found!</option>
                                 @endforelse
                             </select>
+                            <x-input-error :messages="$errors->get('supervisor_id')" class="mt-2" />
                         </div>
                     </div>
 
@@ -47,6 +49,7 @@
                                     <option value="">No order status Found!</option>
                                 @endforelse
                             </select>
+                            <x-input-error :messages="$errors->get('status_id')" class="mt-2" />
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Fabric Type</label>
@@ -58,6 +61,7 @@
                                     <option value="">No fabrics types Found!</option>
                                 @endforelse
                             </select>
+                            <x-input-error :messages="$errors->get('fabric_type_id')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row">
@@ -65,19 +69,24 @@
                             <label for="gsm" class="form-label">GSM</label>
                             <input class="form-control" type="text" name="gsm" id="gsm"
                                 value="{{ old('gsm') }}" placeholder="Enter GSM..." />
+                                <x-input-error :messages="$errors->get('gsm')" class="mt-2" />
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="delivery_date" class="form-label">Delivery Date</label>
                             <input class="form-control" type="date" name="delivery_date" id="delivery_date"
                                 value="{{ old('delivery_date') }}">
+                                <x-input-error :messages="$errors->get('delivery_date')" class="mt-2" />
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Description</label>
                         <textarea name="description" class="form-control" rows="3" placeholder="Enter product description"></textarea>
+                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Create Order</button>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Next</button>
+                    </div>
                 </form>
             </div>
         </div>
