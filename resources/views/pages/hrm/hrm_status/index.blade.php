@@ -25,7 +25,6 @@
                                 <td>{{ $data->created_at }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0" href="javascript:void(0);">
                                         <a class="me-2 p-2 mb-0" href="{{url("hrm_status/{$data->id}")}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -37,9 +36,6 @@
                                         </a>
                                         <a class="me-2 p-2" href="{{url("hrm_status/$data->id/edit")}}">
                                             <i data-feather="edit" class="feather-edit"></i>
-                                        </a>
-                                        <a class="confirm-text p-2" href="javascript:void(0);">
-                                            <i data-feather="trash-2" class="feather-trash-2"></i>
                                         </a>
                                         <a class="confirm-textt p-2" href="{{url("hrm_status/delete/$data->id")}}">
                                             <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Status? This action cannot be undone!');">
@@ -65,9 +61,6 @@
                         @endforelse
                     </tbody>
                 </table>
-            </div>
-            <div class="d-flex justify-content-end mt-5">
-                {!! $status->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>

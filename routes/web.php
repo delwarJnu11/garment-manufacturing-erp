@@ -26,6 +26,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductlotController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Raw_materialController;
 use App\Http\Controllers\RoleController;
@@ -87,33 +88,26 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
 Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
 Route::resource('hrm_status', HrmStatusesController::class);
 
-Route::get('hrm_departments/delete/{id}/',[HrmDepartmentsController::class,'destroy'] );
+Route::get('hrm_departments/delete/{id}/', [HrmDepartmentsController::class, 'destroy']);
 Route::resource('hrm_departments', HrmDepartmentsController::class);
 
-Route::get('hrm_sub_departments/delete/{id}/',[HrmSubDepartmentsController::class,'destroy'] );
+Route::get('hrm_sub_departments/delete/{id}/', [HrmSubDepartmentsController::class, 'destroy']);
 Route::resource('hrm_sub_departments', HrmSubDepartmentsController::class);
 
-Route::get('hrm_designations/delete/{id}/',[HrmDesignationsController::class,'destroy'] );
+Route::get('hrm_designations/delete/{id}/', [HrmDesignationsController::class, 'destroy']);
 Route::resource('hrm_designations', HrmDesignationsController::class);
 
-Route::get('hrm_employees/delete/{id}/',[HrmEmployeesController::class,'destroy'] );
+Route::get('hrm_employees/delete/{id}/', [HrmEmployeesController::class, 'destroy']);
 Route::resource('hrm_employees', HrmEmployeesController::class);
 
-Route::get('hrm_employee_performances/delete/{id}/',[HrmEmployeePerformancesController::class,'destroy'] );
+Route::get('hrm_employee_performances/delete/{id}/', [HrmEmployeePerformancesController::class, 'destroy']);
 Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::class);
 
 Route::get('hrm_employee_bank_accounts/delete/{id}/',[HrmEmployeeBankAccountsController::class,'destroy'] );
 Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
 
-Route::get('hrm_attendance_list/delete/{id}/',[HrmAttendanceListController::class,'destroy'] );
-Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
-
-Route::get('/attendence', function(){
-    echo "hello";
-});
-
-Route::get('/attendence/create', function(){
-    return view('pages.hrm.attendence.create');
+Route::get('hrm_statussss', function () {
+    echo "hello hrm_status";
 });
 
 /**
@@ -134,7 +128,7 @@ Route::resource('companyProfile', CompanyProfileController::class);
 Route::resource('status', StatusController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('categoryType', CategoryTypeController::class);
-Route::resource('raw_materials',Raw_materialController::class);
+Route::resource('raw_materials', Raw_materialController::class);
 Route::resource('sizes', SizeController::class);
 // Route::resource('category', CategoryAttributesController::class);
 // Route::resource('categoryTypes', CategoryTypeController::class);
@@ -148,6 +142,7 @@ Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
 Route::resource('products', ProductController::class);
 Route::resource('valuations', ValuationMethodsController::class);
+Route::resource('product_lot', ProductlotController::class);
 
 /*
  *  Orders & Buyers
