@@ -302,11 +302,7 @@
                                 <li class="submenu submenu-two"><a href="">Reports<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
-<<<<<<< HEAD
                                         <li><a href="{{ url('reports/finance') }}">Financial Statements</a></li>
-=======
-                                        <li><a href="">Financial Statements</a></li>
->>>>>>> 40e6c2f74ad736ca8bccd346a986b1722841f20d
                                     </ul>
                                 </li>
                                 <li class="submenu submenu-two"><a href="">General Ledger<span
