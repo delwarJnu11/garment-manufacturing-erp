@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\OrderDetailsController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,8 +10,14 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 
+// API FOR ORDER DETAILS
+// Route::get('order_details', [OrderDetailsController::class, 'index']);
+Route::resource('aa', OrderDetailsController::class);
+
+
 Route::get('test', function () {
     return response()->json(['message' => 'hello']);
 });
 
 Route::get('order', [OrderDetailsController::class, 'index']);
+
