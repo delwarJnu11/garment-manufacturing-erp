@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ProductType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,14 +12,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_attributes', function (Blueprint $table) {
+        Schema::create('product_types', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id');
-            $table->integer('category_type_id');
             $table->string('name');
-            $table->string('attribute_value');
             $table->timestamps();
         });
+
+        // Create a new product type
+ProductType::create([
+    'name' => 'Raw Material',
+]);
+
+ProductType::create([
+    'name' => 'Finished Goods',
+]);
+
     }
 
     /**
@@ -26,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_category_attributes');
+        Schema::dropIfExists('product_types');
     }
 };
