@@ -2,6 +2,7 @@
 <?php
 
 use App\Http\Controllers\AccountTypesController;
+use App\Http\Controllers\Api\OrderDetailsController;
 use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\BuyerController;
@@ -155,6 +156,8 @@ Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
+
+Route::get('orders', [OrderDetailsController::class, 'index']);
 /**
  *END Invetory/category
  **/
