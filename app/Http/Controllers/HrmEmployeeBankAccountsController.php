@@ -13,10 +13,10 @@ class HrmEmployeeBankAccountsController extends Controller
      */
     public function index()
     {
-        $accounts = Hrm_employee_bank_accounts::paginate(5);
-         print_r( $accounts );
+        $accounts = Hrm_employee_bank_accounts::all();
+         //print_r( $accounts );
 
-         //return view('pages.hrm.employee.hrm_employee_bank_accounts.index', compact('accounts'));
+         return view('pages.hrm.employee.hrm_employee_bank_accounts.index', compact('accounts'));
     }
 
     /**
@@ -51,7 +51,7 @@ class HrmEmployeeBankAccountsController extends Controller
         $accounts->branch_location= $request->branch_location;
 
         if($accounts->save()){
-            return redirect()->back()->with('success', 'Employee Position has been added successfully!');
+            return redirect()->back()->with('success', 'Employee Account has been added successfully!');
          } ;
     }
 
