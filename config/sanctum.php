@@ -1,4 +1,4 @@
- <?php
+
 
 // use Laravel\Sanctum\Sanctum;
 

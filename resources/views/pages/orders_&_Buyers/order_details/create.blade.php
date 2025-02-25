@@ -62,7 +62,8 @@
                         </div>
                         <div class="col-md-1 mb-3">
                             <label for="qty" class="form-label">Quantity</label>
-                            <input class="form-control" type="text" name="qty" id="qty" value="{{ old('qty') }}" placeholder="Qty" />
+                            <input class="form-control" type="text" name="qty" id="qty"
+                                value="{{ old('qty') }}" placeholder="Qty" />
                             <x-input-error :messages="$errors->get('qty')" class="mt-2" />
                         </div>
                         <div class="col-md-2 mb-3">
@@ -78,7 +79,8 @@
                             <x-input-error :messages="$errors->get('uom_id')" class="mt-2" />
                         </div>
                         <div class="col-md-1 mt-3">
-                            <button id="add_btn" type="button" class="form_btn p-4" style="background: purple !important; color:#fff !important;">
+                            <button id="add_btn" type="button" class="form_btn p-4"
+                                style="background: purple !important; color:#fff !important;">
                                 <i data-feather="plus" class="feather-edit"></i>
                             </button>
                         </div>
@@ -89,6 +91,9 @@
 
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end mt-3">
+                    <button type="btn" id="create_btn" class="btn btn-primary">Create Order</button>
+                </div>
             </div>
         </div>
 
@@ -97,9 +102,9 @@
 @endsection
 
 @section('script')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             function getOrderItems() {
                 let items = localStorage.getItem('orderItems');
                 return items ? JSON.parse(items) : [];
@@ -138,9 +143,8 @@
             displayOrderItems();
 
             // Handle Add Btn to add item in the cart
-            $('#add_btn').on('click', function(e){
+            $('#add_btn').on('click', function(e) {
                 e.preventDefault();
-                alert();
                 // Get values from dropdowns and input
                 const product_id = $("#product_dropdown").val();
                 const product_name = $("#product_dropdown option:selected").text();
@@ -192,10 +196,25 @@
                 let items = getOrderItems();
 
                 // Delete the specific index item
-                const remaining_items = items.filter((item, i)=> i !== index);
+                const remaining_items = items.filter((item, i) => i !== index);
                 saveOrderItems(remaining_items);
                 displayOrderItems();
             });
+
+            // Create Final Order
+            $('#create_btn').on('click', function() {
+                const items = getOrderItems();
+                const newItems = items.map(item => ({
+                    product_id: item.product_id,
+                    order_id: item.order_id,
+                    size_id: item.size_id,
+                    color_id: item.color_id,
+                    qty: item.qty,
+                    uom_id: item.uom_id,
+                    subtotal: 0
+                }));
+
+            })
         });
     </script>
 @endsection
