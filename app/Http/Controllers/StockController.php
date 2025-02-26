@@ -23,28 +23,30 @@ class StockController extends Controller
      */
     public function create()
     {
-       $product_variants= ProductVariant::all();
-       $warehouses= Warehouse::all();
-       return view('pages.inventory.stock.create',compact('product_variants','warehouses'));
+        $product_variants = ProductVariant::all();
+        $warehouses = Warehouse::all();
+        return view('pages.inventory.stock.create', compact('product_variants', 'warehouses'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'product_variant_id' => "required",
-        'warehouse_id' => "required",
-    ]);
+    {
+        $request->validate([
+            'product_variant_id' => "required",
+            'warehouse_id' => "required",
+            'warehouse_id' => "nullable",
+        ]);
 
-    Stock::create([
-        'product_variant_id' => $request->product_variant_id,
-        'warehouse_id' => $request->warehouse_id,
-    ]);
+        Stock::create([
+            'product_variant_id' => $request->product_variant_id,
+            'warehouse_id' => $request->warehouse_id,
+            'total_value' => $request->total_value,
+        ]);
 
-    return redirect()->route('stocks.index')->with('success', 'Stock overview created successfully');
-}
+        return redirect()->route('stocks.index')->with('success', 'Stock overview created successfully');
+    }
 
 
     /**
