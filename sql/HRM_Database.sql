@@ -12,7 +12,7 @@ CREATE TABLE hrm_statuses (
 
 -- Attendance
 
-CREATE TABLE hrm_attendance_list (
+CREATE TABLE hrm_attendances_lists (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     employee_id BIGINT UNSIGNED NOT NULL,
     date date NOT NULL,
@@ -366,17 +366,21 @@ CREATE TABLE `hrm_trainers` (
 
 -- Timesheet
 
-CREATE TABLE `hrm_timesheets` (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    employee_id BIGINT UNSIGNED NOT NULL,
+CREATE TABLE employee_timesheets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT NOT NULL,
     date DATE NOT NULL,
+    shift_start TIME NOT NULL,
+    shift_end TIME NOT NULL,
     clock_in TIME NULL,
     clock_out TIME NULL,
-    break_duration INT DEFAULT 0,  -- Duration of breaks in minutes
-    hours_worked DECIMAL(5, 2) DEFAULT 0, -- Hours worked calculated automatically
+    break_duration INT DEFAULT 0,
+    total_work_hours DECIMAL(5,2) DEFAULT 0,
+    overtime_hours DECIMAL(5,2) DEFAULT 0,
     statuses_id BIGINT UNSIGNED NOT NULL,
-    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    remarks TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 

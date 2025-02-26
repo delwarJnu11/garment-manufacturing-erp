@@ -115,9 +115,7 @@ Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController:
 Route::get('hrm_attendance_list/delete/{id}/',[HrmAttendanceListController::class,'destroy'] );
 Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
 
-Route::get('/route', function(){
-    echo "hello";
-});
+
 
 /**
  * End Hr & Workforce Management.
