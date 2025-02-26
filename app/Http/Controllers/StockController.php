@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductVariant;
 use App\Models\Stock;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -21,16 +23,29 @@ class StockController extends Controller
      */
     public function create()
     {
-        //
+       $product_variants= ProductVariant::all();
+       $warehouses= Warehouse::all();
+       return view('pages.inventory.stock.create',compact('product_variants','warehouses'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    $request->validate([
+        'product_variant_id' => "required",
+        'warehouse_id' => "required",
+    ]);
+
+    Stock::create([
+        'product_variant_id' => $request->product_variant_id,
+        'warehouse_id' => $request->warehouse_id,
+    ]);
+
+    return redirect()->route('stocks.index')->with('success', 'Stock overview created successfully');
+}
+
 
     /**
      * Display the specified resource.

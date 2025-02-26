@@ -24,8 +24,7 @@
                                     <div class="userimgname">
                                         <a href="javascript:void(0);" class="userslist-img bg-img">
                                             <img width="60" height="60" style="border-radius: 50%"
-                                                src="{{ asset('uploads') }}/users/{{ $user->ima
-                                                ge }}" alt="product">
+                                                src="{{ asset('uploads') }}/users/{{ $user->image }}" alt="product">
                                         </a>
                                         <div>
                                             <a href="javascript:void(0);">{{ $user->name }}</a>

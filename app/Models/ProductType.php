@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductType extends Model
 {
@@ -10,4 +11,6 @@ class ProductType extends Model
     protected $fillable = [
         'name',
     ];
+
+   
 }
