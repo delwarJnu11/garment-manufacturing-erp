@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductVariant extends Model
 {
@@ -12,6 +13,18 @@ class ProductVariant extends Model
         'product_type_id',
         'size_id',
         'sku',
+        'qty',
+        'uom_id',
         'unit_price',
     ];
+
+    function product_type():BelongsTo{
+        return $this->belongsTo(ProductType::class,'product_type_id');
+    }
+    function size():BelongsTo{
+        return $this->belongsTo(Size::class,'size_id');
+    }
+    function uom():BelongsTo{
+        return $this->belongsTo(Uom::class,'uom_id');
+    }
 }

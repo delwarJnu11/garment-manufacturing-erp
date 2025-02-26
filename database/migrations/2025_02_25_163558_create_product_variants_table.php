@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('product_type_id'); // Integer column for product_type_id
             $table->integer('size_id')->nullable(); // Integer column for product_type_id
             $table->string('sku')->unique();
+            $table->integer('qty')->default(1);
+            $table->integer('uom_id')->nullable();
             $table->decimal('unit_price', 10, 2)->default(0.00);
             $table->timestamps();
         });
@@ -26,6 +28,8 @@ return new class extends Migration
             'product_type_id' => 1, // Example: 1 for Raw Material
             'size_id' => 1,
             'sku' => 'RCF-001',
+            'qty' => 50,
+            'uom_id' => 1,
             'unit_price' => 15.50
         ]);
         ProductVariant::create([
@@ -33,6 +37,8 @@ return new class extends Migration
             'product_type_id' => 2, // Example: 2 for Finished Goods
             'size_id' => 3,
             'sku' => 'BTS-M-003',
+            'qty' => 100,
+            'uom_id' => 1,
             'unit_price' => 25.00
         ]);
 
@@ -41,6 +47,8 @@ return new class extends Migration
             'product_type_id' => 2, // Example: 2 for Finished Goods
             'size_id' => 3,
             'sku' => 'WSH-L-004',
+            'qty' => 62,
+            'uom_id' => 1,
             'unit_price' => 30.00
         ]);
     }

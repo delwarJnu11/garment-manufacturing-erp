@@ -2,7 +2,7 @@
 
 @section('page_content')
 
-<x-page-header heading="Stock Overview" btnText="Add Stock" href="{{ url('stock/create') }}" />
+<x-page-header heading="Stock Overview" btnText="Add Stock" href="{{ url('stocks/create') }}" />
 
 <table class="table table-striped table-bordered">
     <thead class="thead-primary">
@@ -26,9 +26,9 @@
             <td>{{ $stock->productVariant->product_type_id == 1 ? 'Raw Material' : 'Finished Goods' }}</td>
             <td>{{ $stock->productVariant->sku }}</td>
             <td>{{ $stock->warehouse->name }}</td>
-            <td>{{ $stock->quantity }}</td>
+            <td>{{ $stock->productVariant->qty }}</td>
             <td>${{ number_format($stock->productVariant->unit_price, 2) }}</td>
-            <td>${{ number_format($stock->quantity * $stock->productVariant->unit_price, 2) }}</td>
+            <td>${{ number_format($stock->productVariant->qty * $stock->productVariant->unit_price, 2) }}</td>
             <td class="action-table-data">
                 <div class="edit-delete-action">
                     <a class="me-2 p-2" href="{{ route('stocks.edit', $stock->id) }}">
