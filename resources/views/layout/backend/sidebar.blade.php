@@ -133,7 +133,8 @@
 
                                 <!-- 🔹 Stock Management -->
                                 <li>
-                                    <a href="{{ url('/products') }}">Stock Overview</a></li>
+                                    <a href="{{ url('/products') }}">Stock Overview</a>
+                                </li>
                                 <li>
                                     <a href="{{ url('/products/create') }}">Raw Materials</a>
                                 </li>
@@ -286,7 +287,8 @@
 
 
                         {{-- FINANCE & ACCOUNTS MODULE MENU START --}}
-                        <li class="submenu"><a href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg"
+                        <li class="submenu"><a href="javascript:void(0);">
+                                <svg xmlns="http://www.w3.org/2000/svg"
                                     width="20" height="20" fill="currentColor" class="bi bi-cash-coin"
                                     viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
@@ -296,7 +298,8 @@
                                     <path
                                         d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z" />
                                     <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567" />
-                                </svg><span>Finance &
+                                </svg>
+                                <span>Finance &
                                     Accounts</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li class="submenu submenu-two"><a href="">Reports<span

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\accountGroups;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AccountGroupsController extends Controller
 {
@@ -11,54 +12,74 @@ class AccountGroupsController extends Controller
      * Display a listing of the resource.
      */
     // app/Http/Controllers/AccountGroupsController.php
-    public function index()
-    {
-        $accountGroups = accountGroups::all();
-        return view('pages.accounts.accountGroups.index', compact('accountGroups'));
-    }
+    public function index(){
+		$accountgroups = AccountGroups::paginate(10);
+		return view("pages.accounts.accountgroup.index",
+		  ["accountgroups"=>$accountgroups])
+		;
+	}
+	public function create(){
+		return view("pages.accounts.accountgroup.create",
+		["parents"=>AccountGroups::orderBy('code')->get()]
+	);
+	}
+	public function store(Request $request){
+		//AccountGroup::create($request->all());
+        
+		$parent_code= AccountGroups::where('id', $request->parent_id)->value('code');
+		$count= DB::table('account_groups')->where('parent_id', $request->parent_id)->count();
+		$count=$count+1;
 
-    public function create()
-    {
-        return view('pages.accounts.accountGroups.create');
-    }
+		$genCode=str_pad($count, 2 , '0', STR_PAD_LEFT);
+		$accountcode= $parent_code.$genCode;
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'code' => 'required|integer',
-            'name' => 'required|string|max:50',
-            'description' => 'nullable|string',
-            'parent_id' => 'nullable|integer',
-            'is_active' => 'required|integer',
-        ]);
+		// print_r($request->parent_id);
+		// print_r($accountcode);
 
-        accountGroups::create($request->all());
-        return redirect('accountGroups')->with('success', 'Account Group created successfully!');
-    }
+		$accountgroup = new AccountGroups;
+		$accountgroup->code=$accountcode;
+		$accountgroup->name=$request->name;
+		$accountgroup->description=$request->description;
+		$accountgroup->parent_id=$request->parent_id;
+		$accountgroup->is_active=$request->is_active;
+		$accountgroup->system_generated=$request->system_generated;
+        date_default_timezone_set("Asia/Dhaka");
+		$accountgroup->created_at=date('Y-m-d H:i:s');
+        date_default_timezone_set("Asia/Dhaka");
+		$accountgroup->updated_at=date('Y-m-d H:i:s');
 
-    public function edit(accountGroups $accountGroup)
-    {
-        return view('pages.accounts.accountGroups.edit', compact('accountGroup'));
-    }
+		 $accountgroup->save();
 
-    public function update(Request $request, accountGroups $accountGroup)
-    {
-        $request->validate([
-            'code' => 'required|integer',
-            'name' => 'required|string|max:50',
-            'description' => 'nullable|string',
-            'parent_id' => 'nullable|integer',
-            'is_active' => 'required|integer',
-        ]);
+		return back()->with(['success'=>'Created Successfully.', 'parent_id'=>$request->parent_id]);
+	}
+	public function show($id){
+		$accountgroup = AccountGroups::find($id);
+		return view("pages.accounts.accountgroup.show",["accountgroup"=>$accountgroup]);
+	}
+	public function edit(AccountGroups $accountgroup){
+		return view("pages.accounts.accountgroup.edit",["accountgroup"=>$accountgroup,"parents"=>Parent::all()]);
+	}
+	public function update(Request $request,AccountGroups $accountgroup){
+		//AccountGroup::update($request->all());
+		$accountgroup = AccountGroups::find($accountgroup->id);
+		$accountgroup->code=$request->code;
+		$accountgroup->name=$request->name;
+		$accountgroup->description=$request->description;
+		$accountgroup->parent_id=$request->parent_id;
+		$accountgroup->is_active=$request->is_active;
+		$accountgroup->system_generated=$request->system_generated;
+date_default_timezone_set("Asia/Dhaka");
+		$accountgroup->created_at=date('Y-m-d H:i:s');
+date_default_timezone_set("Asia/Dhaka");
+		$accountgroup->updated_at=date('Y-m-d H:i:s');
 
-        $accountGroup->update($request->all());
-        return redirect('accountGroups')->with('success', 'Account Group updated successfully!');
-    }
+		$accountgroup->save();
 
-    public function destroy(accountGroups $accountGroup)
-    {
-        $accountGroup->delete();
-        return redirect()->back()->with('success', 'Account Group deleted successfully!');
-    }
+		return redirect()->route("accountgroups.index")->with('success','Updated Successfully.');
+	}
+	public function destroy(AccountGroups $accountgroup){
+		$accountgroup->delete();
+		return redirect()->route("accountgroups.index")->with('success', 'Deleted Successfully.');
+	}
 
 }
