@@ -76,6 +76,8 @@
 
                                 <!-- 🔹 Warehouse & Stock -->
                                 <li><x-link href="{{ url('/warehouses') }}" :active="request()->is('warehouses')">Warehouses</x-link></li>
+                                <li><x-link href="{{ url('/storage-locations') }}" :active="request()->is('storage-locations')">Storage
+                                        Locations</x-link></li>
                                 <li><x-link href="{{ url('/stock-movements') }}" :active="request()->is('stock-movements')">Stock
                                         Movements</x-link></li>
 
@@ -105,6 +107,8 @@
                                         Reports</x-link></li>
                             </ul>
                         </li>
+                        {{-- End Inventory Module --}}
+
 
                         <!-- 🔸 Suppliers & Purchase -->
                         <li class="submenu">
@@ -155,8 +159,3 @@
         });
     </script>
 @endsection
-
-
-
-
-
