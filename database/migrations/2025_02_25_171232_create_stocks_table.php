@@ -16,21 +16,21 @@ return new class extends Migration
             $table->id();
             $table->integer('product_variant_id'); // Link to product_variants table
             $table->integer('warehouse_id'); // Link to warehouses table
-            $table->integer('quantity')->default(0); // Current stock level
+            // $table->integer('quantity')->default(0); // Current stock level
             $table->integer('total_value')->default(0); // Current stock level
             $table->timestamps();
         });
         Stock::create([
             'product_variant_id' => 1, // Red Cotton Fabric
             'warehouse_id' => 1, // Central Warehouse
-            'quantity' => 500,
+            // 'quantity' => 500,
             'total_value' => 7750.00 // Example: 500 * 15.50
         ]);
 
         Stock::create([
             'product_variant_id' => 2, // Black T-shirt
             'warehouse_id' => 1,
-            'quantity' => 300,
+            // 'quantity' => 300,
             'total_value' => 7500.00 // Example: 300 * 25.00
         ]);
     }

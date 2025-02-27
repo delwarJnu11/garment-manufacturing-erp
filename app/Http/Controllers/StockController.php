@@ -14,7 +14,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::with('productVariant', 'warehouse')->paginate(10);
+        $stocks = Stock::with('productVariant', 'warehouse')->paginate(5);
         return view('pages.inventory.stock.stock', compact('stocks'));
     }
 

@@ -27,6 +27,7 @@ use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentsController;
 use App\Http\Controllers\InvSuppliersController;
+use App\Http\Controllers\MovementTypeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
@@ -35,11 +36,14 @@ use App\Http\Controllers\ProductlotController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\PurchaseOrdersController;
 use App\Http\Controllers\Raw_materialController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
@@ -144,7 +148,9 @@ Route::resource('category', CategoryController::class);
 Route::resource('categoryType', CategoryTypeController::class);
 Route::resource('raw_materials', Raw_materialController::class);
 Route::resource('sizes', SizeController::class);
-// Route::resource('categoryTypes', CategoryTypeController::class);
+
+Route::resource('stockMovements', StockMovementController::class);
+Route::resource('movementTypes', MovementTypeController::class);
 /**
  * Warehouse
  **/
@@ -165,6 +171,7 @@ Route::resource('uoms', UOMController::class);
 Route::resource('products', ProductController::class);
 Route::resource('valuations', ValuationMethodsController::class);
 Route::resource('product_lots', ProductlotController::class);
+Route::resource('purchase_orders', PurchaseOrderController::class);
 
 /*
  *  Orders & Buyers

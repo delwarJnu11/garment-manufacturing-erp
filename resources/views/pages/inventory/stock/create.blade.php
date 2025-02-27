@@ -59,43 +59,7 @@
 
     <script>
         $(document).ready(function () {
-            // $("#product_variant").on('change',function(e){
-            //     e.preventDefault();
-            //     let selectedOption = $(this).find('option:selected');
-            //     let qty = selectedOption.data('qty');
-            //     let unit_price = selectedOption.data('unit_price');
-            //     $("#column-append").empty();
-            //     let row=`
-            //     <div class="col-md-6 mb-3">
-            //             <label class="form-label">Quantity</label>
-            //             <input type="number" id="qty" name="qty" class="form-control" value="${qty}" required>
-            //         </div>
-            //     <div class="col-md-6 mb-3">
-            //             <label class="form-label">Unit Price</label>
-            //             <input type="number" id="unit_price" name="unit" class="form-control" value="${unit_price}" required>
-            //         </div>
-            //     `;
-
-            //     $("#column-append").append('row');
-
-            //      // Calculate total value when qty or unit price changes
-            //      $('#qty, #unit_price').on('input', function () {
-            //         let qtyValue = $('#qty').val();
-            //         let unitPriceValue = $('#unit_price').val();
-            //         let totalValue = qtyValue * unitPriceValue;
-            //         $('#total_value').val(totalValue.toFixed(2));  // Display total value in the Total Price field
-            //     });
-
-            //     // Calculate total value initially
-            //     let initialTotalValue = qty * unitPrice;
-            //     $('#total_value').val(initialTotalValue.toFixed(2));
-            // });
-
-
-
-
-
-            // // Event listener for when the product variant is selected
+      
             $('#product_variant').on('change', function (e) {
                 e.preventDefault();
 

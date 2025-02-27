@@ -2,7 +2,7 @@
 
 @section('page_content')
 
-<x-page-header heading="Stock Overview" btnText="Add Stock" href="{{ url('stocks/create') }}" />
+<x-page-header heading="Stock Overview" btnText=" Stock" href="{{ url('stocks/create') }}" />
 
 <table class="table table-striped table-bordered">
     <thead class="thead-primary">
@@ -49,7 +49,7 @@
 </table>
 
 <div class="d-flex justify-content-end">
-    {{ $stocks->links('vendor.pagination.bootstrap-5') }}
+    {{ $stocks->links('vendor.pagination.custom') }}
 </div>
 
 @endsection
