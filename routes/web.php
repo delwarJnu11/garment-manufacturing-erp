@@ -33,16 +33,23 @@ use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductlotController;
+use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Raw_materialController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
+=======
+use App\Models\ProductType;
+>>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -111,18 +118,24 @@ Route::resource('hrm_employees', HrmEmployeesController::class);
 Route::get('hrm_employee_performances/delete/{id}/', [HrmEmployeePerformancesController::class, 'destroy']);
 Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::class);
 
-Route::get('hrm_employee_bank_accounts/delete/{id}/',[HrmEmployeeBankAccountsController::class,'destroy'] );
+Route::get('hrm_employee_bank_accounts/delete/{id}/', [HrmEmployeeBankAccountsController::class, 'destroy']);
 Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
 
-Route::get('hrm_attendance_list/delete/{id}/',[HrmAttendanceListController::class,'destroy'] );
+Route::get('hrm_attendance_list/delete/{id}/', [HrmAttendanceListController::class, 'destroy']);
 Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
 
+<<<<<<< HEAD
 Route::get('hrm_employee_timesheets/delete/{id}/',[HrmEmployeeTimesheetsController::class,'destroy'] );
 Route::resource('hrm_employee_timesheets', HrmEmployeeTimesheetsController::class);
 
 // Route::get('/employee', function () {
 //     echo Auth::user()->isEmployee();
 // })->middleware(['employee']);
+=======
+Route::get('/route', function () {
+    echo "hello";
+});
+>>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
 
 /**
  * End Hr & Workforce Management.
@@ -149,6 +162,9 @@ Route::resource('sizes', SizeController::class);
 /**
  * Warehouse
  **/
+Route::resource('product_types', ProductTypeController::class);
+Route::resource('product_variants', ProductVariantController::class);
+Route::resource('stocks', StockController::class);
 Route::resource('warehouses', WarehouseController::class);
 // Route::resource('productsApi', ApiProductController::class);
 
