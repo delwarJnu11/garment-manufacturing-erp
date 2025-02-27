@@ -2,7 +2,7 @@
 
 @section('page_content')
 <x-success/>
-    <x-page-header href="{{ route('hrm_attendance_list.create') }}" heading="Attendance" btnText=" Attendence" />
+    <x-page-header href="{{ route('hrm_employee_timesheets.create') }}" heading="TimeSheets" btnText=" TimeSheets" />
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
@@ -13,30 +13,36 @@
                             <th>Employee Name</th>
                             <th>Date</th>
                             <th>Status</th>
-                            <th>clock_in</th>
-                            <th>clock_out</th>
-                            <th>late_Times</th>
-                            <th>leave_Times</th>
-                            <th>overtime_hours</th>
+                            <th>Clock_in</th>
+                            <th>Clock_out</th>
+                            <th>Shift_start</th>
+                            <th>Shift_end</th>
+                            <th>Break_duration</th>
+                            <th>Total_work_hours</th>
+                            <th>Overtime_hours</th>
+                            <th>Remarks</th>
                             <th>Created At</th>
                             <th class="no-sort">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($attendences as $attendence)
+                        @forelse ($timesheets as $timesheet)
                             <tr>
-                                <td>{{ $attendence->id }}</td>
-                                <td>{{ $attendence->employee_id }}</td>
-                                <td>{{ $attendence->date }}</td>
-                                <td>{{ $attendence->statuses_id }}</td>
-                                <td>{{ $attendence->clock_in }}</td>
-                                <td>{{ $attendence->clock_out }}</td>
-                                <td>{{ $attendence->late_times }}</td>
-                                <td>{{ $attendence->leave_times }}</td>
-                                <td>{{ $attendence->overtime_hours }}</td>
+                                <td>{{ $timesheet->id }}</td>
+                                <td>{{ $timesheet->employee_id }}</td>
+                                <td>{{ $timesheet->date }}</td>
+                                <td>{{ $timesheet->statuses_id }}</td>
+                                <td>{{ $timesheet->clock_in }}</td>
+                                <td>{{ $timesheet->clock_out }}</td>
+                                <td>{{ $timesheet->shift_start }}</td>
+                                <td>{{ $timesheet->shift_end }}</td>
+                                <td>{{ $timesheet->break_duration }}</td>
+                                <td>{{ $timesheet->total_work_hours }}</td>
+                                <td>{{ $timesheet->overtime_hours }}</td>
+                                <td>{{ $timesheet->remarks }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_attendance_list/{$attendence->id}")}}">
+                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_attendance_list/{$timesheet->id}")}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"
@@ -45,10 +51,10 @@
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
                                         </a>
-                                        <a class="me-2 p-2" href="{{url("hrm_attendance_list/$attendence->id/edit")}}">
+                                        <a class="me-2 p-2" href="{{url("hrm_attendance_list/$timesheet->id/edit")}}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <a class="confirm-textt p-2" href="{{url("hrm_attendance_list/delete/$attendence->id")}}">
+                                        <a class="confirm-textt p-2" href="{{url("hrm_attendance_list/delete/$timesheet->id")}}">
                                             <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Status? This action cannot be undone!');">
                                                 Yes, Delete></i>
                                         </a>
@@ -75,7 +81,7 @@
                 </table>
             </div>
             <div class="d-flex justify-content-end mt-5">
-                {!! $attendences->links('pagination::bootstrap-5') !!}
+                {!! $timesheets->links('pagination::bootstrap-5') !!}
             </div>
         </div>
     </div>

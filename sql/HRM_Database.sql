@@ -17,11 +17,13 @@ CREATE TABLE hrm_attendances_lists (
     employee_id BIGINT UNSIGNED NOT NULL,
     date date NOT NULL,
     statuses_id BIGINT UNSIGNED NOT NULL,
-    clock_in DATETIME DEFAULT NULL,
-    clock_out DATETIME DEFAULT NULL,
+    clock_in TIME DEFAULT '00:00:00',
+    clock_out TIME DEFAULT '00:00:00',
     late_days TINYINT UNSIGNED DEFAULT 0,
     leave_days TINYINT UNSIGNED DEFAULT 0,
-    overtime_hours DECIMAL(5,2) DEFAULT 0.00,
+    late_times TIME DEFAULT '00:00:00',
+    leave_times TIME DEFAULT '00:00:00',
+    overtime_hours DECIMAL(5,2) DEFAULT '0.00',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
@@ -366,17 +368,17 @@ CREATE TABLE `hrm_trainers` (
 
 -- Timesheet
 
-CREATE TABLE employee_timesheets (
+CREATE TABLE hrm_employee_timesheets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     employee_id INT NOT NULL,
     date DATE NOT NULL,
-    shift_start TIME NOT NULL,
-    shift_end TIME NOT NULL,
-    clock_in TIME NULL,
-    clock_out TIME NULL,
+    shift_start TIME DEFAULT '00:00:00',
+    shift_end TIME DEFAULT '00:00:00',
+    clock_in TIME DEFAULT '00:00:00',
+    clock_out TIME DEFAULT '00:00:00',
     break_duration INT DEFAULT 0,
-    total_work_hours DECIMAL(5,2) DEFAULT 0,
-    overtime_hours DECIMAL(5,2) DEFAULT 0,
+    total_work_hours DECIMAL(5,2) DEFAULT '0.00',
+    overtime_hours DECIMAL(5,2) DEFAULT '0.00',
     statuses_id BIGINT UNSIGNED NOT NULL,
     remarks TEXT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

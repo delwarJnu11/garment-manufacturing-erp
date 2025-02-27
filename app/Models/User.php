@@ -62,4 +62,8 @@ class User extends Authenticatable {
     function isManager() {
         return $this->role_id == 3;
     }
+
+    function isEmployee(){
+        return $this->role_id == 3;
+    }
 }

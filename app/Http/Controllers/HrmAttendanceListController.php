@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hrm_attendances_lists;
 use App\Models\Hrm_employees;
+use App\Models\Hrm_statuses;
 use Illuminate\Http\Request;
 
 class HrmAttendanceListController extends Controller
@@ -13,7 +14,7 @@ class HrmAttendanceListController extends Controller
      */
     public function index()
     {
-        $attendences = Hrm_attendances_lists::all();
+        $attendences = Hrm_attendances_lists::paginate(5);
         //print_r($attendences);
 
          return view('pages.hrm.attendence.hrm_attendance_list.index', compact('attendences'));
@@ -25,7 +26,8 @@ class HrmAttendanceListController extends Controller
     public function create()
     {
         $employees=Hrm_employees::all();
-        return view('pages.hrm.attendence.hrm_attendance_list.create', compact('employees'));
+        $statuses=Hrm_statuses::all();
+        return view('pages.hrm.attendence.hrm_attendance_list.create', compact('employees','statuses'));
     }
 
     /**
@@ -42,6 +44,8 @@ class HrmAttendanceListController extends Controller
         'clock_out' => 'required|date_format:H:i:s',
         'late_days' => 'required|integer|min:0',
         'leave_days' => 'required|integer|min:0',
+        'late_times' => 'required|integer|min:0',
+        'leave_times' => 'required|integer|min:0',
         'overtime_hours' => 'required|numeric|min:0',
     ]);
 
@@ -53,6 +57,8 @@ class HrmAttendanceListController extends Controller
         $attendences->clock_out= $request->clock_out;
         $attendences->late_days= $request->late_days;
         $attendences->leave_days= $request->leave_days;
+        $attendences->late_times= $request->late_times;
+        $attendences->leave_times= $request->leave_times;
         $attendences->overtime_hours= $request->overtime_hours;
 
         if($attendences->save()){
@@ -95,6 +101,8 @@ class HrmAttendanceListController extends Controller
             'clock_out' => 'required|date_format:H:i:s',
             'late_days' => 'required|integer|min:0',
             'leave_days' => 'required|integer|min:0',
+            'late_times' => 'required|integer|min:0',
+            'leave_times' => 'required|integer|min:0',
             'overtime_hours' => 'required|numeric|min:0',
         ]);
 
@@ -106,6 +114,8 @@ class HrmAttendanceListController extends Controller
             $attendences->clock_out= $request->clock_out;
             $attendences->late_days= $request->late_days;
             $attendences->leave_days= $request->leave_days;
+            $attendences->late_times= $request->late_times;
+            $attendences->leave_times= $request->leave_times;
             $attendences->overtime_hours= $request->overtime_hours;
 
         if($attendences->save()){

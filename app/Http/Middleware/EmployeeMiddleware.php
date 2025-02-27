@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class EmployeeMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,14 +16,9 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->isAdmin())
-        {
+        if(Auth::user()->isEmployee()){
+
             return $next($request);
         }
-      return redirect('check');
-    // abort('404');
     }
-
-
 }
-
