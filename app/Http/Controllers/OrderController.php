@@ -6,6 +6,7 @@ use App\Models\Buyer;
 use App\Models\fabricType;
 use App\Models\Order;
 use App\Models\OrderStatus;
+use App\Models\Size;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate(4);
-        return view('pages.orders_&_buyers.order.index', compact('orders'));
+        $orders = Order::with([
+            'buyer',
+            'status',
+            'orderDetails.product',
+            'orderDetails.size',
+            'orderDetails.color',
+            'orderDetails.uom'
+        ])->groupBy('order_number')->paginate(4);
+
+        // Get all unique sizes dynamically
+        $sizes = Size::pluck('name')->toArray();
+
+        return view('pages.orders_&_buyers.order.index', compact('orders', 'sizes'));
     }
 
     /**

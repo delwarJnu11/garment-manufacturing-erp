@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\OrderDetailsController;
 
 use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\AssetTypesController;
+use App\Http\Controllers\BomController;
+use App\Http\Controllers\BomDetailsController;
 use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\CategoryAttributesController;
 use App\Http\Controllers\CategoryController;
@@ -31,6 +33,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductionPlanSectionController;
 use App\Http\Controllers\ProductlotController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ProductVariantController;
@@ -85,7 +88,10 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
  **/
 
 Route::resource('production_plan_status', ProductionPlanStatusesController::class);
-Route::resource('production_plan_sections', ProductionPlanStatusesController::class);
+Route::resource('production_plan_sections', ProductionPlanSectionController::class);
+Route::resource('bom', BomController::class);
+Route::resource('bom_details', BomDetailsController::class);
+
 
 /**
  * Production Memu END

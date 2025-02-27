@@ -24,10 +24,7 @@ class OrderDetailsController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -49,7 +46,7 @@ class OrderDetailsController extends Controller
             OrderDetail::create($item);
         }
 
-        return response()->json(['message' => 'Items saved successfully'], 201);
+        return response()->json(['message' => 'Items saved successfully', 'status' => 201]);
     }
 
     /**

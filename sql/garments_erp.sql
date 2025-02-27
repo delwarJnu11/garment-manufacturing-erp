@@ -561,7 +561,6 @@ CREATE TABLE bom (
     total_cost DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 
@@ -569,13 +568,12 @@ CREATE TABLE bom_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     bom_id INT,
     material_id INT,
+    size_id INT,
     quantity_used DECIMAL(10,2),
     unit_cost
     wastage DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id),
-    -- FOREIGN KEY (material_id) REFERENCES materials(id)
 );
 
 

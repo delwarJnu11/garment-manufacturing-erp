@@ -23,7 +23,7 @@
                         </li>
                         <!-- START USER Module Menu -->
                         <!-- START Prodcution Module Menu -->
-                         <li class="submenu">
+                        <li class="submenu">
                             <x-nav-link icon="settings" :active="request()->is('production*')">Production Management</x-nav-link>
                             <ul>
                                 <!-- BOM MENU START -->
@@ -31,7 +31,7 @@
                                     <x-nav-link icon="list" :active="request()->is('bom*')">Bill Of Materials</x-nav-link>
                                     <ul style="margin-left: 20px;">
                                         <li>
-                                            <x-link>create BOM</x-link>
+                                            <x-link href="{{ route('bom.index') }}">BOM Lists</x-link>
                                         </li>
                                         <li>
                                             <x-link>Cost Estimation</x-link>
@@ -40,11 +40,13 @@
                                 </li>
                                 <!-- BOM MENU END -->
                                 <li>
-                                    <x-link href="{{route('production_plan_status.index')}}" :active="request()->is('production_plan_status*')">Plan Status</x-link>
+                                    <x-link href="{{ route('production_plan_status.index') }}" :active="request()->is('production_plan_status*')">Plan
+                                        Status</x-link>
                                 </li>
 
                                 <li>
-                                    <x-link href="{{route('production_plan_sections.index')}}" :active="request()->is('production_plan_sections*')">Production Sections</x-link>
+                                    <x-link href="{{ route('production_plan_sections.index') }}"
+                                        :active="request()->is('production_plan_sections*')">Production Sections</x-link>
                                 </li>
                             </ul>
                         </li>
@@ -183,8 +185,3 @@
         });
     </script>
 @endsection
-
-
-
-
-

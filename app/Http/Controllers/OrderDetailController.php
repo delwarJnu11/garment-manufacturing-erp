@@ -17,7 +17,8 @@ class OrderDetailController extends Controller
      */
     public function index()
     {
-        //
+        $orderDetails = OrderDetail::with(['product', 'order', 'size', 'color', 'uom'])->paginate(4);
+        return view('pages.orders_&_buyers.order_details.index', compact('orderDetails'));
     }
 
     /**

@@ -13,7 +13,7 @@ class ProductionPlanSectionController extends Controller
     public function index()
     {
         $sections = ProductionPlanSection::all();
-        return view('pages.production.production_plan.production_plan_section.index',compact('sections'));
+        return view('pages.production.production_plan.production_plan_section.index', compact('sections'));
     }
 
     /**
@@ -29,7 +29,17 @@ class ProductionPlanSectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'status_name' => 'required|string|max:50',
+        ], [
+            'required' => 'Staus name is required!',
+        ]);
+
+        // Create a new role
+        ProductionPlanSection::create([
+            'name' => $request->status_name,
+        ]);
+        return redirect()->route('production_plan_sections.index')->with('success', 'Production Section has been added successfully!');
     }
 
     /**
@@ -37,7 +47,7 @@ class ProductionPlanSectionController extends Controller
      */
     public function show(ProductionPlanSection $productionPlanSection)
     {
-        //
+        return view('pages.production.production_plan.production_plan_section.show', compact('productionPlanSection'));
     }
 
     /**
