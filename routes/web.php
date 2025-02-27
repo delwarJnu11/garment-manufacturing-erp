@@ -45,11 +45,8 @@ use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
-=======
 use App\Models\ProductType;
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -62,7 +59,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('pages.dashboard-home');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -121,21 +118,24 @@ Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::
 Route::get('hrm_employee_bank_accounts/delete/{id}/', [HrmEmployeeBankAccountsController::class, 'destroy']);
 Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
 
+
+
+Route::post('/hrm_attendance_list/clock-in', [HrmAttendanceListController::class, 'clockIn']);
+Route::post('/hrm_attendance_list/clock-out', [HrmAttendanceListController::class, 'clockOut']);
 Route::get('hrm_attendance_list/delete/{id}/', [HrmAttendanceListController::class, 'destroy']);
 Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
 
-<<<<<<< HEAD
 Route::get('hrm_employee_timesheets/delete/{id}/',[HrmEmployeeTimesheetsController::class,'destroy'] );
 Route::resource('hrm_employee_timesheets', HrmEmployeeTimesheetsController::class);
 
 // Route::get('/employee', function () {
 //     echo Auth::user()->isEmployee();
 // })->middleware(['employee']);
-=======
-Route::get('/route', function () {
-    echo "hello";
-});
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+
+    Route::get('/home', function () {
+        return view('home');
+     });
+
 
 /**
  * End Hr & Workforce Management.

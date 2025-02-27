@@ -20,8 +20,8 @@ class AdminMiddleware
         {
             return $next($request);
         }
-      return redirect('check');
-    // abort('404');
+
+     return redirect('/home');
     }
 
 
