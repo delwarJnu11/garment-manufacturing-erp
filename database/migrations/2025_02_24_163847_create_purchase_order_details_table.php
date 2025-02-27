@@ -18,22 +18,29 @@ return new class extends Migration
             $table->integer('purchase_id')->unsigned(); // Purchase Order ID (without foreign key)
             $table->integer('lot_id')->unsigned(); // Lot ID (which contains raw_material_id)
             $table->integer('quantity')->default(0); // Quantity ordered
-            $table->decimal('price', 10, 2)->default(0.00); // Price per unit
-            $table->decimal('discount_price', 10, 2)->default(0.00); // Discounted price
+            $table->decimal('purchase_total', 10, 2)->default(0.00); // Order total
+            $table->decimal('paid_amount', 10, 2)->default(0.00); // Paid amount
+            $table->decimal('discount', 10, 2)->default(0.00); // Discount
+            $table->decimal('vat', 10, 2)->default(0.00);
             $table->timestamps(); // Automatically adds created_at and updated_at
         });
 
+
+
         // Add a sample record with fake data for testing
         PurchaseOrderDetail::create([
-            'purchase_id' => 1,    // Purchase Order ID (Ensure this ID exists in purchase_orders table)
-            'lot_id' => 10,        // Lot ID (Ensure this ID exists in lots table)
-            'quantity' => 50,      // Ordered quantity
-            'price' => 100.50,     // Price per unit
-            'discount_price' => 5.00,  // Discount per unit
+
+            'purchase_id' => 1, // Example Purchase Order ID
+            'lot_id' => 1, // Example Lot ID (related to raw material)
+            'quantity' => 50, // Quantity ordered
+            'purchase_total' => 1000.00, // Total purchase amount
+            'paid_amount' => 500.00, // Paid amount
+            'discount' => 50.00, // Discount applied
+            'vat' => 100.00, // VAT applied
+            'created_at' => now(),
+            'updated_at' => now(),
+
         ]);
-
-
-        
     }
 
     /**

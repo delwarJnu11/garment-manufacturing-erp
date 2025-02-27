@@ -60,6 +60,8 @@ class InvSuppliersController extends Controller
             'address' => $request->address,
             'photo' => $fileName
         ]);
+        // AccountController function use
+        
         return redirect('suppliers')->with('success', "Creted suppliers successfully");
     }
 

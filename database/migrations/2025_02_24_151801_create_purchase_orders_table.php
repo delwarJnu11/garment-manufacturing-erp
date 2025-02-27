@@ -16,13 +16,10 @@ return new class extends Migration
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->id();
             $table->integer('supplier_id');
+            $table->integer('product_variant_id');
             $table->integer('lot_id')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);
-
-            $table->decimal('order_total', 10, 2)->default(0.00); // Order total
-            $table->decimal('paid_amount', 10, 2)->default(0.00); // Paid amount
-            $table->decimal('discount', 10, 2)->default(0.00); // Discount
-            $table->decimal('vat', 10, 2)->default(0.00); // VAT
+// VAT
             $table->date('delivery_date')->nullable(); // Delivery date
             $table->string('shipping_address', 255)->nullable(); // Shipping address
             $table->text('description')->nullable(); // Description
@@ -31,6 +28,7 @@ return new class extends Migration
         });
         PurchaseOrder::create([
             'supplier_id' => 1,           // Supplier ID (Assuming this supplier exists in your suppliers table)
+            'product_variant_id' => 1,           // Supplier ID (Assuming this supplier exists in your suppliers table)
             'lot_id' => 10,               // Lot ID (Assuming this lot exists in your lots table)
             'status_id' => 2,             // Status ID (Assuming '2' corresponds to 'Confirmed' in the status table)
             'order_total' => 5000.00,     // Total order amount

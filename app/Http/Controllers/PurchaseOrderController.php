@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\inv_suppliers;
+use App\Models\ProductLot;
+use App\Models\Purchase_status;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrders;
 use Illuminate\Http\Request;
 
-class PurchaseOrdersController extends Controller
+class PurchaseOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot','purchase_status'])->paginate(5);
+        return view('pages.purchase_&_supliers.purchase_order.index',compact('purchase_orders'));
     }
 
     /**
@@ -21,7 +25,11 @@ class PurchaseOrdersController extends Controller
      */
     public function create()
     {
-        //
+        $suppliers = inv_suppliers::all();
+        $lots = ProductLot::all();
+        $statuses = Purchase_status::all();
+
+        return view('pages.purchase_&_supliers.purchase_order.create',compact('suppliers','lots','statuses'));
     }
 
     /**

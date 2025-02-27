@@ -1,71 +1,72 @@
 @extends('layout.backend.main')
 
 @section('page_content')
-@if (session('error'))
-<div class="alert alert-danger">
-    <strong>Error!</strong> {{ session('error') }}
-</div>
-@endif
+    <x-message-banner />
 
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
+    <div class="card flex-fill">
+        <x-page-header heading="Purchase Orders" btnText="Create Purchase Order" href="{{ url('purchase_orders/create') }}" />
 
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Purchase Orders</h4>
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Supplier</th>
-                        <th>Lot ID</th>
-                        <th>Status</th>
-                        <th>Order Total</th>
-                        <th>Paid Amount</th>
-                        <th>Discount</th>
-                        <th>VAT</th>
-                        <th>Delivery Date</th>
-                        <th>Shipping Address</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Created At</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($purchase_orders as $order)
+        <table class="table table-striped table-bordered">
+            <thead class="thead-primary">
+                <tr>
+                    <th>#</th>
+                    <th>Supplier</th>
+                    <th>Lot</th>
+                    <th>Status</th>
+                    <th>Order Total</th>
+                    <th>Paid Amount</th>
+                    <th>Discount</th>
+                    <th>VAT</th>
+                    <th>Delivery Date</th>
+                    <th>Shipping Address</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($purchase_orders as $order)
                     <tr>
                         <td>{{ $order->id }}</td>
-                        <td>{{ $order->supplier->name ?? 'N/A' }}</td>
-                        <td>{{ $order->lot_id ?? 'N/A' }}</td>
-                        <td>{{ $order->status_id }}</td>
-                        <td>{{ number_format($order->order_total, 2) }}</td>
-                        <td>{{ number_format($order->paid_amount, 2) }}</td>
-                        <td>{{ number_format($order->discount, 2) }}</td>
-                        <td>{{ number_format($order->vat, 2) }}</td>
+                        {{-- <td>{{ $order->inv_supplier->first_name.' '. $order->inv_supplier->last_name ?? 'N/A' }}</td> --}}
+                        <td>{{ $order->inv_supplier->first_name.' '. $order->inv_supplier->last_name ?? 'N/A' }}</td>
+                        
+                        <td>{{ $order->product_lot->name ?? 'N/A' }}</td>
+                        <td>{{ $order->purchase_status->name ?? 'N/A' }}</td>
+                        <td>${{ number_format($order->order_total, 2) }}</td>
+                        <td>${{ number_format($order->paid_amount, 2) }}</td>
+                        <td>${{ number_format($order->discount, 2) }}</td>
+                        <td>${{ number_format($order->vat, 2) }}</td>
                         <td>{{ $order->delivery_date ?? 'N/A' }}</td>
                         <td>{{ $order->shipping_address ?? 'N/A' }}</td>
                         <td>{{ $order->description ?? 'N/A' }}</td>
                         <td>{{ $order->quantity }}</td>
-                        <td>{{ $order->created_at }}</td>
+                        <td class="action-table-data">
+                            <a href="{{ route('purchase_orders.show', $order->id) }}">
+                                <i data-feather="eye" class="feather-eye"></i>
+                            </a>
+                            <a href="{{ route('purchase_orders.edit', $order->id) }}">
+                                <i data-feather="edit" class="feather-edit"></i>
+                            </a>
+                            <form action="{{ route('purchase_orders.destroy', $order->id) }}" method="POST" style="margin-bottom: 0">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="confirm-text" style="padding: 2px; background: transparent; border: none; width: 30px; color: red">
+                                    <i data-feather="trash-2" class="feather-trash-2 delete_icon"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
-                    @empty
+                @empty
                     <tr>
                         <td colspan="13" class="text-center">No purchase orders found.</td>
                     </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                @endforelse
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-end">
+            {{ $purchase_orders->links('vendor.pagination.custom') }}
         </div>
     </div>
-</div>
 @endsection
