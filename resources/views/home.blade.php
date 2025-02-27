@@ -29,8 +29,7 @@
         <div class="col-md-3 text-end">
             {{-- <a id="clockButton" class="btn btn-warning btn-lg" href="#" onclick="toggleClock()">Clock In</a> --}}
             <a id="clockButton" class="btn btn-warning btn-lg" href="javascript:void(0);" onclick="clockIn()">Clock In</a>
-            <a id="clockOutButton" class="btn btn-danger btn-lg" href="javascript:void(0);" onclick="clockOut()"
-                style="display:none;">Clock Out</a>
+            <a id="clockOutButton" class="btn btn-danger btn-lg" href="javascript:void(0);" onclick="clockOut()" style="display:none;">Clock Out</a>
         </div>
     </div>
 </div>
@@ -163,76 +162,151 @@
     //     }
     // }
 
+    // $(function() {
+    //     let clockStatus = localStorage.setItem('EmpStatus', "ClockOut");
+    //     // alert()
+    //     // $('#clockButton').hide();
+
+    //     if (localStorage['EmpStatus'] == "ClockOut") {
+    //         $('#clockButton').show();
+    //         // $('#clockButton').hide();
+    //         $('#clockOutButton').hide();
+    //     } else {
+    //         $('#clockButton').hide();
+    //         $('#clockOutButton').show();
+    //     }
+
+
+
+    // })
+    // function clockIn() {
+    //     let clockStatus = localStorage.setItem('EmpStatus', "ClockOut");
+    //     $.ajax({
+    //         url: '/hrm_attendance_list/clock-in',
+    //         method: 'POST',
+    //         data: {
+    //             _token: '{{ csrf_token() }}',
+    //             employee_id: {{ Auth::user()->id }}, // Pass employee_id if necessary
+    //         },
+    //         success: function(response) {
+    //             if (response.status === 'success') {
+    //                 localStorage.setItem('EmpStatus', "ClockIn")
+    //                 $('#clockButton').hide();
+    //                 $('#clockOutButton').show();
+    //                 alert(response.message);
+    //             } else {
+    //                 alert('Error clocking in.');
+    //             }
+    //         },
+    //         error: function(error) {
+    //             // alert('An error occurred. Please try again.');
+    //             console.log(error);
+
+    //         }
+    //     });
+    // }
+
+    // function clockOut() {
+
+
+    //     $.ajax({
+    //         url: '/hrm_attendance_list/clock-out',
+    //         method: 'POST',
+    //         data: {
+    //             _token: '{{ csrf_token() }}',
+    //             employee_id: {{ Auth::user()->id }}, // Pass employee_id if necessary
+    //         },
+    //         success: function(response) {
+    //             if (response.status === 'success') {
+    //                 localStorage.setItem('EmpStatus', "ClockOut")
+    //                 $('#clockOutButton').hide();
+    //                 $('#clockButton').show();
+    //                 alert(response.message);
+    //             } else {
+    //                 alert('Error clocking out.');
+    //             }
+    //         },
+    //         error: function() {
+    //             alert('An error occurred. Please try again.');
+    //         }
+    //     });
+    // }
+
     $(function() {
-        let clockStatus = localStorage.setItem('EmpStatus', "ClockOut");
-        // alert()
-        // $('#clockButton').hide();
+    // Check if EmpStatus exists in localStorage; if not, set a default value.
+    if (!localStorage.getItem('EmpStatus')) {
+        localStorage.setItem('EmpStatus', "clockOut");
+    }
 
-        if (localStorage['EmpStatus'] == "ClockOut") {
-            $('#clockButton').show();
-            // $('#clockButton').hide();
-            $('#clockOutButton').hide();
-        } else {
-            $('#clockButton').hide();
-            $('#clockOutButton').show();
+    // Control button visibility based on EmpStatus
+    // if (localStorage.getItem('EmpStatus') === "clockOut") {
+    //     $('#clockButton').show();
+    //     $('#clockOutButton').hide();
+    // } else {
+    //     $('#clockButton').hide();
+    //     $('#clockOutButton').show();
+    // }
+
+    if (localStorage.getItem('EmpStatus') === "ClockOut") {
+    $('#clockButton').show();
+    $('#clockOutButton').hide();
+    }
+    else if (localStorage.getItem('EmpStatus') === "ClockIn") {
+        $('#clockButton').hide();
+        $('#clockOutButton').show();
+    }
+
+
+});
+
+function clockIn() {
+    $.ajax({
+        url: '/hrm_attendance_list/clock-in',
+        method: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            employee_id: {{Auth::user()->id}},
+        },
+        success: function(response) {
+            if (response.status === 'success') {
+                localStorage.setItem('EmpStatus', "clockIn");
+                $('#clockButton').hide();
+                $('#clockOutButton').show();
+                alert(response.message);
+            } else {
+                alert('Error clocking in.');
+            }
+        },
+        error: function(error) {
+            console.log(error);
+            alert('An error occurred. Please try again.');
         }
+    });
+}
 
-
-
-    })
-    function clockIn() {
-
-        $.ajax({
-            url: '/hrm_attendance_list/clock-in',
-            method: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                employee_id: {{ Auth::user()->id }}, // Pass employee_id if necessary
-            },
-            success: function(response) {
-                if (response.status === 'success') {
-                    localStorage.setItem('EmpStatus', "ClockIn")
-                    $('#clockButton').hide();
-                    $('#clockOutButton').show();
-                    alert(response.message);
-                } else {
-                    alert('Error clocking in.');
-                }
-            },
-            error: function(error) {
-                // alert('An error occurred. Please try again.');
-                console.log(error);
-
+function clockOut() {
+    $.ajax({
+        url: '/hrm_attendance_list/clock-out',
+        method: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            employee_id: {{Auth::user()->id}}, // Pass employee_id if necessary
+        },
+        success: function(response) {
+            if (response.status === 'success') {
+                localStorage.setItem('EmpStatus', "clockOut"); // Correctly update status
+                $('#clockButton').show();
+                $('#clockOutButton').hide();
+                alert(response.message);
+            } else {
+                alert('Error clocking out.');
             }
-        });
-    }
-
-    function clockOut() {
-        let clockStatus = localStorage.setItem('EmpStatus', "ClockIn");
-
-        $.ajax({
-            url: '/hrm_attendance_list/clock-out',
-            method: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                employee_id: {{ auth()->id() }}, // Pass employee_id if necessary
-            },
-            success: function(response) {
-                if (response.status === 'success') {
-                    localStorage.setItem('EmpStatus', "ClockOut")
-                    $('#clockOutButton').hide();
-                    $('#clockButton').show();
-                    alert(response.message);
-                } else {
-                    alert('Error clocking out.');
-                }
-            },
-            error: function() {
-                alert('An error occurred. Please try again.');
-            }
-        });
-    }
-
+        },
+        error: function() {
+            alert('An error occurred. Please try again.');
+        }
+    });
+}
 
 
 
