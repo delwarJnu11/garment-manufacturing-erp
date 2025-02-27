@@ -9,7 +9,7 @@
                                 <i data-feather="grid"></i><span>Dashboard</span>
                             </a>
                         </li>
-
+                        <!-- START USER Module Menu -->
                         <li class="submenu">
                             <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
@@ -21,6 +21,34 @@
                                 </li>
                             </ul>
                         </li>
+                        <!-- START USER Module Menu -->
+                        <!-- START Prodcution Module Menu -->
+                         <li class="submenu">
+                            <x-nav-link icon="settings" :active="request()->is('production*')">Production Management</x-nav-link>
+                            <ul>
+                                <!-- BOM MENU START -->
+                                <li>
+                                    <x-nav-link icon="list" :active="request()->is('bom*')">Bill Of Materials</x-nav-link>
+                                    <ul style="margin-left: 20px;">
+                                        <li>
+                                            <x-link>create BOM</x-link>
+                                        </li>
+                                        <li>
+                                            <x-link>Cost Estimation</x-link>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- BOM MENU END -->
+                                <li>
+                                    <x-link href="{{route('production_plan_status.index')}}" :active="request()->is('production_plan_status*')">Plan Status</x-link>
+                                </li>
+
+                                <li>
+                                    <x-link href="{{route('production_plan_sections.index')}}" :active="request()->is('production_plan_sections*')">Production Sections</x-link>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END Prodcution Module Menu -->
                         <!--START 🔸 Order & Customers -->
                         <li class="submenu">
                             <x-nav-link :active="request()->is('orders*') || request()->is('buyers*')">Orders & Buyers</x-nav-link>

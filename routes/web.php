@@ -85,6 +85,7 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
  **/
 
 Route::resource('production_plan_status', ProductionPlanStatusesController::class);
+Route::resource('production_plan_sections', ProductionPlanStatusesController::class);
 
 /**
  * Production Memu END
@@ -175,7 +176,7 @@ Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
 
-Route::get('orders', [OrderDetailsController::class, 'index']);
+// Route::get('orders', [OrderDetailsController::class, 'index']);
 /**
  *END Invetory/category
  **/

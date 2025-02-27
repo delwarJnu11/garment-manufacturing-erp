@@ -5,10 +5,10 @@
     <div class="col-md-12 col-lg-12 col-xl-12 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="card flex-fill">
             <div class="card-header bg-primary">
-                <h5 class="card-title">Create Production Staus</h5>
+                <h5 class="card-title">Create Production Section</h5>
             </div>
             <div class="card-body">
-                <form action="{{route('production_plan_status.store')}}" method="POST">
+                <form action="{{route('production_plan_section.store')}}" method="POST">
                     @csrf
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Status Name</label>
@@ -18,7 +18,7 @@
                         <x-input-error :messages="$errors->get('status_name')" class="mt-2" />
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary">Create Production Status</button>
+                        <button type="submit" class="btn btn-primary">Create Production Section</button>
                     </div>
                 </form>
             </div>

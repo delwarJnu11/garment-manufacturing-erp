@@ -26,7 +26,7 @@ class OrderDetailsController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -34,7 +34,22 @@ class OrderDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'items'              => 'required|array',
+            'items.*.product_id' => 'required|integer',
+            'items.*.order_id'   => 'required|integer',
+            'items.*.size_id'    => 'required|integer',
+            'items.*.color_id'   => 'required|integer',
+            'items.*.qty'        => 'required|integer|min:1',
+            'items.*.uom_id'     => 'required|integer',
+            'items.*.subtotal'   => 'required|numeric',
+        ]);
+
+        foreach ($request->items as $item) {
+            OrderDetail::create($item);
+        }
+
+        return response()->json(['message' => 'Items saved successfully'], 201);
     }
 
     /**
