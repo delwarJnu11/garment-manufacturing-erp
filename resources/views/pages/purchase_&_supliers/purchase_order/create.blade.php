@@ -34,7 +34,7 @@
                                     <h6 class="mb-2">Invoice To:</h6>
                                     <ul>
                                         <li>
-                                            <select class="form-control" name="customer_id" id="customer_id">
+                                            <select class="form-control" name="supplier_id" id="supplier_id">
                                                 @forelse ($suppliers as $supplier)
                                                     <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                                                 @empty
@@ -56,7 +56,7 @@
                                         <thead>
                                             <tr>
 
-                                                <th colspan="2">Product/Service</th>
+                                                <th colspan="2">Raw Material</th>
                                                 <th>Description</th>
                                                 <th>Price</th>
                                                 <th>Qty</th>
@@ -66,21 +66,33 @@
                                             <tr>
 
                                                 <th colspan="2">
-                                                    <select class="form-control" name="product_id" id="product_id">
+                                                    <div class="input-group">
+                                                    <select class="form-control" name="product_variant_id" id="product_variant_id">
                                                         <option value="">Select Product</option>
-                                                        @forelse ($products as $product)
+                                                        @forelse ($product_variants as $product)
                                                             <option value="{{ $product->id }}">{{ $product->name }}
                                                             </option>
                                                         @empty
                                                             <option value="">No Product Found</option>
                                                         @endforelse
                                                     </select>
+                                                    <a href="{{Route('product_variants.create')}}" class="btn btn-primary">+ Add Prodcut</a>
+                                                    </div>
                                                 </th>
-                                                <th><input type="text" disabled class=" form-control p_description"></th>
-                                                <th><input type="text" disabled class=" form-control p_price"></th>
-                                                <th><input type="number" class=" form-control p_qty"></th>
-                                                <th><input type="text" class=" form-control p_discount"></th>
-                                                <th> <button class="btn btn-primary add_cart_btn">add</button></th>
+                                                {{-- <th>
+                                                    <input type="text" disabled class=" form-control p_description">
+                                                </th>
+                                                <th>
+                                                    <input type="text" disabled class=" form-control p_price">
+                                                </th>
+                                                <th>
+                                                    <input type="number" class=" form-control p_qty">
+                                                </th>
+                                                <th>
+                                                    <input type="text" class=" form-control p_discount">
+                                                </th>
+                                                <th>  --}}
+                                                    <button class="btn btn-primary add_cart_btn">add</button></th>
                                             </tr>
                                         </thead>
                                         <tbody class="dataAppend">

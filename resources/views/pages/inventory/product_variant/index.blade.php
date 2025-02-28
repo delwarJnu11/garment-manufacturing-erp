@@ -43,7 +43,7 @@
             {{$product_variant['qty']}}
         </td>
         <td>
-            {{$product_variant->uom->name}}
+            {{$product_variant->uom->name ?? 'N/A'}}
         </td>
         <td>
             {{$product_variant['unit_price']}}
