@@ -17,14 +17,21 @@ class ProductVariant extends Model
         'uom_id',
         'unit_price',
     ];
+    function PurchaseDetail()
+    {
+        return $this->hasMany(PurchaseOrderDetail::class, 'purchase_id', 'id');
+    }
 
-    function product_type():BelongsTo{
-        return $this->belongsTo(ProductType::class,'product_type_id');
+    function product_type(): BelongsTo
+    {
+        return $this->belongsTo(ProductType::class, 'product_type_id');
     }
-    function size():BelongsTo{
-        return $this->belongsTo(Size::class,'size_id');
+    function size(): BelongsTo
+    {
+        return $this->belongsTo(Size::class, 'size_id');
     }
-    function uom():BelongsTo{
-        return $this->belongsTo(Uom::class,'uom_id');
+    function uom(): BelongsTo
+    {
+        return $this->belongsTo(Uom::class, 'uom_id');
     }
 }

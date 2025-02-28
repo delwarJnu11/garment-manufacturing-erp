@@ -12,14 +12,13 @@ class PurchaseOrder extends Model
     use HasFactory;
 
     protected $fillable = [
-        'supplier_id', // Add this field
-        'lot_id',
+        'supplier_id',
+        'product_variant_id',
+        'product_lot_id', // Make sure this is included
         'status_id',
-        'order_total',
-        'paid_amount',
-        'discount',
-        'vat',
-        'delivery_date'
+        'delivery_date',
+        'shipping_address',
+        'description', // Nullable field
     ];
 
     public function inv_supplier(): BelongsTo
@@ -31,6 +30,12 @@ class PurchaseOrder extends Model
     {
         return $this->belongsTo(ProductLot::class, 'lot_id');
     }
+
+    public function product_variant(): BelongsTo
+    {
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id'); // Corrected foreign key
+    }
+
     public function purchase_status(): BelongsTo
     {
         return $this->belongsTo(Purchase_status::class, 'status_id');

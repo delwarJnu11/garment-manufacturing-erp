@@ -2,16 +2,6 @@
 
 @section('page_content')
     <x-message-banner />
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 
     <div class="card flex-fill">
         <x-page-header heading="Purchase Orders" btnText="Create Purchase Order" href="{{ url('purchase_orders/create') }}" />
@@ -26,7 +16,7 @@
                     <th>Status</th>
                     <th>Delivery Date</th>
                     <th>Shipping Address</th>
-                    {{-- <th>Description</th> --}}
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -37,12 +27,12 @@
                         <td>{{ $order->product_variant->name ?? 'N/A' }}</td>
                         <td>{{ $order->inv_supplier->first_name.' '. $order->inv_supplier->last_name ?? 'N/A' }}</td>
                         
-                        <td>{{ $order->product_lot->id ?? 'N/A' }}</td>
+                        <td>{{ $order->product_lot->name ?? 'N/A' }}</td>
                         <td>{{ $order->purchase_status->name ?? 'N/A' }}</td>
                      
                         <td>{{ $order->delivery_date ?? 'N/A' }}</td>
                         <td>{{ $order->shipping_address ?? 'N/A' }}</td>
-                        {{-- <td>{{ $order->description ?? 'N/A' }}</td> --}}
+                        <td>{{ $order->description ?? 'N/A' }}</td>
                        
                         <td class="action-table-data">
                             <a href="{{ route('purchase_orders.show', $order->id) }}">
