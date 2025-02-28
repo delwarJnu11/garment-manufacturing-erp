@@ -19,7 +19,11 @@ return new class extends Migration
             $table->integer('product_variant_id');
             $table->integer('lot_id')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);
-            // VAT
+
+            $table->decimal('total_amount', 10, 2)->default(0.00);
+            $table->decimal('paid_amount', 10, 2)->default(0.00);
+            $table->decimal('discount', 10, 2)->default(0.00);
+            $table->decimal('vat', 10, 2)->default(0.00);
             $table->date('delivery_date')->nullable(); // Delivery date
             $table->string('shipping_address', 255)->nullable(); // Shipping address
             $table->text('description')->nullable(); // Description
@@ -31,6 +35,10 @@ return new class extends Migration
             'product_variant_id' => 1,           // Supplier ID (Assuming this supplier exists in your suppliers table)
             'lot_id' => 10,               // Lot ID (Assuming this lot exists in your lots table)
             'status_id' => 2,             // Status ID (Assuming '2' corresponds to 'Confirmed' in the status table)
+            'total_amount' => 00.00,             // Status ID (Assuming '2' corresponds to 'Confirmed' in the status table)
+            'paid_amount' => 00.00,             // Status ID (Assuming '2' corresponds to 'Confirmed' in the status table)
+            'discount_amount' => 00.00,             // Status ID (Assuming '2' corresponds to 'Confirmed' in the status table)
+            'vat' => 00.00,             // Status ID (Assuming '2' corresponds to 'Confirmed' in the status table)
 
             'delivery_date' => '2025-03-10', // Estimated delivery date
             'shipping_address' => '123 Main Street, City', // Shipping address

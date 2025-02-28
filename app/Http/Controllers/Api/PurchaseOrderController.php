@@ -29,28 +29,40 @@ class PurchaseOrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+
     public function store(Request $request)
     {
-        $purchase = new PurchaseOrder();
-        $purchase->supplier_id = $request->supplier_id;
-        $purchase->delivery_date = date('Y-m-d H:i:s', strtotime('+7'));
-        $purchase->shipping_address = $request->shipping_address;
-        $purchase->purchase_total = $request->purchase_total;
-        $purchase->paid_amount = $request->paid_amount;
-        $purchase->description = $request->description;
-        $purchase->status_id = $request->status_id;
-        $purchase->discount = $request->discount;
-        $purchase->vat = $request->vat;
-        $purchase->created_at = date('Y-m-d H:i:s');
-        date_default_timezone_set('Asia/Dhaka');
-        $purchase->save();
-        $lastInsertedId = $purchase->id;
+        try {
+            $purchase = new PurchaseOrder();
+            $purchase->supplier_id = $request->supplier_id;
+            $purchase->delivery_date = now()->addDays(7);
+            $purchase->shipping_address = $request->shipping_address;
+            $purchase->purchase_total = $request->purchase_total;
+            $purchase->paid_amount = $request->paid_amount;
+            $purchase->description = $request->description;
+            $purchase->status_id = $request->status_id;
+            $purchase->discount = $request->discount;
+            $purchase->vat = $request->vat;
+            $purchase->created_at = now();
+            $purchase->save();
 
-        $productData = $request->products;
-        foreach ($productData as $product) {
-            $purchaseDetail = new PurchaseOrderDetail();
-            $purchaseDetail->purchase_id = $lastInsertedId;
-            $purchaseDetail->product_variant_id = $product['item_id'];
+            // Get the last inserted purchase ID
+            $lastInsertedId = $purchase->id;
+
+            foreach ($request->products as $product) {
+                PurchaseOrderDetail::create([
+                    'purchase_id' => $lastInsertedId,
+                    'product_variant_id' => $product['item_id'],
+                    'quantity' => $product['quantity'],
+                    'price' => $product['price'],
+                    'discount' => $product['discount']
+                ]);
+            }
+
+            return response()->json(['success' => true, 'message' => 'Purchase order created successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
 

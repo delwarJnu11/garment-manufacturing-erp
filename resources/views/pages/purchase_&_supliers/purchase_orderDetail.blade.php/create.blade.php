@@ -30,7 +30,7 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Supplier</label>
                         <div class="input-group">
-                            <select name="supplier_id" class="form-select" required>
+                            <select name="supplier_id" class="form-control form-select" required>
                                 <option value="">Select Supplier</option>
                                 @foreach($suppliers as $supplier)
                                     <option value="{{ $supplier->id }}" {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>
@@ -46,7 +46,7 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Product Item</label>
                         <div class="input-group">
-                            <select name="product_variant_id" class="form-select" required>
+                            <select name="product_variant_id" class="form-control form-select" required>
                                 <option value="">Select Product Variant</option>
                                 @foreach($product_variants as $product_variant)
                                     <option value="{{ $product_variant->id }}" {{ old('product_variant_id') == $product_variant->id ? 'selected' : '' }}>

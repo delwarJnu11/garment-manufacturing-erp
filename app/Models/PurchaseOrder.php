@@ -16,6 +16,10 @@ class PurchaseOrder extends Model
         'product_variant_id',
         'product_lot_id', // Make sure this is included
         'status_id',
+        'total_amount',
+        'paid_amount',
+        'discount',
+        'vat',
         'delivery_date',
         'shipping_address',
         'description', // Nullable field
@@ -23,8 +27,9 @@ class PurchaseOrder extends Model
 
     public function inv_supplier(): BelongsTo
     {
-        return $this->belongsTo(inv_suppliers::class, 'supplier_id');
+        return $this->belongsTo(InvSupplier::class, 'supplier_id'); // Using the model name as is
     }
+
 
     public function product_lot(): BelongsTo
     {

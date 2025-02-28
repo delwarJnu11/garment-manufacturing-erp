@@ -157,6 +157,7 @@ Route::resource('movementTypes', MovementTypeController::class);
 Route::resource('product_types', ProductTypeController::class);
 Route::resource('product_variants', ProductVariantController::class);
 Route::resource('stocks', StockController::class);
+Route::resource('products', ProductController::class);
 Route::resource('warehouses', WarehouseController::class);
 // Route::resource('productsApi', ApiProductController::class);
 
@@ -168,10 +169,12 @@ Route::resource('buyers', BuyerController::class);
  */
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
-Route::resource('products', ProductController::class);
+Route::resource('product_variants', ProductVariantController::class);
 Route::resource('valuations', ValuationMethodsController::class);
 Route::resource('product_lots', ProductlotController::class);
 Route::resource('purchase_orders', PurchaseOrderController::class);
+Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
+Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
 
 /*
  *  Orders & Buyers
