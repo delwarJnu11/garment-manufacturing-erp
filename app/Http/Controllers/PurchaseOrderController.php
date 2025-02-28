@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\inv_suppliers;
+use App\Models\InvSupplier;
 use App\Models\ProductLot;
 use App\Models\ProductVariant;
 use App\Models\Purchase_status;
@@ -29,29 +29,47 @@ class PurchaseOrderController extends Controller
      */
     // public function create()
     // {
-    //     $suppliers = inv_suppliers::all();
-    //     $lots = ProductLot::all();
-    //     $product_variants = ProductVariant::whereHas('productType', function ($query) {
-    //         $query->where('id', 1)->orWhere('name', 'Raw Material');
-    //     })->get();
-    //     // $lots = ProductLot::all();
-    //     $statuses = Purchase_status::all();
 
-    //     return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'product_variants'));
+
+    //     $suppliers = InvSupplier::all();
+    //     // dd($suppliers);
+    //     $product_variants = ProductVariant::all();
+    //     return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'product_variants'));
     // }
+
+
     public function create()
     {
-        $suppliers = inv_suppliers::all();
+        $suppliers = InvSupplier::all();
         $lots = ProductLot::all();
         $statuses = Purchase_status::all();
-
         // Fetch only Product Variants with product_type_id = 1 (Raw Material)
         $product_variants = ProductVariant::whereHas('product_type', function ($query) {
             $query->where('id', 1)->orWhere('name', 'Raw Material');
         })->get();
-
         return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'product_variants'));
     }
+
+
+    public function find_supplier(Request $request)
+    {
+        $supplier = InvSupplier::find($request->id);
+        return response()->json(['supplier' => $supplier]);
+    }
+    public function find_product(Request $request)
+    {
+        $product = ProductVariant::find($request->id);
+        return response()->json(['product' => $product]);
+    }
+    // public function create()
+    // {
+    //     $suppliers = inv_suppliers::all();
+    //     $lots = ProductLot::all();
+    //     $statuses = Purchase_status::all();
+    //     $product_variants = ProductVariant::where('product_type_id', 1)->get();
+
+    //     dd($suppliers, $lots, $statuses, $product_variants);
+    // }
 
 
     /**
@@ -116,15 +134,5 @@ class PurchaseOrderController extends Controller
     public function destroy(PurchaseOrder $purchaseOrders)
     {
         //
-    }
-    public function findSupplier(Request $request)
-    {
-        $supplier = inv_suppliers::find($request->id);
-        return response()->json(['supplier' => $supplier]);
-    }
-    public function findRawMaterial(Request $request)
-    {
-        $product = ProductVariant::find($request->id);
-        return response()->json(['product' => $product]);
     }
 }

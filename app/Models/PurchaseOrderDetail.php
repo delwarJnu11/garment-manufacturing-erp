@@ -10,6 +10,7 @@ class PurchaseOrderDetail extends Model
     // Define the fillable properties for mass assignment
     protected $fillable = [
         'purchase_id',
+        'product_variant_id',
         'lot_id',
         'quantity',
         'price',
