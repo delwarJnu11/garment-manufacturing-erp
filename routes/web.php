@@ -24,6 +24,9 @@ use App\Http\Controllers\HrmEmployeeBankAccountsController;
 use App\Http\Controllers\HrmEmployeePerformancesController;
 use App\Http\Controllers\HrmEmployeesController;
 use App\Http\Controllers\HrmEmployeeTimesheetsController;
+use App\Http\Controllers\HrmLeaveApplicationApproversController;
+use App\Http\Controllers\HrmLeaveApplicationsController;
+use App\Http\Controllers\HrmLeaveTypesController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentsController;
@@ -45,6 +48,7 @@ use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
+use App\Models\Hrm_leave_types;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ProductType;
 use Illuminate\Support\Facades\Route;
@@ -118,8 +122,6 @@ Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::
 Route::get('hrm_employee_bank_accounts/delete/{id}/', [HrmEmployeeBankAccountsController::class, 'destroy']);
 Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
 
-
-
 Route::post('/hrm_attendance_list/clock-in', [HrmAttendanceListController::class, 'clockIn']);
 Route::post('/hrm_attendance_list/clock-out', [HrmAttendanceListController::class, 'clockOut']);
 Route::get('hrm_attendance_list/delete/{id}/', [HrmAttendanceListController::class, 'destroy']);
@@ -127,6 +129,16 @@ Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
 
 Route::get('hrm_employee_timesheets/delete/{id}/',[HrmEmployeeTimesheetsController::class,'destroy'] );
 Route::resource('hrm_employee_timesheets', HrmEmployeeTimesheetsController::class);
+
+Route::get('hrm_leave_types/delete/{id}/',[HrmLeaveTypesController::class,'destroy'] );
+Route::resource('hrm_leave_types', HrmLeaveTypesController::class);
+
+Route::get('hrm_leave_applications/delete/{id}/',[HrmLeaveApplicationsController::class,'destroy'] );
+Route::resource('hrm_leave_applications', HrmLeaveApplicationsController::class);
+
+Route::get('hrm_leave_application_approvers/delete/{id}/',[HrmLeaveApplicationApproversController::class,'destroy'] );
+Route::resource('hrm_leave_application_approvers', HrmLeaveApplicationApproversController::class);
+
 
 // Route::get('/employee', function () {
 //     echo Auth::user()->isEmployee();

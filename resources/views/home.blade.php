@@ -233,29 +233,19 @@
     // }
 
     $(function() {
-    // Check if EmpStatus exists in localStorage; if not, set a default value.
+
     if (!localStorage.getItem('EmpStatus')) {
         localStorage.setItem('EmpStatus', "clockOut");
     }
 
-    // Control button visibility based on EmpStatus
-    // if (localStorage.getItem('EmpStatus') === "clockOut") {
-    //     $('#clockButton').show();
-    //     $('#clockOutButton').hide();
-    // } else {
-    //     $('#clockButton').hide();
-    //     $('#clockOutButton').show();
-    // }
-
-    if (localStorage.getItem('EmpStatus') === "ClockOut") {
-    $('#clockButton').show();
-    $('#clockOutButton').hide();
+    if (localStorage.getItem('EmpStatus') == "ClockOut") {
+        $('#clockButton').show();
+        $('#clockOutButton').hide();
     }
-    else if (localStorage.getItem('EmpStatus') === "ClockIn") {
+    else if (localStorage.getItem('EmpStatus') == "ClockIn") {
         $('#clockButton').hide();
         $('#clockOutButton').show();
     }
-
 
 });
 
@@ -270,8 +260,8 @@ function clockIn() {
         success: function(response) {
             if (response.status === 'success') {
                 localStorage.setItem('EmpStatus', "clockIn");
-                $('#clockButton').hide();
                 $('#clockOutButton').show();
+                $('#clockButton').hide();
                 alert(response.message);
             } else {
                 alert('Error clocking in.');
@@ -290,11 +280,11 @@ function clockOut() {
         method: 'POST',
         data: {
             _token: '{{ csrf_token() }}',
-            employee_id: {{Auth::user()->id}}, // Pass employee_id if necessary
+            employee_id: {{Auth::user()->id}},
         },
         success: function(response) {
             if (response.status === 'success') {
-                localStorage.setItem('EmpStatus', "clockOut"); // Correctly update status
+                localStorage.setItem('EmpStatus', "clockOut");
                 $('#clockButton').show();
                 $('#clockOutButton').hide();
                 alert(response.message);

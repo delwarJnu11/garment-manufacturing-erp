@@ -199,14 +199,12 @@ class HrmAttendanceListController extends Controller
     // Clock Out
     public function clockOut(Request $request)
     {
-        // Assuming you already have the employee_id
-        $employee_id = Auth::user()->id; // Or pass the employee_id if necessary
+
+        $employee_id = Auth::user()->id;
         $attendance = Hrm_attendances_lists::where('employee_id', $employee_id)
             ->whereDate('date', Carbon::today()->toDateString())
-            ->orderBy('id', 'desc')  // Or use another field to sort by (e.g., 'created_at')
+            ->orderBy('id', 'desc')
             ->first();
-
-
 
         $attendences = Hrm_attendances_lists::find($attendance->id);
         $attendences->clock_out = Carbon::now()->format('H:i:s');
@@ -215,52 +213,19 @@ class HrmAttendanceListController extends Controller
             echo Hrm_attendances_lists::find($attendance->id);
         };
 
-
-        // echo  "<pre>";
-        // print_r($attendences);
-        // $attendences->employee_id= Auth::user()->id;
-        // // $attendences->date= Carbon::today()->toDateString();
-        // $attendences->statuses_id= 1;
-        // // $attendences->clock_in= Carbon::now()->format('H:i:s');
-        // $attendences->clock_out=  Carbon::now()->format('H:i:s');
-        // $attendences->save();
-
         if ($attendences) {
             $attendences->update([
-                'clock_out' => Carbon::now()->format('H:i:s'),
-                'overtime_hours' => $this->calculateOvertime($attendences->clock_in, Carbon::now()->format('H:i:s')),
+                'clock_out'=>Carbon::now()->format('H:i:s'),
+                'overtime_hours'=> $this->calculateOvertime($attendences->clock_in, Carbon::now()->format('H:i:s')),
             ]);
         }
 
         // Timesheets
 
-        // $timesheet = Hrm_employee_timesheets::where('employee_id', $employee_id)
-        // ->whereDate('date', Carbon::today()->toDateString())
-        // ->orderBy('id', 'desc')  // Or use another field to sort by (e.g., 'created_at')
-        // ->first();
-
-
-        // $timesheets = Hrm_employee_timesheets::find($timesheet->id);
-        // $timesheets->clock_out = Carbon::now()->format('H:i:s');
-
-        // if ($timesheets->save()) {
-        //     echo Hrm_employee_timesheets::find($timesheet->id);
-        // };
-
-        // if ($timesheets) {
-        //     $timesheets->update([
-        //         'clock_out' => Carbon::now()->format('H:i:s'),
-        //         'overtime_hours' => $this->calculateOvertime($timesheets->clock_in, Carbon::now()->format('H:i:s')),
-        //     ]);
-        // }
-
-
-
-
-        $employee_id = Auth::user()->id; // Or pass the employee_id if necessary
+        $employee_id = Auth::user()->id;
         $timesheet = Hrm_employee_timesheets::where('employee_id', $employee_id)
             ->whereDate('date', Carbon::today()->toDateString())
-            ->orderBy('id', 'desc')  // Or use another field to sort by (e.g., 'created_at')
+            ->orderBy('id', 'desc')
             ->first();
 
 
@@ -280,6 +245,8 @@ class HrmAttendanceListController extends Controller
                 'overtime_hours' => $this->calculateOvertime($timesheets->clock_in, Carbon::now()->format('H:i:s')),
             ]);
         }
+
+        // print_r($timesheets);
 
         return response()->json([
             'status' => 'success',
