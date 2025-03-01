@@ -22,15 +22,15 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <select name="product_variant_id" id="product_variant" class="form-select" required>
+                        <select name="product_id" id="product" class="form-select" >
                             <option value="">Select Product Name</option>
-                            @foreach ($product_variants as $product_variant)
-                                <option value="{{ $product_variant->id }}" data-qty="{{ $product_variant->qty }}" data-unit-price="{{ $product_variant->unit_price }}">{{ $product_variant->name }}</option>
+                            @foreach ($products as $product)
+                                <option value="{{ $product->id }}" data-qty="{{ $product->qty }}" data-unit-price="{{ $product->unit_price }}">{{ $product->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <select name="warehouse_id" id="warehouse_id" class="form-select" required>
+                        <select name="warehouse_id" id="warehouse_id" class="form-select" >
                             <option value="">Select Warehouse</option>
                             @foreach ($warehouses as $warehouse)
                                 <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
@@ -60,7 +60,7 @@
     <script>
         $(document).ready(function () {
       
-            $('#product_variant').on('change', function (e) {
+            $('#product').on('change', function (e) {
                 e.preventDefault();
 
                 // Get the selected option's data attributes for qty and unit price
@@ -75,11 +75,11 @@
                 let row = `
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Quantity</label>
-                        <input type="number" id="qty" name="qty" class="form-control" value="${qty}" required>
+                        <input type="number" id="qty" name="qty" class="form-control" value="${qty}" >
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Unit Price</label>
-                        <input type="number" id="unit_price" name="unit_price" class="form-control" value="${unitPrice}" required>
+                        <input type="number" id="unit_price" name="unit_price" class="form-control" value="${unitPrice}" >
                     </div>
                 `;
                 $('#column-append').append(row);

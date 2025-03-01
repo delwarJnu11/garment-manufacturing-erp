@@ -22,23 +22,23 @@
         @foreach($stocks as $key => $stock)
         <tr>
             <td>{{ $key + 1 }}</td>
-            <td>{{ $stock->productVariant->name }}</td>
-            <td>{{ $stock->productVariant->product_type_id == 1 ? 'Raw Material' : 'Finished Goods' }}</td>
-            <td>{{ $stock->productVariant->sku }}</td>
+            <td>{{ $stock->product->name }}</td>
+            <td>{{ $stock->product->product_type_id == 1 ? 'Raw Material' : 'Finished Goods' }}</td>
+            <td>{{ $stock->product->sku }}</td>
             <td>{{ $stock->warehouse->name }}</td>
-            <td>{{ $stock->productVariant->qty }}</td>
-            <td>${{ number_format($stock->productVariant->unit_price, 2) }}</td>
-            <td>${{ number_format($stock->productVariant->qty * $stock->productVariant->unit_price, 2) }}</td>
+            <td>{{ $stock->product->qty }}</td>
+            <td>${{ number_format($stock->product->unit_price, 2) }}</td>
+            <td>${{ number_format($stock->product->qty * $stock->product->unit_price, 2) }}</td>
             <td class="action-table-data">
                 <div class="edit-delete-action">
                     <a class="me-2 p-2" href="{{ route('stocks.edit', $stock->id) }}">
                         <i data-feather="edit" class="feather-edit"></i>
                     </a>
-                    <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST" class="d-inline">
+                    <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST" class="d-inline" style="margin-bottom: 0">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="confirm-delete" onclick="return confirm('Are you sure?')" style="color: red; border: none;">
-                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                            <i data-feather="trash-2" class="feather-trash-2 delete_icon"></i>
                         </button>
                     </form>
                 </div>

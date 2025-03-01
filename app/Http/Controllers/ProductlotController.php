@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\ProductController;
 
 use App\Models\Product_lot;
 use App\Models\ProductLot;

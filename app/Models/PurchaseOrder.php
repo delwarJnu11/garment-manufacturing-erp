@@ -38,7 +38,7 @@ class PurchaseOrder extends Model
 
     public function product_variant(): BelongsTo
     {
-        return $this->belongsTo(ProductVariant::class, 'product_variant_id'); // Corrected foreign key
+        return $this->belongsTo(Product::class, 'product_variant_id'); // Corrected foreign key
     }
 
     public function purchase_status(): BelongsTo

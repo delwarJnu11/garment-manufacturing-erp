@@ -15,7 +15,7 @@ class CreatePurchaseOrderDetailsTable extends Migration
         Schema::create('purchase_order_details', function (Blueprint $table) {
             $table->id(); // Primary Key
             $table->integer('purchase_id')->unsigned(); // Purchase Order ID
-            $table->integer('product_variant_id')->unsigned(); // Product Variant ID
+            $table->integer('product_id')->unsigned(); // Product Variant ID
             $table->integer('lot_id')->unsigned(); // Lot ID (which contains raw_material_id)
             $table->integer('quantity')->default(0); // Quantity ordered
             $table->decimal('purchase_total', 10, 2)->default(0.00); // Total amount for purchase
