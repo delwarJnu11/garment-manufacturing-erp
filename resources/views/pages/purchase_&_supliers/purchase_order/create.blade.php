@@ -65,7 +65,7 @@
                                         <th>Discount (%)</th>
                                         <th>VAT (%)</th>
                                         <th>Subtotal</th>
-                                        <th> <button class="btn btn-danger clearAll">Clear All</button></th>
+                                        <th> <button class="btn btn-danger clearAll clearAll">Clear All</button></th>
                                     </tr>
 
                                     <tr>
@@ -73,16 +73,16 @@
                                             <div class="input-group">
                                                 <select class="form-control" id="product_id">
                                                     <option value="">Select Raw Materials</option>
-                                                    @forelse ($product_variants as $product_variant)
-                                                        <option value="{{ $product_variant['id'] }}">
-                                                            {{ $product_variant['name'] }}</option>
+                                                    @forelse ($products as $product)
+                                                        <option value="{{ $product['id'] }}">
+                                                            {{ $product['name'] }}</option>
                                                     @empty
                                                     @endforelse
                                                     {{-- <option>Fabric Cotton</option>
                                             <option>Polyester</option>
                                             <option>Thread - White</option> --}}
                                                 </select>
-                                                <a href="{{ route('product_variants.create') }}" class="btn btn-primary">
+                                                <a href="{{ route('products.create') }}" class="btn btn-primary">
                                                     +
                                                 </a>
                                             </div>
@@ -124,7 +124,7 @@
                                     <p><strong>Discount:</strong><span class='discount'>- </span></p>
                                     <p><strong>VAT (%):</strong><span class="vat">+ </span></p>
                                     <hr>
-                                    <h4><strong>Grand Total: <span class="grand_total"></span></strong> $</h4>
+                                    <h4><strong>Grand Total: <span class="grand_total"></span></strong> </h4>
                                 </div>
                             </div>
                         </div>
@@ -143,8 +143,8 @@
 @endsection
 
 @section('script')
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script>
         $(function() {
             const cart = new Cart('purchase');
@@ -312,9 +312,30 @@
             }
 
             $(".remove").on('click', function() {
-                alert()
+                // alert()
+
+                let id = $(this).attr('data');
+                cart.delItem(id);
+                printCart();
+            })
+            $('.clearAll').on('click',function(){
+                cart.clearCart();
+                printCart()
             })
 
+           function cartIconIncreace(){
+            let items = cart.getCart().length 
+            $(".cartIcon").html(items);
+           }
+           $('.process_btn').on('click',function(){
+            // alert()
+            let supplier_id  = $("#supplier_id").val();
+            let purchase_total = $('.grandtotal').text();
+            let paid_amount = $('.grandtotal').text();
+            let discount = $('.discount').text();
+            let vat = $('.vat').text();
+            let products = cart.getCart();
+           })
         })
     </script>
     <script src="{{ asset('assets/js/cart_.js') }}"></script>

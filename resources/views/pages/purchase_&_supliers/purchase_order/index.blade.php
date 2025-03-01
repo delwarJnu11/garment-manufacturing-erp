@@ -34,7 +34,7 @@
                 @forelse ($purchase_orders as $order)
                     <tr>
                         <td>{{ $order->id }}</td>
-                        <td>{{ $order->product_variant->name ?? 'N/A' }}</td>
+                        <td>{{ $order->product->name ?? 'N/A' }}</td>
                         <td>{{ $order->inv_supplier->first_name.' '. $order->inv_supplier->last_name ?? 'N/A' }}</td>
                         
                         <td>{{ $order->product_lot->id ?? 'N/A' }}</td>
