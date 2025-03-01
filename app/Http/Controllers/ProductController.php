@@ -13,9 +13,9 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()   
+    public function index()
     {
-        $products = Product::with('product_type','size','uom')->paginate(4);
+        $products = Product::with('product_type', 'size', 'uom')->paginate(4);
         return view('pages.inventory.products.index', compact('products'));
     }
 
@@ -28,7 +28,7 @@ class ProductController extends Controller
         $sizes = Size::all();
         $uoms = Uom::all();
 
-        return view('pages.inventory.products.create',compact('product_types','sizes','uoms'));
+        return view('pages.inventory.products.create', compact('product_types', 'sizes', 'uoms'));
     }
 
     /**
@@ -48,16 +48,15 @@ class ProductController extends Controller
         ]);
 
         Product::create([
-            'name'=>$request->name,
-            'product_type_id'=>$request->product_type_id,
-            'size'=>$request->size,
-            'sku'=>$request->sku,
-            'qty'=>$request->qty,
-            'uom_id'=>$request->uom_id,
-            'unit_price'=>$request->unit_price,
+            'name' => $request->name,
+            'product_type_id' => $request->product_type_id,
+            'size' => $request->size,
+            'sku' => $request->sku,
+            'qty' => $request->qty,
+            'uom_id' => $request->uom_id,
+            'unit_price' => $request->unit_price,
         ]);
-        return redirect('products')->with('success','product variants create successfully');
-        
+        return redirect('products')->with('success', 'product variants create successfully');
     }
 
     /**

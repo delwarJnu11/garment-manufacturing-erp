@@ -20,7 +20,7 @@ class PurchaseOrderController extends Controller
     public function index()
     {
         // $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status', 'product_variant'])->paginate(5);
-        $purchase_orders = PurchaseOrder::with(['product_variant', 'inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);;
+        $purchase_orders = PurchaseOrder::with(['product', 'inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);;
 
         return view('pages.purchase_&_supliers.purchase_order.index', compact('purchase_orders'));
     }
@@ -45,10 +45,10 @@ class PurchaseOrderController extends Controller
         $lots = ProductLot::all();
         $statuses = Purchase_status::all();
         // Fetch only Product Variants with product_type_id = 1 (Raw Material)
-        $product_variants = Product::whereHas('product_type', function ($query) {
+        $products = Product::whereHas('product_type', function ($query) {
             $query->where('id', 1)->orWhere('name', 'Raw Material');
         })->get();
-        return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'product_variants'));
+        return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'products'));
     }
 
 
@@ -68,15 +68,15 @@ class PurchaseOrderController extends Controller
     {
         // Get last invoice ID from purchase_order table
         $lastInvoice = DB::table('purchase_orders')->latest('id')->first();
-        
+
         // Generate new Invoice ID
         $newInvoiceId = $lastInvoice ? $lastInvoice->id + 1 : 1;
         $formattedInvoiceId = "INV-" . str_pad($newInvoiceId, 6, "0", STR_PAD_LEFT);
-    
+
         return response()->json(['invoice_id' => $formattedInvoiceId]);
     }
-    
-    
+
+
 
 
     // public function create()
