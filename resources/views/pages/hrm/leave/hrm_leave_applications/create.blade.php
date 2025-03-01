@@ -16,13 +16,13 @@
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Employee Name:</label>
                         <div class="col-lg-10">
-                            <select name="employees_id" id="employees_id" class="form-select">
+                            <select name="employee_id" id="employee_id" class="form-select">
                                 <option value="">Select an Employee</option>
                                 @foreach ($employees as $employee)
-                                    <option value="{{ $employee->id }}" {{ old('employees_id') == $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
+                                    <option value="{{ $employee->id }}" {{ old('employee_id') == $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
                                 @endforeach
                             </select>
-                            @error('employees_id')
+                            @error('employee_id')
                                 <div class="mt-2 text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -31,9 +31,9 @@
                         <label class="col-lg-2 col-form-label">Type Name :</label>
                         <div class="col-lg-10">
                             <select name="leave_type_id" id="leave_type_id" class="form-select">
-                                <option value="">Select a Department</option>
+                                <option value="">Select a Leave Type</option>
                                 @foreach ($leave_types as $leave_type)
-                                    <option value="{{ $leave_type->id }}" {{ old('leave_type_id') == $leave_type->id ? 'selected' : '' }}>{{ $department->name }}</option>
+                                    <option value="{{ $leave_type->id }}" {{ old('leave_type_id') == $leave_type->id ? 'selected' : '' }}>{{ $leave_type->name }}</option>
                                 @endforeach
                             </select>
                             @error('leave_type_id')
@@ -41,7 +41,8 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    @if (Auth::user()->isAdmin())
+                    {{-- <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Leave Status :</label>
                         <div class="col-lg-10">
                             <select name="statuses_id" id="statuses_id" class="form-select">
@@ -54,7 +55,24 @@
                                 <div class="mt-2 text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                    </div> --}}
+                    <div class="row mb-3">
+                        <label class="col-lg-2 col-form-label">Leave Status :</label>
+                        <div class="col-lg-10">
+                            <select name="statuses_id" id="statuses_id" class="form-select" data-leave-id="{{ $leave->id }}">
+                                <option value="">Select a Status</option>
+                                @foreach ($status as $data)
+                                    <option value="{{ $data->id }}" {{ $leave->statuses_id == $data->id ? 'selected' : '' }}>
+                                        {{ $data->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('statuses_id')
+                                <div class="mt-2 text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
+                    @endif
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Apply Date :</label>
                         <div class="col-lg-10">
@@ -94,7 +112,7 @@
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Duration :</label>
                         <div class="col-lg-10">
-                            <input type="number" name="duration" value="{{old('duration')}}" class="form-control" placeholder="Enter Duration..." autocomplete="name">
+                            <input type="text" name="duration" value="{{old('duration')}}" class="form-control" placeholder="Enter Duration..." autocomplete="name">
                             @error('duration')
                                 <div class="mt-2 text-danger">{{ $message }}</div>
                             @enderror
@@ -112,7 +130,7 @@
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Application Form :</label>
                         <div class="col-lg-10">
-                            <input type="file" name="photp" value="{{old('photo')}}" class="form-control">
+                            <input type="file" name="photo" value="{{old('photo')}}" class="form-control">
                             @error('photo')
                                 <div class="mt-2 text-danger">{{ $message }}</div>
                             @enderror

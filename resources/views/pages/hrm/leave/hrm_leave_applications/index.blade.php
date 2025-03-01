@@ -29,16 +29,33 @@
                         @forelse ($applications as $application)
                             <tr>
                                 <td>{{ $application->id }}</td>
-                                <td>{{ $application->employees_id}}</td>
+                                <td>{{ $application->employee_id}}</td>
                                 <td>{{ $application->leave_type_id}}</td>
                                 <td>{{ $application->date}}</td>
                                 <td>{{ $application->start_date }}</td>
                                 <td>{{ $application->end_date }}</td>
                                 <td>{{ $application->number_of_days }}</td>
                                 <td>{{ $application->duration }}</td>
-                                <td class="btn text-center mt-0 btn-sm btn-{{"warning"}} disabled">{{ $application->statuses_id == 2 ? "Pending": '' }}</td>
+                                <td class="btn text-center mt-0 btn-sm btn-{{"warning"}} disabled">{{ $application->statuses_id == 7 ? "Pending": '' }}</td>
                                 <td>{{ $application->reason}}</td>
                                 <td>{{ $application->photo}}</td>
+                                <td>
+                                    @if($application->statuses_id == 7)
+                                    Pending
+                                @elseif($application->statuses_id == 8)
+                                    Approved
+                                @else
+                                    Rejected
+                                @endif
+
+
+                                </td>
+                                <td>
+                                    @if($application->statuses_id == 7)
+                                    <button class="update-status" data-id="{{ $application->id }}" data-status="approved">Approve</button>
+                                    <button class="update-status" data-id="{{ $application->id }}" data-status="rejected">Reject</button>
+                                @endif
+                                </td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <a class="me-2 p-2 mb-0" href="{{ url("hrm_leave_applications/{$application->id}") }}">
@@ -76,3 +93,33 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+<script>
+    $(document).ready(function () {
+    $('.update-status').click(function () {
+        let leaveApplicationId = $(this).data('id');
+        let status = $(this).data('status');
+
+        $.ajax({
+            url: '/leave-applications/update-status',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                leave_application_id: leaveApplicationId,
+                status: status
+            },
+            success: function (response) {
+                alert(response.message);
+                location.reload();
+            },
+            error: function (xhr) {
+                alert('Something went wrong!');
+            }
+        });
+    });
+    })
+</script>
+
+@endsection
+

@@ -8,6 +8,8 @@ use App\Models\Hrm_leave_applications;
 use App\Models\Hrm_leave_types;
 use App\Models\Hrm_statuses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class HrmLeaveApplicationsController extends Controller
 {
@@ -17,7 +19,7 @@ class HrmLeaveApplicationsController extends Controller
     public function index()
     {
         $applications = Hrm_leave_applications::paginate(5);
-         //print_r($employees);
+        // print_r($applications);
 
          return view('pages.hrm.leave.hrm_leave_applications.index', compact('applications'));
     }
@@ -41,21 +43,31 @@ class HrmLeaveApplicationsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'employees_id' => 'required|string|max:50',
-            'leave_type_id' => 'required|string|max:200',
-            'date' => 'required|string|max:200',
-            'start_date' => 'required|string|max:200',
-            'end_date' => 'required|string|max:200',
-            'number_of_days	' => 'required|string|max:200',
+            'employee_id' => 'required|numeric',
+           'leave_type_id' => 'required|numeric',
+            'date' => 'required|date',
+            'start_date' => 'required|date|after_or_equal:date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'number_of_days' => 'required|integer|min:1',
             'reason' => 'required|string|max:200',
-            'duration' => 'required|numeric',
+            'duration' => 'required|string|max:200',
             'statuses_id' => 'required|numeric',
-            'approver_id' => 'required|numeric',
-            'photo' => 'required|string|max:200',
+            // 'approver_id' => 'required|numeric',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:2048',
         ]);
 
+        $photoPath = null;
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/employee'), $fileName);
+            $photoPath = 'uploads/employee/' . $fileName;
+        }
+
+
         $applications = new Hrm_leave_applications();
-        $applications->employees_id = $request->employees_id;
+        $applications->employee_id = $request->employee_id;
         $applications->	leave_type_id = $request->	leave_type_id;
         $applications->date = $request->date;
         $applications->start_date = $request->start_date;
@@ -64,13 +76,15 @@ class HrmLeaveApplicationsController extends Controller
         $applications->	reason = $request->	reason;
         $applications->duration = $request->duration;
         $applications->statuses_id = $request->statuses_id;
-        $applications->approver_id = $request->approver_id;
-        $applications->photo = $request->photo;
+        // $applications->approver_id = $request->approver_id;
+        $applications->photo = $photoPath;
 
 
         // Save performance and handle the redirect
         if ($applications->save()) {
             return redirect()->back()->with('success', 'Leave Application has been added successfully!');
+        }else {
+            return redirect()->back()->with('error', 'Something went wrong!');
         }
     }
 
@@ -103,33 +117,41 @@ class HrmLeaveApplicationsController extends Controller
     public function update(Request $request, Hrm_leave_applications $Hrm_leave_applications, $id)
     {
 
-        $request->validate([
-            'employees_id' => 'required|string|max:50',
-            'leave_type_id' => 'required|string|max:200',
-            'date' => 'required|string|max:200',
-            'start_date' => 'required|string|max:200',
-            'end_date' => 'required|string|max:200',
-            'number_of_days	' => 'required|string|max:200',
-            'reason' => 'required|string|max:200',
-            'duration' => 'required|numeric',
-            'statuses_id' => 'required|numeric',
-            'approver_id' => 'required|numeric',
-            'photo' => 'required|string|max:200',
-        ]);
+        // $request->validate([
+        //     'employees_id' => 'required|string|max:50',
+        //     'leave_type_id' => 'required|string|max:200',
+        //     'date' => 'required|string|max:200',
+        //     'start_date' => 'required|string|max:200',
+        //     'end_date' => 'required|string|max:200',
+        //     'number_of_days	' => 'required|string|max:200',
+        //     'reason' => 'required|string|max:200',
+        //     'duration' => 'required|numeric',
+        //     'statuses_id' => 'required|numeric',
+        //     'approver_id' => 'required|numeric',
+        //     'photo' => 'required|string|max:200',
+        // ]);
 
-        $applications = new Hrm_leave_applications();
-        $applications->employees_id = $request->employees_id;
-        $applications->	leave_type_id = $request->	leave_type_id;
-        $applications->date = $request->date;
-        $applications->start_date = $request->start_date;
-        $applications->end_date = $request->end_date;
-        $applications->number_of_days	 = $request->number_of_days	;
-        $applications->	reason = $request->	reason;
-        $applications->duration = $request->duration;
-        $applications->statuses_id = $request->statuses_id;
-        $applications->approver_id = $request->approver_id;
-        $applications->photo = $request->photo;
+        // $applications = new Hrm_leave_applications();
+        // $applications->employees_id = $request->employees_id;
+        // $applications->	leave_type_id = $request->	leave_type_id;
+        // $applications->date = $request->date;
+        // $applications->start_date = $request->start_date;
+        // $applications->end_date = $request->end_date;
+        // $applications->number_of_days	 = $request->number_of_days	;
+        // $applications->	reason = $request->	reason;
+        // $applications->duration = $request->duration;
+        // $applications->statuses_id = $request->statuses_id;
+        // $applications->approver_id = $request->approver_id;
+        // $applications->photo = $request->photo;
 
+
+        $applications = Hrm_leave_applications::find($id);
+
+        if ($request->status === 'approved') {
+            $applications->statuses_id = 8; // Approved
+        } else {
+            $applications->statuses_id = 9; // Rejected
+        }
 
         if($applications->save()){
             return redirect('hrm_leave_applications')->with('success', 'Leave Application has been updated successfully!');
@@ -147,5 +169,21 @@ class HrmLeaveApplicationsController extends Controller
             return redirect('hrm_leave_applications')->with('success', "Leave Application has been Deleted");
         }
     }
+
+
+    public function updateStatus(Request $request, $id){
+        $applications = Hrm_leave_applications::find($id);
+
+        if ($request->status === 'approved') {
+            $applications->statuses_id = 8; // Approved
+        } else {
+            $applications->statuses_id = 9; // Rejected
+        }
+
+        if($applications->save()){
+            return redirect('hrm_leave_applications')->with('success', 'Leave Application has been updated successfully!');
+         } ;
+    }
+
 }
 

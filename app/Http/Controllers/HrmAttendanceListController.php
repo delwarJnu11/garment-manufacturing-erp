@@ -153,7 +153,7 @@ class HrmAttendanceListController extends Controller
         $attendences->employee_id = Auth::user()->id;
         $attendences->date = Carbon::today()->toDateString();
         $attendences->statuses_id = 1;
-        $attendences->clock_in = Carbon::now('Asia/Dhaka')->format('H:i:s');
+        $attendences->clock_in = Carbon::now('Asia/Dhaka')->format('h:i:s');
         $attendences->clock_out = null;
         $attendences->save();
 
@@ -161,7 +161,7 @@ class HrmAttendanceListController extends Controller
             $timesheet->employee_id = Auth::user()->id;
             $timesheet->date = Carbon::today()->toDateString();
             $timesheet->statuses_id = 1;
-            $timesheet->clock_in = Carbon::now('Asia/Dhaka')->format('H:i:s');
+            $timesheet->clock_in = Carbon::now('Asia/Dhaka')->format('h:i:s');
             $timesheet->clock_out = null;
             $timesheet->shift_start ="10:00:00";
             $timesheet->shift_end ="06:00:00";
@@ -189,7 +189,7 @@ class HrmAttendanceListController extends Controller
             ->first();
 
         $attendences = Hrm_attendances_lists::find($attendance->id);
-        $attendences->clock_out = Carbon::now('Asia/Dhaka')->format('H:i:s');
+        $attendences->clock_out = Carbon::now('Asia/Dhaka')->format('h:i:s');
 
         if ($attendences->save()) {
            Hrm_attendances_lists::find($attendance->id);
@@ -204,7 +204,7 @@ class HrmAttendanceListController extends Controller
             ->first();
 
         $timesheets = Hrm_employee_timesheets::find($timesheet->id);
-        $timesheets->clock_out = Carbon::now('Asia/Dhaka')->format('H:i:s');
+        $timesheets->clock_out = Carbon::now('Asia/Dhaka')->format('h:i:s');
         $timesheets->total_work_hours = $this->calculatetotal_work_hours($timesheets->clock_in, $timesheets->clock_out);
         $timesheets->overtime_hours = $this->calculateOvertime($timesheets->clock_in, $timesheets->clock_out);
 

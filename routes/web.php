@@ -133,8 +133,12 @@ Route::resource('hrm_employee_timesheets', HrmEmployeeTimesheetsController::clas
 Route::get('hrm_leave_types/delete/{id}/',[HrmLeaveTypesController::class,'destroy'] );
 Route::resource('hrm_leave_types', HrmLeaveTypesController::class);
 
+
+
+Route::post('/hrm_leave_applications/update_status', [HrmLeaveApplicationsController::class, 'updateStatus']);
 Route::get('hrm_leave_applications/delete/{id}/',[HrmLeaveApplicationsController::class,'destroy'] );
 Route::resource('hrm_leave_applications', HrmLeaveApplicationsController::class);
+
 
 Route::get('hrm_leave_application_approvers/delete/{id}/',[HrmLeaveApplicationApproversController::class,'destroy'] );
 Route::resource('hrm_leave_application_approvers', HrmLeaveApplicationApproversController::class);

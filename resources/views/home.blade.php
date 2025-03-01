@@ -29,7 +29,7 @@
     <div class="container mt-0 mb-4 homeContents">
         <div class="row align-items-center header-bar">
             <div class="col-md-8">
-                <h4>Welcome to Lunea Todd</h4>
+                <h4 class="bg-info p-3">Welcome to Lunea Todd</h4>
             </div>
             <div class="col-md-2  text-center float-end clock bg-primary rounded">
                 <div id="clock"><span id="clock"></span></div>
@@ -140,7 +140,7 @@
 
         function updateTime() {
             const now = new Date();
-            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; //['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             const day = days[now.getDay()];
 
             let hours = now.getHours();
@@ -158,7 +158,6 @@
 
 
         $(function() {
-            // $('$day').html(day)
 
             if (!localStorage.getItem('EmpStatus')) {
                 localStorage.setItem('EmpStatus', "clockOut");
