@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use App\Models\ProductCatelogue;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('product_catelogues', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('sku', 100)->unique();
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Product::create([
+        ProductCatelogue::create([
             'name' => 'T-Shirt',
             'sku' => 'TSH-001',
             'barcode' => '0123456789123',
@@ -34,7 +35,7 @@ return new class extends Migration
             'description' => 'Cotton T-shirt with logo'
         ]);
 
-        Product::create([
+        ProductCatelogue::create([
             'name' => 'Jeans',
             'sku' => 'JNS-002',
             'barcode' => '0123456789124',
@@ -44,7 +45,7 @@ return new class extends Migration
             'description' => 'Classic blue jeans'
         ]);
 
-        Product::create([
+        ProductCatelogue::create([
             'name' => 'Jacket',
             'sku' => 'JKT-003',
             'barcode' => '0123456789125',

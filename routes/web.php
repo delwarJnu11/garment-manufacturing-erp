@@ -31,10 +31,10 @@ use App\Http\Controllers\MovementTypeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductCatelogueController;
 use App\Http\Controllers\ProductlotController;
 use App\Http\Controllers\ProductTypeController;
-use App\Http\Controllers\ProductVariantController;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\PurchaseOrdersController;
@@ -48,7 +48,7 @@ use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
-use App\Models\ProductType;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -155,9 +155,9 @@ Route::resource('movementTypes', MovementTypeController::class);
  * Warehouse
  **/
 Route::resource('product_types', ProductTypeController::class);
-Route::resource('product_variants', ProductVariantController::class);
-Route::resource('stocks', StockController::class);
 Route::resource('products', ProductController::class);
+Route::resource('stocks', StockController::class);
+Route::resource('productCatelogues', ProductCatelogueController::class);
 Route::resource('warehouses', WarehouseController::class);
 // Route::resource('productsApi', ApiProductController::class);
 
@@ -169,12 +169,15 @@ Route::resource('buyers', BuyerController::class);
  */
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
-Route::resource('product_variants', ProductVariantController::class);
+
 Route::resource('valuations', ValuationMethodsController::class);
 Route::resource('product_lots', ProductlotController::class);
 Route::resource('purchase_orders', PurchaseOrderController::class);
 Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
 Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
+Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
+
+
 
 /*
  *  Orders & Buyers

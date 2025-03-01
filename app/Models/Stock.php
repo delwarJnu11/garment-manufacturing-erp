@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Stock extends Model
 {
     protected $fillable = [
-        'product_variant_id',
+        'product_id',
         'warehouse_id',
         'quantity',
         'total_value'
     ];
 
-    public function productVariant()
+    public function product()
     {
-        return $this->belongsTo(ProductVariant::class);
+        return $this->belongsTo(Product::class);
     }
 
     public function warehouse()

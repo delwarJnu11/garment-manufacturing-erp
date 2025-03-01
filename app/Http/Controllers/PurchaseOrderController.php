@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\InvSupplier;
+use App\Models\Product;
 use App\Models\ProductLot;
 use App\Models\ProductVariant;
 use App\Models\Purchase_status;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrders;
-use Illuminate\Container\Attributes\DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class PurchaseOrderController extends Controller
@@ -44,7 +45,7 @@ class PurchaseOrderController extends Controller
         $lots = ProductLot::all();
         $statuses = Purchase_status::all();
         // Fetch only Product Variants with product_type_id = 1 (Raw Material)
-        $product_variants = ProductVariant::whereHas('product_type', function ($query) {
+        $product_variants = Product::whereHas('product_type', function ($query) {
             $query->where('id', 1)->orWhere('name', 'Raw Material');
         })->get();
         return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'product_variants'));
@@ -58,9 +59,26 @@ class PurchaseOrderController extends Controller
     }
     public function find_product(Request $request)
     {
-        $product = ProductVariant::find($request->id);
+        $product = Product::find($request->id);
         return response()->json(['product' => $product]);
     }
+
+
+    public function getInvoiceId()
+    {
+        // Get last invoice ID from purchase_order table
+        $lastInvoice = DB::table('purchase_orders')->latest('id')->first();
+        
+        // Generate new Invoice ID
+        $newInvoiceId = $lastInvoice ? $lastInvoice->id + 1 : 1;
+        $formattedInvoiceId = "INV-" . str_pad($newInvoiceId, 6, "0", STR_PAD_LEFT);
+    
+        return response()->json(['invoice_id' => $formattedInvoiceId]);
+    }
+    
+    
+
+
     // public function create()
     // {
     //     $suppliers = inv_suppliers::all();

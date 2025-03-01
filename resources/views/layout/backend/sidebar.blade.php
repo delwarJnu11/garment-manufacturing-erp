@@ -68,8 +68,8 @@
                                 request()->is('category') ||
                                 request()->is('product_lots') ||
                                 request()->is('raw_materials') ||
+                                request()->is('productCatelogues') ||
                                 request()->is('products') ||
-                                request()->is('product_variants') ||
                                 request()->is('stocks')">Inventory & Warehouse</x-nav-link>
                             <ul>
                                 <!-- 🔹 Categories -->
@@ -84,13 +84,13 @@
                                     </x-link>
                                 </li>
                                 <li>
-                                    <x-link href="{{ url('/products') }}" :active="request()->is('products')">Product Catalogue
+                                    <x-link href="{{ url('/productCatelogues') }}" :active="request()->is('productCatelogues')">Product Catalogue
                                     </x-link>
                                 </li>
 
                                 <!-- 🔹 Warehouse & Stock -->
                                 <li>
-                                    <x-link href="{{ url('/product_variants') }}" :active="request()->is('/product_variants')">All
+                                    <x-link href="{{ url('/products') }}" :active="request()->is('/products')">All
                                         Products
                                     </x-link>
                                 </li>
