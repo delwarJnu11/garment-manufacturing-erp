@@ -14,7 +14,7 @@ class HrmEmployeeTimesheetsController extends Controller
      */
     public function index()
     {
-        $timesheets = Hrm_employee_timesheets::paginate(5);
+        $timesheets = Hrm_employee_timesheets::paginate(10);
         //print_r($timesheets);
 
          return view('pages.hrm.hrm_timesheets.index', compact('timesheets'));

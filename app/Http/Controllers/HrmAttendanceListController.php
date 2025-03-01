@@ -147,16 +147,13 @@ class HrmAttendanceListController extends Controller
 
     public function clockIn(Request $request)
     {
-        // Assuming you already have the employee_id
-        // $employee_id = Auth::user()->id; // Or pass the employee_id if necessary
-        //print_r(Auth::user()->id);
 
         $attendences = new Hrm_attendances_lists();
 
         $attendences->employee_id = Auth::user()->id;
         $attendences->date = Carbon::today()->toDateString();
         $attendences->statuses_id = 1;
-        $attendences->clock_in = Carbon::now()->format('H:i:s');
+        $attendences->clock_in = Carbon::now('Asia/Dhaka')->format('H:i:s');
         $attendences->clock_out = null;
         $attendences->save();
 
@@ -164,7 +161,7 @@ class HrmAttendanceListController extends Controller
             $timesheet->employee_id = Auth::user()->id;
             $timesheet->date = Carbon::today()->toDateString();
             $timesheet->statuses_id = 1;
-            $timesheet->clock_in = Carbon::now()->format('H:i:s');
+            $timesheet->clock_in = Carbon::now('Asia/Dhaka')->format('H:i:s');
             $timesheet->clock_out = null;
             $timesheet->shift_start ="10:00:00";
             $timesheet->shift_end ="06:00:00";
@@ -175,24 +172,9 @@ class HrmAttendanceListController extends Controller
 
             $timesheet->save();
 
-
-        // print_r(Auth::user()->id);
-
-        // $attendance = Hrm_attendances_lists::create([
-        //     'employee_id' => 7,
-        //     'date' => Carbon::today()->toDateString(),
-        //     'statuses_id' => 1, // assuming 1 means "Present"
-        //     'clock_in' => Carbon::now()->format('H:i:s'),
-        //     // 'employee_id' => $employee_id,
-        //     // 'date' => Carbon::today()->toDateString(),
-        //     // 'statuses_id' => 1, // assuming 1 means "Present"
-        //     // 'clock_in' => Carbon::now()->format('H:i:s'),
-        // ]);
-
         return response()->json([
             'status' => 'success',
             'message' => 'Clocked In successfully.',
-            // 'attendance' => $attendance,
         ]);
     }
 
@@ -207,18 +189,11 @@ class HrmAttendanceListController extends Controller
             ->first();
 
         $attendences = Hrm_attendances_lists::find($attendance->id);
-        $attendences->clock_out = Carbon::now()->format('H:i:s');
+        $attendences->clock_out = Carbon::now('Asia/Dhaka')->format('H:i:s');
 
         if ($attendences->save()) {
-            echo Hrm_attendances_lists::find($attendance->id);
+           Hrm_attendances_lists::find($attendance->id);
         };
-
-        if ($attendences) {
-            $attendences->update([
-                'clock_out'=>Carbon::now()->format('H:i:s'),
-                'overtime_hours'=> $this->calculateOvertime($attendences->clock_in, Carbon::now()->format('H:i:s')),
-            ]);
-        }
 
         // Timesheets
 
@@ -228,40 +203,55 @@ class HrmAttendanceListController extends Controller
             ->orderBy('id', 'desc')
             ->first();
 
-
-
         $timesheets = Hrm_employee_timesheets::find($timesheet->id);
-        $timesheets->clock_out = Carbon::now()->format('H:i:s');
+        $timesheets->clock_out = Carbon::now('Asia/Dhaka')->format('H:i:s');
+        $timesheets->total_work_hours = $this->calculatetotal_work_hours($timesheets->clock_in, $timesheets->clock_out);
+        $timesheets->overtime_hours = $this->calculateOvertime($timesheets->clock_in, $timesheets->clock_out);
 
 
         if ($timesheets->save()) {
-            echo Hrm_employee_timesheets::find($timesheet->id);
+            Hrm_employee_timesheets::find($timesheet->id);
         };
 
-
-        if ($timesheets) {
-            $timesheets->update([
-                'clock_out' => Carbon::now()->format('H:i:s'),
-                'overtime_hours' => $this->calculateOvertime($timesheets->clock_in, Carbon::now()->format('H:i:s')),
-            ]);
-        }
-
-        // print_r($timesheets);
 
         return response()->json([
             'status' => 'success',
             'message' => 'Clocked Out successfully.',
-            // 'attendance' => $attendance,
+
         ]);
     }
 
-    // Overtime calculation (if applicable)
+
     private function calculateOvertime($clock_in, $clock_out)
     {
-        // Logic for overtime calculation (based on shift hours)
         $shift_start = Carbon::parse($clock_in);
         $shift_end = Carbon::parse($clock_out);
-        $total_work_hours= $shift_start->diffInHours($shift_end);
-        return max(0, $total_work_hours - 8); // Assuming a standard 8-hour workday
+
+        $total_work_minutes = $shift_start->diffInMinutes($shift_end);
+
+        $overtime_minutes = max(0, $total_work_minutes - 480);
+
+        $overtime_hours = $overtime_minutes / 60;
+
+        return $overtime_hours;
     }
+
+
+
+    private function calculatetotal_work_hours($clock_in, $clock_out)
+{
+    $shift_start = Carbon::parse($clock_in);
+    $shift_end = Carbon::parse($clock_out);
+
+    $total_work_minutes = $shift_start->diffInMinutes($shift_end);
+
+    $total_work_hours = $total_work_minutes / 60;
+
+    return $total_work_hours;
+}
+
+
+
+
+
 }

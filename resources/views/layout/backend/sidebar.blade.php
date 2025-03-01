@@ -264,10 +264,10 @@
                                         <ul>
                                             <li><x-link href="{{ url('/inventory/valuation/fifo') }}"
                                                     :active="request()->is('inventory/valuation/fifo')">Holiday</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/fifo') }}"
-                                                    :active="request()->is('inventory/valuation/fifo')">Leave Type</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/lifo') }}"
-                                                    :active="request()->is('inventory/valuation/lifo')">Leave Application</x-link></li>
+                                            <li><x-link href="{{ route('hrm_leave_types.index') }}"
+                                                    :active="request()->is('hrm_leave_types.index')">Leave Type</x-link></li>
+                                            <li><x-link href="{{ route('hrm_leave_applications.index') }}"
+                                                    :active="request()->is('hrm_leave_applications.index')">Leave Application</x-link></li>
                                             <li><x-link href="{{ url('/inventory/valuation/lifo') }}"
                                                     :active="request()->is('inventory/valuation/lifo')">Leave Details</x-link></li>
                                         </ul>

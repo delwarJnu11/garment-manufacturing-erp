@@ -35,24 +35,25 @@ class HrmLeaveTypesController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:50',
-            'code' => 'required|string|max:200',
+            // 'code' => 'required|string|max:200',
             'description' => 'required|string|max:200',
-            'max_days' => 'required|string|max:200',
-            'is_paid' => 'required|string|max:200',
-            'requires_approval' => 'required|string|max:200',
-            'carry_forward' => 'required|string|max:200',
-            'statuses_id' => 'required|string|max:200',
+            'max_days' => 'required|integer|max:200',
+            // 'is_paid' => 'required|boolean',
+            // 'requires_approval' => 'required|boolean',
+            // 'carry_forward' => 'required|boolean',
+            // 'statuses_id' => 'required|integer',
         ]);
+
 
         $leaves = new Hrm_leave_types();
         $leaves->name= $request->name;
-        $leaves->code= $request->code;
+        // $leaves->code= $request->code;
         $leaves->description= $request->description;
         $leaves->max_days= $request->max_days;
-        $leaves->is_paid= $request->is_paid;
-        $leaves->requires_approval= $request->requires_approval;
-        $leaves->carry_forward= $request->carry_forward;
-        $leaves->statuses_id= $request->statuses_id;
+        // $leaves->is_paid= $request->is_paid;
+        // $leaves->requires_approval= $request->requires_approval;
+        // $leaves->carry_forward= $request->carry_forward;
+        // $leaves->statuses_id= $request->statuses_id;
 
         if($leaves->save()){
             return redirect()->back()->with('success', 'leaves has been added successfully!');
@@ -89,12 +90,13 @@ class HrmLeaveTypesController extends Controller
             'name' => 'required|string|max:50',
             'code' => 'required|string|max:200',
             'description' => 'required|string|max:200',
-            'max_days' => 'required|string|max:200',
-            'is_paid' => 'required|string|max:200',
-            'requires_approval' => 'required|string|max:200',
-            'carry_forward' => 'required|string|max:200',
-            'statuses_id' => 'required|string|max:200',
+            'max_days' => 'required|integer|max:200',
+            'is_paid' => 'required|boolean',
+            'requires_approval' => 'required|boolean',
+            'carry_forward' => 'required|boolean',
+            'statuses_id' => 'required|integer',
         ]);
+
 
         $leaves = Hrm_leave_types::find($id);
         $leaves->name= $request->name;
@@ -108,7 +110,7 @@ class HrmLeaveTypesController extends Controller
 
 
         if($leaves->save()){
-            return redirect('hrm_leave_types')->with('success', 'Sub_leaves has been updated successfully!');
+            return redirect('hrm_leave_types')->with('success', 'leaves has been updated successfully!');
          } ;
     }
 
