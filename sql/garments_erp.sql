@@ -570,7 +570,7 @@ CREATE TABLE bom_details (
     material_id INT,
     size_id INT,
     quantity_used DECIMAL(10,2),
-    unit_cost
+    unit_cost DECIMAL(10,2),
     wastage DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

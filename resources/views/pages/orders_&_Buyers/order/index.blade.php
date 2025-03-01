@@ -9,16 +9,19 @@
 @section('page_content')
     <x-message-banner />
 
+    <x-page-header heading="Orders" btnText="Order" href="{{ route('orders.create') }}" />
     <div class="card flex-fill">
-        <x-page-header heading="BOM" btnText="Bom" href="{{ route('bom.create') }}" />
 
-        {{-- <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered">
             <thead class="thead-primary">
                 <tr>
-                    <th>BOM ID</th>
+                    <th>Order ID</th>
+                    <th>Buyer Name</th>
                     <th>Product Name</th>
-                    <th> Name</th>
                     <th>Color Name</th>
+                    @foreach ($sizes as $size)
+                        <th>{{ $size }}</th>
+                    @endforeach
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -66,6 +69,6 @@
 
         <div class="d-flex justify-content-end">
             {{ $orders->links('vendor.pagination.custom') }}
-        </div> --}}
+        </div>
     </div>
 @endsection

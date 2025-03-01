@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bom;
 use App\Models\BomDetails;
+use App\Models\Order;
+use App\Models\Raw_material;
+use App\Models\Size;
 use Illuminate\Http\Request;
 
 class BomDetailsController extends Controller
@@ -20,7 +24,12 @@ class BomDetailsController extends Controller
      */
     public function create()
     {
-        //
+        $boms = Bom::with('order')->get();
+        $materials = Raw_material::all();
+        $sizes = Size::all();
+        $orders = Order::with('orderDetails.product')->get();
+
+        return view('pages.production.bom_details.create', compact('boms', 'materials', 'sizes', 'orders'));
     }
 
     /**

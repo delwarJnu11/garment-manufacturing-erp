@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('order_id');
             $table->decimal('material_cost');
-            $table->decimal('labor_cost');
+            $table->decimal('labour_cost');
             $table->decimal('overhead_cost');
             $table->decimal('utility_cost');
             $table->decimal('total_cost');
