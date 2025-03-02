@@ -2,26 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\accountGroups;
-use App\Models\accounts;
+use App\Http\Controllers\Controller;
+use App\Models\Account;
+
+use App\Models\AccountGroup;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class AccountsController extends Controller
+class AccountController extends Controller
 {
-    public function index()
+	public function index()
 	{
-		$accounts = Accounts::paginate(10);
-		return view("pages.accounts.accounts.index", ["accounts" => $accounts]);
+		$accounts = Account::paginate(10);
+		return view("pages.accounts.account.index", ["accounts" => $accounts]);
 	}
 	public function create()
 	{
 		return view(
-			"pages.accounts.accounts.create",
+			"pages.accounts.account.create",
 			[
-				"account_groups" => accountGroups::whereNotNull('parent_id')->get(),
+				"account_groups" => AccountGroup::whereNotNull('parent_id')->get(),
 			]
 		);
 	}
@@ -37,11 +41,11 @@ class AccountsController extends Controller
 		}
 
 		$lastAccount = DB::table('accounts')->where('account_group_id', $request->account_group_id)->orderByDesc('code')->value('code');
-		$parentCode = AccountGroups::where('id', $request->account_group_id)->value('code');
+		$parentCode = AccountGroup::where('id', $request->account_group_id)->value('code');
 		$gencode = $lastAccount ? str_pad((int)substr($lastAccount, -2) + 1, 2, 0, STR_PAD_LEFT) : "01";
 		$accountCode = $parentCode . $gencode;
 
-		$account = new Accounts;
+		$account = new Account;
 		$account->code = $accountCode;
 		$account->name = $request->name;
 		$account->account_group_id = $request->account_group_id;
@@ -60,17 +64,17 @@ class AccountsController extends Controller
 	}
 	public function show($id)
 	{
-		$account = Accounts::find($id);
-		return view("pages.accounts.accounts.show", ["account" => $account]);
+		$account = Account::find($id);
+		return view("pages.accounts.account.show", ["account" => $account]);
 	}
-	public function edit(Accounts $account)
+	public function edit(Account $account)
 	{
-		return view("pages.accounts.accounts.edit", ["account" => $account, "account_groups" => accountGroups::all()]);
+		return view("pages.accounts.account.edit", ["account" => $account, "account_groups" => AccountGroup::all()]);
 	}
-	public function update(Request $request, Accounts $account)
+	public function update(Request $request, Account $account)
 	{
 		//Account::update($request->all());
-		$account = Accounts::find($account->id);
+		$account = Account::find($account->id);
 		$account->code = $request->code;
 		$account->name = $request->name;
 		$account->account_group_id = $request->account_group_id;
@@ -89,7 +93,7 @@ class AccountsController extends Controller
 
 		return redirect()->route("accounts.index")->with('success', 'Updated Successfully.');
 	}
-	public function destroy(Accounts $account)
+	public function destroy(Account $account)
 	{
 		$account->delete();
 		return redirect()->route("accounts.index")->with('success', 'Deleted Successfully.');
@@ -101,11 +105,11 @@ class AccountsController extends Controller
 		// //Account::create($request->all());
         
 		$lastAccount = DB::table('accounts')->where('account_group_id', $request['account_group_id'])->orderByDesc('code')->value('code');
-		$parentCode = AccountGroups::where('id', $request['account_group_id'])->value('code');
+		$parentCode = AccountGroup::where('id', $request['account_group_id'])->value('code');
 		$gencode = $lastAccount ? str_pad((int)substr($lastAccount, -2) + 1, 2, 0, STR_PAD_LEFT) : "01";
 		$accountCode = $parentCode . $gencode;
 
-		$account = new Accounts;
+		$account = new Account;
 		$account->code = $accountCode;
 		$account->name = $request['name'];
 		$account->account_group_id = $request['account_group_id'];
@@ -122,5 +126,4 @@ class AccountsController extends Controller
 		$account->save();
 		//return back()->with('success', 'Created Successfully.');
 	}
-
 }
