@@ -28,4 +28,9 @@ class Bom extends Model
     {
         return $this->hasMany(BomDetails::class);
     }
+
+    public function orderDetails()
+    {
+        return $this->hasManyThrough(OrderDetail::class, Order::class, 'id', 'order_id', 'order_id', 'id');
+    }
 }

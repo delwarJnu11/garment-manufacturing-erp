@@ -36,4 +36,8 @@ class Order extends Model
     {
         return $this->belongsTo(OrderStatus::class, 'status_id');
     }
+    public function bom()
+    {
+        return $this->hasOne(Bom::class, 'order_id');
+    }
 }

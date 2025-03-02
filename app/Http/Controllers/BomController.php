@@ -33,7 +33,19 @@ class BomController extends Controller
             'orderDetails.uom'
         ])->groupBy('order_number')->get();
 
-        return view('pages.production.bom.create', compact('orders'));
+        // Extract product names and IDs and ensure uniqueness
+        $products = $orders->flatMap(function ($order) {
+            return $order->orderDetails->map(function ($detail) use ($order) {
+                return [
+                    'order_id' => $order->id,
+                    'name' => $detail->product->name,
+                ];
+            });
+        })->unique('name')->values();
+
+        return view('pages.production.bom.create', compact('orders', 'products'));
+
+        // return view('pages.production.bom.create', compact('orders'));
     }
 
     // public function create()

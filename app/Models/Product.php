@@ -27,8 +27,8 @@ class Product extends Model
     //     return $this->belongsTo(Valuation_methods::class, 'valuation_method_id');
     // }
 
-    public function orderDetails()
+    public function bomDetails()
     {
-        return $this->hasMany(OrderDetail::class);
+        return $this->hasMany(BomDetails::class, 'product_id');
     }
 }

@@ -24,12 +24,8 @@ class BomDetailsController extends Controller
      */
     public function create()
     {
-        $boms = Bom::with('order')->get();
-        $materials = Raw_material::all();
-        $sizes = Size::all();
-        $orders = Order::with('orderDetails.product')->get();
-
-        return view('pages.production.bom_details.create', compact('boms', 'materials', 'sizes', 'orders'));
+        $boms = Bom::with(['orderDetails.product'])->get();
+        return view('pages.production.bom_details.create', compact('boms'));
     }
 
     /**

@@ -1,11 +1,5 @@
 @extends('layout.backend.main');
 
-@php
-    echo '<pre>';
-    print_r($orders);
-    die();
-@endphp
-
 @section('page_content')
     <div class="container mt-4">
         <div class="card">
@@ -21,10 +15,8 @@
                             <label class="form-label">Product Name</label>
                             <select name="order_id" class="form-select" id="order_dropdown">
                                 <option value="">Select a Product</option>
-                                @foreach ($orders as $order)
-                                    <option value="{{ $order->id }}">
-                                        {{ $order->orderDetails->pluck('product.name')->unique()->implode(', ') }}
-                                    </option>
+                                @foreach ($products as $product)
+                                    <option value="{{ $product['order_id'] }}">{{ $product['name'] }}</option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('order_id')" class="mt-2" />

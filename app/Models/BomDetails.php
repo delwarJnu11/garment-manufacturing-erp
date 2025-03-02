@@ -32,4 +32,14 @@ class BomDetails extends Model
     {
         return $this->belongsTo(Size::class);
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasOneThrough(OrderDetail::class, Bom::class, 'id', 'order_id', 'bom_id', 'order_id');
+    }
 }
