@@ -25,7 +25,7 @@
                                 <div class="input-group">
 
                                     <select name="supplier_id" class="form-select" required id="supplier_id">
-                                        <option value="" >Select Supplier</option>
+                                        <option value="">Select Supplier</option>
                                         @foreach ($suppliers as $supplier)
                                             <option value="{{ $supplier['id'] }}">
                                                 {{ $supplier['first_name'] . ' ' . $supplier['last_name'] }}</option>
@@ -107,7 +107,8 @@
                                     <h6 class="mb-4">Payment info:</h6>
                                     <ul>
                                         <li>Credit Card - 123***********789</li>
-                                        <li class="mb-0" name="paid_amount">Paid Amount:<span class="paid_amount"></span> </li>
+                                        <li class="mb-0" name="paid_amount">Paid Amount:<span class="paid_amount"></span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -147,7 +148,7 @@
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script>
         $(function() {
-            const cart = new Cart('purchase');
+            const purchae = new Cart('purchase');
             printCart();
             // Fetch invoice ID from backend
             $.ajax({
@@ -227,8 +228,8 @@
                     success: function(res) {
                         console.log(res.product);
                         if (res.product) {
-                            $(".p_price").val(res.product.unit_price);
-                            $(".p_qty").val(res.product.qty);
+                            $(".p_price").val(res.product?.unit_price);
+                            $(".p_qty").val(res?.product.qty);
                         }
                     },
                     error: function(error) {
@@ -240,7 +241,9 @@
 
             $('.add-card-btn').on('click', function() {
                 let item_id = $("#product_id").val();
-                let name = $("#product_id option:selected").text();
+
+                let name = $("#product_id option:selected").text().trim();
+
                 let price = parseFloat($(".p_price").val()) || 0;
                 let qty = parseFloat($(".p_qty").val()) || 0;
                 let discount = parseFloat($(".p_discount").val()) || 0;
@@ -250,7 +253,7 @@
                 let total_discount = (total_amount * discount) / 100;
                 let taxable_amount = total_amount - total_discount;
                 let total_vat = (taxable_amount * vat) / 100;
-                let subtotal = taxable_amount + total_vat; 
+                let subtotal = taxable_amount + total_vat;
 
                 let item = {
                     "name": name,
@@ -265,18 +268,23 @@
                 };
 
                 console.log(item);
-                cart.save(item);
+                ourchase.save(item);
                 printCart();
             });
 
             function printCart() {
-                let cartItems = cart.getCart();
+                let cartItems = purchae.getCart();
+                if (cartItems) {
+
+                    let htmldata = "";
+                    let discount = 0;
+                    let subtotal = 0;
+                    let totalVat = 0;
+                    let grandTotal = 0;
+                    let htmlData = "";
+                }
                 console.log(cartItems);
-                let discount = 0;
-                let subtotal = 0;
-                let totalVat = 0;
-                let grandTotal = 0;
-                let htmlData = "";
+
 
                 if (cartItems) {
                     cartItems.forEach(element => {
@@ -317,60 +325,103 @@
                 cart.delItem(id);
                 printCart();
             })
-            $('.clearAll').on('click',function(){
+            $('.clearAll').on('click', function() {
                 cart.clearCart();
                 printCart()
             })
 
-           function cartIconIncreace(){
-            let items = cart.getCart().length 
-            $(".cartIcon").html(items);
-           }
+            function cartIconIncreace() {
+                let items = cart.getCart().length
+                $(".cartIcon").html(items);
+            }
+            $('.process_btn').on('click', function() {
+                let supplier_id = $("#supplier_id").val();
+                let purchase_total = parseFloat($('.grand_total').text().replace('$', ''));
+                let paid_amount = parseFloat($('.grand_total').text().replace('$', ''));
+                let discount = parseFloat($('.discount').text().replace('-$', ''));
+                let vat = parseFloat($('.vat').text().replace('+$', ''));
+                let products = purchase.getCart();
 
-           
+                // Ensure numbers are properly formatted
+                if (isNaN(purchase_total)) purchase_total = 0;
+                if (isNaN(paid_amount)) paid_amount = 0;
+                if (isNaN(discount)) discount = 0;
+                if (isNaN(vat)) vat = 0;
 
+                console.log("Final Data to API:", {
+                    supplier_id,
+                    purchase_total,
+                    paid_amount,
+                    discount,
+                    vat,
+                    products
+                });
 
-           $('.process_btn').on('click',function(){
-            // alert()
-            let supplier_id  = $("#supplier_id").val();
-            let purchase_total = $('.grand_total').text();
-            let paid_amount = $('.grand_total').text();
-            let discount = $('.discount').text();
-            let vat = $('.vat').text();
-            let products = cart.getCart();
-            // const newItems = products.map(item => ({
-            //     product_id: item.item_id,
-            //     discount: item.p_discount,
-            //     quantity: item.qty,
-            //     vat: item.p_vat,
-            //     price: item.price
-            // }));
-            // console.log(newItems);
-            
-
-            $.ajax({
-                url:"{{url('api/purchase')}}",
-                type:"POST",
-                data:{
-                    supplier_id:supplier_id,
-                    purchase_total:purchase_total,
-                    paid_amount:paid_amount,
-                    discount:discount,
-                    vat:vat,
-                    products:products,
-                },
-                success:function(res){
-                    console.log(res)
-                },
-                error:function(xhr,status,error){
-                    console.log(error)
-                }
-
-            })
+                $.ajax({
+                    url: "{{ url('api/purchase') }}",
+                    type: "POST",
+                    data: {
+                        supplier_id: supplier_id,
+                        purchase_total: purchase_total,
+                        paid_amount: paid_amount,
+                        discount: discount,
+                        vat: vat,
+                        products: products,
+                    },
+                    success: function(res) {
+                        console.log("API Response:", res);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("API Error:", error);
+                    }
+                });
+            });
 
 
 
-           })
+
+            //    $('.process_btn').on('click',function(){
+            //     // alert()
+            //     let supplier_id  = $("#supplier_id").val();
+            //     let purchase_total = $('.grand_total').text();
+            //     let paid_amount = $('.grand_total').text();
+            //     let discount = $('.discount').text();
+            //     let vat = $('.vat').text();
+            //     let products = cart.getCart();
+
+            //     // const newItems = products.map(item => ({
+            //     //     product_id: item.item_id,
+            //     //     discount: item.p_discount,
+            //     //     quantity: item.qty,
+            //     //     vat: item.p_vat,
+            //     //     price: item.price
+            //     // }));
+            //     // console.log(newItems);
+
+
+            //     $.ajax({
+            //         url:"{{ url('api/purchase') }}",
+            //         type:"POST",
+            //         data:{
+            //             supplier_id:supplier_id,
+            //             purchase_total:purchase_total,
+            //             paid_amount:paid_amount,
+            //             discount:discount,
+            //             vat:vat,
+            //             products:products,
+            //         },
+            //         success:function(res){
+            //             console.log(res)
+            //         },
+            //         error:function(xhr,status,error){
+            //             console.log(error)
+            //         }
+
+            //     })
+
+
+
+            //    })
         })
     </script>
     <script src="{{ asset('assets/js/cart_.js') }}"></script>

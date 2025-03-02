@@ -12,10 +12,12 @@ class ProductLot extends Model
 
     // Add raw_material_id to the fillable array
     protected $fillable = [
-        'product_variant_id',
-        'quantity',
+        'product_id',
+        'qty',
         'cost_price',
+        'sales_price',
         'warehouse_id',
+        'transaction_type_id',
         'description',
     ];
 
@@ -27,13 +29,17 @@ class ProductLot extends Model
     // {
     //     return $this->belongsTo(Warehouse::class, 'warehouse_id');
     // }
-    public function productVariant(): BelongsTo
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+        return $this->belongsTo(Product::class, 'product_variant_id');
     }
 
     public function warehouse(): BelongsTo
     {
         return $this->belongsTo(Warehouse::class, 'warehouse_id');
+    }
+    public function transactionType(): BelongsTo
+    {
+        return $this->belongsTo(TransactionType::class, 'transaction_type_id');
     }
 }

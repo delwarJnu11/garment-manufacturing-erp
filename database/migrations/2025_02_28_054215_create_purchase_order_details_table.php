@@ -27,7 +27,7 @@ class CreatePurchaseOrderDetailsTable extends Migration
         // Optional: Add a sample record for testing (ensure to use a valid model and values)
         PurchaseOrderDetail::create([
             'purchase_id' => 1, // Example Purchase Order ID
-            'product_variant_id' => 1, // Example Product Variant ID
+            'product_id' => 1, // Example Product Variant ID
             'lot_id' => 1, // Example Lot ID
             'quantity' => 50, // Quantity ordered
             'price' => 1000.00, // Total purchase amount

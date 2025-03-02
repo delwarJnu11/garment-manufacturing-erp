@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\OrderDetailsController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\PurchaseOrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,8 +11,9 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 
+
 // API FOR ORDER DETAILS
 // Route::get('order_details', [OrderDetailsController::class, 'index']);
-Route::resource('aa', OrderDetailsController::class);
-Route::get('products', [ProductController::class, 'index']);
 Route::get('order', [OrderDetailsController::class, 'index']);
+// purchaseOrder  Api
+Route::resource('purchase', PurchaseOrderController::class);
