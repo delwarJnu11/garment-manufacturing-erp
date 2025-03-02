@@ -18,8 +18,7 @@ class CreatePurchaseOrderDetailsTable extends Migration
             $table->integer('product_id')->unsigned(); // Product Variant ID
             $table->integer('lot_id')->unsigned(); // Lot ID (which contains raw_material_id)
             $table->integer('quantity')->default(0); // Quantity ordered
-            $table->decimal('purchase_total', 10, 2)->default(0.00); // Total amount for purchase
-            $table->decimal('paid_amount', 10, 2)->default(0.00); // Amount paid
+            $table->decimal('price', 10, 2)->default(0.00); // Total amount for purchase
             $table->decimal('discount', 10, 2)->default(0.00); // Discount applied
             $table->decimal('vat', 10, 2)->default(0.00); // VAT applied
             $table->timestamps(); // Automatically adds created_at and updated_at
@@ -31,10 +30,8 @@ class CreatePurchaseOrderDetailsTable extends Migration
             'product_variant_id' => 1, // Example Product Variant ID
             'lot_id' => 1, // Example Lot ID
             'quantity' => 50, // Quantity ordered
-            'purchase_total' => 1000.00, // Total purchase amount
-            'paid_amount' => 500.00, // Paid amount
-            'discount' => 50.00, // Discount applied
-            'vat' => 100.00, // VAT applied
+            'price' => 1000.00, // Total purchase amount
+            'paid_amount' => 500.00, // Paid amount 
             'created_at' => now(),
             'updated_at' => now(),
         ]);

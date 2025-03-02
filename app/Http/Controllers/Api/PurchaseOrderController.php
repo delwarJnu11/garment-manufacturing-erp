@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderDetail;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class PurchaseOrderController extends Controller
@@ -40,24 +41,49 @@ class PurchaseOrderController extends Controller
             $purchase->shipping_address = $request->shipping_address;
             $purchase->purchase_total = $request->purchase_total;
             $purchase->paid_amount = $request->paid_amount;
-            $purchase->description = $request->description;
-            $purchase->status_id = $request->status_id;
+            // $purchase->description = $request->description;
+            $purchase->status_id = 1;
             $purchase->discount = $request->discount;
             $purchase->vat = $request->vat;
-            $purchase->created_at = now();
+            $purchase->created_at=date('Y-m-d H:i:s');
+            date_default_timezone_set("Asia/Dhaka");
+            $purchase->updated_at=date('Y-m-d H:i:s');
+            date_default_timezone_set("Asia/Dhaka");
             $purchase->save();
+            $lastInsertedId = $purchase->id;
+            $purchase->created_at=date('Y-m-d H:i:s');
+
+        $productsdata=$request->products;
 
             // Get the last inserted purchase ID
             $lastInsertedId = $purchase->id;
 
-            foreach ($request->products as $product) {
+            foreach ($productsdata as $product) {
                 PurchaseOrderDetail::create([
                     'purchase_id' => $lastInsertedId,
                     'product_id' => $product['item_id'],
-                    'quantity' => $product['quantity'],
+                    'quantity' => $product['qty'],
                     'price' => $product['price'],
-                    'discount' => $product['discount']
+                    'vat'=>"",
+                    'discount' => $product['total_discount']
+
                 ]);
+                foreach ($productsdata as $product){
+                    Stock::create([
+                        'product_id'=>$product['item_id'],
+                        'quantity'=>$product['qty']*(-1),
+                        'transaction_type_id'=> 1,
+                       'created_at'=>date('Y-m-d H:i:s'),
+                       'updated_at'=>date('Y-m-d H:i:s'),
+                       'warehouse_id'=>1
+            
+
+                    ]);
+                }
+
+
+
+
             }
 
             return response()->json(['success' => true, 'message' => 'Purchase order created successfully.']);

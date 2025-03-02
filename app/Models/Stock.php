@@ -9,6 +9,7 @@ class Stock extends Model
     protected $fillable = [
         'product_id',
         'warehouse_id',
+        'transaction_type_id',
         'quantity',
         'total_value'
     ];
@@ -22,4 +23,9 @@ class Stock extends Model
     {
         return $this->belongsTo(Warehouse::class);
     }
+    public function transactionType()
+    {
+        return $this->belongsTo(TransactionType::class, 'transaction_type_id');
+    }
+    
 }

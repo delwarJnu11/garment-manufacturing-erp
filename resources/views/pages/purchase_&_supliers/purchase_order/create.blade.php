@@ -107,7 +107,7 @@
                                     <h6 class="mb-4">Payment info:</h6>
                                     <ul>
                                         <li>Credit Card - 123***********789</li>
-                                        <li class="mb-0"><span>Amount:</span> </li>
+                                        <li class="mb-0" name="paid_amount">Paid Amount:<span class="paid_amount"></span> </li>
                                     </ul>
                                 </div>
                             </div>
@@ -306,14 +306,13 @@
                     $('.discount').html(`-$${discount.toFixed(2)}`);
                     $('.vat').html(`+$${totalVat.toFixed(2)}`);
                     $('.grand_total').html(`$${grandTotal.toFixed(2)}`);
+                    $('.paid_amount').html(`$${grandTotal.toFixed(2)}`);
 
                     // cartIconIncrease();
                 }
             }
 
             $(".remove").on('click', function() {
-                // alert()
-
                 let id = $(this).attr('data');
                 cart.delItem(id);
                 printCart();
@@ -327,14 +326,50 @@
             let items = cart.getCart().length 
             $(".cartIcon").html(items);
            }
+
+           
+
+
            $('.process_btn').on('click',function(){
             // alert()
             let supplier_id  = $("#supplier_id").val();
-            let purchase_total = $('.grandtotal').text();
-            let paid_amount = $('.grandtotal').text();
+            let purchase_total = $('.grand_total').text();
+            let paid_amount = $('.grand_total').text();
             let discount = $('.discount').text();
             let vat = $('.vat').text();
             let products = cart.getCart();
+            // const newItems = products.map(item => ({
+            //     product_id: item.item_id,
+            //     discount: item.p_discount,
+            //     quantity: item.qty,
+            //     vat: item.p_vat,
+            //     price: item.price
+            // }));
+            // console.log(newItems);
+            
+
+            $.ajax({
+                url:"{{url('api/purchase')}}",
+                type:"POST",
+                data:{
+                    supplier_id:supplier_id,
+                    purchase_total:purchase_total,
+                    paid_amount:paid_amount,
+                    discount:discount,
+                    vat:vat,
+                    products:products,
+                },
+                success:function(res){
+                    console.log(res)
+                },
+                error:function(xhr,status,error){
+                    console.log(error)
+                }
+
+            })
+
+
+
            })
         })
     </script>

@@ -13,6 +13,7 @@
             <th>SKU</th>
             <th>Warehouse</th>
             <th>Quantity</th>
+            <th>Transaction Type</th>
             <th>Unit Price</th>
             <th>Total Value</th>
             <th>Action</th>
@@ -27,6 +28,7 @@
             <td>{{ $stock->product->sku }}</td>
             <td>{{ $stock->warehouse->name }}</td>
             <td>{{ $stock->product->qty }}</td>
+            <td>{{ $stock->TransactionType->name ?? 'N/A' }}</td>
             <td>${{ number_format($stock->product->unit_price, 2) }}</td>
             <td>${{ number_format($stock->product->qty * $stock->product->unit_price, 2) }}</td>
             <td class="action-table-data">

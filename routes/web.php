@@ -176,6 +176,7 @@ Route::resource('purchase_orders', PurchaseOrderController::class);
 Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
 Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
 Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
+Route::resource('/purchase', PurchaseOrderController::class);
 
 
 

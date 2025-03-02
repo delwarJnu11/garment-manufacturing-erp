@@ -10,11 +10,12 @@ class PurchaseOrderDetail extends Model
     // Define the fillable properties for mass assignment
     protected $fillable = [
         'purchase_id',
-        'product_variant_id',
+        'product_id',
         'lot_id',
         'quantity',
         'price',
-        'discount_price',
+        'vat',
+        'discount',
     ];
     function purchase(): BelongsTo
     {
