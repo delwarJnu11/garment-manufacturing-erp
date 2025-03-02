@@ -113,11 +113,11 @@ class HrmLeaveApplicationApproversController extends Controller
 
         $approvers = Hrm_leave_application_approvers::find($id);
         $approvers->leave_application_id = $request->leave_application_id;
-        $approvers->	approver_user_id = $request->	approver_user_id;
+        $approvers->approver_user_id = $request->approver_user_id;
         $approvers->date = $request->date;
         $approvers->approved_at = $request->approved_at;
         $approvers->rejected_at = $request->rejected_at;
-        $approvers->comments	 = $request->comments	;
+        $approvers->comments= $request->comments	;
         $approvers->statuses_id = $request->statuses_id;
         $approvers->approver_id = $request->approver_id;
         $approvers->photo = $request->photo;

@@ -218,7 +218,7 @@ CREATE TABLE hrm_leave_application_approvers (
     statuses_id BIGINT UNSIGNED NOT NULL,
     approved_at TIMESTAMP NULL,
     rejected_at TIMESTAMP NULL,
-    comments TEXT NULL,
+    comments  TEXT NULL,
     photo VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

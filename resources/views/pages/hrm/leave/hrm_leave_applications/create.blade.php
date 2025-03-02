@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     @if (Auth::user()->isAdmin())
-                    {{-- <div class="row mb-3">
+                    <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Leave Status :</label>
                         <div class="col-lg-10">
                             <select name="statuses_id" id="statuses_id" class="form-select">
@@ -55,8 +55,8 @@
                                 <div class="mt-2 text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div> --}}
-                    <div class="row mb-3">
+                    </div>
+                    {{-- <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Leave Status :</label>
                         <div class="col-lg-10">
                             <select name="statuses_id" id="statuses_id" class="form-select" data-leave-id="{{ $leave->id }}">
@@ -71,7 +71,7 @@
                                 <div class="mt-2 text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     @endif
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Apply Date :</label>
@@ -136,6 +136,7 @@
                             @enderror
                         </div>
                     </div>
+
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">Create New Leave Application</button>
                     </div>
@@ -144,3 +145,5 @@
         </div>
     </div>
 @endsection
+
+

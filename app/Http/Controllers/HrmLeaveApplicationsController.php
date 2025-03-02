@@ -117,45 +117,58 @@ class HrmLeaveApplicationsController extends Controller
     public function update(Request $request, Hrm_leave_applications $Hrm_leave_applications, $id)
     {
 
-        // $request->validate([
-        //     'employees_id' => 'required|string|max:50',
-        //     'leave_type_id' => 'required|string|max:200',
-        //     'date' => 'required|string|max:200',
-        //     'start_date' => 'required|string|max:200',
-        //     'end_date' => 'required|string|max:200',
-        //     'number_of_days	' => 'required|string|max:200',
-        //     'reason' => 'required|string|max:200',
-        //     'duration' => 'required|numeric',
-        //     'statuses_id' => 'required|numeric',
-        //     'approver_id' => 'required|numeric',
-        //     'photo' => 'required|string|max:200',
-        // ]);
-
-        // $applications = new Hrm_leave_applications();
-        // $applications->employees_id = $request->employees_id;
-        // $applications->	leave_type_id = $request->	leave_type_id;
-        // $applications->date = $request->date;
-        // $applications->start_date = $request->start_date;
-        // $applications->end_date = $request->end_date;
-        // $applications->number_of_days	 = $request->number_of_days	;
-        // $applications->	reason = $request->	reason;
-        // $applications->duration = $request->duration;
-        // $applications->statuses_id = $request->statuses_id;
-        // $applications->approver_id = $request->approver_id;
-        // $applications->photo = $request->photo;
-
+        $request->validate([
+            'employees_id' => 'required|string|max:50',
+            'leave_type_id' => 'required|string|max:200',
+            'date' => 'required|string|max:200',
+            'start_date' => 'required|string|max:200',
+            'end_date' => 'required|string|max:200',
+            'number_of_days	' => 'required|string|max:200',
+            'reason' => 'required|string|max:200',
+            'duration' => 'required|numeric',
+            'statuses_id' => 'required|numeric',
+            'approver_id' => 'required|numeric',
+            'photo' => 'required|string|max:200',
+        ]);
 
         $applications = Hrm_leave_applications::find($id);
+        $applications->employees_id = $request->employees_id;
+        $applications->	leave_type_id = $request->	leave_type_id;
+        $applications->date = $request->date;
+        $applications->start_date = $request->start_date;
+        $applications->end_date = $request->end_date;
+        $applications->number_of_days	 = $request->number_of_days	;
+        $applications->	reason = $request->	reason;
+        $applications->duration = $request->duration;
+        $applications->statuses_id = $request->statuses_id;
+        $applications->approver_id = $request->approver_id;
+        $applications->photo = $request->photo;
 
-        if ($request->status === 'approved') {
-            $applications->statuses_id = 8; // Approved
+    }
+
+
+    public function leaveUpdate(Request $request, Hrm_leave_applications $Hrm_leave_applications)
+    {
+
+        if ($request->leaveStatus=="Approved") {
+            $leaveStatus=4;
+        } elseif ($request->leaveStatus=="Rejected") {
+            $leaveStatus=5;
         } else {
-            $applications->statuses_id = 9; // Rejected
+            $leaveStatus=8;
         }
 
-        if($applications->save()){
-            return redirect('hrm_leave_applications')->with('success', 'Leave Application has been updated successfully!');
-         } ;
+        $applications = Hrm_leave_applications::find($request->id);
+        // $applications->employees_id = $request->employees_id;
+        $applications->statuses_id = $leaveStatus;
+        $applications->approver_id = Auth::user()->id;
+
+        if ($applications->save()) {
+            return redirect()->back()->with('success', 'Leave Application has been updated!');
+        }else {
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
+
     }
 
     /**

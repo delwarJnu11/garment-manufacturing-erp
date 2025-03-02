@@ -1,8 +1,7 @@
-
 @extends('layout.backend.main');
 
 @section('page_content')
-<x-success/>
+    <x-success />
     <x-page-header href="{{ route('hrm_leave_applications.create') }}" heading="Application" btnText=" Application" />
     <div class="card">
         <div class="card-body">
@@ -29,54 +28,74 @@
                         @forelse ($applications as $application)
                             <tr>
                                 <td>{{ $application->id }}</td>
-                                <td>{{ $application->employee_id}}</td>
-                                <td>{{ $application->leave_type_id}}</td>
-                                <td>{{ $application->date}}</td>
+                                <td>{{ $application->employee_id }}</td>
+                                <td>{{ $application->leave_type_id }}</td>
+                                <td>{{ $application->date }}</td>
                                 <td>{{ $application->start_date }}</td>
                                 <td>{{ $application->end_date }}</td>
                                 <td>{{ $application->number_of_days }}</td>
                                 <td>{{ $application->duration }}</td>
-                                <td class="btn text-center mt-0 btn-sm btn-{{"warning"}} disabled">{{ $application->statuses_id == 7 ? "Pending": '' }}</td>
-                                <td>{{ $application->reason}}</td>
-                                <td>{{ $application->photo}}</td>
-                                <td>
-                                    @if($application->statuses_id == 7)
-                                    Pending
-                                @elseif($application->statuses_id == 8)
-                                    Approved
-                                @else
-                                    Rejected
-                                @endif
+
+                               @php
+
+                                if ($application->statuses_id==5) {
+                                    $lStatus = "Rejected";
+                                    $class = "danger";
+                                } elseif($application->statuses_id==4) {
+                                    $lStatus = "Approved";
+                                    $class = "success";
+                                } else{
+                                    $lStatus = "Pending";
+                                    $class = "info";
+                                };
+
+                                    if (Auth::user()->isAdmin()) {
+                                        echo "
+                                    <td>
+                                    <select name='leaveStatus' data-id='$application->id' class='leaveStatus p-2 bg-secondary text-white rounded'>
+                                        <option class='btn text-white' value='$lStatus'>$lStatus</option>
+                                        <option class='btn text-white' value='Approved'>Approve</option>
+                                        <option class='btn text-white' value='Rejected'>Reject</option>
+                                    </select></td>";
+                                    } else {
+                                        echo "<td><span class='p-3 badge bg-soft-$class'>$lStatus</span></td>";
+                                    }
+
+                                @endphp
 
 
-                                </td>
-                                <td>
-                                    @if($application->statuses_id == 7)
-                                    <button class="update-status" data-id="{{ $application->id }}" data-status="approved">Approve</button>
-                                    <button class="update-status" data-id="{{ $application->id }}" data-status="rejected">Reject</button>
-                                @endif
-                                </td>
+                                {{-- <td class="btn text-center mt-0 btn-sm btn-{{"warning"}} disabled">{{ $application->statuses_id == 3 ? "Pending": '' }}</td> --}}
+                                <td>{{ $application->reason }}</td>
+                                <td>{{ $application->photo }}</td>
+
+
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0" href="{{ url("hrm_leave_applications/{$application->id}") }}">
+                                        <a class="me-2 p-2 mb-0"
+                                            href="{{ url("hrm_leave_applications/{$application->id}") }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                 stroke-linecap="round" stroke-linejoin="round"
-                                                 class="feather feather-eye action-eye">
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-eye action-eye">
                                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
                                         </a>
-                                        <a class="me-2 p-2" href="{{ url("hrm_leave_applications/{$application->id}/edit") }}">
+                                        <a class="me-2 p-2"
+                                            href="{{ url("hrm_leave_applications/{$application->id}/edit") }}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <a class="confirm-textt p-2" href="{{ url("hrm_leave_applications/delete/{$application->id}") }}">
+                                        <a class="confirm-textt p-2"
+                                            href="{{ url("hrm_leave_applications/delete/{$application->id}") }}">
                                             <i data-feather="trash-2" class="feather-trash-2"
-                                               onclick="return confirm('Are you sure you want to delete this position? This action cannot be undone!');">
+                                                onclick="return confirm('Are you sure you want to delete this position? This action cannot be undone!');">
                                                 Yes, Delete
                                             </i>
                                         </a>
                                     </div>
+                                </td>
+                                <td>
+
                                 </td>
                             </tr>
                         @empty
@@ -95,31 +114,59 @@
 @endsection
 
 @section('script')
-<script>
-    $(document).ready(function () {
-    $('.update-status').click(function () {
-        let leaveApplicationId = $(this).data('id');
-        let status = $(this).data('status');
+    <script>
 
-        $.ajax({
-            url: '/leave-applications/update-status',
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}',
-                leave_application_id: leaveApplicationId,
-                status: status
-            },
-            success: function (response) {
-                alert(response.message);
-                location.reload();
-            },
-            error: function (xhr) {
-                alert('Something went wrong!');
-            }
-        });
-    });
-    })
-</script>
+        $(document).ready(function() {
 
+
+            // Admins leaveApplication approve btn
+            $('.leaveStatus').on('change', function(){
+
+                let val = $(this).val();
+                let id = $(this).attr('data-id');
+
+                // alert(val + id);
+                $.ajax({
+                    url: '/hrm_leave_applications/leaveUpdate',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: id,
+                        leaveStatus: val
+                    },
+                    success: function(response) {
+                        // alert(response.message);
+                        location.reload();
+                    },
+                    error: function(xhr) {
+                        alert('Something went wrong!');
+                    }
+                });
+
+            });
+
+
+            $('.update-status').click(function() {
+                let leaveApplicationId = $(this).data('id');
+                let status = $(this).data('status');
+
+                $.ajax({
+                    url: '/leave-applications/update-status',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        leave_application_id: leaveApplicationId,
+                        status: status
+                    },
+                    success: function(response) {
+                        alert(response.message);
+                        location.reload();
+                    },
+                    error: function(xhr) {
+                        alert('Something went wrong!');
+                    }
+                });
+            });
+        })
+    </script>
 @endsection
-
