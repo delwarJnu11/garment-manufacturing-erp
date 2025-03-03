@@ -44,25 +44,14 @@ class BomController extends Controller
         })->unique('name')->values();
 
         return view('pages.production.bom.create', compact('orders', 'products'));
-
-        // return view('pages.production.bom.create', compact('orders'));
     }
 
-    // public function create()
-    // {
-    //     $materials = Raw_material::all();
-    //     $sizes = Size::all();
-    //     return view('pages.production.bom.create', compact('materials', 'sizes'));
-    // }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // echo "<pre>";
-        // print_r($request->all());
-        // die;
 
         $request->validate([
             'order_id' => 'required|integer',

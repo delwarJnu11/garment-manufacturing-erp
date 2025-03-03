@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bom;
 use App\Models\BomDetails;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Raw_material;
 use App\Models\Size;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class BomDetailsController extends Controller
      */
     public function create()
     {
-        $boms = Bom::with(['orderDetails.product'])->get();
+        $boms = Bom::with(['orderDetails.product'])->distinct()->get();
         return view('pages.production.bom_details.create', compact('boms'));
     }
 
