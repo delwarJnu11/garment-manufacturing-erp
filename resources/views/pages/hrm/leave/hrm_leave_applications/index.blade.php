@@ -37,7 +37,6 @@
                                 <td>{{ $application->duration }}</td>
 
                                @php
-
                                 if ($application->statuses_id==5) {
                                     $lStatus = "Rejected";
                                     $class = "danger";
@@ -48,27 +47,22 @@
                                     $lStatus = "Pending";
                                     $class = "info";
                                 };
-
                                     if (Auth::user()->isAdmin()) {
                                         echo "
                                     <td>
                                     <select name='leaveStatus' data-id='$application->id' class='leaveStatus p-2 bg-secondary text-white rounded'>
                                         <option class='btn text-white' value='$lStatus'>$lStatus</option>
-                                        <option class='btn text-white' value='Approved'>Approve</option>
-                                        <option class='btn text-white' value='Rejected'>Reject</option>
-                                    </select></td>";
+                                        <option class='btn text-white' value='Approved'>Approved</option>
+                                        <option class='btn text-white' value='Rejected'>Rejected</option>
+                                    </select>
+                                    </td>";
                                     } else {
-                                        echo "<td><span class='p-3 badge bg-soft-$class'>$lStatus</span></td>";
+                                        echo "<td><span class='p-2 badge bg-soft-$class'>$lStatus</span></td>";
                                     }
 
                                 @endphp
-
-
-                                {{-- <td class="btn text-center mt-0 btn-sm btn-{{"warning"}} disabled">{{ $application->statuses_id == 3 ? "Pending": '' }}</td> --}}
                                 <td>{{ $application->reason }}</td>
                                 <td>{{ $application->photo }}</td>
-
-
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <a class="me-2 p-2 mb-0"
@@ -100,7 +94,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="14" class="text-center">No positions found.</td>
+                                <td colspan="14" class="text-center">No Application found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -118,14 +112,11 @@
 
         $(document).ready(function() {
 
-
-            // Admins leaveApplication approve btn
             $('.leaveStatus').on('change', function(){
 
                 let val = $(this).val();
                 let id = $(this).attr('data-id');
 
-                // alert(val + id);
                 $.ajax({
                     url: '/hrm_leave_applications/leaveUpdate',
                     type: 'POST',
@@ -146,27 +137,27 @@
             });
 
 
-            $('.update-status').click(function() {
-                let leaveApplicationId = $(this).data('id');
-                let status = $(this).data('status');
+            // $('.update-status').click(function() {
+            //     let leaveApplicationId = $(this).data('id');
+            //     let status = $(this).data('status');
 
-                $.ajax({
-                    url: '/leave-applications/update-status',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        leave_application_id: leaveApplicationId,
-                        status: status
-                    },
-                    success: function(response) {
-                        alert(response.message);
-                        location.reload();
-                    },
-                    error: function(xhr) {
-                        alert('Something went wrong!');
-                    }
-                });
-            });
+            //     $.ajax({
+            //         url: '/leave-applications/update-status',
+            //         type: 'POST',
+            //         data: {
+            //             _token: '{{ csrf_token() }}',
+            //             leave_application_id: leaveApplicationId,
+            //             status: status
+            //         },
+            //         success: function(response) {
+            //             alert(response.message);
+            //             location.reload();
+            //         },
+            //         error: function(xhr) {
+            //             alert('Something went wrong!');
+            //         }
+            //     });
+            // });
         })
     </script>
 @endsection

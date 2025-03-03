@@ -134,8 +134,6 @@ Route::get('hrm_leave_types/delete/{id}/',[HrmLeaveTypesController::class,'destr
 Route::resource('hrm_leave_types', HrmLeaveTypesController::class);
 
 
-
-Route::post('/hrm_leave_applications/update_status', [HrmLeaveApplicationsController::class, 'updateStatus']);
 Route::post('/hrm_leave_applications/leaveUpdate', [HrmLeaveApplicationsController::class, 'leaveUpdate']);
 Route::get('hrm_leave_applications/delete/{id}/',[HrmLeaveApplicationsController::class,'destroy'] );
 Route::resource('hrm_leave_applications', HrmLeaveApplicationsController::class);
