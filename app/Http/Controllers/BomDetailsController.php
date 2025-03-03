@@ -6,8 +6,10 @@ use App\Models\Bom;
 use App\Models\BomDetails;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Product;
 use App\Models\Raw_material;
 use App\Models\Size;
+use App\Models\Uom;
 use Illuminate\Http\Request;
 
 class BomDetailsController extends Controller
@@ -25,8 +27,10 @@ class BomDetailsController extends Controller
      */
     public function create()
     {
-        $boms = Bom::with(['orderDetails.product'])->distinct()->get();
-        return view('pages.production.bom_details.create', compact('boms'));
+        $products = Raw_material::all();
+        $sizes = Size::all();
+        $uoms = Uom::all();
+        return view('pages.production.bom_details.create', compact('products', 'sizes', 'uoms'));
     }
 
     /**

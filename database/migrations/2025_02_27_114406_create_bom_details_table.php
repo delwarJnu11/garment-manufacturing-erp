@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('material_id');
             $table->integer('size_id');
             $table->decimal('quantity_used');
+            $table->integer('uom_id');
             $table->decimal('unit_price');
             $table->decimal('wastage');
             $table->timestamps();
