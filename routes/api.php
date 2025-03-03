@@ -16,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 // Route::get('order_details', [OrderDetailsController::class, 'index']);
 Route::get('order', [OrderDetailsController::class, 'index']);
 // purchaseOrder  Api
-Route::resource('purchase', PurchaseOrderController::class);
+Route::post('purchase',[ PurchaseOrderController::class,'store']);

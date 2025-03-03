@@ -13,8 +13,6 @@ class PurchaseOrder extends Model
 
     protected $fillable = [
         'supplier_id',
-        'product_id',
-        'product_lot_id', // Make sure this is included
         'status_id',
         'total_amount',
         'paid_amount',
@@ -22,8 +20,9 @@ class PurchaseOrder extends Model
         'vat',
         'delivery_date',
         'shipping_address',
-        'description', // Nullable field
+        'description',
     ];
+    
 
     public function inv_supplier(): BelongsTo
     {
@@ -36,10 +35,10 @@ class PurchaseOrder extends Model
         return $this->belongsTo(ProductLot::class, 'lot_id');
     }
 
-    public function product(): BelongsTo
-    {
-        return $this->belongsTo(Product::class, 'product_id'); // Corrected foreign key
-    }
+    // public function product(): BelongsTo
+    // {
+    //     return $this->belongsTo(Product::class, 'product_id'); // Corrected foreign key
+    // }
 
     public function purchase_status(): BelongsTo
     {

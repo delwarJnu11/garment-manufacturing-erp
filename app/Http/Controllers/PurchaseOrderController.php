@@ -20,7 +20,7 @@ class PurchaseOrderController extends Controller
     public function index()
     {
         // $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status', 'product_variant'])->paginate(5);
-        $purchase_orders = PurchaseOrder::with(['product', 'inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);;
+        $purchase_orders = PurchaseOrder::with([ 'inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);;
 
         return view('pages.purchase_&_supliers.purchase_order.index', compact('purchase_orders'));
     }

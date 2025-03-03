@@ -24,7 +24,7 @@ class StockController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resouzrce.
      */
     public function create()
     {

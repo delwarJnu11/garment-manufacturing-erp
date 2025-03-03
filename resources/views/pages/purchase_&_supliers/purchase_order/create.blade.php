@@ -116,7 +116,7 @@
                             <div class="row mt-4">
                                 <div class="col-md-6">
 
-                                    <p><strong>Delivery Address:</strong></p>
+                                    <p><strong >Delivery Address: </strong> <span >123 Factory Road, City Road, Bangladesh</span></p>
                                     <p><strong>Notes:</strong> Urgent delivery required.</p>
                                 </div>
                                 <div class="col-md-6 text-end">
@@ -148,7 +148,7 @@
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script>
         $(function() {
-            const purchae = new Cart('purchase');
+            const cart = new Cart('purchase');
             printCart();
             // Fetch invoice ID from backend
             $.ajax({
@@ -228,8 +228,8 @@
                     success: function(res) {
                         console.log(res.product);
                         if (res.product) {
-                            $(".p_price").val(res.product?.unit_price);
-                            $(".p_qty").val(res?.product.qty);
+                            $(".p_price").val(res.product.unit_price);
+                            $(".p_qty").val(res.product.qty);
                         }
                     },
                     error: function(error) {
@@ -241,9 +241,7 @@
 
             $('.add-card-btn').on('click', function() {
                 let item_id = $("#product_id").val();
-
-                let name = $("#product_id option:selected").text().trim();
-
+                let name = $("#product_id option:selected").text();
                 let price = parseFloat($(".p_price").val()) || 0;
                 let qty = parseFloat($(".p_qty").val()) || 0;
                 let discount = parseFloat($(".p_discount").val()) || 0;
@@ -268,23 +266,24 @@
                 };
 
                 console.log(item);
-                ourchase.save(item);
+                cart.save(item);
                 printCart();
+                parseFloat($(".p_price").val(""));
+                 parseFloat($(".p_qty").val(""));
+                 parseFloat($(".p_discount").val("")) ;
+                parseFloat($(".p_vat").val("")) ;
+
+                
             });
 
             function printCart() {
-                let cartItems = purchae.getCart();
-                if (cartItems) {
-
-                    let htmldata = "";
-                    let discount = 0;
-                    let subtotal = 0;
-                    let totalVat = 0;
-                    let grandTotal = 0;
-                    let htmlData = "";
-                }
+                let cartItems = cart.getCart();
                 console.log(cartItems);
-
+                let discount = 0;
+                let subtotal = 0;
+                let totalVat = 0;
+                let grandTotal = 0;
+                let htmlData = "";
 
                 if (cartItems) {
                     cartItems.forEach(element => {
@@ -320,7 +319,7 @@
                 }
             }
 
-            $(".remove").on('click', function() {
+            $("tbody").on('click','.remove', function() {
                 let id = $(this).attr('data');
                 cart.delItem(id);
                 printCart();
@@ -334,13 +333,16 @@
                 let items = cart.getCart().length
                 $(".cartIcon").html(items);
             }
+
+
             $('.process_btn').on('click', function() {
+
                 let supplier_id = $("#supplier_id").val();
                 let purchase_total = parseFloat($('.grand_total').text().replace('$', ''));
                 let paid_amount = parseFloat($('.grand_total').text().replace('$', ''));
                 let discount = parseFloat($('.discount').text().replace('-$', ''));
                 let vat = parseFloat($('.vat').text().replace('+$', ''));
-                let products = purchase.getCart();
+                let products = cart.getCart();
 
                 // Ensure numbers are properly formatted
                 if (isNaN(purchase_total)) purchase_total = 0;
@@ -357,24 +359,50 @@
                     products
                 });
 
+                // $.ajax({
+                //     url: "{{ url('api/purchase') }}",
+                //     type: "POST",
+                //     contentType: "application/json",
+                //     data: JSON.stringify({
+                //         _token: '{{ csrf_token() }}',
+                //         supplier_id: supplier_id,
+                //         total_amount: purchase_total, 
+                //         paid_amount: paid_amount,
+                //         discount: discount,
+                //         vat: vat,
+                //         products: JSON.stringify(products)
+                //     }),
+                //     success: function(res) {
+                //         console.log("API Response:", res);
+                //     },
+                //     error: function(xhr, status, error) {
+                //         console.log("API Error:", xhr
+                //         .responseText); 
+                //     }
+                // });
                 $.ajax({
                     url: "{{ url('api/purchase') }}",
                     type: "POST",
-                    data: {
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        _token: '{{ csrf_token() }}',
                         supplier_id: supplier_id,
-                        purchase_total: purchase_total,
+                        total_amount: purchase_total,
                         paid_amount: paid_amount,
                         discount: discount,
                         vat: vat,
-                        products: products,
-                    },
+                        products: products 
+                    }),
                     success: function(res) {
                         console.log("API Response:", res);
                     },
                     error: function(xhr, status, error) {
-                        console.log("API Error:", error);
+                        console.log("API Error:", xhr.responseText);
                     }
                 });
+
+
+
             });
 
 
@@ -388,7 +416,6 @@
             //     let discount = $('.discount').text();
             //     let vat = $('.vat').text();
             //     let products = cart.getCart();
-
             //     // const newItems = products.map(item => ({
             //     //     product_id: item.item_id,
             //     //     discount: item.p_discount,

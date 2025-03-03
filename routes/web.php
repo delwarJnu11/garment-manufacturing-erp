@@ -179,7 +179,6 @@ Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
 Route::resource('/purchase', PurchaseOrderController::class);
 
 
-
 /*
  *  Orders & Buyers
  */
@@ -188,6 +187,7 @@ Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
+
 
 Route::get('orders', [OrderDetailsController::class, 'index']);
 /**
