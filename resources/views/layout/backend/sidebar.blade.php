@@ -138,20 +138,21 @@
                 <!-- 🔸 Suppliers & Purchase -->
                 <li class="submenu">
                     <x-nav-link :active="request()->is('suppliers*') ||
-                        request()->is('purchase_orders*') ||
+                        request()->is('purchase*') ||
                         request()->is('payments/suppliers') ||
-                        request()->is('purchase_orders/create') ||
-                        request()->is('reports/purchases')">Suppliers & Purchases</x-nav-link>
+                        request()->is('purchase/create') ||
+                        request()->is('purchaseState')|| request()->is('reports/purchases')">Suppliers & Purchases</x-nav-link>
                     <ul>
                         <li>
                             <x-link href="{{ url('/suppliers') }}" :active="request()->is('suppliers')">Suppliers</x-link>
                         </li>
                         <li>
-                            <x-link href="{{ url('/purchase_orders') }}" :active="request()->is('purchase_orders')">Purchase Orders</x-link>
+                            <x-link href="{{ url('/purchase') }}" :active="request()->is('purchase')">Purchase Orders</x-link>
                         </li>
                         <li>
-                            <x-link href="{{ route('purchase_orders.create') }}" :active="request()->is('/purchase_orders/create')">Create Purchase </x-link>
+                            <x-link href="{{ route('purchase.create') }}" :active="request()->is('/purchase/create')">Create Purchase </x-link>
                         </li>
+                        <li><x-link href="{{ url('/purchaseState') }}" :active="request()->is('payments/suppliers')">Purchase State</x-link></li>
                         <li><x-link href="{{ url('/payments/suppliers') }}" :active="request()->is('payments/suppliers')">Payments</x-link></li>
                         <li><x-link href="{{ url('/reports/purchases') }}" :active="request()->is('reports/purchases')">Purchase
                                 Reports</x-link></li>

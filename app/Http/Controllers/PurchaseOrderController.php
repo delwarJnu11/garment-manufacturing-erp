@@ -9,6 +9,7 @@ use App\Models\ProductVariant;
 use App\Models\Purchase_status;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrders;
+use App\Models\PurchaseStatus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -17,13 +18,23 @@ class PurchaseOrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status', 'product_variant'])->paginate(5);
-        $purchase_orders = PurchaseOrder::with([ 'inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);;
+        // Retrieve all available states for the dropdown
+        $states = PurchaseStatus::all();
 
-        return view('pages.purchase_&_supliers.purchase_order.index', compact('purchase_orders'));
+
+        // Default to 'Pending' if not selected
+        $selectedState = $request->input('state', 1);
+
+        // Fetch purchase orders based on the selected state
+        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])
+            ->where('status_id', $selectedState)
+            ->paginate(10);
+
+        return view('pages.purchase_&_supliers.purchase_order.index', compact('purchase_orders', 'states', 'selectedState'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -43,7 +54,7 @@ class PurchaseOrderController extends Controller
     {
         $suppliers = InvSupplier::all();
         $lots = ProductLot::all();
-        $statuses = Purchase_status::all();
+        $statuses = PurchaseStatus::all();
         // Fetch only Product Variants with product_type_id = 1 (Raw Material)
         $products = Product::whereHas('product_type', function ($query) {
             $query->where('id', 1)->orWhere('name', 'Raw Material');
@@ -74,6 +85,12 @@ class PurchaseOrderController extends Controller
         $formattedInvoiceId = "INV-" . str_pad($newInvoiceId, 6, "0", STR_PAD_LEFT);
 
         return response()->json(['invoice_id' => $formattedInvoiceId]);
+    }
+    public function purchaseConfirm()
+    {
+        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);;
+
+        return view('pages.purchase_&_supliers.purchase_order.', compact('purchase_orders'));
     }
 
 

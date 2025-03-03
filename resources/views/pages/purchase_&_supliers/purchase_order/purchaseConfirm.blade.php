@@ -14,7 +14,7 @@
 
 
     <div class="card flex-fill">
-        <x-page-header heading="Purchase Orders" btnText="Create Purchase Order" href="{{ url('purchase_orders/create') }}" />
+        <x-page-header heading="Purchase Orders" btnText="Create Purchase Order" href="{{ url('purchase/create') }}" />
 
         <table class="table table-striped table-bordered">
             <thead class="thead-primary">
@@ -45,13 +45,13 @@
                         {{-- <td>{{ $order->description ?? 'N/A' }}</td> --}}
                        
                         <td class="action-table-data">
-                            <a href="{{ route('purchase_orders.show', $order->id) }}">
+                            <a href="{{ route('purchase.show', $order->id) }}">
                                 <i data-feather="eye" class="feather-eye"></i>
                             </a>
-                            <a href="{{ route('purchase_orders.edit', $order->id) }}">
+                            <a href="{{ route('purchase.edit', $order->id) }}">
                                 <i data-feather="edit" class="feather-edit"></i>
                             </a>
-                            <form action="{{ route('purchase_orders.destroy', $order->id) }}" method="POST" style="margin-bottom: 0">
+                            <form action="{{ route('purchase.destroy', $order->id) }}" method="POST" style="margin-bottom: 0">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="confirm-text" style="padding: 2px; background: transparent; border: none; width: 30px; color: red">

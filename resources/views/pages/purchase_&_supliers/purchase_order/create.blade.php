@@ -385,7 +385,7 @@
                     type: "POST",
                     contentType: "application/json",
                     data: JSON.stringify({
-                        _token: '{{ csrf_token() }}',
+                        // _token: '{{ csrf_token() }}',
                         supplier_id: supplier_id,
                         total_amount: purchase_total,
                         paid_amount: paid_amount,
@@ -394,7 +394,13 @@
                         products: products 
                     }),
                     success: function(res) {
-                        console.log("API Response:", res);
+                        if(res.success){
+                            console.log("API Response:", res);
+                            window.location.href= res.redirect_url
+                        }else{
+                            alert("Error"+res.message)
+                        }
+                    
                     },
                     error: function(xhr, status, error) {
                         console.log("API Error:", xhr.responseText);

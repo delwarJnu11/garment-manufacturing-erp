@@ -172,11 +172,13 @@ Route::resource('uoms', UOMController::class);
 
 Route::resource('valuations', ValuationMethodsController::class);
 Route::resource('product_lots', ProductlotController::class);
-Route::resource('purchase_orders', PurchaseOrderController::class);
+Route::resource('purchase', PurchaseOrderController::class);
 Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
 Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
 Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
-Route::resource('/purchase', PurchaseOrderController::class);
+// Route::get('/purchaseState', [PurchaseOrderController::class,])->name('purchaseState.index');
+Route::get('/purchaseState', [PurchaseOrderController::class, 'index'])->name('purchaseState.index');
+
 
 
 /*

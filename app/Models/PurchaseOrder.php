@@ -22,7 +22,7 @@ class PurchaseOrder extends Model
         'shipping_address',
         'description',
     ];
-    
+
 
     public function inv_supplier(): BelongsTo
     {
@@ -42,6 +42,6 @@ class PurchaseOrder extends Model
 
     public function purchase_status(): BelongsTo
     {
-        return $this->belongsTo(Purchase_status::class, 'status_id');
+        return $this->belongsTo(PurchaseStatus::class, 'status_id');
     }
 }

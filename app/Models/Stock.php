@@ -11,6 +11,7 @@ class Stock extends Model
         'warehouse_id',
         'transaction_type_id',
         'quantity',
+        'lot_id',
         'total_value'
     ];
 
@@ -27,5 +28,4 @@ class Stock extends Model
     {
         return $this->belongsTo(TransactionType::class, 'transaction_type_id');
     }
-    
 }
