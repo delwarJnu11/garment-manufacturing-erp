@@ -12,13 +12,13 @@
                         <tr>
                             <th>Id</th>
                             <th>Employee Name</th>
-                            <th>Type Name</th>
+                            <th>Leave Type</th>
                             <th>Apply Date</th>
                             <th>Leave Start Date</th>
                             <th>Leave End Date</th>
                             <th>Total Days</th>
-                            <th>Duration</th>
                             <th>Leave Status</th>
+                            <th>Duration</th>
                             <th>Leave Reason</th>
                             <th>Application Form</th>
                             <th class="no-sort">Action</th>
@@ -34,7 +34,6 @@
                                 <td>{{ $application->start_date }}</td>
                                 <td>{{ $application->end_date }}</td>
                                 <td>{{ $application->number_of_days }}</td>
-                                <td>{{ $application->duration }}</td>
 
                                @php
                                 if ($application->statuses_id==5) {
@@ -45,7 +44,7 @@
                                     $x = "success";
                                 } else{
                                     $lStatus = "Pending";
-                                    $x = "info";
+                                    $x = "warning";
                                 };
                                     if (Auth::user()->isAdmin()) {
                                         echo "
@@ -57,11 +56,11 @@
                                     </select>
                                     </td>";
                                     } else {
-                                        echo "<td><span class='p-2 badge bg-soft-$x'>$lStatus</span></td>";
-                                        echo "<td><span class='p-2 badge bg-soft-$class'>$lStatus</span></td>";
+                                        echo "<td><span class='p-2 badge bg-$x'>$lStatus</span></td>";
                                     }
 
                                 @endphp
+                                <td>{{ $application->duration }}</td>
                                 <td>{{ $application->reason }}</td>
                                 <td>{{ $application->photo }}</td>
                                 <td class="action-table-data">
@@ -112,7 +111,6 @@
     <script>
 
         $(document).ready(function() {
-            // Admins leaveApplication approve btn
             $('.leaveStatus').on('change', function(){
 
                 let val = $(this).val();

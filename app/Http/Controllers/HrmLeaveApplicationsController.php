@@ -188,22 +188,6 @@ class HrmLeaveApplicationsController extends Controller
             $leaveStatus = 8;
         }
 
-        // $attendences = Hrm_attendances_lists::find($id);
-        // $attendences->employee_id = $request->employee_id;
-        // $attendences->date = $request->date;
-        // $attendences->statuses_id = $request->statuses_id;
-        // $attendences->clock_in = $request->clock_in;
-        // $attendences->clock_out = $request->clock_out;
-        // $attendences->late_days = $request->late_days;
-        // $attendences->leave_days = $request->leave_days;
-        // $attendences->late_times = $request->late_times;
-        // $attendences->leave_times = $request->leave_times;
-        // $attendences->overtime_hours = $request->overtime_hours;
-
-        // if ($attendences->save()) {
-        //     return redirect('hrm_attendance_list')->with('success', 'attendences has been updated successfully!');
-        // };
-
         $applications = Hrm_leave_applications::find($request->id);
         // $applications->employees_id = $request->employees_id;
         $applications->statuses_id = $leaveStatus;
@@ -218,21 +202,9 @@ class HrmLeaveApplicationsController extends Controller
 
 
 
-    function leaveAttendence(Request $request, Hrm_leave_applications $Hrm_leave_applications)
-    {
+    
 
-        $attendance_id = Auth::user()->id;
-        $attendance = Hrm_attendances_lists::where('attendance_id', $attendance_id)
-            ->orderBy('id', 'desc')
-            ->first();
 
-        $attendences = Hrm_attendances_lists::find($attendance->id);
-        $attendences->leave_days = $request->leave_days;
-
-        if ($attendences->save()) {
-            Hrm_attendances_lists::find($attendance->id);
-        };
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -247,47 +219,7 @@ class HrmLeaveApplicationsController extends Controller
     }
 
 
-    public function updateStatus(Request $request, $id)
-    {
-        $applications = Hrm_leave_applications::find($id);
-
-        if ($request->status === 'approved') {
-            $applications->statuses_id = 8; // Approved
-        } else {
-            $applications->statuses_id = 9; // Rejected
-        }
-
-        if ($applications->save()) {
-            return redirect('hrm_leave_applications')->with('success', 'Leave Application has been updated successfully!');
-        };
-    }
 
 
-    public function LeaveTotalDays(Request $request, $id)
-    {
-        // Get the leave application data from the form request
-        $leaveApplication = Hrm_leave_applications::find($id);
 
-        // Calculate leave days
-        $leaveDays = $leaveApplication->number_of_days;
-
-        // Loop through the days and add leave to attendance list
-        $startDate = $leaveApplication->start_date;
-        $endDate = $leaveApplication->end_date;
-
-        // Loop over the range of dates
-        $dates = \Carbon\Carbon::parse($startDate)->toPeriod($endDate, '1 day');
-
-        foreach ($dates as $date) {
-            $attendance = Hrm_attendances_lists::firstOrCreate(
-                ['employee_id' => $leaveApplication->employee_id, 'date' => $date],
-                ['leave_days' => $leaveDays]
-            );
-            // You can also update other attendance fields if necessary
-            $attendance->leave_days += $leaveDays; // Add the leave days to the attendance
-            $attendance->save();
-        }
-
-        return response()->json(['message' => 'Leave days successfully applied to attendance.']);
-    }
 }
