@@ -31,17 +31,17 @@ class PurchaseOrderController extends Controller
             'selected_orders' => 'required|array',
             'statuses' => 'required|array'
         ]);
-    
+
         foreach ($request->selected_orders as $orderId) {
             if (isset($request->statuses[$orderId]) && !empty($request->statuses[$orderId])) {
                 PurchaseOrder::where('id', $orderId)
                     ->update(['status_id' => $request->statuses[$orderId]]);
             }
         }
-    
+
         return redirect()->route('purchase.index')->with('success', 'Selected orders updated successfully.');
     }
-    
+
 
     public function purchaseConfirm()
     {
@@ -55,15 +55,6 @@ class PurchaseOrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    // public function create()
-    // {
-
-
-    //     $suppliers = InvSupplier::all();
-    //     // dd($suppliers);
-    //     $product_variants = ProductVariant::all();
-    //     return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'product_variants'));
-    // }
 
 
     public function create()

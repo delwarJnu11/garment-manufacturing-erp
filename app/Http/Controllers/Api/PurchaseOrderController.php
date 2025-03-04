@@ -10,6 +10,7 @@ use App\Models\Stock;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 
@@ -44,10 +45,11 @@ class PurchaseOrderController extends Controller
 
 
 
-
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
+
             // Log incoming request for debugging
             Log::info('Received Purchase Data:', $request->all());
 
@@ -58,7 +60,6 @@ class PurchaseOrderController extends Controller
             $validated = $request->validate([
                 'supplier_id' => 'required|exists:inv_suppliers,id',
                 'total_amount' => 'required|numeric',
-                'purchase_date'=>now(),
                 'paid_amount' => 'required|numeric',
                 'discount' => 'sometimes|numeric',
                 'vat' => 'sometimes|numeric',
@@ -72,9 +73,13 @@ class PurchaseOrderController extends Controller
 
             Log::info('Validation Passed:', $validated);
 
+
+            $purchaseDate = now();
+
             // Create Purchase Order
             $purchase = PurchaseOrder::create([
                 'supplier_id' => $request->supplier_id,
+                'purchase_date' => $purchaseDate,
                 'delivery_date' => now()->addDays(7),
                 'shipping_address' => "123 Factory Road, City, Country",
                 'total_amount' => $request->total_amount,
@@ -102,20 +107,20 @@ class PurchaseOrderController extends Controller
                     'product_id' => $product['item_id'],
                     'qty' => $product['qty'],
                     'cost_price' => $product['price'],
-                    'sales_price' => isset($product['sales_price']) ? $product['sales_price'] : 0.0,
+                    'sales_price' => $product['sales_price'] ?? 0.0,
                     'warehouse_id' => 1,
                     'transaction_type_id' => 3,
                     'description' => '',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
-                if ($lot) {
-                    $lastId = $lot->id;
-                } else {
+
+                if (!$lot) {
                     throw new \Exception('Failed to create product_lot id');
                 }
 
-
+                // Assign last inserted lot ID
+                $lastId = $lot->id;
 
                 Stock::create([
                     'product_id' => $product['item_id'],
@@ -128,15 +133,15 @@ class PurchaseOrderController extends Controller
                 ]);
             }
 
-
+            DB::commit();
             return response()->json([
-
                 'success' => true,
                 'message' => 'Purchase order created successfully.',
                 'purchase_order_id' => $purchase->id,
-                'redirect_url' => route('purchase_orders.index'),
+                'redirect_url' => route('purchaseState.index'),
             ], 201);
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error('Error Creating Purchase Order: ', [
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),

@@ -17,14 +17,14 @@ return new class extends Migration
             $table->integer('supplier_id');
             $table->integer('lot_id')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);
-
+            $table->date('purchase_date')->nullable();
             $table->decimal('total_amount', 10, 2)->default(0.00);
             $table->decimal('paid_amount', 10, 2)->default(0.00);
             $table->decimal('discount', 10, 2)->default(0.00); // ✅ FIXED: Column name corrected
             $table->decimal('vat', 10, 2)->default(0.00);
-            $table->date('delivery_date')->nullable(); 
+            $table->date('delivery_date')->nullable();
             $table->string('shipping_address', 255)->nullable();
-            $table->text('description')->nullable(); 
+            $table->text('description')->nullable();
             $table->timestamps(0);
         });
 

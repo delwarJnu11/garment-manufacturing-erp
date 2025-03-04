@@ -9,6 +9,7 @@
             <th>#</th>
             <th>Name</th>
             <th>Product Type</th>
+            <th>Category Type</th>
             <th>SKU</th>
            
             <th>Size</th>
@@ -26,6 +27,9 @@
             {{$product['name']}}</td>
         <td>
             {{$product->product_type->name}}
+        </td>
+        <td>
+            {{$product->Category_type->name ?? 'N/A'}}
         </td>
         <td>
             {{$product['sku']}}

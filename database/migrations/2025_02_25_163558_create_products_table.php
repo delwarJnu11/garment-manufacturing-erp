@@ -52,6 +52,42 @@ return new class extends Migration
             'uom_id' => 1,
             'unit_price' => 30.00
         ]);
+        Product::create([
+            'name' => 'Denim fabric ',
+            'product_type_id' => 1, // Example: 2 for Finished Goods
+
+            'sku' => 'WSH-L-004',
+            'qty' => 62,
+            'uom_id' => 1,
+            'unit_price' => 30.00
+        ]);
+        Product::create([
+            'name' => 'Dyes & Pigments ',
+            'product_type_id' => 1, // Example: 2 for Finished Goods
+
+            'sku' => 'D-L-004',
+            'qty' => 22,
+            'uom_id' => 1,
+            'unit_price' => 30.00
+        ]);
+        Product::create([
+            'name' => 'Labels & Tags ',
+            'product_type_id' => 1, // Example: 2 for Finished Goods
+
+            'sku' => 'DL-004',
+            'qty' => 20,
+            'uom_id' => 1,
+            'unit_price' => 30.00
+        ]);
+        Product::create([
+            'name' => 'Carton boxes ',
+            'product_type_id' => 1, // Example: 2 for Finished Goods
+
+            'sku' => 'CL-004',
+            'qty' => 20,
+            'uom_id' => 1,
+            'unit_price' => 30.00
+        ]);
     }
 
     /**
