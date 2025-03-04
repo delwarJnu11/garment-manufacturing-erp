@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PurchaseOrderDetail;
+use App\Models\MovementType;
 use Illuminate\Http\Request;
 
-class PurchaseOrderDetailsController extends Controller
+class MovementTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $purchase_details = PurchaseOrderDetail::with('')->paginate(5);
-        return view('pages.purchase_&_supliers.purchase_orderDetail.blade.php.index', compact('purchase_details'));
+       $movementTypes=  MovementType::all();
+       return view();
     }
 
     /**
@@ -23,7 +23,6 @@ class PurchaseOrderDetailsController extends Controller
     {
         //
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +35,7 @@ class PurchaseOrderDetailsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PurchaseOrderDetail $purchase_order_details)
+    public function show(MovementType $movementType)
     {
         //
     }
@@ -44,7 +43,7 @@ class PurchaseOrderDetailsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PurchaseOrderDetail $purchase_order_details)
+    public function edit(MovementType $movementType)
     {
         //
     }
@@ -52,8 +51,7 @@ class PurchaseOrderDetailsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PurchaseOrderDetail
-    $purchase_order_details)
+    public function update(Request $request, MovementType $movementType)
     {
         //
     }
@@ -61,7 +59,8 @@ class PurchaseOrderDetailsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PurchaseOrderDetail $purchase_order_details) {}
-
-    public function find_supplier() {}
+    public function destroy(MovementType $movementType)
+    {
+        //
+    }
 }

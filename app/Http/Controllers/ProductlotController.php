@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ProductController;
+
 use App\Models\Product_lot;
 use App\Models\ProductLot;
 use Illuminate\Http\Request;
@@ -14,16 +16,31 @@ class ProductlotController extends Controller
     public function index()
     {
         $product_lots = ProductLot::paginate(5);
+        $product_lots->load(['product', 'warehouse', 'transactionType']); // Load relationships after query execution
+
         return view('pages.purchase_&_supliers.product_lot.index', compact('product_lots'));
     }
+
+
+
+
+    // public function index()
+    // {
+    //     $product_lots = ProductLot::with(['productVariant', 'warehouse'])->paginate(5);
+
+    //     // Debug data before passing to view
+    //     foreach ($product_lots as $lot) {
+    //         dump($lot->product_variant);
+    //         dump($lot->warehouse);
+    //     }
+    //     dd($product_lots); // Stop execution to see full data
+    // }
+
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.

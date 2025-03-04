@@ -2,28 +2,36 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
-    use HasFactory;
-
-    protected $fillable = ['name', 'sku', 'description', 'barcode', 'category_id', 'uom_id', 'photo'];
-
-
-    function category(): BelongsTo
+    // Define the fillable columns for mass assignment
+    protected $fillable = [
+        'name',
+        'product_type_id',
+        'size_id',
+        'sku',
+        'qty',
+        'uom_id',
+        'unit_price',
+    ];
+    function PurchaseDetail()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->hasMany(PurchaseOrderDetail::class, 'purchase_id', 'id');
     }
 
+    function product_type(): BelongsTo
+    {
+        return $this->belongsTo(ProductType::class, 'product_type_id');
+    }
+    function size(): BelongsTo
+    {
+        return $this->belongsTo(Size::class, 'size_id');
+    }
     function uom(): BelongsTo
     {
         return $this->belongsTo(Uom::class, 'uom_id');
     }
-    // function valuation_method(): BelongsTo
-    // {
-    //     return $this->belongsTo(Valuation_methods::class, 'valuation_method_id');
-    // }
 }
