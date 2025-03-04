@@ -450,7 +450,7 @@ $(document).ready(function () {
     }
 
     // Sidebar Initiate
-    // init();
+    init();
     $(document).on("mouseover", function (e) {
         e.stopPropagation();
         if (

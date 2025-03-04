@@ -28,6 +28,7 @@
                                     </li>
                                 </ul>
                             </li>
+                            @endif
                             <!--START 🔸 Order & Customers -->
                             <li class="submenu">
                                 <x-nav-link :active="request()->is('orders*') || request()->is('buyers*')">Orders & Buyers</x-nav-link>

@@ -52,15 +52,9 @@ use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
-<<<<<<< HEAD
-use App\Models\Hrm_leave_types;
-use Illuminate\Support\Facades\Auth;
-use App\Models\ProductType;
-=======
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseReportController;
 use App\Http\Controllers\PurchaseStateController;
->>>>>>> d2eeecfdfaf72308a6f30d7bdbd32cc7fbd31488
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -215,7 +209,7 @@ Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
 Route::get('/purchaseState', [PurchaseStateController::class, 'index'])->name('purchaseState.index');
 Route::post('/purchase/updateStatus', [PurchaseOrderController::class, 'updateStatus'])->name('purchase.updateStatus');
 
-// Report 
+// Report
 Route::get('/purchase-report',[PurchaseReportController::class,'index']);
 Route::post('/purchase-report',[PurchaseReportController::class,'show']);
 
