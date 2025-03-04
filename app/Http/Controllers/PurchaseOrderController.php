@@ -20,21 +20,37 @@ class PurchaseOrderController extends Controller
      */
     public function index(Request $request)
     {
-        // Retrieve all available states for the dropdown
-        $states = PurchaseStatus::all();
+        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);
 
-
-        // Default to 'Pending' if not selected
-        $selectedState = $request->input('state', 1);
-
-        // Fetch purchase orders based on the selected state
-        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])
-            ->where('status_id', $selectedState)
-            ->paginate(10);
-
-        return view('pages.purchase_&_supliers.purchase_order.index', compact('purchase_orders', 'states', 'selectedState'));
+        return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('purchase_orders'));
     }
 
+    public function updateStatus(Request $request)
+    {
+        $request->validate([
+            'selected_orders' => 'required|array',
+            'statuses' => 'required|array'
+        ]);
+    
+        foreach ($request->selected_orders as $orderId) {
+            if (isset($request->statuses[$orderId]) && !empty($request->statuses[$orderId])) {
+                PurchaseOrder::where('id', $orderId)
+                    ->update(['status_id' => $request->statuses[$orderId]]);
+            }
+        }
+    
+        return redirect()->route('purchase.index')->with('success', 'Selected orders updated successfully.');
+    }
+    
+
+    public function purchaseConfirm()
+    {
+        $confirmedOrders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])
+            ->where('status_id', 2) // Assuming '2' is the ID for 'Confirmed'
+            ->paginate(10);
+
+        return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('confirmedOrders'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -86,12 +102,7 @@ class PurchaseOrderController extends Controller
 
         return response()->json(['invoice_id' => $formattedInvoiceId]);
     }
-    public function purchaseConfirm()
-    {
-        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);;
 
-        return view('pages.purchase_&_supliers.purchase_order.', compact('purchase_orders'));
-    }
 
 
 

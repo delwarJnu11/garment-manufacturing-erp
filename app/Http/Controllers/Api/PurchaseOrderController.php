@@ -58,6 +58,7 @@ class PurchaseOrderController extends Controller
             $validated = $request->validate([
                 'supplier_id' => 'required|exists:inv_suppliers,id',
                 'total_amount' => 'required|numeric',
+                'purchase_date'=>now(),
                 'paid_amount' => 'required|numeric',
                 'discount' => 'sometimes|numeric',
                 'vat' => 'sometimes|numeric',

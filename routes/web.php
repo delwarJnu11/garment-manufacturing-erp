@@ -49,6 +49,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseReportController;
+use App\Http\Controllers\PurchaseStateController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -177,8 +179,12 @@ Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
 Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
 Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
 // Route::get('/purchaseState', [PurchaseOrderController::class,])->name('purchaseState.index');
-Route::get('/purchaseState', [PurchaseOrderController::class, 'index'])->name('purchaseState.index');
+Route::get('/purchaseState', [PurchaseStateController::class, 'index'])->name('purchaseState.index');
+Route::post('/purchase/updateStatus', [PurchaseOrderController::class, 'updateStatus'])->name('purchase.updateStatus');
 
+// Report 
+Route::get('/purchase-report',[PurchaseReportController::class,'index']);
+Route::post('/purchase-report',[PurchaseReportController::class,'show']);
 
 
 /*

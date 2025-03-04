@@ -14,7 +14,7 @@
 
 
     <div class="card flex-fill">
-        <x-page-header heading="Purchase Orders" btnText="Create Purchase Order" href="{{ url('purchase/create') }}" />
+        <x-page-header heading="Purchase Orders" btnText="Create Purchase Order" href="{{ url('purchase_orders/create') }}" />
 
         <table class="table table-striped table-bordered">
             <thead class="thead-primary">
@@ -24,6 +24,7 @@
                     <th>Supplier</th>
                     <th>Lot</th>
                     <th>Status</th>
+                   
                     <th>Delivery Date</th>
                     <th>Shipping Address</th>
                     {{-- <th>Description</th> --}}
@@ -38,8 +39,15 @@
                         <td>{{ $order->inv_supplier->first_name.' '. $order->inv_supplier->last_name ?? 'N/A' }}</td>
                         
                         <td>{{ $order->product_lot->id ?? 'N/A' }}</td>
-                        <td>{{ $order->purchase_status->name ?? 'N/A' }}</td>
-                     
+                        {{-- <td>{{ $order->purchase_status->name ?? 'N/A' }}</td> --}}
+                        <td>
+                            @if ($order->status_id == 2)
+                                <span class="badge badge-success">{{ $order->purchase_status->name }}</span>
+                            @else
+                                {{ $order->purchase_status->name ?? 'N/A' }}
+                            @endif
+                        </td>
+                        
                         <td>{{ $order->delivery_date ?? 'N/A' }}</td>
                         <td>{{ $order->shipping_address ?? 'N/A' }}</td>
                         {{-- <td>{{ $order->description ?? 'N/A' }}</td> --}}

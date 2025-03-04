@@ -18,6 +18,7 @@ class PurchaseOrder extends Model
         'paid_amount',
         'discount',
         'vat',
+        'purchase_date',
         'delivery_date',
         'shipping_address',
         'description',

@@ -9,5 +9,5 @@ class PurchaseStatus extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description']; // ✅ Add this line
+    protected $fillable = ['name', 'description'];
 }
