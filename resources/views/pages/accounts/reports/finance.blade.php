@@ -1,6 +1,6 @@
 @extends('layout.backend.main')
 @section('page_content')
-<div class="container mt-5">
+<div class="">
     <div class="text-center mb-4">
         <h1>Financial Statements</h1>
         <p class="lead">An overview of the company's financial health.</p>
@@ -16,6 +16,9 @@
         </li>
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="cash-flow-tab" data-bs-toggle="tab" href="#cash-flow" role="tab" aria-controls="cash-flow" aria-selected="false">Cash Flow Statement</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="chartOfAccounts-tab" data-bs-toggle="tab" href="#chartOfAccounts" role="tab" aria-controls="chartOfAccounts" aria-selected="false">Chart Of Account</a>
         </li>
     </ul>
 
@@ -136,6 +139,50 @@
                 </tbody>
             </table>
         </div>
+        <!-- Chart Of Accounts Tab -->
+        <div class="tab-pane fade" id="chartOfAccounts" role="tabpanel" aria-labelledby="chartOfAccounts-tab">
+            <h4 class="mb-1">Chart Of Accounts</h4>
+            <a href="{{ route('chart.of.accounts.pdf') }}" class="btn btn-danger mb-3">Print PDF</a>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th colspan="1">Code</th>
+                                <th colspan="4">Account Name</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($groups as $group)
+                            <tr class="table-primary">
+                                <td colspan="1"><strong>{{ $group->code }}</strong></td>
+                                <td colspan="4"><strong>{{ $group->name }} ({{ $group->code }})</strong></td>
+                            </tr>
+                            @foreach($group->accounts as $account)
+                            <tr>
+                                <td colspan="1">{{ $account->code }}</td>
+                                <td colspan="4">{{ $account->name }}( {{ $account->code }})</td>
+                            </tr>
+                            @endforeach
+                            @foreach($group->children as $child)
+                            <tr class="table-secondary">
+                                <td colspan="1"><strong>{{ $child->code }}</strong></td>
+                                <td colspan="4"><strong>{{ $child->name }} ({{ $child->code }})</strong></td>
+                            </tr>
+                            @foreach($child->accounts as $account)
+                            <tr>
+                                <td colspan="1">{{ $account->code }}</td>
+                                <td colspan="4">{{ $account->name }} ({{ $account->code }})</td>
+                            </tr>
+                            @endforeach
+                            @endforeach
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal for showing details -->
@@ -159,6 +206,7 @@
 
 </div>
 
+@endsection
 @section('script')
 <script>
     // Example of jQuery for interaction

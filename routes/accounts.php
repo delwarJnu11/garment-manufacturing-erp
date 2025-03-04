@@ -19,4 +19,6 @@ Route::prefix('reports')->group(function(){
     Route::get('finance', function(){ return view('pages.accounts.reports.finance'); });
     Route::get('receivable-payable', function(){ return view('pages.accounts.reports.repa'); });
     Route::get('GeneralLedgerReports', function(){ return view('pages.accounts.reports.ledger'); });
+    Route::get('chartofaccount', [ChartOfAccountController::class, 'index']);
+    Route::get('/chartofaccount/pdf', [ChartOfAccountController::class, 'printPdf'])->name('chart.of.accounts.pdf');
 });
