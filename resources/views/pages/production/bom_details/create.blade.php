@@ -42,7 +42,7 @@
                             <x-input-error :messages="$errors->get('quantity_used')" class="mt-2" />
                         </div>
                         <div class="col-md-2 mb-3">
-                            <label class="form-label">Size</label>
+                            <label class="form-label">Unit</label>
                             <select name="uom_id" class="form-select" id="uom_dropdown">
                                 <option value="">Select Unit</option>
                                 @forelse ($uoms as $uom)
@@ -75,12 +75,30 @@
                     </div>
                 </form>
                 <table class="table table-bordered" id="order-items-table">
+                    <thead>
+                        <tr>
+                            <th>Material Name</th>
+                            <th>Size</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                            <th>Unit Price</th>
+                            <th>Wastage</th>
+                            <th>Sub Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
                     <tbody id="data-append">
 
                     </tbody>
+                    <tbody>
+                        <tr>
+                            <td colspan="6" class="text-end">Total</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
                 </table>
                 <div class="d-flex justify-content-end mt-3">
-                    <button type="btn" id="create_btn" class="btn btn-primary">Create Order</button>
+                    <button type="btn" id="create_btn" class="btn btn-primary">Create BOM</button>
                 </div>
             </div>
         </div>
@@ -94,25 +112,24 @@
     <script>
         $(document).ready(function() {
             $('#material_dropdown').on('change', function() {
-                const material_id = $(this).val();
-                $.ajax({
-                    url: "http://127.0.0.1:8000/api/raw_material",
-                    type: "GET",
-                    contentType: "application/json",
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-                    },
-                    success: function(response) {
-                        if (response.status === 201) {
-                            localStorage.clear();
-                            return window.location.assign('/bom');
+                const materialId = $(this).val();
+                if (materialId) {
+                    $.ajax({
+                        url: `http://127.0.0.1:8000/api/raw_material/${materialId}`,
+                        type: "GET",
+                        contentType: "application/json",
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                        },
+                        success: function(response) {
+                            $("#unit_cost").val(response.cost_per_unit);
+                        },
+                        error: function(xhr) {
+                            console.log(xhr.responseText);
+                            alert("Error saving bom items.");
                         }
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                        alert("Error saving bom items.");
-                    }
-                });
+                    });
+                }
             });
 
             function getBomItems() {
@@ -140,6 +157,7 @@
                             <td>${item.uom_name}</td>
                             <td>${item.unit_cost}</td>
                             <td>${item.wastage}</td>
+                            <td>${parseFloat(item.quantity_used * item.unit_cost)}</td>
                             <td>
                                 <button class="btn btn-danger btn-sm delete-item" data-index="${index}">Delete</button>
                             </td>
@@ -156,15 +174,15 @@
             $('#add_btn').on('click', function(e) {
                 e.preventDefault();
                 // Get values from dropdowns and input
-                const material_id = $("#product_dropdown").val();
-                const material_name = $("#product_dropdown option:selected").text();
+                const material_id = $("#material_dropdown").val();
+                const material_name = $("#material_dropdown option:selected").text();
                 const size_id = $("#size_dropdown").val();
                 const size_name = $("#size_dropdown option:selected").text();
                 const quantity_used = $("#quantity_used").val();
                 const uom_id = $("#uom_dropdown").val();
                 const uom_name = $("#uom_dropdown option:selected").text();
                 const unit_cost = $("#unit_cost").val();
-                const wastage = $("#wastage").val();
+                const wastage = $("#wastage").val() ?? 0;
 
 
                 // Create item object
@@ -212,7 +230,7 @@
             $('#create_btn').on('click', function() {
                 const items = getBomItems();
                 const newItems = items.map(item => ({
-                    product_id: item.product_id,
+                    material_id: item.material_id,
                     size_id: item.size_id,
                     quantity_used: item.quantity_used,
                     uom_id: item.uom_id,
