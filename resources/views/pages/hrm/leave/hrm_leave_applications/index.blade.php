@@ -37,7 +37,6 @@
                                 <td>{{ $application->duration }}</td>
 
                                @php
-
                                 if ($application->statuses_id==5) {
                                     $lStatus = "Rejected";
                                     $x = "danger";
@@ -48,7 +47,6 @@
                                     $lStatus = "Pending";
                                     $x = "info";
                                 };
-
                                     if (Auth::user()->isAdmin()) {
                                         echo "
                                     <td>
@@ -56,17 +54,16 @@
                                         <option class='btn text-white' value='$lStatus'>$lStatus</option>
                                         <option class='btn text-white' value='Approved'>Approved</option>
                                         <option class='btn text-white' value='Rejected'>Rejected</option>
-                                    </select></td>";
+                                    </select>
+                                    </td>";
                                     } else {
                                         echo "<td><span class='p-2 badge bg-soft-$x'>$lStatus</span></td>";
+                                        echo "<td><span class='p-2 badge bg-soft-$class'>$lStatus</span></td>";
                                     }
 
                                 @endphp
-
                                 <td>{{ $application->reason }}</td>
                                 <td>{{ $application->photo }}</td>
-
-
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <a class="me-2 p-2 mb-0"
@@ -98,7 +95,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="14" class="text-center">No positions found.</td>
+                                <td colspan="14" class="text-center">No Application found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -121,7 +118,6 @@
                 let val = $(this).val();
                 let id = $(this).attr('data-id');
 
-                // alert(val + id);
                 $.ajax({
                     url: '/hrm_leave_applications/leaveUpdate',
                     type: 'POST',
@@ -141,25 +137,27 @@
 
             });
 
-            // function leaveAttendenceList() {
-            // $.ajax({
-            //     url: '/hrm_attendance_list/leaveAttendence',
-            //     method: 'POST',
-            //     data: {
-            //         _token: '{{ csrf_token() }}',
-            //         employee_id: {{ Auth::user()->id }},
-            //     },
-            //     success: function(response) {
-            //         console.log(response);
-            //         if (response.status === 'success') {
-            //             //alert(response.message);
-            //         } else {
+
+            // $('.update-status').click(function() {
+            //     let leaveApplicationId = $(this).data('id');
+            //     let status = $(this).data('status');
+
+            //     $.ajax({
+            //         url: '/leave-applications/update-status',
+            //         type: 'POST',
+            //         data: {
+            //             _token: '{{ csrf_token() }}',
+            //             leave_application_id: leaveApplicationId,
+            //             status: status
+            //         },
+            //         success: function(response) {
+            //             alert(response.message);
+            //             location.reload();
+            //         },
+            //         error: function(xhr) {
             //             alert('Something went wrong!');
             //         }
-            //     },
-            //     error: function() {
-            //         alert('An error occurred. Please try again.');
-            //     }
+            //     });
             // });
         })
     </script>

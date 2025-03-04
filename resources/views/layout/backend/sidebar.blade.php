@@ -150,19 +150,6 @@
                         <li class="submenu">
                             <x-nav-link :active="request()->is('hrm*')">HR & Workforce</x-nav-link>
                             <ul>
-                                {{-- <li class="submenu">
-                                    <a href="javascript:void(0);">Department<span class="menu-arrow"></span></a>
-                                    <ul>
-                                        <li><x-link href="{{ url('/inventory/valuation/fifo') }}":active="request()->is('inventory/valuation/fifo')">Department</x-link></li>
-                                        <li><x-link href="{{ url('/inventory/valuation/lifo') }}":active="request()->is('inventory/valuation/lifo')">Sub Department</x-link></li>
-                                    </ul>
-                                </li> --}}
-                                {{-- <li class="submenu">
-                                    <a href="javascript:void(0);">Designation<span class="menu-arrow"></span></a>
-                                    <ul>
-                                        <li><x-link href="{{ url('/inventory/valuation/fifo') }}":active="request()->is('inventory/valuation/fifo')">Designation List</x-link></li>
-                                    </ul>
-                                </li> --}}
                         @endif
 
                                 @if (Auth::user()->isAdmin())
@@ -206,44 +193,44 @@
                                     <li class="submenu">
                                         <a href="javascript:void(0);">Payroll<span class="menu-arrow"></span></a>
                                         <ul>
-                                            <li><x-link href="{{ url('/inventory/valuation/fifo') }}"
-                                                    :active="request()->is('inventory/valuation/fifo')">Salary Advance</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/fifo') }}"
-                                                    :active="request()->is('inventory/valuation/fifo')">Set Salary</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/lifo') }}"
-                                                    :active="request()->is('inventory/valuation/lifo')">Payslip</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Salary Advance</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Set Salary</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Payslip</x-link></li>
                                         </ul>
                                     </li>
 
                                     <li class="submenu">
                                         <a href="javascript:void(0);">Award<span class="menu-arrow"></span></a>
                                         <ul>
-                                            <li><x-link href="{{ url('/inventory/valuation/lifo') }}"
-                                                    :active="request()->is('inventory/valuation/lifo')">Award List</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Award List</x-link></li>
                                         </ul>
                                     </li>
                                     <li class="submenu">
                                         <a href="javascript:void(0);">Recruitment<span class="menu-arrow"></span></a>
                                         <ul>
-                                            <li><x-link href="{{ url('/inventory/valuation/fifo') }}"
-                                                    :active="request()->is('inventory/valuation/fifo')">Candidate List</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/fifo') }}"
-                                                    :active="request()->is('inventory/valuation/fifo')">Interview</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/lifo') }}"
-                                                    :active="request()->is('inventory/valuation/lifo')">Candidate Selection</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Candidate List</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Interview</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Candidate Selection</x-link></li>
                                         </ul>
                                     </li>
                                     <li class="submenu">
                                         <a href="javascript:void(0);">Report<span class="menu-arrow"></span></a>
                                         <ul>
-                                            <li><x-link href="{{ url('/inventory/valuation/fifo') }}"
-                                                    :active="request()->is('inventory/valuation/fifo')">Attendance Report</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/fifo') }}"
-                                                    :active="request()->is('inventory/valuation/fifo')">Leave Report</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/lifo') }}"
-                                                    :active="request()->is('inventory/valuation/lifo')">Employee Report</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/lifo') }}"
-                                                    :active="request()->is('inventory/valuation/lifo')">Payroll</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Attendance Report</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Leave Report</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Employee Report</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Payroll</x-link></li>
                                         </ul>
                                     </li>
                                 @endif
@@ -254,22 +241,22 @@
                                         <ul>
                                             <li><x-link href="{{ route('hrm_attendance_list.index') }}"
                                                     :active="request()->is('hrm_attendance_list.index')">Attendence List</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/lifo') }}"
-                                                    :active="request()->is('inventory/valuation/lifo')">Attendence Details</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Attendence Details</x-link></li>
                                         </ul>
                                     </li>
 
                                     <li class="submenu">
                                         <a href="javascript:void(0);">Leave<span class="menu-arrow"></span></a>
                                         <ul>
-                                            <li><x-link href="{{ url('/inventory/valuation/fifo') }}"
-                                                    :active="request()->is('inventory/valuation/fifo')">Holiday</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Holiday</x-link></li>
                                             <li><x-link href="{{ route('hrm_leave_types.index') }}"
                                                     :active="request()->is('hrm_leave_types.index')">Leave Type</x-link></li>
                                             <li><x-link href="{{ route('hrm_leave_applications.index') }}"
                                                     :active="request()->is('hrm_leave_applications.index')">Leave Application</x-link></li>
-                                            <li><x-link href="{{ url('/inventory/valuation/lifo') }}"
-                                                    :active="request()->is('inventory/valuation/lifo')">Leave Details</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Leave Details</x-link></li>
                                         </ul>
                                     </li>
                                     <li class="submenu">
@@ -282,8 +269,8 @@
                                     <li class="submenu">
                                         <a href="javascript:void(0);">Notice Board<span class="menu-arrow"></span></a>
                                         <ul>
-                                            <li><x-link href="{{ url('/inventory/valuation/lifo') }}"
-                                                    :active="request()->is('inventory/valuation/lifo')">Notice</x-link></li>
+                                            <li><x-link href="javascript:void(0);"
+                                                    :active="request()->is('javascript:void(0);')">Notice</x-link></li>
                                         </ul>
                                     </li>
                                 @endif

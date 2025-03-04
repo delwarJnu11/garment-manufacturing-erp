@@ -2,7 +2,9 @@
 
 @section('page_content')
 <x-success/>
+@if (Auth::user()->isAdmin())
     <x-page-header href="{{ route('hrm_leave_types.create') }}" heading="Leave Type" btnText=" Leave Type" />
+@endif
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
@@ -25,6 +27,7 @@
                                 <td>{{ $leave->max_days }}</td>
                                 <td>{{ $leave->description }}</td>
                                 <td>{{ $leave->created_at }}</td>
+
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <a class="me-2 p-2 mb-0" href="{{url("hrm_leave_types/{$leave->id}")}}">
@@ -36,6 +39,7 @@
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
                                         </a>
+                                        @if (Auth::user()->isAdmin())
                                         <a class="me-2 p-2" href="{{url("hrm_leave_types/$leave->id/edit")}}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
@@ -43,6 +47,8 @@
                                             <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Status? This action cannot be undone!');">
                                                 Yes, Delete></i>
                                         </a>
+                                        @endif
+
                                     </div>
                                 </td>
                             </tr>
@@ -57,3 +63,4 @@
         </div>
     </div>
 @endsection
+

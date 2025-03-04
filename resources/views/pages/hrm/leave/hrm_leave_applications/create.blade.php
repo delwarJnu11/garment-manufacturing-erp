@@ -41,7 +41,6 @@
                             @enderror
                         </div>
                     </div>
-                  
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Apply Date :</label>
                         <div class="col-lg-10">
