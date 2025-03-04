@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\ProductController;
 
 use App\Models\Product_lot;
@@ -15,7 +16,7 @@ class ProductlotController extends Controller
     public function index()
     {
         $product_lots = ProductLot::paginate(5);
-        $product_lots->load(['productVariant', 'warehouse']); // Load relationships after query execution
+        $product_lots->load(['product', 'warehouse', 'transactionType']); // Load relationships after query execution
 
         return view('pages.purchase_&_supliers.product_lot.index', compact('product_lots'));
     }

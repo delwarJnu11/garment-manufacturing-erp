@@ -9,6 +9,7 @@ use App\Models\ProductVariant;
 use App\Models\Purchase_status;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrders;
+use App\Models\PurchaseStatus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -17,12 +18,38 @@ class PurchaseOrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status', 'product_variant'])->paginate(5);
-        $purchase_orders = PurchaseOrder::with(['product', 'inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);;
+        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);
 
-        return view('pages.purchase_&_supliers.purchase_order.index', compact('purchase_orders'));
+        return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('purchase_orders'));
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $request->validate([
+            'selected_orders' => 'required|array',
+            'statuses' => 'required|array'
+        ]);
+    
+        foreach ($request->selected_orders as $orderId) {
+            if (isset($request->statuses[$orderId]) && !empty($request->statuses[$orderId])) {
+                PurchaseOrder::where('id', $orderId)
+                    ->update(['status_id' => $request->statuses[$orderId]]);
+            }
+        }
+    
+        return redirect()->route('purchase.index')->with('success', 'Selected orders updated successfully.');
+    }
+    
+
+    public function purchaseConfirm()
+    {
+        $confirmedOrders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])
+            ->where('status_id', 2) // Assuming '2' is the ID for 'Confirmed'
+            ->paginate(10);
+
+        return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('confirmedOrders'));
     }
 
     /**
@@ -43,7 +70,7 @@ class PurchaseOrderController extends Controller
     {
         $suppliers = InvSupplier::all();
         $lots = ProductLot::all();
-        $statuses = Purchase_status::all();
+        $statuses = PurchaseStatus::all();
         // Fetch only Product Variants with product_type_id = 1 (Raw Material)
         $products = Product::whereHas('product_type', function ($query) {
             $query->where('id', 1)->orWhere('name', 'Raw Material');
@@ -75,6 +102,7 @@ class PurchaseOrderController extends Controller
 
         return response()->json(['invoice_id' => $formattedInvoiceId]);
     }
+
 
 
 

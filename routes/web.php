@@ -49,6 +49,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseReportController;
+use App\Http\Controllers\PurchaseStateController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -172,11 +174,17 @@ Route::resource('uoms', UOMController::class);
 
 Route::resource('valuations', ValuationMethodsController::class);
 Route::resource('product_lots', ProductlotController::class);
-Route::resource('purchase_orders', PurchaseOrderController::class);
+Route::resource('purchase', PurchaseOrderController::class);
 Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
 Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
 Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
+// Route::get('/purchaseState', [PurchaseOrderController::class,])->name('purchaseState.index');
+Route::get('/purchaseState', [PurchaseStateController::class, 'index'])->name('purchaseState.index');
+Route::post('/purchase/updateStatus', [PurchaseOrderController::class, 'updateStatus'])->name('purchase.updateStatus');
 
+// Report 
+Route::get('/purchase-report',[PurchaseReportController::class,'index']);
+Route::post('/purchase-report',[PurchaseReportController::class,'show']);
 
 
 /*
@@ -187,6 +195,7 @@ Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
+
 
 Route::get('orders', [OrderDetailsController::class, 'index']);
 /**

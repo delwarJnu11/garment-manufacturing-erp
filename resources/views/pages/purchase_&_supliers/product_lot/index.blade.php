@@ -40,9 +40,12 @@
                     @forelse ($product_lots as $product_lot)
                     <tr>
                         <td>{{ $product_lot->id }}</td>
-                        <td>{{ $product_lot->productVariant->name ?? 'N/A'}}</td>
-                        <td>{{ $product_lot->quantity }}</td>
+                        <td>{{ $product_lot->product->name ?? 'N/A'}}</td>
+                        <td>{{ $product_lot->qty }}</td>
                         <td>{{ $product_lot->cost_price }}</td>
+                        <td>{{ $product_lot->sales_price }}</td>
+                       
+                        <td>{{ $product_lot->transactionType->name ?? "N/A" }}</td>
                         <td>{{ $product_lot->warehouse->name ?? 'N/A' }}</td>
                         <td>{{ $product_lot->description }}</td>
                         <td>{{ $product_lot->created_at }}</td>

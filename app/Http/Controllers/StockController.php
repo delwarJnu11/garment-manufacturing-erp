@@ -15,12 +15,16 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::with('product', 'warehouse')->paginate(5);
+        
+
+        $stocks = Stock::with('product', 'warehouse','transactionType')->paginate(5);
+        // dd($stocks->toArray()['data']);
+
         return view('pages.inventory.stock.stock', compact('stocks'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resouzrce.
      */
     public function create()
     {

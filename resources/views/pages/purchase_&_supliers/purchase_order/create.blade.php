@@ -25,7 +25,7 @@
                                 <div class="input-group">
 
                                     <select name="supplier_id" class="form-select" required id="supplier_id">
-                                        <option value="" >Select Supplier</option>
+                                        <option value="">Select Supplier</option>
                                         @foreach ($suppliers as $supplier)
                                             <option value="{{ $supplier['id'] }}">
                                                 {{ $supplier['first_name'] . ' ' . $supplier['last_name'] }}</option>
@@ -107,7 +107,8 @@
                                     <h6 class="mb-4">Payment info:</h6>
                                     <ul>
                                         <li>Credit Card - 123***********789</li>
-                                        <li class="mb-0"><span>Amount:</span> </li>
+                                        <li class="mb-0" name="paid_amount">Paid Amount:<span class="paid_amount"></span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -115,7 +116,7 @@
                             <div class="row mt-4">
                                 <div class="col-md-6">
 
-                                    <p><strong>Delivery Address:</strong></p>
+                                    <p><strong >Delivery Address: </strong> <span >123 Factory Road, City Road, Bangladesh</span></p>
                                     <p><strong>Notes:</strong> Urgent delivery required.</p>
                                 </div>
                                 <div class="col-md-6 text-end">
@@ -250,7 +251,7 @@
                 let total_discount = (total_amount * discount) / 100;
                 let taxable_amount = total_amount - total_discount;
                 let total_vat = (taxable_amount * vat) / 100;
-                let subtotal = taxable_amount + total_vat; 
+                let subtotal = taxable_amount + total_vat;
 
                 let item = {
                     "name": name,
@@ -267,6 +268,12 @@
                 console.log(item);
                 cart.save(item);
                 printCart();
+                parseFloat($(".p_price").val(""));
+                 parseFloat($(".p_qty").val(""));
+                 parseFloat($(".p_discount").val("")) ;
+                parseFloat($(".p_vat").val("")) ;
+
+                
             });
 
             function printCart() {
@@ -306,36 +313,148 @@
                     $('.discount').html(`-$${discount.toFixed(2)}`);
                     $('.vat').html(`+$${totalVat.toFixed(2)}`);
                     $('.grand_total').html(`$${grandTotal.toFixed(2)}`);
+                    $('.paid_amount').html(`$${grandTotal.toFixed(2)}`);
 
                     // cartIconIncrease();
                 }
             }
 
-            $(".remove").on('click', function() {
-                // alert()
-
+            $("tbody").on('click','.remove', function() {
                 let id = $(this).attr('data');
                 cart.delItem(id);
                 printCart();
             })
-            $('.clearAll').on('click',function(){
+            $('.clearAll').on('click', function() {
                 cart.clearCart();
                 printCart()
             })
 
-           function cartIconIncreace(){
-            let items = cart.getCart().length 
-            $(".cartIcon").html(items);
-           }
-           $('.process_btn').on('click',function(){
-            // alert()
-            let supplier_id  = $("#supplier_id").val();
-            let purchase_total = $('.grandtotal').text();
-            let paid_amount = $('.grandtotal').text();
-            let discount = $('.discount').text();
-            let vat = $('.vat').text();
-            let products = cart.getCart();
-           })
+            function cartIconIncreace() {
+                let items = cart.getCart().length
+                $(".cartIcon").html(items);
+            }
+
+
+            $('.process_btn').on('click', function() {
+
+                let supplier_id = $("#supplier_id").val();
+                let purchase_total = parseFloat($('.grand_total').text().replace('$', ''));
+                let paid_amount = parseFloat($('.grand_total').text().replace('$', ''));
+                let discount = parseFloat($('.discount').text().replace('-$', ''));
+                let vat = parseFloat($('.vat').text().replace('+$', ''));
+                let products = cart.getCart();
+
+                // Ensure numbers are properly formatted
+                if (isNaN(purchase_total)) purchase_total = 0;
+                if (isNaN(paid_amount)) paid_amount = 0;
+                if (isNaN(discount)) discount = 0;
+                if (isNaN(vat)) vat = 0;
+
+                console.log("Final Data to API:", {
+                    supplier_id,
+                    purchase_total,
+                    paid_amount,
+                    discount,
+                    vat,
+                    products
+                });
+
+                // $.ajax({
+                //     url: "{{ url('api/purchase') }}",
+                //     type: "POST",
+                //     contentType: "application/json",
+                //     data: JSON.stringify({
+                //         _token: '{{ csrf_token() }}',
+                //         supplier_id: supplier_id,
+                //         total_amount: purchase_total, 
+                //         paid_amount: paid_amount,
+                //         discount: discount,
+                //         vat: vat,
+                //         products: JSON.stringify(products)
+                //     }),
+                //     success: function(res) {
+                //         console.log("API Response:", res);
+                //     },
+                //     error: function(xhr, status, error) {
+                //         console.log("API Error:", xhr
+                //         .responseText); 
+                //     }
+                // });
+                $.ajax({
+                    url: "{{ url('api/purchase') }}",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        // _token: '{{ csrf_token() }}',
+                        supplier_id: supplier_id,
+                        total_amount: purchase_total,
+                        paid_amount: paid_amount,
+                        discount: discount,
+                        vat: vat,
+                        products: products 
+                    }),
+                    success: function(res) {
+                        if(res.success){
+                            console.log("API Response:", res);
+                            window.location.href= res.redirect_url
+                        }else{
+                            alert("Error"+res.message)
+                        }
+                    
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("API Error:", xhr.responseText);
+                    }
+                });
+
+
+
+            });
+
+
+
+
+            //    $('.process_btn').on('click',function(){
+            //     // alert()
+            //     let supplier_id  = $("#supplier_id").val();
+            //     let purchase_total = $('.grand_total').text();
+            //     let paid_amount = $('.grand_total').text();
+            //     let discount = $('.discount').text();
+            //     let vat = $('.vat').text();
+            //     let products = cart.getCart();
+            //     // const newItems = products.map(item => ({
+            //     //     product_id: item.item_id,
+            //     //     discount: item.p_discount,
+            //     //     quantity: item.qty,
+            //     //     vat: item.p_vat,
+            //     //     price: item.price
+            //     // }));
+            //     // console.log(newItems);
+
+
+            //     $.ajax({
+            //         url:"{{ url('api/purchase') }}",
+            //         type:"POST",
+            //         data:{
+            //             supplier_id:supplier_id,
+            //             purchase_total:purchase_total,
+            //             paid_amount:paid_amount,
+            //             discount:discount,
+            //             vat:vat,
+            //             products:products,
+            //         },
+            //         success:function(res){
+            //             console.log(res)
+            //         },
+            //         error:function(xhr,status,error){
+            //             console.log(error)
+            //         }
+
+            //     })
+
+
+
+            //    })
         })
     </script>
     <script src="{{ asset('assets/js/cart_.js') }}"></script>
