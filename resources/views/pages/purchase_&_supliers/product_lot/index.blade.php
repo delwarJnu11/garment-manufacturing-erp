@@ -27,7 +27,7 @@
                 <thead class="thead-primary">
                     <tr>
                         <th>ID</th>
-                        <th>Raw Material ID</th>
+                        <th>Product name</th>
                         <th>Quantity</th>
                         <th>Cost Price</th>
                         <th>Warehouse ID</th>
@@ -40,10 +40,13 @@
                     @forelse ($product_lots as $product_lot)
                     <tr>
                         <td>{{ $product_lot->id }}</td>
-                        <td>{{ $product_lot->raw_material_id }}</td>
-                        <td>{{ $product_lot->quantity }}</td>
+                        <td>{{ $product_lot->product->name ?? 'N/A'}}</td>
+                        <td>{{ $product_lot->qty }}</td>
                         <td>{{ $product_lot->cost_price }}</td>
-                        <td>{{ $product_lot->warehouse_id }}</td>
+                        <td>{{ $product_lot->sales_price }}</td>
+                       
+                        <td>{{ $product_lot->transactionType->name ?? "N/A" }}</td>
+                        <td>{{ $product_lot->warehouse->name ?? 'N/A' }}</td>
                         <td>{{ $product_lot->description }}</td>
                         <td>{{ $product_lot->created_at }}</td>
                         <td class="action-table-data">

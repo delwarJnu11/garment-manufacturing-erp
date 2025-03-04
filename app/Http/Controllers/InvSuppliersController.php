@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\supplierMail;
 use App\Models\inv_suppliers;
+use App\Models\InvSupplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -14,7 +15,7 @@ class InvSuppliersController extends Controller
      */
     public function index()
     {
-        $suppliers = inv_suppliers::paginate(4);
+        $suppliers = InvSupplier::paginate(4);
         // Mail::to('abc@gmail.com')->send(new supplierMail($suppliers));
         return view('pages.purchase_&_supliers.Suppliers.suppliers', compact('suppliers'));
     }
@@ -52,7 +53,7 @@ class InvSuppliersController extends Controller
             $fileName = 'default.png';
         }
 
-        inv_suppliers::create([
+        InvSupplier::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -60,24 +61,26 @@ class InvSuppliersController extends Controller
             'address' => $request->address,
             'photo' => $fileName
         ]);
+        // AccountController function use
+
         return redirect('suppliers')->with('success', "Creted suppliers successfully");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(inv_suppliers $inv_suppliers, $id)
+    public function show(InvSupplier $InvSupplier, $id)
     {
-        $supplier = inv_suppliers::findOrFail($id);
+        $supplier = InvSupplier::findOrFail($id);
         return view('pages.purchase_&_supliers.Suppliers.show', compact('supplier'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(inv_suppliers $supplier)
+    public function edit(InvSupplier $supplier)
     {
-       
+
         return view('pages.purchase_&_supliers.Suppliers.edit', compact('supplier'));
     }
 
@@ -85,13 +88,13 @@ class InvSuppliersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, inv_suppliers $supplier)
+    public function update(Request $request, InvSupplier $supplier)
     {
         $request->validate([
             "first_name" => "required|string|max:40",
             "last_name" => "required|string|max:40",
-            "email" => "required|email|max:50|unique:inv_suppliers,email," . $supplier->id,
-            "phone" => "required|string|max:20|unique:inv_suppliers,phone," . $supplier->id,
+            "email" => "required|email|max:50|unique:InvSupplier,email," . $supplier->id,
+            "phone" => "required|string|max:20|unique:InvSupplier,phone," . $supplier->id,
             "address" => "required|string|max:100",
             "photo" => "nullable|image|mimes:jpg,jpeg,png|max:2048"
         ]);
@@ -131,7 +134,7 @@ class InvSuppliersController extends Controller
      */
     public function destroy($id)
     {
-        $supplier = inv_suppliers::findOrFail($id);
+        $supplier = InvSupplier::findOrFail($id);
         if ($supplier->photo && $supplier->photo !== 'default.png') {
             $photoPath = public_path('uploads/suppliers/' . $supplier->photo);
             if (file_exists($photoPath)) {
