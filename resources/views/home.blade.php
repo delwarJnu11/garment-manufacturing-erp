@@ -32,8 +32,9 @@
                 <h4 class="bg-info p-3">Welcome to Lunea Todd</h4>
             </div>
             <div class="col-md-2  text-center float-end clock bg-primary rounded">
-                <div id="clock"><span id="clock"></span></div>
+                <div id="clock"></div>
                 <div id="day"></div>
+                {{-- <span id="clock"></span> --}}
             </div>
             <div class="col-md-2 text-center">
                 <a id="clockButton" class="btn btn-warning btn-lg" href="javascript:void(0);" onclick="clockIn()">Clock In</a>
