@@ -9,11 +9,12 @@ class Hrm_leave_applications extends Model
 {
     use HasFactory;
 
+    protected $table = 'hrm_leave_applications';
     protected $fillable = [
-        'employee_id', 'leave_type_id', 'date', 'start_date', 'end_date',
-        'number_of_days', 'reason', 'duration', 'statuses_id', 'approver_id',
-        'photo'
+        'employee_id', 'leave_type_id', 'attendance_id', 'start_date', 'end_date',
+        'number_of_days', 'reason', 'duration', 'statuses_id', 'approver_id', 'photo',
     ];
 
-  //  protected $dates = ['approved_at', 'rejected_at'];
+    // Automatically calculate the number of days before saving
+  
 }

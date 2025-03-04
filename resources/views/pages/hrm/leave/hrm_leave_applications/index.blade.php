@@ -40,13 +40,13 @@
 
                                 if ($application->statuses_id==5) {
                                     $lStatus = "Rejected";
-                                    $class = "danger";
+                                    $x = "danger";
                                 } elseif($application->statuses_id==4) {
                                     $lStatus = "Approved";
-                                    $class = "success";
+                                    $x = "success";
                                 } else{
                                     $lStatus = "Pending";
-                                    $class = "info";
+                                    $x = "info";
                                 };
 
                                     if (Auth::user()->isAdmin()) {
@@ -54,17 +54,15 @@
                                     <td>
                                     <select name='leaveStatus' data-id='$application->id' class='leaveStatus p-2 bg-secondary text-white rounded'>
                                         <option class='btn text-white' value='$lStatus'>$lStatus</option>
-                                        <option class='btn text-white' value='Approved'>Approve</option>
-                                        <option class='btn text-white' value='Rejected'>Reject</option>
+                                        <option class='btn text-white' value='Approved'>Approved</option>
+                                        <option class='btn text-white' value='Rejected'>Rejected</option>
                                     </select></td>";
                                     } else {
-                                        echo "<td><span class='p-3 badge bg-soft-$class'>$lStatus</span></td>";
+                                        echo "<td><span class='p-2 badge bg-soft-$x'>$lStatus</span></td>";
                                     }
 
                                 @endphp
 
-
-                                {{-- <td class="btn text-center mt-0 btn-sm btn-{{"warning"}} disabled">{{ $application->statuses_id == 3 ? "Pending": '' }}</td> --}}
                                 <td>{{ $application->reason }}</td>
                                 <td>{{ $application->photo }}</td>
 
@@ -117,8 +115,6 @@
     <script>
 
         $(document).ready(function() {
-
-
             // Admins leaveApplication approve btn
             $('.leaveStatus').on('change', function(){
 
@@ -145,28 +141,26 @@
 
             });
 
-
-            $('.update-status').click(function() {
-                let leaveApplicationId = $(this).data('id');
-                let status = $(this).data('status');
-
-                $.ajax({
-                    url: '/leave-applications/update-status',
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        leave_application_id: leaveApplicationId,
-                        status: status
-                    },
-                    success: function(response) {
-                        alert(response.message);
-                        location.reload();
-                    },
-                    error: function(xhr) {
-                        alert('Something went wrong!');
-                    }
-                });
-            });
+            // function leaveAttendenceList() {
+            // $.ajax({
+            //     url: '/hrm_attendance_list/leaveAttendence',
+            //     method: 'POST',
+            //     data: {
+            //         _token: '{{ csrf_token() }}',
+            //         employee_id: {{ Auth::user()->id }},
+            //     },
+            //     success: function(response) {
+            //         console.log(response);
+            //         if (response.status === 'success') {
+            //             //alert(response.message);
+            //         } else {
+            //             alert('Something went wrong!');
+            //         }
+            //     },
+            //     error: function() {
+            //         alert('An error occurred. Please try again.');
+            //     }
+            // });
         })
     </script>
 @endsection

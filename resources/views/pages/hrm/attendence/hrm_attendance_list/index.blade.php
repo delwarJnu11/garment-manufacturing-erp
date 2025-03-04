@@ -15,6 +15,8 @@
                             <th>Status</th>
                             <th>clock_in</th>
                             <th>clock_out</th>
+                            <th>Late Days</th>
+                            <th>Leave Days</th>
                             <th>late_Times</th>
                             <th>leave_Times</th>
                             <th>overtime_hours</th>
@@ -31,6 +33,8 @@
                                 <td>{{ $attendence->statuses_id }}</td>
                                 <td>{{ $attendence->clock_in }}</td>
                                 <td>{{ $attendence->clock_out }}</td>
+                                <td>{{ $attendence->late_days }}</td>
+                                <td>{{ $attendence->leave_days }}</td>
                                 <td>{{ $attendence->late_times }}</td>
                                 <td>{{ $attendence->leave_times }}</td>
                                 <td>{{ $attendence->overtime_hours }}</td>

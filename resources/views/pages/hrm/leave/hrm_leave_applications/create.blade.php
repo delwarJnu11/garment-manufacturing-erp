@@ -41,38 +41,7 @@
                             @enderror
                         </div>
                     </div>
-                    @if (Auth::user()->isAdmin())
-                    <div class="row mb-3">
-                        <label class="col-lg-2 col-form-label">Leave Status :</label>
-                        <div class="col-lg-10">
-                            <select name="statuses_id" id="statuses_id" class="form-select">
-                                <option value="">Select a Status</option>
-                                @foreach ($status as $data)
-                                    <option value="{{ $data->id }}" {{ old('statuses_id') == $data->id ? 'selected' : '' }}>{{ $data->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('statuses_id')
-                                <div class="mt-2 text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    {{-- <div class="row mb-3">
-                        <label class="col-lg-2 col-form-label">Leave Status :</label>
-                        <div class="col-lg-10">
-                            <select name="statuses_id" id="statuses_id" class="form-select" data-leave-id="{{ $leave->id }}">
-                                <option value="">Select a Status</option>
-                                @foreach ($status as $data)
-                                    <option value="{{ $data->id }}" {{ $leave->statuses_id == $data->id ? 'selected' : '' }}>
-                                        {{ $data->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('statuses_id')
-                                <div class="mt-2 text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div> --}}
-                    @endif
+                  
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Apply Date :</label>
                         <div class="col-lg-10">

@@ -163,10 +163,10 @@
                 localStorage.setItem('EmpStatus', "clockOut");
             }
 
-            if (localStorage.getItem('EmpStatus') == "ClockOut") {
+            if (localStorage.getItem('EmpStatus') === "ClockOut") {
                 $('#clockButton').show();
                 $('#clockOutButton').hide();
-            } else if (localStorage.getItem('EmpStatus') == "ClockIn") {
+            } else if (localStorage.getItem('EmpStatus') === "ClockIn") {
                 $('#clockButton').hide();
                 $('#clockOutButton').show();
             }
@@ -182,14 +182,14 @@
                     employee_id: {{ Auth::user()->id }},
                 },
                 success: function(response) {
-                    if (response.status === 'success') {
-                        localStorage.setItem('EmpStatus', "clockIn");
-                        $('#clockOutButton').show();
-                        $('#clockButton').hide();
-                        //alert(response.message);
-                    } else {
-                        alert('Error clocking in.');
-                    }
+                    localStorage.setItem('EmpStatus', "clockIn");
+                    $('#clockOutButton').show();
+                    $('#clockButton').hide();
+                    // if (response.status === 'success') {
+                    //     //alert(response.message);
+                    // } else {
+                    //     alert('Error clocking in.');
+                    // }
                 },
                 error: function(error) {
                     console.log(error);
@@ -208,14 +208,14 @@
                 },
                 success: function(response) {
                     console.log(response);
-                    if (response.status === 'success') {
-                        localStorage.setItem('EmpStatus', "clockOut");
-                        $('#clockButton').show();
-                        $('#clockOutButton').hide();
-                        //alert(response.message);
-                    } else {
-                        alert('Error clocking out.');
-                    }
+                    localStorage.setItem('EmpStatus', "clockOut");
+                    $('#clockButton').show();
+                    $('#clockOutButton').hide();
+                    // if (response.status === 'success') {
+                    //     //alert(response.message);
+                    // } else {
+                    //     alert('Error clocking out.');
+                    // }
                 },
                 error: function() {
                     alert('An error occurred. Please try again.');
