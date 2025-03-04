@@ -180,6 +180,7 @@ CREATE TABLE hrm_leave_applications (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     employee_id BIGINT UNSIGNED NOT NULL,
     leave_type_id VARCHAR(255) NOT NULL,
+    attendance_id BIGINT UNSIGNED NOT NULL,
     date DATE NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,

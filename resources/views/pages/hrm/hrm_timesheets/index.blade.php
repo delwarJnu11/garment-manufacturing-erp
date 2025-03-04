@@ -17,10 +17,10 @@
                             <th>Clock_out</th>
                             <th>Shift_start</th>
                             <th>Shift_end</th>
-                            <th>Break_duration</th>
+                            {{-- <th>Break_duration</th> --}}
                             <th>Total_work_hours</th>
-                            <th>Overtime_hours</th>
-                            <th>Remarks</th>
+                            {{-- <th>Overtime_hours</th> --}}
+                            {{-- <th>Remarks</th> --}}
                             <th>Created At</th>
                             <th class="no-sort">Action</th>
                         </tr>
@@ -36,10 +36,10 @@
                                 <td>{{ $timesheet->clock_out }}</td>
                                 <td>{{ $timesheet->shift_start }}</td>
                                 <td>{{ $timesheet->shift_end }}</td>
-                                <td>{{ $timesheet->break_duration }}</td>
+                                {{-- <td>{{ $timesheet->break_duration }}</td> --}}
                                 <td>{{ $timesheet->total_work_hours }}</td>
-                                <td>{{ $timesheet->overtime_hours }}</td>
-                                <td>{{ $timesheet->remarks }}</td>
+                                {{-- <td>{{ $timesheet->overtime_hours }}</td> --}}
+                                {{-- <td>{{ $timesheet->remarks }}</td> --}}
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <a class="me-2 p-2 mb-0" href="{{url("hrm_attendance_list/{$timesheet->id}")}}">
