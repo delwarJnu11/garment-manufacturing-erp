@@ -15,12 +15,14 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('is_raw_material');
             // $table->string('description');
             $table->timestamps();
         });
 
         Category::create([
-            'name' => 'Main Raw Materials (Fabric)'
+            'name' => 'Main Raw Materials (Fabric)',
+            'is_raw_material' => '0'
         ]);
         Category::create([
             'name' => ' Auxiliary Raw Materials'

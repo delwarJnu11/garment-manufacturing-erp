@@ -11,6 +11,7 @@
             <tr>
                 <th>#</th>
                 <th>Category Name</th>
+                <th>Is Raw Material</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -19,28 +20,27 @@
             <tr>
                 <td>{{ $category->id }}</td>
                 <td>{{ $category->name }}</td>
-                
+                <td>
+                    @if ($category->is_raw_material)
+                        <span class="badge bg-success">Yes</span>
+                    @else
+                        <span class="badge bg-danger">No</span>
+                    @endif
+                </td>
 
                 <td class="action-table-data">
                     <div class="edit-delete-action">
                         <!-- View Button -->
-                        <a class="me-2 p-2 mb-0" href="{{ url('category_list/' . $category->id . '/show') }}">
+                        <a class="me-2 p-2 mb-0" href="{{ url('category/' . $category->id . '/show') }}">
                             <i data-feather="eye" class="feather-eye"></i>
                         </a>
 
                         <!-- Edit Button -->
-                        <a class="me-2 p-2" href="{{ url('category_list/' . $category->id . '/edit') }}">
+                        <a class="me-2 p-2" href="{{ url('category/' . $category->id . '/edit') }}">
                             <i data-feather="edit" class="feather-edit"></i>
                         </a>
 
-                        <!-- Delete Form -->
-                        <form action="{{ url('category_list/' . $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?')" style="margin-bottom: 0">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="confirm-text" style="background: transparent; border: none; color: red;">
-                                <i data-feather="trash-2" class="feather-trash-2 delete_icon"></i>
-                            </button>
-                        </form>
+                        <x-delete action="{{ route('category.destroy', $category->id) }}" />
                     </div>
                 </td>
             </tr>
@@ -51,11 +51,10 @@
             @endforelse
         </tbody>
     </table>
-
-    <!-- Pagination -->
     <div class="d-flex justify-content-end">
         {{ $categories->links('vendor.pagination.custom') }}
     </div>
-</div>
-
 @endsection
+ 
+
+
