@@ -2,7 +2,7 @@
 
 @section('page_content')
 <x-success/>
-    <x-page-header href="{{ route('hrm_employee_timesheets.create') }}" heading="TimeSheets" btnText=" TimeSheets" />
+    {{-- <x-page-header href="{{ route('hrm_employee_timesheets.create') }}" heading="TimeSheets" btnText=" TimeSheets" /> --}}
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
@@ -19,7 +19,7 @@
                             <th>Shift_end</th>
                             {{-- <th>Break_duration</th> --}}
                             <th>Total_work_hours</th>
-                            {{-- <th>Overtime_hours</th> --}}
+                            <th>Overtime_hours</th>
                             {{-- <th>Remarks</th> --}}
                             <th>Created At</th>
                             <th class="no-sort">Action</th>
@@ -29,16 +29,16 @@
                         @forelse ($timesheets as $timesheet)
                             <tr>
                                 <td>{{ $timesheet->id }}</td>
-                                <td>{{ $timesheet->employee_id }}</td>
+                                <td>{{optional($timesheet->employee)->name}}</td>
                                 <td>{{ $timesheet->date }}</td>
-                                <td>{{ $timesheet->statuses_id }}</td>
+                                <td>{{optional($timesheet->statuses)->name}}</td>
                                 <td>{{ $timesheet->clock_in }}</td>
                                 <td>{{ $timesheet->clock_out }}</td>
                                 <td>{{ $timesheet->shift_start }}</td>
                                 <td>{{ $timesheet->shift_end }}</td>
                                 {{-- <td>{{ $timesheet->break_duration }}</td> --}}
                                 <td>{{ $timesheet->total_work_hours }}</td>
-                                {{-- <td>{{ $timesheet->overtime_hours }}</td> --}}
+                                <td>{{ $timesheet->overtime_hours }}</td>
                                 {{-- <td>{{ $timesheet->remarks }}</td> --}}
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">

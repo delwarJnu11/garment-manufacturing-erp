@@ -39,7 +39,7 @@ class HrmEmployeesController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $request->validate([
             'employee_id' => 'required|string|max:50',
             'name' => 'required|string|max:50',
@@ -124,6 +124,12 @@ class HrmEmployeesController extends Controller
     public function show(Hrm_employees $Hrm_employees, $id)
     {
         $employees = Hrm_employees::find($id);
+        return view('pages.hrm.employee.hrm_employee.employee_details', compact('employees'));
+    }
+    public function showEmp($id)
+    {
+        $employees = Hrm_employees::find($id);
+        // print_r($employees);
         return view('pages.hrm.employee.hrm_employee.employee_details', compact('employees'));
     }
 

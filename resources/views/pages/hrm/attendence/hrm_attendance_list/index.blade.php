@@ -2,7 +2,7 @@
 
 @section('page_content')
 <x-success/>
-    <x-page-header href="{{ route('hrm_attendance_list.create') }}" heading="Attendance" btnText=" Attendence" />
+    {{-- <x-page-header href="{{ route('hrm_attendance_list.create') }}" heading="Attendance" btnText=" Attendence" /> --}}
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
@@ -13,13 +13,15 @@
                             <th>Employee Name</th>
                             <th>Date</th>
                             <th>Status</th>
-                            <th>clock_in</th>
-                            <th>clock_out</th>
+                            <th>Clock_in</th>
+                            <th>Clock_out</th>
                             {{-- <th>Late Days</th> --}}
                             {{-- <th>Leave Days</th> --}}
-                            <th>late_Times</th>
+                            <th>Late_Times</th>
                             {{-- <th>leave_Times</th> --}}
-                            <th>overtime_hours</th>
+                            <th>Total_work_hours</th>
+                            <th>Overtime_hours</th>
+                            {{-- <th>Created At</th> --}}
                             <th class="no-sort">Action</th>
                         </tr>
                     </thead>
@@ -27,15 +29,16 @@
                         @forelse ($attendences as $attendence)
                             <tr>
                                 <td>{{ $attendence->id }}</td>
-                                <td>{{ $attendence->employee_id }}</td>
+                                <td>{{optional($attendence->employee)->name}}</td>
                                 <td>{{ $attendence->date }}</td>
-                                <td>{{ $attendence->statuses_id }}</td>
+                                <td>{{optional($attendence->statuses)->name}}</td>
                                 <td>{{ $attendence->clock_in }}</td>
                                 <td>{{ $attendence->clock_out }}</td>
                                 {{-- <td>{{ $attendence->late_days }}</td> --}}
                                 {{-- <td>{{ $attendence->leave_days }}</td> --}}
                                 <td>{{ $attendence->late_times }}</td>
                                 {{-- <td>{{ $attendence->leave_times }}</td> --}}
+                                <td>{{ $attendence->total_work_hours }}</td>
                                 <td>{{ $attendence->overtime_hours }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">

@@ -18,4 +18,14 @@ class Hrm_attendances_lists extends Model
         'leave_times',
         'overtime_hours',
     ];
+
+    public function statuses(){
+        return $this->belongsTo(Hrm_statuses::class);
+    }
+
+    public function employee(){
+        return $this->belongsTo(User::class);
+    }
+
+
 }

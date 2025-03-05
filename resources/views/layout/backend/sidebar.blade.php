@@ -217,14 +217,21 @@
                                     </li>
                                     <!-- END 🔸 Suppliers & Purchase -->
 
-            </ul>
-            </li>
+                                </ul>
+                            </li>
 
 
-                                    {{-- Start Menu HR & Workforce Management --}}
-                                    <li class="submenu">
-                                        <x-nav-link :active="request()->is('hrm*')">HR & Workforce</x-nav-link>
-                                        <ul>
+                            {{-- Start Menu HR & Workforce Management --}}
+
+                            {{-- End Menu HR & Workforce Management --}}
+
+                    </ul>
+                </li>
+                {{-- Start HR & Workforce Management --}}
+
+                <li class="submenu">
+                    <x-nav-link :active="request()->is('hrm*')">HR & Workforce</x-nav-link>
+                    <ul>
                         @endif
 
                         @if (Auth::user()->isAdmin())
@@ -344,11 +351,8 @@
 
                     </ul>
                 </li>
-                {{-- End Menu HR & Workforce Management --}}
 
-
-            </ul>
-            </li>
+                {{-- End HR & Workforce Management --}}
             </ul>
         </div>
     </div>
@@ -363,17 +367,17 @@
             $(".sidebar-menu ul li a").each(function() {
                 if (this.href === currentUrl) {
                     $(this).addClass("active");
-                    $(this).closest("li.submenu").addClass("active"); // Open parent menu
+                    // $(this).closest("li.submenu").addClass("active"); // Open parent menu
                     $(this).closest("ul").slideDown();
                 }
             });
 
             // Toggle submenu on click
-            $(".submenu > a").click(function() {
-                $(this).toggleClass("active");
-                $(this).next("ul").slideToggle();
-                $(this).parent().toggleClass("active");
-            });
+            // $(".submenu > a").click(function() {
+            //     $(this).toggleClass("active");
+            //     $(this).next("ul").slideToggle();
+            //     $(this).parent().toggleClass("active");
+            // });
         });
     </script>
 @endsection
