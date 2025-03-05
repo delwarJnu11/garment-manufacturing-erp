@@ -43,11 +43,11 @@
                     </div>
                     
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Unit of Measure (UOM)</label>
-                        <select name="uom_id" class="form-select">
+                        <label class="form-label">Category</label>
+                        <select name="category_type_id" class="form-select">
                             <option value="">Select UOM</option>
-                            @foreach ($uoms as $uom)
-                                <option value="{{ $uom->id }}">{{ $uom->name }}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -65,10 +65,19 @@
                             <label class="form-label">Unit Price ($)</label>
                             <input type="number" step="0.01" name="unit_price" class="form-control" required>
                         </div>
-    
-                   
-                  
                 </div>
+                <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Unit of Measure (UOM)</label>
+                    <select name="uom_id" class="form-select">
+                        <option value="">Select UOM</option>
+                        @foreach ($uoms as $uom)
+                            <option value="{{ $uom->id }}">{{ $uom->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            </div>
                 <div class="row">
                 <div class="col-md-12 mb-3  d-none"  id="size_uom_row">
                     <label class="form-label">Size</label>
@@ -80,6 +89,7 @@
                     </select>
                 </div>
             </div>
+
                 </div>
 
                 <button type="submit" class="btn btn-primary">Save Product</button>

@@ -11,7 +11,7 @@ class PurchaseOrderDetail extends Model
     protected $fillable = [
         'purchase_id',
         'product_id',
-        'lot_id',
+        // 'lot_id',
         'quantity',
         'price',
         'vat',
@@ -20,5 +20,10 @@ class PurchaseOrderDetail extends Model
     function purchase(): BelongsTo
     {
         return $this->belongsTo(PurchaseOrder::class, 'purchase_id');
+    }
+    // In PurchaseOrderDetail model
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

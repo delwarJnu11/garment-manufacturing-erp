@@ -12,7 +12,6 @@
     </div>
 @endif
 
-
     <div class="card flex-fill">
         <x-page-header heading="Purchase Orders" btnText="Create Purchase Order" href="{{ url('purchase_orders/create') }}" />
 
@@ -56,9 +55,9 @@
                             <a href="{{ route('purchase.show', $order->id) }}">
                                 <i data-feather="eye" class="feather-eye"></i>
                             </a>
-                            <a href="{{ route('purchase.edit', $order->id) }}">
+                            {{-- <a href="{{ route('purchase.edit', $order->id) }}">
                                 <i data-feather="edit" class="feather-edit"></i>
-                            </a>
+                            </a> --}}
                             <form action="{{ route('purchase.destroy', $order->id) }}" method="POST" style="margin-bottom: 0">
                                 @csrf
                                 @method('DELETE')

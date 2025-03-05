@@ -10,6 +10,7 @@ use App\Models\Purchase_status;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrders;
 use App\Models\PurchaseStatus;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class PurchaseOrderController extends Controller
      */
     public function index(Request $request)
     {
-        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->paginate(10);
+        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->paginate(8);
 
         return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('purchase_orders'));
     }
@@ -31,17 +32,17 @@ class PurchaseOrderController extends Controller
             'selected_orders' => 'required|array',
             'statuses' => 'required|array'
         ]);
-    
+
         foreach ($request->selected_orders as $orderId) {
             if (isset($request->statuses[$orderId]) && !empty($request->statuses[$orderId])) {
                 PurchaseOrder::where('id', $orderId)
                     ->update(['status_id' => $request->statuses[$orderId]]);
             }
         }
-    
+
         return redirect()->route('purchase.index')->with('success', 'Selected orders updated successfully.');
     }
-    
+
 
     public function purchaseConfirm()
     {
@@ -55,15 +56,6 @@ class PurchaseOrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    // public function create()
-    // {
-
-
-    //     $suppliers = InvSupplier::all();
-    //     // dd($suppliers);
-    //     $product_variants = ProductVariant::all();
-    //     return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'product_variants'));
-    // }
 
 
     public function create()
@@ -84,12 +76,12 @@ class PurchaseOrderController extends Controller
         $supplier = InvSupplier::find($request->id);
         return response()->json(['supplier' => $supplier]);
     }
+
     public function find_product(Request $request)
     {
         $product = Product::find($request->id);
         return response()->json(['product' => $product]);
     }
-
 
     public function getInvoiceId()
     {
@@ -103,68 +95,50 @@ class PurchaseOrderController extends Controller
         return response()->json(['invoice_id' => $formattedInvoiceId]);
     }
 
-
-
-
-
-    // public function create()
-    // {
-    //     $suppliers = inv_suppliers::all();
-    //     $lots = ProductLot::all();
-    //     $statuses = Purchase_status::all();
-    //     $product_variants = ProductVariant::where('product_type_id', 1)->get();
-
-    //     dd($suppliers, $lots, $statuses, $product_variants);
-    // }
-
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // $request->validate([
-        //     'supplier_id' => 'required',
-        //     'product_variant_id' => 'required',
-        //     'product_lot_id' => 'required',
-        //     'status_id' => 'required',
-        //     'delivery_date' => 'required',
-        //     'shipping_address' => 'required',
-        //     'description' => 'nullable',
-        // ]);
-
-
-        // $order = new PurchaseOrder();
-        // $order->supplier_id = $request->supplier_id;
-        // $order->product_variant_id = $request->product_variant_id;
-        // $order->lot_id = $request->product_lot_id;
-        // $order->status_id = $request->status_id;
-        // $order->delivery_date = $request->delivery_date;
-        // $order->shipping_address = $request->shipping_address;
-        // $order->description = $request->description;
-        // $order->save();
-
-
-        // return redirect('purchase_orders')->with('success', 'Purchase Order Created Successfully');
+       
     }
-
 
     /**
      * Display the specified resource.
      */
-    public function show(PurchaseOrder $purchaseOrders)
+    public function show(PurchaseOrder $purchaseOrder, $id)
+{
+    
+    $purchaseOrder = PurchaseOrder::with(['inv_supplier', 'purchaseDetails.product'])->findOrFail($id);
+    return view('pages.purchase_&_supliers.purchase_order.show', compact('purchaseOrder'));
+}
+
+
+
+    // Print Invoice
+    public function print($id)
     {
-        //
+        $invoice = PurchaseOrder::with(['purchaseDetails.product', 'inv_supplier'])->findOrFail($id);
+        return view('invoice.print', compact('invoice'));
     }
+
+    // Generate PDF
+    public function generatePDF($id)
+    {
+        $invoice = PurchaseOrder::with(['purchaseDetails.product', 'inv_supplier'])->findOrFail($id);
+        // Update this line to reflect the correct view path
+        $pdf = FacadePdf::loadView('pages.purchase_&_supliers.purchase_order.pdf', compact('invoice'));
+    
+        return $pdf->download('invoice_' . $id . '.pdf');
+    }
+    
+
+
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PurchaseOrder $purchaseOrders)
-    {
-        //
-    }
+    public function edit(PurchaseOrder $purchaseOrders) {}
 
     /**
      * Update the specified resource in storage.
