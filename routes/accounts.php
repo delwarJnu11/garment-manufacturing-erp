@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\AccountTypesController;
 use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\AssetTypesController;
+use App\Http\Controllers\ChartOfAccountController;
 use App\Http\Controllers\TransactionsController;
 use Illuminate\Support\Facades\Route;
 
