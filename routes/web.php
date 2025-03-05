@@ -24,29 +24,40 @@ use App\Http\Controllers\HrmEmployeeBankAccountsController;
 use App\Http\Controllers\HrmEmployeePerformancesController;
 use App\Http\Controllers\HrmEmployeesController;
 use App\Http\Controllers\HrmEmployeeTimesheetsController;
+use App\Http\Controllers\HrmLeaveApplicationApproversController;
+use App\Http\Controllers\HrmLeaveApplicationsController;
+use App\Http\Controllers\HrmLeaveTypesController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentsController;
 use App\Http\Controllers\InvSuppliersController;
+use App\Http\Controllers\MovementTypeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductCatelogueController;
 use App\Http\Controllers\ProductlotController;
 use App\Http\Controllers\ProductTypeController;
-use App\Http\Controllers\ProductVariantController;
+
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\PurchaseOrdersController;
 use App\Http\Controllers\Raw_materialController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
+use App\Models\Hrm_leave_types;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ProductType;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseReportController;
+use App\Http\Controllers\PurchaseStateController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -97,44 +108,55 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
  * Start Hr & Workforce Management.
  */
 
-Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
-Route::resource('hrm_status', HrmStatusesController::class);
+ Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
+ Route::resource('hrm_status', HrmStatusesController::class);
 
-Route::get('hrm_departments/delete/{id}/', [HrmDepartmentsController::class, 'destroy']);
-Route::resource('hrm_departments', HrmDepartmentsController::class);
+ Route::get('hrm_departments/delete/{id}/', [HrmDepartmentsController::class, 'destroy']);
+ Route::resource('hrm_departments', HrmDepartmentsController::class);
 
-Route::get('hrm_sub_departments/delete/{id}/', [HrmSubDepartmentsController::class, 'destroy']);
-Route::resource('hrm_sub_departments', HrmSubDepartmentsController::class);
+ Route::get('hrm_sub_departments/delete/{id}/', [HrmSubDepartmentsController::class, 'destroy']);
+ Route::resource('hrm_sub_departments', HrmSubDepartmentsController::class);
 
-Route::get('hrm_designations/delete/{id}/', [HrmDesignationsController::class, 'destroy']);
-Route::resource('hrm_designations', HrmDesignationsController::class);
+ Route::get('hrm_designations/delete/{id}/', [HrmDesignationsController::class, 'destroy']);
+ Route::resource('hrm_designations', HrmDesignationsController::class);
 
-Route::get('hrm_employees/delete/{id}/', [HrmEmployeesController::class, 'destroy']);
-Route::resource('hrm_employees', HrmEmployeesController::class);
+ Route::get('hrm_employees/delete/{id}/', [HrmEmployeesController::class, 'destroy']);
+ Route::resource('hrm_employees', HrmEmployeesController::class);
 
-Route::get('hrm_employee_performances/delete/{id}/', [HrmEmployeePerformancesController::class, 'destroy']);
-Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::class);
+ Route::get('hrm_employee_performances/delete/{id}/', [HrmEmployeePerformancesController::class, 'destroy']);
+ Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::class);
 
-Route::get('hrm_employee_bank_accounts/delete/{id}/', [HrmEmployeeBankAccountsController::class, 'destroy']);
-Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
+ Route::get('hrm_employee_bank_accounts/delete/{id}/', [HrmEmployeeBankAccountsController::class, 'destroy']);
+ Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
+
+ Route::post('/hrm_attendance_list/clock-in', [HrmAttendanceListController::class, 'clockIn']);
+ Route::post('/hrm_attendance_list/clock-out', [HrmAttendanceListController::class, 'clockOut']);
+ Route::get('hrm_attendance_list/delete/{id}/', [HrmAttendanceListController::class, 'destroy']);
+ Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
+
+ Route::get('hrm_employee_timesheets/delete/{id}/',[HrmEmployeeTimesheetsController::class,'destroy'] );
+ Route::resource('hrm_employee_timesheets', HrmEmployeeTimesheetsController::class);
+
+ Route::get('hrm_leave_types/delete/{id}/',[HrmLeaveTypesController::class,'destroy'] );
+ Route::resource('hrm_leave_types', HrmLeaveTypesController::class);
 
 
+ Route::post('/hrm_leave_applications/leaveUpdate', [HrmLeaveApplicationsController::class, 'leaveUpdate']);
+ Route::get('hrm_leave_applications/delete/{id}/',[HrmLeaveApplicationsController::class,'destroy'] );
+ Route::resource('hrm_leave_applications', HrmLeaveApplicationsController::class);
 
-Route::post('/hrm_attendance_list/clock-in', [HrmAttendanceListController::class, 'clockIn']);
-Route::post('/hrm_attendance_list/clock-out', [HrmAttendanceListController::class, 'clockOut']);
-Route::get('hrm_attendance_list/delete/{id}/', [HrmAttendanceListController::class, 'destroy']);
-Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
 
-Route::get('hrm_employee_timesheets/delete/{id}/',[HrmEmployeeTimesheetsController::class,'destroy'] );
-Route::resource('hrm_employee_timesheets', HrmEmployeeTimesheetsController::class);
+ Route::get('hrm_leave_application_approvers/delete/{id}/',[HrmLeaveApplicationApproversController::class,'destroy'] );
+ Route::resource('hrm_leave_application_approvers', HrmLeaveApplicationApproversController::class);
 
-// Route::get('/employee', function () {
-//     echo Auth::user()->isEmployee();
-// })->middleware(['employee']);
 
-    Route::get('/home', function () {
-        return view('home');
-     });
+ // Route::get('/employee', function () {
+ //     echo Auth::user()->isEmployee();
+ // })->middleware(['employee']);
+
+     Route::get('/home', function () {
+         return view('home');
+      });
 
 
 /**
@@ -158,13 +180,16 @@ Route::resource('category', CategoryController::class);
 Route::resource('categoryType', CategoryTypeController::class);
 Route::resource('raw_materials', Raw_materialController::class);
 Route::resource('sizes', SizeController::class);
-// Route::resource('categoryTypes', CategoryTypeController::class);
+
+Route::resource('stockMovements', StockMovementController::class);
+Route::resource('movementTypes', MovementTypeController::class);
 /**
  * Warehouse
  **/
 Route::resource('product_types', ProductTypeController::class);
-Route::resource('product_variants', ProductVariantController::class);
+Route::resource('products', ProductController::class);
 Route::resource('stocks', StockController::class);
+Route::resource('productCatelogues', ProductCatelogueController::class);
 Route::resource('warehouses', WarehouseController::class);
 // Route::resource('productsApi', ApiProductController::class);
 
@@ -176,9 +201,21 @@ Route::resource('buyers', BuyerController::class);
  */
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
-Route::resource('products', ProductController::class);
+
 Route::resource('valuations', ValuationMethodsController::class);
 Route::resource('product_lots', ProductlotController::class);
+Route::resource('purchase', PurchaseOrderController::class);
+Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
+Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
+Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
+// Route::get('/purchaseState', [PurchaseOrderController::class,])->name('purchaseState.index');
+Route::get('/purchaseState', [PurchaseStateController::class, 'index'])->name('purchaseState.index');
+Route::post('/purchase/updateStatus', [PurchaseOrderController::class, 'updateStatus'])->name('purchase.updateStatus');
+
+// Report
+Route::get('/purchase-report',[PurchaseReportController::class,'index']);
+Route::post('/purchase-report',[PurchaseReportController::class,'show']);
+
 
 /*
  *  Orders & Buyers
@@ -188,6 +225,7 @@ Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
+
 
 Route::get('orders', [OrderDetailsController::class, 'index']);
 /**

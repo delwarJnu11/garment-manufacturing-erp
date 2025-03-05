@@ -15,19 +15,23 @@ return new class extends Migration
     {
         Schema::create('product_lots', function (Blueprint $table) {
             $table->id(); // Auto-incrementing ID for the lot
-            $table->integer('raw_material_id'); // Reference to raw_materials table (without foreign key constraint)
-            $table->integer('quantity'); // Quantity of raw material received
+            $table->integer('product_id'); // Reference to raw_materials table (without foreign key constraint)
+            $table->integer('qty'); // Quantity of raw material received
             $table->double('cost_price')->nullable(); // Cost price of the raw material
+            $table->double('sales_price')->nullable(); // Cost price of the raw material
+            $table->integer('transaction_type_id')->nullable(); // Cost price of the raw material
             $table->integer('warehouse_id'); // Reference to warehouse (without foreign key constraint)
             $table->text('description')->nullable(); // Optional description for the lot
             $table->timestamps(); // Created at and updated at timestamps
         });
 
         ProductLot::create([
-            'raw_material_id' => 1,  // Raw Material ID (Ensure this ID exists in raw_materials table)
-            'quantity' => 500,       // Quantity received
+            'product_id' => 1,  // Raw Material ID (Ensure this ID exists in raw_materials table)
+            'qty' => 500,       // Quantity received
             'cost_price' => 120.75,  // Cost price per unit
-            'warehouse_id' => 3,     // Warehouse ID (Ensure this ID exists in warehouses table)
+            'sales_price' => 119.75,  // Cost price per unit
+            'warehouse_id' => 3,
+            'transaction_type_id' => 3,
             'description' => 'Batch of high-quality cotton fabric', // Optional description
         ]);
     }

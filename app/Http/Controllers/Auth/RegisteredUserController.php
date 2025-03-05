@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Hrm_employees;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -52,6 +53,14 @@ class RegisteredUserController extends Controller
             'role_id'  => $request->role_id,
             'image'    => $imageName,
         ]);
+
+        // if ($request->role_id == 2) {
+        //     Hrm_employees::create([
+        //         'name'     => $request->name,
+        //         'email'    => $request->email,
+        //         'photo'    => $imageName,
+        //     ]);
+        // }
 
         event(new Registered($user));
 

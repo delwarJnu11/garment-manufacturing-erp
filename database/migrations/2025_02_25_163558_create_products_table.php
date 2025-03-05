@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\ProductVariant;
+use App\Models\Product;
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_variants', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->integer('product_type_id'); // Integer column for product_type_id
@@ -23,7 +24,7 @@ return new class extends Migration
             $table->decimal('unit_price', 10, 2)->default(0.00);
             $table->timestamps();
         });
-        ProductVariant::create([
+        Product::create([
             'name' => 'Red Cotton Fabric',
             'product_type_id' => 1, // Example: 1 for Raw Material
             'size_id' => 1,
@@ -32,7 +33,7 @@ return new class extends Migration
             'uom_id' => 1,
             'unit_price' => 15.50
         ]);
-        ProductVariant::create([
+        Product::create([
             'name' => 'Black T-shirt ',
             'product_type_id' => 2, // Example: 2 for Finished Goods
             'size_id' => 3,
@@ -42,7 +43,7 @@ return new class extends Migration
             'unit_price' => 25.00
         ]);
 
-        ProductVariant::create([
+        Product::create([
             'name' => 'White Shirt ',
             'product_type_id' => 2, // Example: 2 for Finished Goods
             'size_id' => 3,

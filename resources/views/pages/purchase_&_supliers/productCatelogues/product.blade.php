@@ -4,7 +4,7 @@
     <x-message-banner />
 
     <div class="card flex-fill">
-        <x-page-header heading="Product" btnText="Add Product" href="{{ url('products/create') }}" />
+        <x-page-header heading="Product" btnText="Add Product" href="{{ url('productCatelogues/create') }}" />
 
         <table class="table table-striped table-bordered">
             <thead class="thead-primary">
@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($products as $product)
+                @forelse ($productCatelogues as $product)
                     <tr>
                        
                         <td>{{ $product->id }}</td>
@@ -44,13 +44,13 @@
                      
                       
                         <td class="action-table-data">
-                            <a href="{{ route('products.show', $product->id) }}">
+                            <a href="{{ route('productCatelogues.show', $product->id) }}">
                                 <i data-feather="eye" class="feather-eye"></i>
                             </a>
-                            <a href="{{ route('products.edit', $product->id) }}">
+                            <a href="{{ route('productCatelogues.edit', $product->id) }}">
                                 <i data-feather="edit" class="feather-edit"></i>
                             </a>
-                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="margin-bottom: 0"
+                            <form action="{{ route('productCatelogues.destroy', $product->id) }}" method="POST" style="margin-bottom: 0"
                                >
                                 @csrf
                                 @method('DELETE')
@@ -63,14 +63,14 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="16" class="text-center">No products found.</td>
+                        <td colspan="16" class="text-center">No productCatelogues found.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
 
         <div class="d-flex justify-content-end">
-            {{ $products->links('vendor.pagination.custom') }}
+            {{ $productCatelogues->links('vendor.pagination.custom') }}
         </div>
     </div>
  

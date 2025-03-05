@@ -23,7 +23,7 @@ CREATE TABLE hrm_attendances_lists (
     leave_days TINYINT UNSIGNED DEFAULT 0,
     late_times TIME DEFAULT '00:00:00',
     leave_times TIME DEFAULT '00:00:00',
-    overtime_hours DECIMAL(5,2) DEFAULT '0.00',
+    overtime_hours TIME DEFAULT '00:00:00',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
@@ -178,12 +178,15 @@ CREATE TABLE `hrm_leave_holidays` (
 
 CREATE TABLE hrm_leave_applications (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT UNSIGNED NOT NULL,
-    leave_type VARCHAR(255) NOT NULL,
+    employee_id BIGINT UNSIGNED NOT NULL,
+    leave_type_id VARCHAR(255) NOT NULL,
+    attendance_id BIGINT UNSIGNED NOT NULL,
+    date DATE NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     number_of_days DECIMAL(5,2) NOT NULL,
     reason TEXT NOT NULL,
+    duration VARCHAR(255) NOT NULL,
     statuses_id BIGINT UNSIGNED NOT NULL,
     approver_id BIGINT UNSIGNED DEFAULT NULL,
     photo VARCHAR(255) NOT NULL,
@@ -192,18 +195,34 @@ CREATE TABLE hrm_leave_applications (
 );
 
 
+CREATE TABLE hrm_leave_types (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    code VARCHAR(50) NOT NULL UNIQUE,
+    description TEXT NULL,
+    max_days INT NOT NULL DEFAULT 0,
+    is_paid BOOLEAN NOT NULL DEFAULT 1,
+    requires_approval BOOLEAN NOT NULL DEFAULT 1,
+    carry_forward BOOLEAN NOT NULL DEFAULT 0,
+    statuses_id BIGINT UNSIGNED NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+
 CREATE TABLE hrm_leave_application_approvers (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     leave_application_id BIGINT UNSIGNED NOT NULL,
-    approver_user_id BIGINT UNSIGNED NOT NULL, -- The user who is the approver (foreign key to users table)
-    approver_role VARCHAR(255) NOT NULL, -- Role of the approver (e.g., manager, HR, etc.)
-    statuses_id BIGINT UNSIGNED NOT NULL, -- Status of approval
-    approved_at TIMESTAMP NULL, -- Timestamp of when the leave was approved
-    rejected_at TIMESTAMP NULL, -- Timestamp of when the leave was rejected
-    comments TEXT NULL, -- Comments or feedback from the approver
+    approver_user_id BIGINT UNSIGNED NOT NULL,
+    date DATE NOT NULL,
+    approver_role VARCHAR(255) NOT NULL,
+    statuses_id BIGINT UNSIGNED NOT NULL,
+    approved_at TIMESTAMP NULL,
+    rejected_at TIMESTAMP NULL,
+    comments  TEXT NULL,
     photo VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- When the approver was added
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- When the record was last updated
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
 
 

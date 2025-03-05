@@ -17,7 +17,7 @@
             <h4 style="color: white">Add New Product</h4>
         </div>
         <div class="card-body">
-            <form action="{{ route('product_variants.store') }}" method="POST">
+            <form action="{{ route('products.store') }}" method="POST">
                 @csrf
 
                 <div class="row">

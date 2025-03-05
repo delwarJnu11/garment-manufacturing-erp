@@ -68,7 +68,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-end mt-3">
-        {{ $buyers->links() }}
+        {{ $buyers->links('vendor.pagination.custom') }}
     </div>
     
 @endsection
