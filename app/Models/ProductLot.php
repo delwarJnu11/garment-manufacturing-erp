@@ -20,18 +20,9 @@ class ProductLot extends Model
         'transaction_type_id',
         'description',
     ];
-
-    // function product_variant(): BelongsTo
-    // {
-    //     return $this->belongsTo(ProductVariant::class, 'product_variant_id');
-    // }
-    // function warehouse(): BelongsTo
-    // {
-    //     return $this->belongsTo(Warehouse::class, 'warehouse_id');
-    // }
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'product_variant_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function warehouse(): BelongsTo

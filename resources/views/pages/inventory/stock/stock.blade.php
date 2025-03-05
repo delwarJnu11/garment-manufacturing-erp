@@ -10,10 +10,11 @@
             <th>#</th>
             <th>Product Name</th>
             <th>Product Type</th>
+            <th>Product Lot No.</th>
             <th>SKU</th>
             <th>Warehouse</th>
-            <th>Quantity</th>
             <th>Transaction Type</th>
+            <th>Quantity</th>
             <th>Unit Price</th>
             <th>Total Value</th>
             <th>Action</th>
@@ -25,12 +26,13 @@
             <td>{{ $key + 1 }}</td>
             <td>{{ $stock->product->name }}</td>
             <td>{{ $stock->product->product_type_id == 1 ? 'Raw Material' : 'Finished Goods' }}</td>
+            <td>{{ $stock->lot_id }}</td>
             <td>{{ $stock->product->sku }}</td>
-            <td>{{ $stock->warehouse->name }}</td>
-            <td>{{ $stock->product->qty }}</td>
+            <td>{{ $stock->lot->warehouse->name ?? "N/A" }}</td>
             <td>{{ $stock->TransactionType->name ?? 'N/A' }}</td>
+            <td>{{ $stock->lot->qty }}</td>
             <td>${{ number_format($stock->product->unit_price, 2) }}</td>
-            <td>${{ number_format($stock->product->qty * $stock->product->unit_price, 2) }}</td>
+            <td>${{ number_format($stock->lot->qty * $stock->product->unit_price, 2) }}</td>
             <td class="action-table-data">
                 <div class="edit-delete-action">
                     <a class="me-2 p-2" href="{{ route('stocks.edit', $stock->id) }}">

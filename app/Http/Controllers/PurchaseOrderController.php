@@ -10,6 +10,7 @@ use App\Models\Purchase_status;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrders;
 use App\Models\PurchaseStatus;
+use App\Models\Warehouse;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -25,6 +26,22 @@ class PurchaseOrderController extends Controller
 
         return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('purchase_orders'));
     }
+
+
+    public function create()
+    {
+
+        $suppliers = InvSupplier::all();
+        $lots = ProductLot::all();
+        $statuses = PurchaseStatus::all();
+        // Fetch only Product Variants with product_type_id = 1 (Raw Material)
+        $products = Product::whereHas('product_type', function ($query) {
+            $query->where('id', 1)->orWhere('name', 'Raw Material');
+        })->get();
+        return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'products'));
+    }
+
+
 
     public function updateStatus(Request $request)
     {
@@ -58,17 +75,6 @@ class PurchaseOrderController extends Controller
      */
 
 
-    public function create()
-    {
-        $suppliers = InvSupplier::all();
-        $lots = ProductLot::all();
-        $statuses = PurchaseStatus::all();
-        // Fetch only Product Variants with product_type_id = 1 (Raw Material)
-        $products = Product::whereHas('product_type', function ($query) {
-            $query->where('id', 1)->orWhere('name', 'Raw Material');
-        })->get();
-        return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'products'));
-    }
 
 
     public function find_supplier(Request $request)
@@ -98,20 +104,17 @@ class PurchaseOrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-       
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.
      */
     public function show(PurchaseOrder $purchaseOrder, $id)
-{
-    
-    $purchaseOrder = PurchaseOrder::with(['inv_supplier', 'purchaseDetails.product'])->findOrFail($id);
-    return view('pages.purchase_&_supliers.purchase_order.show', compact('purchaseOrder'));
-}
+    {
+
+        $purchaseOrder = PurchaseOrder::with(['inv_supplier', 'purchaseDetails.product'])->findOrFail($id);
+        return view('pages.purchase_&_supliers.purchase_order.show', compact('purchaseOrder'));
+    }
 
 
 
@@ -128,10 +131,10 @@ class PurchaseOrderController extends Controller
         $invoice = PurchaseOrder::with(['purchaseDetails.product', 'inv_supplier'])->findOrFail($id);
         // Update this line to reflect the correct view path
         $pdf = FacadePdf::loadView('pages.purchase_&_supliers.purchase_order.pdf', compact('invoice'));
-    
+
         return $pdf->download('invoice_' . $id . '.pdf');
     }
-    
+
 
 
 

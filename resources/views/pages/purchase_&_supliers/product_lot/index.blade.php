@@ -20,8 +20,8 @@
 
 <div class="container mt-4">
     <div class="card flex-fill">
-        <x-page-header heading="Product Lot" btnText="Add Product Lt" href="{{ url('product_lots/create') }}" />
-        
+        {{-- <x-page-header heading="Product Lot" btnText="Lot" href="{{ url('product_lots/create') }}" />
+         --}}
       
             <table class="table table-bordered">
                 <thead class="thead-primary">
@@ -30,9 +30,10 @@
                         <th>Product name</th>
                         <th>Quantity</th>
                         <th>Cost Price</th>
+                        <th>Transaction Type</th>
                         <th>Warehouse ID</th>
-                        <th>Description</th>
-                        <th>Created At</th>
+                        {{-- <th>Description</th> --}}
+                        <th>Created Time</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -43,11 +44,11 @@
                         <td>{{ $product_lot->product->name ?? 'N/A'}}</td>
                         <td>{{ $product_lot->qty }}</td>
                         <td>{{ $product_lot->cost_price }}</td>
-                        <td>{{ $product_lot->sales_price }}</td>
+                        {{-- <td>{{ $product_lot->sales_price }}</td> --}}
                        
                         <td>{{ $product_lot->transactionType->name ?? "N/A" }}</td>
                         <td>{{ $product_lot->warehouse->name ?? 'N/A' }}</td>
-                        <td>{{ $product_lot->description }}</td>
+                        {{-- <td>{{ $product_lot->description }}</td> --}}
                         <td>{{ $product_lot->created_at }}</td>
                         <td class="action-table-data">
                             <div class="edit-delete-action">
@@ -79,7 +80,7 @@
 
             <!-- Pagination -->
             <div class="d-flex justify-content-center">
-                {{ $product_lots->links() }}
+                {{ $product_lots->links('vendor.pagination.custom') }}
             </div>
         </div>
     </div>

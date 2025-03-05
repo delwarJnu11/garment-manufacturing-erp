@@ -51,6 +51,10 @@
                             </div>
 
                         </div>
+                      
+                        <p><strong>Warehouse Name:</strong> <span id="warehouse_name"></span></p>
+                        
+                        </div>
                     </div>
                     <!-- Raw Material Table -->
                     <div class="container mt-5">
@@ -174,13 +178,6 @@
                 year: 'numeric'
             });
 
-            // Set purchase and delivery date
-            // let today = new Date();
-            // let purchaseDate = today.toLocaleDateString('en-US', {
-            //     day: 'numeric',
-            //     month: 'long',
-            //     year: 'numeric'
-            // });
 
             // Format delivery date (7 days later)
             let deliveryDate = new Date();
@@ -198,6 +195,7 @@
                     ' X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             })
+
 
             $('#supplier_id').on('change', function() {
                 let supplier_id = $(this).val();
@@ -224,6 +222,7 @@
                 });
 
             })
+            
             $("#product_id").on('change', function() {
                 let product_id = $(this).val();
                 console.log("Selected Product ID: " + product_id);
