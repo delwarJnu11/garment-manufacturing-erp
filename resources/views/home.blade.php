@@ -10,6 +10,7 @@
             font-family: Arial, sans-serif;
             font-size: 1.3rem;
             font-weight: bold;
+            padding: 8px;
         }
 
         #day {
@@ -37,8 +38,8 @@
                 {{-- <span id="clock"></span> --}}
             </div>
             <div class="col-md-2 text-center">
-                <a id="clockButton" class="btn btn-warning btn-lg" href="javascript:void(0);" onclick="clockIn()">Clock In</a>
-                <a id="clockOutButton" class="btn btn-danger btn-lg" href="javascript:void(0);" onclick="clockOut()"
+                <a id="clockButton" class="btn btn-warning btn-lg p-4" href="javascript:void(0);" onclick="clockIn()">Clock In</a>
+                <a id="clockOutButton" class="btn btn-danger btn-lg p-4 " href="javascript:void(0);" onclick="clockOut()"
                     style="display:none;">Clock Out</a>
             </div>
         </div>

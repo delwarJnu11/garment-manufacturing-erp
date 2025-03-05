@@ -20,7 +20,6 @@
                             <th>late_Times</th>
                             {{-- <th>leave_Times</th> --}}
                             <th>overtime_hours</th>
-                            <th>Created At</th>
                             <th class="no-sort">Action</th>
                         </tr>
                     </thead>

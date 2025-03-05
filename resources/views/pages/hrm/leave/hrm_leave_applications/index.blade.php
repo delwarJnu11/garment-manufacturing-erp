@@ -62,7 +62,7 @@
                                 @endphp
                                 <td>{{ $application->duration }}</td>
                                 <td>{{ $application->reason }}</td>
-                                <td>{{ $application->photo }}</td>
+                                <td><a href="#"  target="_blank">{{ $application->photo }}</a></td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <a class="me-2 p-2 mb-0"
