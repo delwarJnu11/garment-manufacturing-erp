@@ -116,7 +116,8 @@
                             <div class="row mt-4">
                                 <div class="col-md-6">
 
-                                    <p><strong >Delivery Address: </strong> <span >123 Factory Road, City Road, Bangladesh</span></p>
+                                    <p><strong>Delivery Address: </strong> <span>123 Factory Road, City Road,
+                                            Bangladesh</span></p>
                                     <p><strong>Notes:</strong> Urgent delivery required.</p>
                                 </div>
                                 <div class="col-md-6 text-end">
@@ -269,11 +270,11 @@
                 cart.save(item);
                 printCart();
                 parseFloat($(".p_price").val(""));
-                 parseFloat($(".p_qty").val(""));
-                 parseFloat($(".p_discount").val("")) ;
-                parseFloat($(".p_vat").val("")) ;
+                parseFloat($(".p_qty").val(""));
+                parseFloat($(".p_discount").val(""));
+                parseFloat($(".p_vat").val(""));
 
-                
+
             });
 
             function printCart() {
@@ -319,7 +320,7 @@
                 }
             }
 
-            $("tbody").on('click','.remove', function() {
+            $("tbody").on('click', '.remove', function() {
                 let id = $(this).attr('data');
                 cart.delItem(id);
                 printCart();
@@ -380,6 +381,8 @@
                 //         .responseText); 
                 //     }
                 // });
+
+
                 $.ajax({
                     url: "{{ url('api/purchase') }}",
                     type: "POST",
@@ -400,12 +403,38 @@
                         }else{
                             alert("Error"+res.message)
                         }
-                    
+
                     },
                     error: function(xhr, status, error) {
                         console.log("API Error:", xhr.responseText);
                     }
                 });
+
+
+                // $.ajax({
+                //     url: "{{ url('api/purchase') }}",
+                //     type: "POST",
+                //     contentType: "application/json",
+                //     data: JSON.stringify({
+                //         supplier_id: supplier_id,
+                //         total_amount: purchase_total,
+                //         paid_amount: paid_amount,
+                //         discount: discount,
+                //         vat: vat,
+                //         products: products 
+                //     }),
+                //     success: function(res) {
+                //         if (res.success) {
+                //             console.log("API Response:", res);
+                //             window.location.href = res.redirect_url;
+                //         } else {
+                //             alert("Error: " + res.message);
+                //         }
+                //     },
+                //     error: function(xhr, status, error) {
+                //         console.log("API Error:", xhr.responseText);
+                //     }
+                // });
 
 
 

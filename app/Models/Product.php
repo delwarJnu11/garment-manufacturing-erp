@@ -34,4 +34,8 @@ class Product extends Model
     {
         return $this->belongsTo(Uom::class, 'uom_id');
     }
+    public function purchaseDetails()
+{
+    return $this->hasMany(PurchaseOrderDetail::class);
+}
 }

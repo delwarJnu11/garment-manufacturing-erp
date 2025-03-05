@@ -175,6 +175,10 @@ Route::resource('uoms', UOMController::class);
 Route::resource('valuations', ValuationMethodsController::class);
 Route::resource('product_lots', ProductlotController::class);
 Route::resource('purchase', PurchaseOrderController::class);
+Route::get('/invoice/{id}/print', [PurchaseOrderController::class, 'print'])->name('invoice.print');
+Route::get('purchase/{id}/generate-pdf', [PurchaseOrderController::class, 'generatePDF'])->name('purchase.generatePDF');
+
+
 Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
 Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
 Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
