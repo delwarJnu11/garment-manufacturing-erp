@@ -99,7 +99,7 @@ class PurchaseOrderController extends Controller
                     'purchase_id' => $purchase->id,
                     'product_id' => $product['item_id'],
                     'quantity' => $product['qty'],
-                    'lot_id' => $product['lot_id'] ?? 1,
+                    'lot_id' =>  1,
                     'price' => $product['price'],
                     'vat' =>  $product['total_vat'] ?? 0,
                     'discount' => $product['total_discount'] ?? 0

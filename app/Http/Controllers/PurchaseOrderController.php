@@ -53,6 +53,11 @@ class PurchaseOrderController extends Controller
         return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('confirmedOrders'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+
+
     public function create()
     {
         $suppliers = InvSupplier::all();

@@ -11,6 +11,7 @@ class Product extends Model
     protected $fillable = [
         'name',
         'product_type_id',
+        'category_type_id',
         'size_id',
         'sku',
         'qty',
@@ -25,6 +26,10 @@ class Product extends Model
     function product_type(): BelongsTo
     {
         return $this->belongsTo(ProductType::class, 'product_type_id');
+    }
+    function category_type(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_type_id');
     }
     function size(): BelongsTo
     {
