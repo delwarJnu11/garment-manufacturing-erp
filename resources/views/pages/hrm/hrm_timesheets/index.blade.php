@@ -18,7 +18,8 @@
                             <th>Shift_start</th>
                             <th>Shift_end</th>
                             {{-- <th>Break_duration</th> --}}
-                            <th>Total_work_hours</th>
+                            <th>Total_working_hours</th>
+                            <th>Total_work_done</th>
                             <th>Overtime_hours</th>
                             {{-- <th>Remarks</th> --}}
                             <th>Created At</th>
@@ -37,6 +38,7 @@
                                 <td>{{ $timesheet->shift_start }}</td>
                                 <td>{{ $timesheet->shift_end }}</td>
                                 {{-- <td>{{ $timesheet->break_duration }}</td> --}}
+                                <td>{{ $timesheet->fixed_work_hours }}</td>
                                 <td>{{ $timesheet->total_work_hours }}</td>
                                 <td>{{ $timesheet->overtime_hours }}</td>
                                 {{-- <td>{{ $timesheet->remarks }}</td> --}}
@@ -51,6 +53,7 @@
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
                                         </a>
+                                        @if (Auth::user()->isAdmin())
                                         <a class="me-2 p-2" href="{{url("hrm_attendance_list/$timesheet->id/edit")}}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
@@ -58,6 +61,8 @@
                                             <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Status? This action cannot be undone!');">
                                                 Yes, Delete></i>
                                         </a>
+                                        @endif
+
                                         {{-- <form action="{{url("hrm_status/{$data['id']}")}}" method="post">
                                             @csrf
                                             @method('delete')

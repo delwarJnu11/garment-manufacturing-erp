@@ -398,6 +398,7 @@ CREATE TABLE hrm_employee_timesheets (
     clock_out TIME DEFAULT '00:00:00',
     break_duration INT DEFAULT 0,
     total_work_hours DECIMAL(5,2) DEFAULT '0.00',
+    fixed_work_hours DECIMAL(5,2) DEFAULT '8',
     overtime_hours DECIMAL(5,2) DEFAULT '0.00',
     statuses_id BIGINT UNSIGNED NOT NULL,
     remarks TEXT NULL,

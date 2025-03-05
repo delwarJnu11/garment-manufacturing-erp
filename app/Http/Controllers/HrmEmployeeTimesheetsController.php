@@ -46,6 +46,7 @@ class HrmEmployeeTimesheetsController extends Controller
         'shift_end' => 'required|integer|min:0',
         'break_duration' => 'required|numeric|min:0',
         'total_work_hours' => 'required|numeric|min:0',
+        'fixed_work_hours' => 'required|numeric|min:0',
         'overtime_hours' => 'required|numeric|min:0',
         'remarks' => 'required|numeric|min:0',
     ]);
@@ -60,6 +61,7 @@ class HrmEmployeeTimesheetsController extends Controller
         $timesheets->shift_end= $request->shift_end;
         $timesheets->break_duration= $request->break_duration;
         $timesheets->total_work_hours= $request->total_work_hours;
+        $timesheets->fixed_work_hours= $request->fixed_work_hours;
         $timesheets->overtime_hours= $request->overtime_hours;
         $timesheets->remarks= $request->remarks;
 

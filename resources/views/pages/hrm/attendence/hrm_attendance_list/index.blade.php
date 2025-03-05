@@ -16,10 +16,11 @@
                             <th>Clock_in</th>
                             <th>Clock_out</th>
                             {{-- <th>Late Days</th> --}}
-                            {{-- <th>Leave Days</th> --}}
                             <th>Late_Times</th>
+                            <th>Leave Days</th>
+                            <th>Leave Type</th>
                             {{-- <th>leave_Times</th> --}}
-                            <th>Total_work_hours</th>
+                            <th>Total_work_done</th>
                             <th>Overtime_hours</th>
                             {{-- <th>Created At</th> --}}
                             <th class="no-sort">Action</th>
@@ -35,8 +36,9 @@
                                 <td>{{ $attendence->clock_in }}</td>
                                 <td>{{ $attendence->clock_out }}</td>
                                 {{-- <td>{{ $attendence->late_days }}</td> --}}
-                                {{-- <td>{{ $attendence->leave_days }}</td> --}}
                                 <td>{{ $attendence->late_times }}</td>
+                                <td>{{ $attendence->leave_days }}</td>
+                                <td>{{ $attendence->leave_type_id }}</td>
                                 {{-- <td>{{ $attendence->leave_times }}</td> --}}
                                 <td>{{ $attendence->total_work_hours }}</td>
                                 <td>{{ $attendence->overtime_hours }}</td>
@@ -51,6 +53,7 @@
                                                 <circle cx="12" cy="12" r="3"></circle>
                                             </svg>
                                         </a>
+                                        @if (Auth::user()->isAdmin())
                                         <a class="me-2 p-2" href="{{url("hrm_attendance_list/$attendence->id/edit")}}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
@@ -58,6 +61,8 @@
                                             <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Status? This action cannot be undone!');">
                                                 Yes, Delete></i>
                                         </a>
+                                        @endif
+
                                         {{-- <form action="{{url("hrm_status/{$data['id']}")}}" method="post">
                                             @csrf
                                             @method('delete')
