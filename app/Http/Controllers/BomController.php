@@ -15,8 +15,32 @@ class BomController extends Controller
      */
     public function index()
     {
+        $sizes = Size::all();
+        $boms = BOM::with(['order.buyer', 'orderDetails', 'bomDetails'])
+            ->get()
+            ->map(function ($bom) {
+                $sizes = $bom->bomDetails->groupBy('size_id');
 
-        return view('pages.production.bom.index');
+                // Dynamically generate size-based costs
+                $sizeCosts = [];
+                foreach ($sizes as $sizeId => $details) {
+                    $sizeCosts["size_{$sizeId}"] = $details->sum(fn($detail) => ($detail->quantity_used + (($detail->wastage * $detail->quantity_used)/100)) * $detail->unit_price) ?? 0;
+                }
+
+                return array_merge([
+                    'order_id' => $bom->order->order_number,
+                    'buyer_name' => $bom->order->buyer->first_name ." ".$bom->order->buyer->last_name,
+                    'product_name' => optional($bom->orderDetails->first())->product->name,
+                    'labour_cost' => $bom->labour_cost,
+                    'overhead_cost' => $bom->overhead_cost,
+                    'utility_cost' => $bom->utility_cost,
+                    'total_cost' => $bom->total_cost,
+                    'delivery_date' => optional($bom->order->delivery_date)->format('d M Y'),
+                    'status' => $bom->order->status,
+                ], $sizeCosts);
+            });
+
+        return view('pages.production.bom.index', compact('boms','sizes'));
     }
 
     /**

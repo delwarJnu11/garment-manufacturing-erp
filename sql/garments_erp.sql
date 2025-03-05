@@ -551,30 +551,30 @@ CREATE TABLE production_work_orders (
 
 -- BOM
 
-CREATE TABLE bom (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
-    material_cost DECIMAL(10,2),
-    labor_cost DECIMAL(10,2),
-    overhead_cost DECIMAL(10,2),
-    utility_cost DECIMAL(10,2),
-    total_cost DECIMAL(10,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-);
+-- CREATE TABLE bom (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     order_id INT,
+--     material_cost DECIMAL(10,2),
+--     labor_cost DECIMAL(10,2),
+--     overhead_cost DECIMAL(10,2),
+--     utility_cost DECIMAL(10,2),
+--     total_cost DECIMAL(10,2),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+-- );
 
 
-CREATE TABLE bom_details (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    bom_id INT,
-    material_id INT,
-    size_id INT,
-    quantity_used DECIMAL(10,2),
-    unit_cost DECIMAL(10,2),
-    wastage DECIMAL(10,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-);
+-- CREATE TABLE bom_details (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     bom_id INT,
+--     material_id INT,
+--     size_id INT,
+--     quantity_used DECIMAL(10,2),
+--     unit_cost DECIMAL(10,2),
+--     wastage DECIMAL(10,2),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+-- );
 
 
 

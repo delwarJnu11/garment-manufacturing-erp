@@ -14,13 +14,14 @@ class BomDetails extends Model
         'material_id',
         'size_id',
         'quantity_used',
-        'unit_cost',
+        'uom_id',
+        'unit_price',
         'wastage',
     ];
 
     public function bom()
     {
-        return $this->belongsTo(Bom::class);
+        return $this->belongsTo(Bom::class, 'bom_id');
     }
 
     public function material()

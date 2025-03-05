@@ -55,9 +55,9 @@
                         </div>
                         <!-- Unit Cost -->
                         <div class="col-md-2 mb-3">
-                            <label for="unit_cost" class="form-label">Unit Cost:</label>
-                            <input type="number" name="unit_cost" id="unit_cost" class="form-control" required>
-                            <x-input-error :messages="$errors->get('unit_cost')" class="mt-2" />
+                            <label for="unit_price" class="form-label">Unit Cost:</label>
+                            <input type="number" name="unit_price" id="unit_price" class="form-control" required>
+                            <x-input-error :messages="$errors->get('unit_price')" class="mt-2" />
                         </div>
 
                         <!-- Wastage -->
@@ -90,12 +90,6 @@
                     <tbody id="data-append">
 
                     </tbody>
-                    <tbody>
-                        <tr>
-                            <td colspan="6" class="text-end">Total</td>
-                            <td>0</td>
-                        </tr>
-                    </tbody>
                 </table>
                 <div class="d-flex justify-content-end mt-3">
                     <button type="btn" id="create_btn" class="btn btn-primary">Create BOM</button>
@@ -115,18 +109,18 @@
                 const materialId = $(this).val();
                 if (materialId) {
                     $.ajax({
-                        url: `http://127.0.0.1:8000/api/raw_material/${materialId}`,
+                        url: `/api/raw_material/${materialId}`,
                         type: "GET",
                         contentType: "application/json",
                         headers: {
                             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                         },
                         success: function(response) {
-                            $("#unit_cost").val(response.cost_per_unit);
+                            $("#unit_price").val(response.cost_per_unit);
                         },
                         error: function(xhr) {
                             console.log(xhr.responseText);
-                            alert("Error saving bom items.");
+                            alert("Error Getting Raw materials information");
                         }
                     });
                 }
@@ -155,9 +149,9 @@
                             <td>${item.size_name}</td>
                             <td>${item.quantity_used}</td>
                             <td>${item.uom_name}</td>
-                            <td>${item.unit_cost}</td>
+                            <td>${item.unit_price}</td>
                             <td>${item.wastage}</td>
-                            <td>${parseFloat(item.quantity_used * item.unit_cost)}</td>
+                            <td>${parseFloat(item.quantity_used * item.unit_price)}</td>
                             <td>
                                 <button class="btn btn-danger btn-sm delete-item" data-index="${index}">Delete</button>
                             </td>
@@ -181,7 +175,7 @@
                 const quantity_used = $("#quantity_used").val();
                 const uom_id = $("#uom_dropdown").val();
                 const uom_name = $("#uom_dropdown option:selected").text();
-                const unit_cost = $("#unit_cost").val();
+                const unit_price = $("#unit_price").val();
                 const wastage = $("#wastage").val() ?? 0;
 
 
@@ -194,7 +188,7 @@
                     quantity_used,
                     uom_id,
                     uom_name,
-                    unit_cost,
+                    unit_price,
                     wastage
                 };
 
@@ -211,7 +205,7 @@
                 $("#size_dropdown").val('');
                 $("#quantity_used").val('');
                 $("#uom_dropdown").val('');
-                $("#unit_cost").val('');
+                $("#unit_price").val('');
                 $("#wastage").val('');
             });
 
@@ -234,15 +228,27 @@
                     size_id: item.size_id,
                     quantity_used: item.quantity_used,
                     uom_id: item.uom_id,
-                    unit_cost: item.unit_cost,
-                    wastgae: item.wastgae
+                    unit_price: item.unit_price,
+                    wastage: item.wastage
                 }));
 
+                //Total Material cost Calulate By size
+                const totalCostBySize = newItems.reduce((acc, item) => {
+                    const size = item.size_id;
+                    const cost = (((parseFloat(item.wastage) * parseFloat(item.quantity_used)) /
+                        100) + parseFloat(item.quantity_used)) * parseFloat(item.unit_price);
+                    acc[size] = (acc[size] || 0) + cost;
+                    return acc;
+                }, {});
+
+                const maxTotalCost = Math.max(...Object.values(totalCostBySize)).toFixed(2);
+
                 $.ajax({
-                    url: "http://127.0.0.1:8000/api/bom_details",
+                    url: "/api/bom_details",
                     type: "POST",
                     data: JSON.stringify({
-                        items: newItems
+                        items: newItems,
+                        material_cost: maxTotalCost,
                     }),
                     contentType: "application/json",
                     headers: {

@@ -32,6 +32,7 @@ class BomDetailsController extends Controller
         $uoms = Uom::all();
         return view('pages.production.bom_details.create', compact('products', 'sizes', 'uoms'));
     }
+    
 
     /**
      * Store a newly created resource in storage.
