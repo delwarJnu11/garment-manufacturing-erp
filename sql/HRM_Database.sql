@@ -23,6 +23,7 @@ CREATE TABLE hrm_attendances_lists (
     leave_days TINYINT UNSIGNED DEFAULT 0,
     late_times TIME DEFAULT '00:00:00',
     leave_times TIME DEFAULT '00:00:00',
+    total_work_hours DECIMAL(5,2) DEFAULT '0.00',
     overtime_hours TIME DEFAULT '00:00:00',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

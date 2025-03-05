@@ -15,22 +15,6 @@
                                         class="">Account Dashboard</a></li>
                             </ul>
                         </li>
-<<<<<<< HEAD
-
-=======
-                        {{-- USER MODULE MENU START --}}
-                        <!-- <li class="submenu">
-                            <a href="javascript:void(0);">
-                                <i data-feather="users"></i>
-                                <span>Users</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul>
-                                <li><a href="{{ route('users.index') }}" class="{{ request()->is('users') ? 'active' : '' }}">All Users</a></li>
-                                <li><a href="{{ route('roles.index') }}" class="{{ request()->is('roles') ? 'active' : '' }}">All Roles</a></li>
-                            </ul>
-                </li> -->
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
 
                         <li class="submenu">
                             <a href="javascript:void(0);"
@@ -89,10 +73,6 @@
                             </ul>
                         </li>
                         {{-- PRODUCTION MODULE MENU END --}}
-<<<<<<< HEAD
-
-=======
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
                         <!-- 🔸 Order & Customers -->
                         <li class="submenu">
                             <a href="javascript:void(0);">
@@ -107,10 +87,6 @@
                                     <a href="{{ url('/customers/groups') }}">Customer Groups</a>
                                 </li>
                                 <li><a href="{{ url('/orders') }}">Orders</a></li>
-<<<<<<< HEAD
-=======
-                                <li><a href="{{ url('/orders/create') }}">Create Orders</a></li>
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
                                 <li><a href="{{ url('/orders/pending') }}">Pending Orders</a></li>
                                 <li><a href="{{ url('/orders/pending') }}">Running Orders</a></li>
                                 <li><a href="{{ url('/orders/completed') }}">Completed Orders</a></li>
@@ -120,11 +96,6 @@
                                 <li><a href="{{ route('fabric_types.index') }}">Fabrics Types</a></li>
 
                                 <!-- 🔹 Customers -->
-<<<<<<< HEAD
-
-=======
-
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
 
                                 <!-- 🔹 Invoices & Payments -->
                                 <li><a href="{{ url('/invoices') }}">Invoices</a></li>
@@ -550,14 +521,14 @@
                             <ul>
                                 <li class="submenu submenu-two"><a href="">General Ledger<span
                                             class="menu-arrow inside-submenu"></span></a>
-<<<<<<< HEAD
+                                    <<<<<<< HEAD
 
-                                {{-- End HR & Workforce Management --}}
+                                        {{-- End HR & Workforce Management --}}
 
 
-                                {{-- FINANCE & ACCOUNTS MODULE MENU START --}}
-                                <li class="submenu"><a href="javascript:void(0);"><i
-                                            data-feather="users"></i><span>Finance &
+                                        {{-- FINANCE & ACCOUNTS MODULE MENU START --}}
+                                        <li class="submenu"><a href="javascript:void(0);"><i
+                                                data-feather="users"></i><span>Finance &
                                 <li class="submenu"><a href="javascript:void(0);"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 20 20">
@@ -571,8 +542,8 @@
                                         </svg><span>Finance &
                                             Accounts</span><span class="menu-arrow"></span></a>
 
-=======
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                                    =======
+                                    >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
                                     <ul>
                                         <li><a href="">Chart of Accounts</a></li>
                                         <li><a href="">Journal Entries</a>
@@ -581,159 +552,155 @@
                                         <li><a href="">Account Reconciliation</a></li>
                                     </ul>
                                 </li>
-<<<<<<< HEAD
-                                <li class="submenu submenu-two"><a href="">Accounts
+                                <<<<<<< HEAD
+                                    <li class="submenu submenu-two"><a href="">Accounts
                                         Payable<span class="menu-arrow inside-submenu"></span></a>
-=======
-                                <li class="submenu submenu-two"><a href="">Accounts Payable<span
-                                            class="menu-arrow inside-submenu"></span></a>
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
-                                    <ul>
-                                        <li><a href="">Suppliers</a></li>
-                                        <li><a href="">Invoices</a></li>
-                                        <li><a href="">Payments</a></li>
-                                        <li><a href="">Aging Reports</a></li>
-                                    </ul>
-                                </li>
-<<<<<<< HEAD
-                                <li class="submenu submenu-two"><a href="">Accounts
-                                        Receivable<span class="menu-arrow inside-submenu"></span></a>
-=======
-                                <li class="submenu submenu-two"><a href="">Accounts Receivable<span
-                                            class="menu-arrow inside-submenu"></span></a>
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
-                                    <ul>
-                                        <li><a href="">Customers</a></li>
-                                        <li><a href="">Invoices</a></li>
-                                        <li><a href="">Receipts</a></li>
-                                        <li><a href="">Customer Statement</a></li>
-                                    </ul>
-                                </li>
-<<<<<<< HEAD
-                                <li class="submenu submenu-two"><a href="">Cash & Bank
-                                        Management<span class="menu-arrow inside-submenu"></span></a>
-=======
-                                <li class="submenu submenu-two"><a href="">Cash & Bank Management<span
-                                            class="menu-arrow inside-submenu"></span></a>
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
-                                    <ul>
-                                        <li><a href="">Bank Accounts</a></li>
-                                        <li><a href="">Bank Reconciliation</a></li>
-                                        <li><a href="">Cash Flow</a></li>
-                                        <li><a href="">Petty Cash Management</a></li>
-                                        <li><a href="">Bank Transfers</a></li>
-                                    </ul>
-                                </li>
-<<<<<<< HEAD
-                                <li class="submenu submenu-two"><a href="">Inventory Valuation
-                                        and Costing<span class="menu-arrow inside-submenu"></span></a>
-=======
-                                <li class="submenu submenu-two"><a href="">Inventory Valuation and Costing<span
-                                            class="menu-arrow inside-submenu"></span></a>
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
-                                    <ul>
-                                        <li><a href="">Inventory Overview</a></li>
-                                        <li><a href="">Costing Methods</a></li>
-                                        <li><a href="">Cost of Goods Manufactured</a></li>
-                                    </ul>
-                                </li>
-<<<<<<< HEAD
-                                <li class="submenu submenu-two"><a href="">Payroll & Employee
-                                        Costing<span class="menu-arrow inside-submenu"></span></a>
-=======
-                                <li class="submenu submenu-two"><a href="">Payroll & Employee Costing<span
-                                            class="menu-arrow inside-submenu"></span></a>
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
-                                    <ul>
-                                        <li><a href="">Employee Records</a></li>
-                                        <li><a href="">Payroll</a></li>
-                                        <li><a href="">Deductions</a></li>
-                                        <li><a href="">Overtime & Bonuses</a></li>
-                                        <li><a href="">Employee Benefits Management</a></li>
-                                        <li><a href="">Payslips & Reporting</a></li>
-                                    </ul>
-                                </li>
-<<<<<<< HEAD
-                                <li class="submenu submenu-two"><a href="">Budgeting &
-                                        Forecasting<span class="menu-arrow inside-submenu"></span></a>
-=======
-                                <li class="submenu submenu-two"><a href="">Budgeting & Forecasting<span
-                                            class="menu-arrow inside-submenu"></span></a>
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
-                                    <ul>
-                                        <li><a href="">Budget Creation</a></li>
-                                        <li><a href="">Forecasting</a></li>
-                                        <li><a href="">Variance Analysis</a></li>
-                                        <li><a href="">Cash Flow Projections</a></li>
-                                    </ul>
-                                </li>
+                                    =======
+                                    <li class="submenu submenu-two"><a href="">Accounts Payable<span
+                                                class="menu-arrow inside-submenu"></span></a>
+                                        >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                                        <ul>
+                                            <li><a href="">Suppliers</a></li>
+                                            <li><a href="">Invoices</a></li>
+                                            <li><a href="">Payments</a></li>
+                                            <li><a href="">Aging Reports</a></li>
+                                        </ul>
+                                    </li>
+                                    <<<<<<< HEAD
+                                        <li class="submenu submenu-two"><a href="">Accounts
+                                            Receivable<span class="menu-arrow inside-submenu"></span></a>
+                                        =======
+                                        <li class="submenu submenu-two"><a href="">Accounts Receivable<span
+                                                    class="menu-arrow inside-submenu"></span></a>
+                                            >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                                            <ul>
+                                                <li><a href="">Customers</a></li>
+                                                <li><a href="">Invoices</a></li>
+                                                <li><a href="">Receipts</a></li>
+                                                <li><a href="">Customer Statement</a></li>
+                                            </ul>
+                                        </li>
+                                        <<<<<<< HEAD
+                                            <li class="submenu submenu-two"><a href="">Cash & Bank
+                                                Management<span class="menu-arrow inside-submenu"></span></a>
+                                            =======
+                                            <li class="submenu submenu-two"><a href="">Cash & Bank Management<span
+                                                        class="menu-arrow inside-submenu"></span></a>
+                                                >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                                                <ul>
+                                                    <li><a href="">Bank Accounts</a></li>
+                                                    <li><a href="">Bank Reconciliation</a></li>
+                                                    <li><a href="">Cash Flow</a></li>
+                                                    <li><a href="">Petty Cash Management</a></li>
+                                                    <li><a href="">Bank Transfers</a></li>
+                                                </ul>
+                                            </li>
+                                            <<<<<<< HEAD
+                                                <li class="submenu submenu-two"><a href="">Inventory Valuation
+                                                    and Costing<span class="menu-arrow inside-submenu"></span></a>
+                                                =======
+                                                <li class="submenu submenu-two"><a href="">Inventory Valuation and Costing<span
+                                                            class="menu-arrow inside-submenu"></span></a>
+                                                    >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                                                    <ul>
+                                                        <li><a href="">Inventory Overview</a></li>
+                                                        <li><a href="">Costing Methods</a></li>
+                                                        <li><a href="">Cost of Goods Manufactured</a></li>
+                                                    </ul>
+                                                </li>
+                                                <<<<<<< HEAD
+                                                    <li class="submenu submenu-two"><a href="">Payroll & Employee
+                                                        Costing<span class="menu-arrow inside-submenu"></span></a>
+                                                    =======
+                                                    <li class="submenu submenu-two"><a href="">Payroll & Employee Costing<span
+                                                                class="menu-arrow inside-submenu"></span></a>
+                                                        >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                                                        <ul>
+                                                            <li><a href="">Employee Records</a></li>
+                                                            <li><a href="">Payroll</a></li>
+                                                            <li><a href="">Deductions</a></li>
+                                                            <li><a href="">Overtime & Bonuses</a></li>
+                                                            <li><a href="">Employee Benefits Management</a></li>
+                                                            <li><a href="">Payslips & Reporting</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <<<<<<< HEAD
+                                                        <li class="submenu submenu-two"><a href="">Budgeting &
+                                                            Forecasting<span class="menu-arrow inside-submenu"></span></a>
+                                                        =======
+                                                        <li class="submenu submenu-two"><a href="">Budgeting & Forecasting<span
+                                                                    class="menu-arrow inside-submenu"></span></a>
+                                                            >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                                                            <ul>
+                                                                <li><a href="">Budget Creation</a></li>
+                                                                <li><a href="">Forecasting</a></li>
+                                                                <li><a href="">Variance Analysis</a></li>
+                                                                <li><a href="">Cash Flow Projections</a></li>
+                                                            </ul>
+                                                        </li>
 
-<<<<<<< HEAD
-                                <li class="submenu submenu-two"><a href="javascript:void(0);">Financial
-                                        Reporting<span class="menu-arrow inside-submenu"></span></a>
-=======
-                                <li class="submenu submenu-two"><a href="javascript:void(0);">Financial Reporting<span
-                                            class="menu-arrow inside-submenu"></span></a>
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
-                                    <ul>
-                                        <li><a href="">Balance Sheet</a></li>
-                                        <li><a href="">Profit & Loss Statement</a></li>
-                                        <li><a href="">Cash Flow Statement</a></li>
-                                        <li><a href="">Tax Reports</a></li>
-                                        <li><a href="">Custom Report</a></li>
-                                        <li><a href="">Consolidated Financial Reports</a></li>
-                                    </ul>
-                                </li>
-<<<<<<< HEAD
-                                <li class="submenu submenu-two"><a href="">Fixed Asset
-                                        Maangement<span class="menu-arrow inside-submenu"></span></a>
-=======
-                                <li class="submenu submenu-two"><a href="">Fixed Asset Maangement<span
-                                            class="menu-arrow inside-submenu"></span></a>
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
-                                    <ul>
-                                        <li><a href="">Asset Register</a></li>
-                                        <li><a href="">Depreciation</a></li>
-                                        <li><a href="">Asset Disposal</a></li>
-                                        <li><a href="">Asset Reports</a></li>
-                                    </ul>
-                                </li>
-<<<<<<< HEAD
-                                <li class="submenu submenu-two"><a href="">Taxation
-                                        Management<span class="menu-arrow inside-submenu"></span></a>
-=======
-                                <li class="submenu submenu-two"><a href="">Taxation Management<span
-                                            class="menu-arrow inside-submenu"></span></a>
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
-                                    <ul>
-                                        <li><a href="">Tax Setup</a></li>
-                                        <li><a href="">Tax Calculations</a></li>
-                                        <li><a href="">Tax Filing Reports</a></li>
-                                        <li><a href="">Tax Deduction at Source</a></li>
-                                    </ul>
-                                </li>
+                                                        <<<<<<< HEAD
+                                                            <li class="submenu submenu-two"><a href="javascript:void(0);">Financial
+                                                                Reporting<span class="menu-arrow inside-submenu"></span></a>
+                                                            =======
+                                                            <li class="submenu submenu-two"><a href="javascript:void(0);">Financial Reporting<span
+                                                                        class="menu-arrow inside-submenu"></span></a>
+                                                                >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                                                                <ul>
+                                                                    <li><a href="">Balance Sheet</a></li>
+                                                                    <li><a href="">Profit & Loss Statement</a></li>
+                                                                    <li><a href="">Cash Flow Statement</a></li>
+                                                                    <li><a href="">Tax Reports</a></li>
+                                                                    <li><a href="">Custom Report</a></li>
+                                                                    <li><a href="">Consolidated Financial Reports</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <<<<<<< HEAD
+                                                                <li class="submenu submenu-two"><a href="">Fixed Asset
+                                                                    Maangement<span class="menu-arrow inside-submenu"></span></a>
+                                                                =======
+                                                                <li class="submenu submenu-two"><a href="">Fixed Asset Maangement<span
+                                                                            class="menu-arrow inside-submenu"></span></a>
+                                                                    >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                                                                    <ul>
+                                                                        <li><a href="">Asset Register</a></li>
+                                                                        <li><a href="">Depreciation</a></li>
+                                                                        <li><a href="">Asset Disposal</a></li>
+                                                                        <li><a href="">Asset Reports</a></li>
+                                                                    </ul>
+                                                                </li>
+                                                                <<<<<<< HEAD
+                                                                    <li class="submenu submenu-two"><a href="">Taxation
+                                                                        Management<span class="menu-arrow inside-submenu"></span></a>
+                                                                    =======
+                                                                    <li class="submenu submenu-two"><a href="">Taxation Management<span
+                                                                                class="menu-arrow inside-submenu"></span></a>
+                                                                        >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                                                                        <ul>
+                                                                            <li><a href="">Tax Setup</a></li>
+                                                                            <li><a href="">Tax Calculations</a></li>
+                                                                            <li><a href="">Tax Filing Reports</a></li>
+                                                                            <li><a href="">Tax Deduction at Source</a></li>
+                                                                        </ul>
+                                                                    </li>
                             </ul>
                         </li>
-<<<<<<< HEAD
-                                {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
-
-=======
-                        {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
->>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
+                        <<<<<<< HEAD
+                            {{-- FINANCE & ACCOUNTS MODULE MENU END --}}======={{-- FINANCE & ACCOUNTS MODULE MENU END --}}>>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595
 
 
                 </li>
             </ul>
             </li>
-<<<<<<< HEAD
-                      </li>
-                    </ul>
+            <<<<<<< HEAD
+                </li>
+                </ul>
                 </li>
         </div>
     </div>
 </div>
 =======
-        </div>
-    </div>
+</div>
+</div>
 </div>
 >>>>>>> a9792f43dbcf60dee82c98be2dc098fffdc46595

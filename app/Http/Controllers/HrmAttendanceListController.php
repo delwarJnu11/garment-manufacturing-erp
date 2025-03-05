@@ -51,6 +51,7 @@ class HrmAttendanceListController extends Controller
             'leave_days' => 'required|integer|min:0',
             'late_times' => 'required|integer|min:0',
             'leave_times' => 'required|integer|min:0',
+            'total_work_hours' => 'required|numeric|min:0',
             'overtime_hours' => 'required|numeric|min:0',
         ]);
 
@@ -64,6 +65,7 @@ class HrmAttendanceListController extends Controller
         $attendences->leave_days = $request->leave_days;
         $attendences->late_times = $request->late_times;
         $attendences->leave_times = $request->leave_times;
+        $attendences->total_work_hours = $request->total_work_hours;
         $attendences->overtime_hours = $request->overtime_hours;
 
         if ($attendences->save()) {
@@ -108,6 +110,7 @@ class HrmAttendanceListController extends Controller
             'leave_days' => 'required|integer|min:0',
             'late_times' => 'required|integer|min:0',
             'leave_times' => 'required|integer|min:0',
+            'total_work_hours' => 'required|numeric|min:0',
             'overtime_hours' => 'required|numeric|min:0',
         ]);
 
@@ -121,6 +124,7 @@ class HrmAttendanceListController extends Controller
         $attendences->leave_days = $request->leave_days;
         $attendences->late_times = $request->late_times;
         $attendences->leave_times = $request->leave_times;
+        $attendences->total_work_hours = $request->total_work_hours;
         $attendences->overtime_hours = $request->overtime_hours;
 
         if ($attendences->save()) {
@@ -152,7 +156,7 @@ class HrmAttendanceListController extends Controller
 
         $attendences->employee_id = Auth::user()->id;
         $attendences->date = Carbon::today()->toDateString();
-        $attendences->statuses_id = 1;
+        $attendences->statuses_id = 7;
         $attendences->clock_in = Carbon::now('Asia/Dhaka')->format('h:i:s');
         $attendences->clock_out = null;
         $attendences->save();
@@ -160,7 +164,7 @@ class HrmAttendanceListController extends Controller
             $timesheet= new Hrm_employee_timesheets();
             $timesheet->employee_id = Auth::user()->id;
             $timesheet->date = Carbon::today()->toDateString();
-            $timesheet->statuses_id = 1;
+            $timesheet->statuses_id = 7;
             $timesheet->clock_in = Carbon::now('Asia/Dhaka')->format('h:i:s');
             $timesheet->clock_out = null;
             $timesheet->shift_start ="10:00:00";
@@ -190,6 +194,8 @@ class HrmAttendanceListController extends Controller
 
         $attendences = Hrm_attendances_lists::find($attendance->id);
         $attendences->clock_out = Carbon::now('Asia/Dhaka')->format('h:i:s');
+        $attendences->total_work_hours = $this->calculatetotal_work_hours($attendences->clock_in, $attendences->clock_out);
+        $attendences->overtime_hours = $this->calculateOvertime($attendences->clock_in, $attendences->clock_out);
 
         if ($attendences->save()) {
            Hrm_attendances_lists::find($attendance->id);
@@ -244,6 +250,7 @@ class HrmAttendanceListController extends Controller
     $shift_end = Carbon::parse($clock_out);
 
     $total_work_minutes = $shift_start->diffInMinutes($shift_end);
+
 
     $total_work_hours = $total_work_minutes / 60;
 

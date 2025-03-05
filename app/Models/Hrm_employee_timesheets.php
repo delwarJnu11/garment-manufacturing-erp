@@ -19,4 +19,14 @@ class Hrm_employee_timesheets extends Model
         'total_work_hours',
         'remarks',
     ];
+
+
+    public function statuses(){
+        return $this->belongsTo(Hrm_statuses::class);
+    }
+
+    public function employee(){
+        return $this->belongsTo(User::class);
+    }
+
 }

@@ -28,8 +28,8 @@
                         @forelse ($applications as $application)
                             <tr>
                                 <td>{{ $application->id }}</td>
-                                <td>{{ $application->employee_id }}</td>
-                                <td>{{ $application->leave_type_id }}</td>
+                                <td>{{ optional($application->employee)->name }}</td>
+                                <td>{{ optional($application->leave_type)->name }}</td>
                                 <td>{{ $application->date }}</td>
                                 <td>{{ $application->start_date }}</td>
                                 <td>{{ $application->end_date }}</td>

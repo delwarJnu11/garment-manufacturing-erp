@@ -121,6 +121,8 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
  Route::resource('hrm_designations', HrmDesignationsController::class);
 
  Route::get('hrm_employees/delete/{id}/', [HrmEmployeesController::class, 'destroy']);
+ Route::get('hrm_employees/{id}', [HrmEmployeesController::class, 'showEmp']);
+ Route::get('emp/{id}', [HrmEmployeesController::class, 'showEmp']);
  Route::resource('hrm_employees', HrmEmployeesController::class);
 
  Route::get('hrm_employee_performances/delete/{id}/', [HrmEmployeePerformancesController::class, 'destroy']);
@@ -157,6 +159,8 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
      Route::get('/home', function () {
          return view('home');
       });
+
+
 
 
 /**

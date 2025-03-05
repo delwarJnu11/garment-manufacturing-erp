@@ -68,15 +68,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label class="col-lg-2 col-form-label">Total Days :</label>
-                        <div class="col-lg-10">
-                            <input type="number" name="number_of_days" value="{{old('number_of_days')}}" class="form-control" placeholder="Total Days ..." autocomplete="name">
-                            @error('number_of_days')
-                                <div class="mt-2 text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
+                    
                     <div class="row mb-3">
                         <label class="col-lg-2 col-form-label">Duration :</label>
                         <div class="col-lg-10">
