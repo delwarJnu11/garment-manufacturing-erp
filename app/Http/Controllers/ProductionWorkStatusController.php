@@ -12,7 +12,8 @@ class ProductionWorkStatusController extends Controller
      */
     public function index()
     {
-        //
+        $status = ProductionWorkStatus::all();
+        return view('pages.production.production_work_order.production_work_status.index', compact('status'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ProductionWorkStatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.production.production_work_order.production_work_status.create');
     }
 
     /**
@@ -28,7 +29,17 @@ class ProductionWorkStatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'status_name' => 'required|string|max:50',
+        ], [
+            'required' => 'Staus name is required!',
+        ]);
+
+        // Create a new role
+        ProductionWorkStatus::create([
+            'name' => $request->status_name,
+        ]);
+        return redirect()->route('production-work-status.index')->with('success', 'Production work Status has been added successfully!');
     }
 
     /**

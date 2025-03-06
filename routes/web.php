@@ -35,6 +35,7 @@ use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionPlanController;
 use App\Http\Controllers\ProductionWorkSectionController;
+use App\Http\Controllers\ProductionWorkStatusController;
 use App\Http\Controllers\ProductlotController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\ProductVariantController;
@@ -89,6 +90,7 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
  **/
 Route::resource('production_plan_status', ProductionPlanStatusesController::class);
 Route::resource('production_work_sections', ProductionWorkSectionController::class);
+Route::resource('production-work-status', ProductionWorkStatusController::class);
 Route::resource('bom', BomController::class);
 Route::resource('bom_details', BomDetailsController::class);
 Route::resource('production-plans', ProductionPlanController::class);

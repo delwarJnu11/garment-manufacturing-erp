@@ -40,8 +40,8 @@
                                 </li>
                                 <!-- BOM MENU END -->
                                 <li>
-                                    <x-nav-link icon="list" :active="request()->is('production*')">Production Plan</x-nav-link>
-                                    <ul>
+                                    <x-nav-link icon="list" :active="request()->is('plans*')">Production Plan</x-nav-link>
+                                    <ul style="margin-left: 20px;">
                                         <li>
                                             <x-link href="{{ route('production-plans.index') }}"
                                                 :active="request()->is('production-plan*')">Production Plans</x-link>
@@ -52,11 +52,21 @@
                                         </li>
                                     </ul>
                                 </li>
-
+                                {{-- Production Work Order Section  --}}
                                 <li>
-                                    <x-link href="{{ route('production_work_sections.index') }}"
-                                        :active="request()->is('production_work_sections*')">Production Sections</x-link>
+                                    <x-nav-link icon="list" :active="request()->is('production-work*')">Production Work Order</x-nav-link>
+                                    <ul style="margin-left: 20px;">
+                                        <li>
+                                            <x-link href="{{ route('production-work-status.index') }}"
+                                                :active="request()->is('production-work-status*')">Work Status</x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('production_work_sections.index') }}"
+                                                :active="request()->is('production_work_sections*')">Production Sections</x-link>
+                                        </li>
+                                    </ul>
                                 </li>
+
                             </ul>
                         </li>
                         <!-- END Prodcution Module Menu -->
@@ -69,7 +79,8 @@
                                 <li><x-link href="{{ url('/customers/groups') }}" :active="request()->is('customers/groups')">Customer
                                         Groups</x-link></li>
                                 <li><x-link href="{{ url('/orders') }}" :active="request()->is('orders')">Orders</x-link></li>
-                                <li><x-link href="{{ url('/orders/create') }}" :active="request()->is('orders/create')">Create Orders</x-link>
+                                <li><x-link href="{{ url('/orders/create') }}" :active="request()->is('orders/create')">Create
+                                        Orders</x-link>
                                 </li>
                                 <li><x-link href="{{ url('/orders/pending') }}" :active="request()->is('orders/pending')">Pending
                                         Orders</x-link></li>
