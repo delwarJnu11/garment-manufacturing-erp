@@ -22,6 +22,8 @@ class PurchaseOrder extends Model
         'purchase_date',
         'delivery_date',
         'shipping_address',
+        'payment_method',
+        'payment_status_id',
         'description',
     ];
 

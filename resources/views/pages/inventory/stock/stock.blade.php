@@ -30,9 +30,9 @@
             <td>{{ $stock->product->sku }}</td>
             <td>{{ $stock->lot->warehouse->name ?? "N/A" }}</td>
             <td>{{ $stock->TransactionType->name ?? 'N/A' }}</td>
-            <td>{{ $stock->lot->qty }}</td>
+            <td>{{ $stock->lot->qty ?? "N/A"}}</td>
             <td>${{ number_format($stock->product->unit_price, 2) }}</td>
-            <td>${{ number_format($stock->lot->qty * $stock->product->unit_price, 2) }}</td>
+            <td>${{ number_format($stock->lot->qty * $stock->product->unit_price, 2 ) }}</td>
             <td class="action-table-data">
                 <div class="edit-delete-action">
                     <a class="me-2 p-2" href="{{ route('stocks.edit', $stock->id) }}">

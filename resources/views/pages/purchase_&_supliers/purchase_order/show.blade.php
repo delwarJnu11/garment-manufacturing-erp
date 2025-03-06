@@ -6,8 +6,8 @@
  @section('page_content')
  <div class="container mt-5">
      <div class="card">
-         <div class="card-header text-center bg-primary text-white">
-             <h3>Purchase Invoice - Raw Materials</h3>
+         <div class="">
+             <h3 class="card-header text-center bg-primary text-white">Purchase Invoice - Raw Materials</h3>
          </div>
          <div class="card-body">
              <div class="row">
