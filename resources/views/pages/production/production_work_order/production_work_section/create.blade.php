@@ -8,7 +8,7 @@
                     <h5 class="card-title">Create Production Section</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('production_plan_sections.store') }}" method="POST">
+                    <form action="{{ route('production_work_sections.store') }}" method="POST">
                         @csrf
                         <div class="row mb-3">
                             <label class="col-lg-2 col-form-label">Status Name</label>

@@ -40,13 +40,22 @@
                                 </li>
                                 <!-- BOM MENU END -->
                                 <li>
-                                    <x-link href="{{ route('production_plan_status.index') }}" :active="request()->is('production_plan_status*')">Plan
-                                        Status</x-link>
+                                    <x-nav-link icon="list" :active="request()->is('production*')">Production Plan</x-nav-link>
+                                    <ul>
+                                        <li>
+                                            <x-link href="{{ route('production-plans.index') }}"
+                                                :active="request()->is('production-plan*')">Production Plans</x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('production_plan_status.index') }}"
+                                                :active="request()->is('production_plan_status*')">Plan Status</x-link>
+                                        </li>
+                                    </ul>
                                 </li>
 
                                 <li>
-                                    <x-link href="{{ route('production_plan_sections.index') }}"
-                                        :active="request()->is('production_plan_sections*')">Production Sections</x-link>
+                                    <x-link href="{{ route('production_work_sections.index') }}"
+                                        :active="request()->is('production_work_sections*')">Production Sections</x-link>
                                 </li>
                             </ul>
                         </li>

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\ProductionPlanSection;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('production_plan_sections', function (Blueprint $table) {
+        Schema::create('production_work_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
-
-        ProductionPlanSection::create(['name' => 'cutting']);
     }
 
     /**
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('production_plan_sections');
+        Schema::dropIfExists('production_work_statuses');
     }
 };

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductionPlanSection;
+use App\Models\ProductionWorkSection;
 use Illuminate\Http\Request;
 
-class ProductionPlanSectionController extends Controller
+class ProductionWorkSectionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $sections = ProductionPlanSection::all();
-        return view('pages.production.production_plan.production_plan_section.index', compact('sections'));
+        $sections = ProductionWorkSection::all();
+        return view('pages.production.production_work_order.production_work_section.index', compact('sections'));
     }
 
     /**
@@ -21,7 +21,7 @@ class ProductionPlanSectionController extends Controller
      */
     public function create()
     {
-        return view('pages.production.production_plan.production_plan_section.create');
+        return view('pages.production.production_work_order.production_work_section.create');
     }
 
     /**
@@ -36,24 +36,25 @@ class ProductionPlanSectionController extends Controller
         ]);
 
         // Create a new role
-        ProductionPlanSection::create([
+        ProductionWorkSection::create([
             'name' => $request->status_name,
         ]);
-        return redirect()->route('production_plan_sections.index')->with('success', 'Production Section has been added successfully!');
+
+        return redirect()->route('production_work_sections.index')->with('success', 'Production Section has been added successfully!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ProductionPlanSection $productionPlanSection)
+    public function show(ProductionWorkSection $productionWorkSection)
     {
-        return view('pages.production.production_plan.production_plan_section.show', compact('productionPlanSection'));
+        return view('pages.production.production_work_order.production_work_section.show', compact('productionWorkSection'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProductionPlanSection $productionPlanSection)
+    public function edit(ProductionWorkSection $productionWorkSection)
     {
         //
     }
@@ -61,7 +62,7 @@ class ProductionPlanSectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProductionPlanSection $productionPlanSection)
+    public function update(Request $request, ProductionWorkSection $productionWorkSection)
     {
         //
     }
@@ -69,7 +70,7 @@ class ProductionPlanSectionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductionPlanSection $productionPlanSection)
+    public function destroy(ProductionWorkSection $productionWorkSection)
     {
         //
     }

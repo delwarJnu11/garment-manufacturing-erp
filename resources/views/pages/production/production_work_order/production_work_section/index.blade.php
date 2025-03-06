@@ -3,12 +3,12 @@
 <?php use Carbon\Carbon; ?>
 
 @section('page_content')
-    <x-page-header href="{{ route('production_plan_sections.create') }}" heading="Production Section" btnText="Section" />
+    <x-page-header href="{{ route('production_work_sections.create') }}" heading="Production Section" btnText="Section" />
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
-                <table class="table dashboard-expired-products">
-                    <thead>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-primary">
                         <tr>
                             <th>ID</th>
                             <th>Production Section Name</th>
@@ -27,17 +27,19 @@
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <!-- Show -->
-                                        <a class="me-2 p-2 mb-0" href="{{ route('production_plan_sections.show', $section->id) }}">
+                                        <a class="me-2 p-2 mb-0"
+                                            href="{{ route('production_work_sections.show', $section->id) }}">
                                             <i data-feather="eye" class="feather-eye"></i>
                                         </a>
 
                                         <!-- Edit -->
-                                        <a class="me-2 p-2" href="{{ route('production_plan_sections.edit', $section->id) }}">
+                                        <a class="me-2 p-2"
+                                            href="{{ route('production_work_sections.edit', $section->id) }}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
 
                                         <!-- Delete -->
-                                        <x-delete action="{{ route('production_plan_sections.destroy', $section->id) }}" />
+                                        <x-delete action="{{ route('production_work_sections.destroy', $section->id) }}" />
                                     </div>
                                 </td>
                             </tr>
