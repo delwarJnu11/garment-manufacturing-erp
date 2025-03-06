@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Warehouse;
+use App\Models\PaymentStatus;
 use Illuminate\Http\Request;
 
-class WarehouseController extends Controller
+class PaymentStatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $warehouses = Warehouse::paginate(10);
-        return view('pages.inventory.warehouse.warehouse', compact('warehouses'));
+        //
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +34,7 @@ class WarehouseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Warehouse $warehouse)
+    public function show(PaymentStatus $paymentStatus)
     {
         //
     }
@@ -45,7 +42,7 @@ class WarehouseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Warehouse $warehouse)
+    public function edit(PaymentStatus $paymentStatus)
     {
         //
     }
@@ -53,7 +50,7 @@ class WarehouseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Warehouse $warehouse)
+    public function update(Request $request, PaymentStatus $paymentStatus)
     {
         //
     }
@@ -61,7 +58,7 @@ class WarehouseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Warehouse $warehouse)
+    public function destroy(PaymentStatus $paymentStatus)
     {
         //
     }

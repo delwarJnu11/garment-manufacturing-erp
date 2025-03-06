@@ -15,9 +15,9 @@ class StockController extends Controller
      */
     public function index()
     {
-        
 
-        $stocks = Stock::with('product', 'warehouse','transactionType')->paginate(5);
+
+        $stocks = Stock::with('product', 'transactionType', 'lot.warehouse')->paginate(5);
         // dd($stocks->toArray()['data']);
 
         return view('pages.inventory.stock.stock', compact('stocks'));
@@ -41,12 +41,14 @@ class StockController extends Controller
         $request->validate([
             'product_id' => "required",
             'warehouse_id' => "required",
+            'qty' => "required",
             // 'warehouse_id' => "nullable",
         ]);
 
         Stock::create([
             'product_id' => $request->product_id,
             'warehouse_id' => $request->warehouse_id,
+            'qty' => $request->qty,
             'total_value' => $request->total_value,
         ]);
 

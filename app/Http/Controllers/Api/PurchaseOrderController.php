@@ -130,7 +130,7 @@ class PurchaseOrderController extends Controller
                     'transaction_type_id' => 3,
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'warehouse_id' => 1,
+                    // 'wearhouse_id' => 1,
                     'lot_id' => $lastId,
                 ]);
             }

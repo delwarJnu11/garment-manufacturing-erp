@@ -146,14 +146,13 @@
                         <li>
                             <x-link href="{{ url('/suppliers') }}" :active="request()->is('suppliers')">Suppliers</x-link>
                         </li>
+                        <li>
+                            <x-link href="{{ route('purchase.create') }}" :active="request()->is('/purchase/create')">Create Purchase </x-link>
+                        </li>
                         <li><x-link href="{{ url('/purchaseState') }}" :active="request()->is('payments/suppliers')">Purchase Pending</x-link></li>
                         <li>
                             <x-link href="{{ url('/purchase') }}" :active="request()->is('purchase')">Purchase confirm</x-link>
                         </li>
-                        <li>
-                            <x-link href="{{ route('purchase.create') }}" :active="request()->is('/purchase/create')">Create Purchase </x-link>
-                        </li>
-                        
                         {{-- <li><x-link href="{{ url('/payments/suppliers') }}" :active="request()->is('payments/suppliers')">Payments</x-link></li> --}}
                         <li><x-link href="{{ url('purchase-report') }}" :active="request()->is('purchase-report')">Purchase
                                 Reports</x-link></li>

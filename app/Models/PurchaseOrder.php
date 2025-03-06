@@ -16,11 +16,14 @@ class PurchaseOrder extends Model
         'status_id',
         'total_amount',
         'paid_amount',
+        'lot_id',
         'discount',
         'vat',
         'purchase_date',
         'delivery_date',
         'shipping_address',
+        'payment_method',
+        'payment_status_id',
         'description',
     ];
 

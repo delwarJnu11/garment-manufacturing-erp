@@ -13,7 +13,7 @@
 @endif
 
     <div class="card flex-fill">
-        <x-page-header heading="Purchase Orders" btnText="Create Purchase Order" href="{{ url('purchase_orders/create') }}" />
+        <x-page-header heading="Purchase Orders" btnText=" Purchase Order" href="{{ url('purchase/create') }}" />
 
         <table class="table table-striped table-bordered">
             <thead class="thead-primary">

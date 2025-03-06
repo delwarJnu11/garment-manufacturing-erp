@@ -178,7 +178,7 @@ Route::resource('purchase', PurchaseOrderController::class);
 Route::get('/invoice/{id}/print', [PurchaseOrderController::class, 'print'])->name('invoice.print');
 Route::get('purchase/{id}/generate-pdf', [PurchaseOrderController::class, 'generatePDF'])->name('purchase.generatePDF');
 
-
+Route::post('/get-warehouse', [WarehouseController::class, 'getWarehouse'])->name('get.warehouse');
 Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
 Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
 Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
@@ -187,8 +187,8 @@ Route::get('/purchaseState', [PurchaseStateController::class, 'index'])->name('p
 Route::post('/purchase/updateStatus', [PurchaseOrderController::class, 'updateStatus'])->name('purchase.updateStatus');
 
 // Report 
-Route::get('/purchase-report',[PurchaseReportController::class,'index']);
-Route::post('/purchase-report',[PurchaseReportController::class,'show']);
+Route::get('/purchase-report', [PurchaseReportController::class, 'index']);
+Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
 
 
 /*
