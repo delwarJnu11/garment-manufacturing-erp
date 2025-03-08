@@ -56,7 +56,7 @@ class ProductionWorkSectionController extends Controller
      */
     public function edit(ProductionWorkSection $productionWorkSection)
     {
-        //
+        return view('pages.production.production_work_order.production_work_section.edit', compact('productionWorkSection'));
     }
 
     /**
@@ -64,7 +64,14 @@ class ProductionWorkSectionController extends Controller
      */
     public function update(Request $request, ProductionWorkSection $productionWorkSection)
     {
-        //
+        $request->validate([
+            'status_name' => 'required|string|max:255',
+        ]);
+
+        $productionWorkSection->name = $request->status_name;
+        $productionWorkSection->save();
+
+        return redirect()->route('production_work_sections.index')->with('success', 'Production Section has been updated successfully!');
     }
 
     /**
@@ -72,6 +79,7 @@ class ProductionWorkSectionController extends Controller
      */
     public function destroy(ProductionWorkSection $productionWorkSection)
     {
-        //
+        $productionWorkSection->delete();
+        return redirect()->route('production_work_sections.index')->with('success', 'Production Section has been deleted successfully!');
     }
 }

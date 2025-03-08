@@ -35,6 +35,7 @@ use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductionPlanController;
 use App\Http\Controllers\ProductionWorkSectionController;
+use App\Http\Controllers\ProductionWorkOrderController;
 use App\Http\Controllers\ProductionWorkStatusController;
 use App\Http\Controllers\ProductlotController;
 use App\Http\Controllers\ProductTypeController;
@@ -94,6 +95,7 @@ Route::resource('production-work-status', ProductionWorkStatusController::class)
 Route::resource('bom', BomController::class);
 Route::resource('bom_details', BomDetailsController::class);
 Route::resource('production-plans', ProductionPlanController::class);
+Route::resource('production-work-orders', ProductionWorkOrderController::class);
 
 
 /**

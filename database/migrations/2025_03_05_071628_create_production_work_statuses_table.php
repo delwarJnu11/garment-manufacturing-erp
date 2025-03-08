@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ProductionWorkStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        // Demo Data Insert
+        ProductionWorkStatus::create(["name"=>"In Progress"]);
     }
 
     /**

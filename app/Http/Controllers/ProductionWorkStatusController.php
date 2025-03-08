@@ -47,7 +47,7 @@ class ProductionWorkStatusController extends Controller
      */
     public function show(ProductionWorkStatus $productionWorkStatus)
     {
-        //
+        return view('pages.production.production_work_order.production_work_status.show', compact('productionWorkStatus'));
     }
 
     /**
@@ -55,7 +55,7 @@ class ProductionWorkStatusController extends Controller
      */
     public function edit(ProductionWorkStatus $productionWorkStatus)
     {
-        //
+        return view('pages.production.production_work_order.production_work_status.edit', compact('productionWorkStatus'));
     }
 
     /**
@@ -63,7 +63,14 @@ class ProductionWorkStatusController extends Controller
      */
     public function update(Request $request, ProductionWorkStatus $productionWorkStatus)
     {
-        //
+        $request->validate([
+            'status_name' => 'required|string|max:255',
+        ]);
+
+        $productionWorkStatus->name = $request->status_name;
+        $productionWorkStatus->save();
+
+        return redirect()->route('production-work-status.index')->with('success', 'Production work Status has been updated successfully!');
     }
 
     /**
@@ -71,6 +78,7 @@ class ProductionWorkStatusController extends Controller
      */
     public function destroy(ProductionWorkStatus $productionWorkStatus)
     {
-        //
+        $productionWorkStatus->delete();
+        return redirect()->route('production-work-status.index')->with('success', 'Production Work Status has been deleted successfully!');
     }
 }

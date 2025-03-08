@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\ProductionPlan;
 use App\Models\ProductionWorkOrder;
+use App\Models\ProductionWorkSection;
+use App\Models\ProductionWorkStatus;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductionWorkOrderController extends Controller
@@ -17,7 +22,12 @@ class ProductionWorkOrderController extends Controller
      */
     public function create()
     {
-        //
+        $orders = Order::with('buyer')->get();
+        $productionPlans = ProductionPlan::all();
+        $workSections = ProductionWorkSection::all();
+        $workStatuses = ProductionWorkStatus::all();
+        $users = User::all();
+       return view('pages.production.production_work_order.work_order.create', compact('orders', 'productionPlans', 'workSections', 'workStatuses', 'users'));
     }
 
     /**

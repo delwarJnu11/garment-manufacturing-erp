@@ -16,6 +16,7 @@
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,9 +30,27 @@
                         <td>{{ $plan->start_date }}</td>
                         <td>{{ $plan->end_date }}</td>
                         <td>{{ $plan->status->name }}</td>
+                        <td>
+                            <button class="btn btn-success create-work-order" data-id="{{ $plan->order->id }}">
+                                Production
+                            </button>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+@endsection
+@section('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('tbody').on('click', '.create-work-order', function() {
+                const orderId = $(this).data('id');
+                const url = "{{ route('production-work-orders.create') }}?order_id=" + orderId;
+                window.location.href = url;
+            });
+        });
+    </script>
 @endsection

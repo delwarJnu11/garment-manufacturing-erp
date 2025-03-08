@@ -3,7 +3,7 @@
 
 <?php use Carbon\Carbon; ?>
 @section('page_content')
-    <x-page-header href="{{ route('production_work_sections.create') }}" heading="Production Section Details View"
+    <x-page-header href="{{ route('production-work-status.create') }}" heading="Production Section Details View"
         btnText="Status" />
     <div class="card">
         <div class="card-body">
@@ -12,7 +12,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Production Section Name</th>
+                            <th>Production Work Status Name</th>
                             <th>Created Date</th>
                             <th>Created Time</th>
                             <th class="no-sort">Action</th>
@@ -22,11 +22,11 @@
 
                         <tr>
                             <td>
-                                {{ $productionWorkSection->id }}
+                                {{ $productionWorkStatus->id }}
                             </td>
-                            <td>{{ $productionWorkSection->name }}</td>
-                            <td>{{ Carbon::parse($productionWorkSection->created_at)->format('d M, Y') }}</td>
-                            <td>{{ Carbon::parse($productionWorkSection->created_at)->format('h.i A') }}</td>
+                            <td>{{ $productionWorkStatus->name }}</td>
+                            <td>{{ Carbon::parse($productionWorkStatus->created_at)->format('d M, Y') }}</td>
+                            <td>{{ Carbon::parse($productionWorkStatus->created_at)->format('h.i A') }}</td>
                             <td class="action-table-data">
                                 <a data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Print"
                                     data-bs-original-title="Print"><svg xmlns="http://www.w3.org/2000/svg" width="24"
