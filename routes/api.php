@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\OrderDetailsController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PurchaseOrderController;
+use App\Http\Controllers\StockAdjustmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 // Route::get('order_details', [OrderDetailsController::class, 'index']);
 Route::get('order', [OrderDetailsController::class, 'index']);
 // purchaseOrder  Api
-Route::post('purchase',[ PurchaseOrderController::class,'store']);
+Route::post('purchase', [PurchaseOrderController::class, 'store']);
+Route::post('/adjustment', [StockAdjustmentController::class, 'store']);

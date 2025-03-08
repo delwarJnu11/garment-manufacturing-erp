@@ -21,10 +21,6 @@ class Stock extends Model
         return $this->belongsTo(Product::class);
     }
 
-    // public function warehouse()
-    // {
-    //     return $this->belongsTo(Warehouse::class);
-    // }
     public function transactionType()
     {
         return $this->belongsTo(TransactionType::class, 'transaction_type_id');
@@ -32,5 +28,9 @@ class Stock extends Model
     public function lot()
     {
         return $this->belongsTo(ProductLot::class, 'lot_id');
+    }
+    public function adjustments()
+    {
+        return $this->hasMany(StockAdjustment::class);
     }
 }

@@ -101,7 +101,9 @@ class PurchaseOrderController extends Controller
                     'quantity' => $product['qty'],
                     'lot_id' =>  1,
                     'price' => $product['price'],
+                    '%_of_discount' => $product['p_discount'],
                     'vat' =>  $product['total_vat'] ?? 0,
+                    '%_of_vat' =>  $product['p_vat'] ?? 0,
                     'discount' => $product['total_discount'] ?? 0
                 ]);
 

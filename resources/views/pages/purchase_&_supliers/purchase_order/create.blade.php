@@ -367,6 +367,7 @@
                     products
                 });
 
+            //retrive only purchase_order information
                 $.ajax({
                     url: "{{ url('api/purchase') }}",
                     type: "POST",

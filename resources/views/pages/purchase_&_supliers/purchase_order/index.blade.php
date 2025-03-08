@@ -4,7 +4,7 @@
     <x-message-banner />
 
     <div class="card flex-fill">
-        <x-page-header heading="Purchase Orders (State)" btnText="Create Purchase Order" href="{{ url('purchase/create') }}" />
+        <x-page-header heading="Purchase Orders (State)" btnText="Purchase" href="{{ url('purchase/create') }}" />
 
         <!-- Dropdown to filter purchase states -->
         <form action="{{ url('purchaseState') }}" method="GET" class="mb-4">
@@ -20,64 +20,6 @@
                 </select>
             </div>
         </form>
-
-        <!-- Bulk Update Form -->
-        {{-- <form action="{{ url('purchase/updateStatus') }}" method="POST">
-            @csrf
-            <table class="table table-striped table-bordered">
-                <thead class="thead-primary">
-                    <tr>
-                        <th><input type="checkbox" id="select-all"></th>
-                        <th>#</th>
-                        <th>Supplier</th>
-                        <th>Lot</th>
-                        <th>Status</th>
-                        <th>Delivery Date</th>
-                        <th>Shipping Address</th>
-                        <th>Update Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($purchaseStates as $order)
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="selected_orders[]" value="{{ $order->id }}">
-                            </td>
-                            <td>{{ $order->id }}</td>
-                            <td>{{ $order->inv_supplier->first_name ?? 'N/A' }} {{ $order->inv_supplier->last_name ?? '' }}</td>
-                            <td>{{ $order->product_lot->id ?? 'N/A' }}</td>
-                            <td>
-                                <span class="badge 
-                                    {{ $order->purchase_status->name == 'Pending' ? 'badge-warning' : '' }}
-                                    {{ $order->purchase_status->name == 'Confirmed' ? 'badge-success' : '' }}
-                                    {{ $order->purchase_status->name == 'Cancelled' ? 'badge-danger' : '' }}">
-                                    {{ $order->purchase_status->name ?? 'No Status' }}
-                                </span>
-                            </td>
-                            <td>{{ $order->delivery_date ?? 'N/A' }}</td>
-                            <td>{{ $order->shipping_address ?? 'N/A' }}</td>
-                            <td>
-                                <select name="statuses[{{ $order->id }}]" class="form-control">
-                                    <option value="">Select</option>
-                                    <option value="Confirmed">Confirm</option>
-                                    <option value="Cancelled">Cancel</option>
-                                </select>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="8" class="text-center">No purchase orders found for the selected state.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-
-            <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-primary">Update Selected</button>
-                <a href="{{ url('purchase') }}" class="btn btn-success">Go to Purchase Confirm Page</a>
-            </div>
-        </form> --}}
-
         <form action="{{ route('purchase.updateStatus') }}" method="POST">
             @csrf
             <table class="table">

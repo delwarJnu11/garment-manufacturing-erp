@@ -13,25 +13,30 @@ class CreatePurchaseOrderDetailsTable extends Migration
     public function up(): void
     {
         Schema::create('purchase_order_details', function (Blueprint $table) {
-            $table->id(); // Primary Key
-            $table->integer('purchase_id')->unsigned(); // Purchase Order ID
-            $table->integer('product_id')->unsigned(); // Product Variant ID
-            $table->integer('lot_id')->unsigned(); // Lot ID (which contains raw_material_id)
-            $table->integer('quantity')->default(0); // Quantity ordered
-            $table->decimal('price', 10, 2)->default(0.00); // Total amount for purchase
-            $table->decimal('discount', 10, 2)->default(0.00); // Discount applied
-            $table->decimal('vat', 10, 2)->default(0.00); // VAT applied
-            $table->timestamps(); // Automatically adds created_at and updated_at
+            $table->id();
+            $table->integer('purchase_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->integer('lot_id')->unsigned();
+            $table->integer('quantity')->default(0);
+            $table->decimal('price', 10, 2)->default(0.00);
+            $table->integer('%_of_discount')->default(0.00);
+            $table->decimal('discount', 10, 2)->default(0.00);
+            $table->decimal('vat', 10, 2)->default(0.00);
+            $table->integer('%_of_vat')->default(0.00);
+            $table->timestamps();
         });
 
-        // Optional: Add a sample record for testing (ensure to use a valid model and values)
+
         PurchaseOrderDetail::create([
-            'purchase_id' => 1, // Example Purchase Order ID
-            'product_id' => 1, // Example Product Variant ID
-            'lot_id' => 1, // Example Lot ID
-            'quantity' => 50, // Quantity ordered
-            'price' => 1000.00, // Total purchase amount
-            'paid_amount' => 500.00, // Paid amount 
+            'purchase_id' => 1,
+            'product_id' => 1,
+            'lot_id' => 1,
+            'quantity' => 50,
+            'price' => 1000.00,
+            '%_of_discount' => 4,
+            'discount' => 2000,
+            '%_of_vat' => 10,
+            'vat' => 5000,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
