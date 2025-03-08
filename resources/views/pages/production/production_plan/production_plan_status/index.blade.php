@@ -7,8 +7,8 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
-                <table class="table dashboard-expired-products">
-                    <thead>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-primary">
                         <tr>
                             <th>ID</th>
                             <th>Production Status Name</th>
@@ -27,7 +27,8 @@
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <!-- Show -->
-                                        <a class="me-2 p-2 mb-0" href="{{ route('production_plan_status.show', $status->id) }}">
+                                        <a class="me-2 p-2 mb-0"
+                                            href="{{ route('production_plan_status.show', $status->id) }}">
                                             <i data-feather="eye" class="feather-eye"></i>
                                         </a>
 

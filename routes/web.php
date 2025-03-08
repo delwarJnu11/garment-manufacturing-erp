@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\OrderDetailsController;
 
 use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\AssetTypesController;
+use App\Http\Controllers\BomController;
+use App\Http\Controllers\BomDetailsController;
 use App\Http\Controllers\BuyerController;
 
 use App\Http\Controllers\CategoryController;
@@ -31,6 +33,11 @@ use App\Http\Controllers\MovementTypeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductionPlanController;
+use App\Http\Controllers\ProductionWorkSectionController;
+use App\Http\Controllers\ProductionWorkOrderController;
+use App\Http\Controllers\ProductionWorkStatusController;
 use App\Http\Controllers\ProductCatelogueController;
 use App\Http\Controllers\ProductlotController;
 use App\Http\Controllers\ProductTypeController;
@@ -91,8 +98,14 @@ Route::post('/users/roles/store', [RoleController::class, 'store'])->name('roles
 /**
  * Production Memu START
  **/
-
 Route::resource('production_plan_status', ProductionPlanStatusesController::class);
+Route::resource('production_work_sections', ProductionWorkSectionController::class);
+Route::resource('production-work-status', ProductionWorkStatusController::class);
+Route::resource('bom', BomController::class);
+Route::resource('bom_details', BomDetailsController::class);
+Route::resource('production-plans', ProductionPlanController::class);
+Route::resource('production-work-orders', ProductionWorkOrderController::class);
+
 
 /**
  * Production Memu END
@@ -214,6 +227,7 @@ Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
 
+// Route::get('orders', [OrderDetailsController::class, 'index']);
 
 Route::get('orders', [OrderDetailsController::class, 'index']);
 /**
