@@ -214,6 +214,28 @@
                     subtotal: 0
                 }));
 
+                $.ajax({
+                    url: "http://127.0.0.1:8000/api/order_details",
+                    type: "POST",
+                    data: JSON.stringify({
+                        items: newItems
+                    }),
+                    contentType: "application/json",
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                    },
+                    success: function(response) {
+                        if (response.status === 201) {
+                            localStorage.clear();
+                            return window.location.assign('/orders');
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                        alert("Error saving items.");
+                    }
+                });
+
             })
         });
     </script>

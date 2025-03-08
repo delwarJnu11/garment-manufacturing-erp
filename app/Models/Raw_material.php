@@ -22,5 +22,10 @@ class Raw_material extends Model
     function supplier():BelongsTo{
         return $this->belongsTo(inv_suppliers::class,'supplier_id');
     }
+
+    public function bomDetails()
+    {
+        return $this->hasMany(BomDetails::class);
+    }
 }
 
