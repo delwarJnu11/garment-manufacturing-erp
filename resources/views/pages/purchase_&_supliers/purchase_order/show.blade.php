@@ -45,14 +45,16 @@
                         <td>{{ $detail->quantity }}</td>
                         <td>{{ $detail->discount }}</td>
                         <td>{{ $detail->vat }}</td>
+                       
                         <td>
                             ${{ number_format(
-                                ($detail->price * $detail->quantity) - 
-                                ($detail->discount / 100 * $detail->price * $detail->quantity) +
-                                ($detail->vat / 100 * $detail->price * $detail->quantity),
+                                (($detail->price * $detail->quantity) - 
+                                (($detail->discount / 100) * ($detail->price * $detail->quantity))) + 
+                                ((($detail->price * $detail->quantity) - (($detail->discount / 100) * ($detail->price * $detail->quantity))) * ($detail->vat / 100)),
                                 2
                             ) }}
                         </td>
+                        
                     </tr>
                     @empty
                         <tr>

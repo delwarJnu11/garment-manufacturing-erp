@@ -22,7 +22,7 @@ class PurchaseOrderController extends Controller
      */
     public function index(Request $request)
     {
-        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->paginate(8);
+        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->where('status_id', '!=', 1)->paginate(8);
 
         return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('purchase_orders'));
     }
@@ -35,9 +35,10 @@ class PurchaseOrderController extends Controller
         $lots = ProductLot::all();
         $statuses = PurchaseStatus::all();
         // Fetch only Product Variants with product_type_id = 1 (Raw Material)
-        $products = Product::whereHas('product_type', function ($query) {
-            $query->where('id', 1)->orWhere('name', 'Raw Material');
-        })->get();
+        // $products = Product::whereHas('product_type', function ($query) {
+        //     $query->where('id', 1)->orWhere('name', 'Raw Material');
+        // })->get();
+        $products = Product::where('product_type_id', 1)->get();
         return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'products'));
     }
 
@@ -52,8 +53,12 @@ class PurchaseOrderController extends Controller
 
         foreach ($request->selected_orders as $orderId) {
             if (isset($request->statuses[$orderId]) && !empty($request->statuses[$orderId])) {
-                PurchaseOrder::where('id', $orderId)
-                    ->update(['status_id' => $request->statuses[$orderId]]);
+                $order = PurchaseOrder::find($orderId);
+
+                // Check if the order is already confirmed (status_id = 2)
+                if ($order && $order->status_id != 2) {
+                    $order->update(['status_id' => $request->statuses[$orderId]]);
+                }
             }
         }
 
@@ -61,14 +66,15 @@ class PurchaseOrderController extends Controller
     }
 
 
-    public function purchaseConfirm()
-    {
-        $confirmedOrders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])
-            ->where('status_id', 2) // Assuming '2' is the ID for 'Confirmed'
-            ->paginate(10);
 
-        return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('confirmedOrders'));
-    }
+    // public function purchaseConfirm()
+    // {
+    //     $puchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])
+    //         ->where('status_id', '!=', 2) // Assuming '2' is the ID for 'Confirmed'
+    //         ->paginate(10);
+
+    //     return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('confirmedOrders'));
+    // }
 
     /**
      * Show the form for creating a new resource.

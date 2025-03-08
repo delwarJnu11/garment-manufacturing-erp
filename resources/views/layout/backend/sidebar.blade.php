@@ -191,7 +191,7 @@
                         request()->is('purchase*') ||
                         request()->is('payments/suppliers') ||
                         request()->is('purchase/create') ||
-                        request()->is('purchaseState')|| request()->is('purchase-report')">Suppliers & Purchases</x-nav-link>
+                        request()->is('purchaseState')|| request()->is('purchase-report')|| request()->is('payments')">Suppliers & Purchases</x-nav-link>
                     <ul>
                         <li>
                             <x-link href="{{ url('/suppliers') }}" :active="request()->is('suppliers')">Suppliers</x-link>
@@ -199,13 +199,14 @@
                         <li>
                             <x-link href="{{ route('purchase.create') }}" :active="request()->is('/purchase/create')">Create Purchase </x-link>
                         </li>
-                        <li><x-link href="{{ url('/purchaseState') }}" :active="request()->is('payments/suppliers')">Purchase Pending</x-link></li>
+                        <li><x-link href="{{ url('/purchaseState') }}" :active="request()->is('payments/suppliers')">Pending Purchase </x-link></li>
                         <li>
-                            <x-link href="{{ url('/purchase') }}" :active="request()->is('purchase')">Purchase confirm</x-link>
+                            <x-link href="{{ url('/purchase') }}" :active="request()->is('purchase')">Confirm Purchase</x-link>
                         </li>
                         {{-- <li><x-link href="{{ url('/payments/suppliers') }}" :active="request()->is('payments/suppliers')">Payments</x-link></li> --}}
                         <li><x-link href="{{ url('purchase-report') }}" :active="request()->is('purchase-report')">Purchase
                                 Reports</x-link></li>
+                        <li><x-link href="{{ url('payments') }}" :active="request()->is('payments')">Payments</x-link></li>
                     </ul>
                 </li>
                 <!-- END 🔸 Suppliers & Purchase -->

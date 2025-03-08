@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Purchase_status;
+use App\Models\PurchaseStatus;
 use Illuminate\Http\Request;
 
 class PurchaseStatusController extends Controller
@@ -34,7 +35,7 @@ class PurchaseStatusController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Purchase_status $purchase_status)
+    public function show(PurchaseStatus $PurchaseStatus)
     {
         //
     }
@@ -42,7 +43,7 @@ class PurchaseStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Purchase_status $purchase_status)
+    public function edit(PurchaseStatus $PurchaseStatus)
     {
         //
     }
@@ -50,7 +51,7 @@ class PurchaseStatusController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Purchase_status $purchase_status)
+    public function update(Request $request, PurchaseStatus $PurchaseStatus)
     {
         //
     }
@@ -58,7 +59,7 @@ class PurchaseStatusController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Purchase_status $purchase_status)
+    public function destroy(PurchaseStatus $PurchaseStatus)
     {
         //
     }

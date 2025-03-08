@@ -38,6 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                
                     @forelse ($product_lots as $product_lot)
                     <tr>
                         <td>{{ $product_lot->id }}</td>

@@ -1,3 +1,5 @@
+@props(['btnText' => 'Default Button'])
+
 <div class="header" style="background: #e5e5e5">
     <!-- Logo -->
     <div class="header-left active">

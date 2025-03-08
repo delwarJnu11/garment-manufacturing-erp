@@ -49,7 +49,7 @@ CREATE TABLE products (
     offer_price DECIMAL(10,2) DEFAULT(0.00), -- Discounted price
     weight INT NULL, -- Weight in grams/kilograms
     size_id INT, -- Reference to size table
-    is_raw_material INT NOT NULL, -- 1 = Raw Material, 0 = Finished Product
+    product_type_id INT NOT NULL, -- 1 = Raw Material, 0 = Finished Product
     barcode VARCHAR(255) UNIQUE NULL, -- Barcode for scanning
     rfid VARCHAR(255) UNIQUE NULL, -- RFID for tracking
     category_id INT NOT NULL, -- Reference to categories table
@@ -61,13 +61,13 @@ CREATE TABLE products (
 );
 
 
-CREATE TABLE product_variants (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    variant_name VARCHAR(255) NOT NULL, -- Variant name (e.g., Small, Medium, Large)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE product_variants (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     product_id INT NOT NULL, -- Reference to products table
+--     variant_name VARCHAR(255) NOT NULL, -- Variant name (e.g., Small, Medium, Large)
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
 
 CREATE TABLE uom(
@@ -105,7 +105,7 @@ CREATE TABLE warehouses (
 --End warehouses Management
 
 -- Inventory Stock
-CREATE TABLE stock_in (
+CREATE TABLE stock (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL, -- Reference to products table
     quantity INT NOT NULL, -- Quantity received
@@ -246,9 +246,6 @@ CREATE TABLE inventory_audit (
 
 
 -- END  Inventory & Warehouse Management Module
-
-
-
 
 
 CREATE TABLE purchase_returns (
