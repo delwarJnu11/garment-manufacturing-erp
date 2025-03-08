@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Stock;
 use App\Models\Warehouse;
@@ -14,37 +15,45 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::with('productVariant', 'warehouse')->paginate(10);
+
+
+        $stocks = Stock::with('product', 'transactionType', 'lot.warehouse')->paginate(5);
+        // dd($stocks->toArray()['data']);
+
         return view('pages.inventory.stock.stock', compact('stocks'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resouzrce.
      */
     public function create()
     {
-       $product_variants= ProductVariant::all();
-       $warehouses= Warehouse::all();
-       return view('pages.inventory.stock.create',compact('product_variants','warehouses'));
+        $products = Product::all();
+        $warehouses = Warehouse::all();
+        return view('pages.inventory.stock.create', compact('products', 'warehouses'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'product_variant_id' => "required",
-        'warehouse_id' => "required",
-    ]);
+    {
+        $request->validate([
+            'product_id' => "required",
+            'warehouse_id' => "required",
+            'qty' => "required",
+            // 'warehouse_id' => "nullable",
+        ]);
 
-    Stock::create([
-        'product_variant_id' => $request->product_variant_id,
-        'warehouse_id' => $request->warehouse_id,
-    ]);
+        Stock::create([
+            'product_id' => $request->product_id,
+            'warehouse_id' => $request->warehouse_id,
+            'qty' => $request->qty,
+            'total_value' => $request->total_value,
+        ]);
 
-    return redirect()->route('stocks.index')->with('success', 'Stock overview created successfully');
-}
+        return redirect()->route('stocks.index')->with('success', 'Stock overview created successfully');
+    }
 
 
     /**

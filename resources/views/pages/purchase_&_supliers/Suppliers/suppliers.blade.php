@@ -22,10 +22,13 @@
                             <tr>
                                 <td>
                                     <div class="userimgname">
+                                      
                                         <a href="javascript:void(0);" class="userslist-img bg-img">
+                                          
                                             <img width="60" height="60" style="border-radius: 50%"
                                                 src="{{ asset('uploads') }}/suppliers/{{ $supplier->photo }}" alt="supplier">
                                         </a>
+                                        <span>#00{{$supplier->id}}</span>
                                     </div>
                                 </td>
                                 <td>{{ $supplier->first_name }}</td>
@@ -49,7 +52,6 @@
                                                 <i data-feather="trash-2" class="feather-trash-2 delete_icon" ></i>
                                             </button>
                                         </form>
-                                    
                                     </div>
                                 </td>
                             </tr>
@@ -63,9 +65,8 @@
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-end mt-3">
-        {{ $suppliers->links() }}
+    <div class="d-flex justify-content-end">
+        {{ $suppliers->links('vendor.pagination.custom') }}
     </div>
-    
 @endsection
 
