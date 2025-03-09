@@ -12,6 +12,7 @@
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Phone</th>
+                            <th>Bank Account</th>
                             <th>Address</th>
                             {{-- <th>Created At</th> --}}
                             <th class="no-sort">Action</th>
@@ -35,6 +36,7 @@
                                 <td>{{ $supplier->last_name }}</td>
                                 <td><a href="mailto:{{ $supplier->email }}">{{ $supplier->email }}</a></td>
                                 <td>{{ $supplier->phone }}</td>
+                                <td>{{ $supplier->bankAccount->name ?? 'N/A' }}</td>
                                 <td>{{ $supplier->address }}</td>
                                 {{-- <td>{{ $supplier->created_at }}</td> --}}
                                 <td class="action-table-data">

@@ -1,7 +1,7 @@
 @extends('layout.backend.main')
 @section('page_content')
 
-<x-page-header heading="Category" btnText="category" href="{{url('categoryType/create')}}"/>
+<x-page-header heading="Category" btnText="category" href="{{url('stock/categoryType/create')}}"/>
 {{-- <x-page-header heading="Category" btnText="category" href="{{ url('categoryType/create') }}" /> --}}
 <table class="table table-striped table-bordered">
     <thead class="thead-primary">

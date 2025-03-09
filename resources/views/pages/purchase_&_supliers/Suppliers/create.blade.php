@@ -47,6 +47,21 @@
                             <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
                             <textarea name="address" id="address" class="form-control" rows="3" required></textarea>
                         </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label f class="form-label">Bank Account <span class="text-danger">*</span></label>
+                                <select name="bank_account_id" id="" class="form-select form-controll">
+                                    @forelse ($bankAccounts as $bankAccount)
+                                        <option value="{{ $bankAccount->id }}" >
+                                            {{ $bankAccount->name }}
+                                        </option>
+                                    @empty
+                                        <option value="">No bank accounts available</option>
+                                    @endforelse
+                                </select>
+    
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Photo -->

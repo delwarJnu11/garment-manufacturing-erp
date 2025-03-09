@@ -74,22 +74,23 @@ class StockAdjustmentController extends Controller
         ]);
 
         $stock = Stock::findOrFail($validated['stock_id']);
-
-        // Identify the adjustment type (Assumption: '1' = Restock, '2' = Reduction)
         $adjustmentType = $validated['adjustment_type_id'];
 
+        // Stock Adjustment Logic
         if ($adjustmentType == 2) { // Restock (Increase Stock)
-            $newRemainingQty = $stock->qty + $validated['adjusted_qty'];
-        } else { // Reduction (Decrease Stock)
-            $newRemainingQty = $stock->qty - $validated['adjusted_qty'];
+            $newRemainingQty = $stock->lot->qty + $validated['adjusted_qty'];
+        } elseif ($adjustmentType == 1 || $adjustmentType == 3) { // Damage or Sales (Decrease Stock)
+            $newRemainingQty = $stock->lot->qty - $validated['adjusted_qty'];
 
             if ($newRemainingQty < 0) {
                 return redirect()->back()->with('error', 'Not enough stock available for adjustment.');
             }
+        } else {
+            return redirect()->back()->with('error', 'Invalid adjustment type.');
         }
 
         // Create Stock Adjustment Record
-        $adjustment = StockAdjustment::create([
+        StockAdjustment::create([
             'stock_id' => $stock->id,
             'adjustment_type_id' => $adjustmentType,
             'adjusted_qty' => $validated['adjusted_qty'],
@@ -97,9 +98,10 @@ class StockAdjustmentController extends Controller
             'reason' => $validated['reason'] ?? null,
         ]);
 
-        // Update the stock quantity
+        // Update the stock quantity in the Stock table
         $stock->update(['qty' => $newRemainingQty]);
 
-        return redirect()->route('stock_adjustments.index')->with('success', 'Stock adjustment recorded successfully.');
+        return redirect('stock/stock_adjustments')->with('success', 'Stock adjusted successfully.');
+        // return redirect()->back()->with('success', 'Stock adjusted successfully.');
     }
 }

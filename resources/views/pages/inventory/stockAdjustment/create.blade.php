@@ -15,7 +15,7 @@
             <select name="stock_id" id="stock_id" class="form-control">
                 @foreach($stocks as $stock)
                     <option value="{{ $stock->id }}">
-                        {{ $stock->product->name }} (Lot: {{ $stock->lot_id }}) - {{ $stock->qty }} Available
+                        {{ $stock->product->name }} (Lot: {{ $stock->lot_id }}) - {{ $stock->lot->qty }} Available
                     </option>
                 @endforeach
             </select>

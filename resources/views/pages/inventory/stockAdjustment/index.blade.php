@@ -7,7 +7,7 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    <x-page-header heading="Stock Adjustment" btnText="Stock Adjustment" href="{{url('stock_adjustments/create')}}"/>
+    <x-page-header heading="Stock Adjustment" btnText="Stock Adjustment" href="{{url('stock/stock_adjustments/create')}}"/>
     <table class="table table-striped table-bordered ">
         <thead class="thead-primary">
             <tr>
