@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\OrderDetailsController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PurchaseOrderController;
+use App\Http\Controllers\HrmPayslipsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('order', [OrderDetailsController::class, 'index']);
 // purchaseOrder  Api
 Route::post('purchase',[ PurchaseOrderController::class,'store']);
+
+Route::post('find_employee', [HrmPayslipsController::class, 'Purchase_store']);

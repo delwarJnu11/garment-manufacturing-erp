@@ -27,6 +27,7 @@ use App\Http\Controllers\HrmEmployeeTimesheetsController;
 use App\Http\Controllers\HrmLeaveApplicationApproversController;
 use App\Http\Controllers\HrmLeaveApplicationsController;
 use App\Http\Controllers\HrmLeaveTypesController;
+use App\Http\Controllers\HrmPayslipsController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentsController;
@@ -121,8 +122,6 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
  Route::resource('hrm_designations', HrmDesignationsController::class);
 
  Route::get('hrm_employees/delete/{id}/', [HrmEmployeesController::class, 'destroy']);
- Route::get('hrm_employees/{id}', [HrmEmployeesController::class, 'showEmp']);
- Route::get('emp/{id}', [HrmEmployeesController::class, 'showEmp']);
  Route::resource('hrm_employees', HrmEmployeesController::class);
 
  Route::get('hrm_employee_performances/delete/{id}/', [HrmEmployeePerformancesController::class, 'destroy']);
@@ -151,6 +150,11 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
  Route::get('hrm_leave_application_approvers/delete/{id}/',[HrmLeaveApplicationApproversController::class,'destroy'] );
  Route::resource('hrm_leave_application_approvers', HrmLeaveApplicationApproversController::class);
 
+ Route::get('hrm_payslips/delete/{id}/',[HrmPayslipsController::class,'destroy'] );
+ Route::get('hrm_payslips/create/',[HrmPayslipsController::class,'create'] );
+ Route::resource('hrm_payslips', HrmPayslipsController::class);
+
+ Route::get('find_employee', [HrmEmployeesController::class, 'find_employee']);
 
  // Route::get('/employee', function () {
  //     echo Auth::user()->isEmployee();

@@ -205,5 +205,21 @@ class HrmEmployeesController extends Controller
             return redirect('hrm_employees')->with('success', "employee has been Deleted");
         }
     }
+
+    //  public function find_employee($id){
+	// 	$employees = Hrm_employees::find($id);
+	// 	return response()->json(['employees'=> $employees]);
+	// }
+
+    public function find_employee(Request $request)
+{
+    $employees = Hrm_employees::find($request->id);
+
+    if (!$employees) {
+        return response()->json(['message' => 'Employee not found'], 404);
+    }
+
+    return response()->json(['employees' => $employees]);
+}
 }
 

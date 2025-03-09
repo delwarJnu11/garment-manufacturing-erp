@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             font-size: 1.3rem;
             font-weight: bold;
-            padding: 8px;
+            padding: 7px;
         }
 
         #day {

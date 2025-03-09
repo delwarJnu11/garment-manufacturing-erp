@@ -297,6 +297,47 @@ CREATE TABLE hrm_payroll_employee_salaryes (
     FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
 );
 
+CREATE TABLE hrm_payslip_deductions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    employee_id INT,
+    amount DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+);
+
+CREATE TABLE hrm_payslip_allowances (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    employee_id INT,
+    amount DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+);
+
+CREATE TABLE hrm_payslips (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT,
+    statuses_id_id INT,
+    salary_month VARCHAR(10) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    basic_salary DECIMAL(10,2) NOT NULL,
+    allowances VARCHAR (200) NOT NULL,
+    deductions VARCHAR (200) NOT NULL,
+    total_working_days TINYINT UNSIGNED DEFAULT 0,
+    working_days_attendance TINYINT UNSIGNED DEFAULT 0,
+    leaves_taken TINYINT UNSIGNED DEFAULT 0,
+    balance_leaves TINYINT UNSIGNED DEFAULT 0,
+    total_earnings DECIMAL(10,2),
+    total_deductions DECIMAL(10,2),
+    net_salary DECIMAL(10,2),
+    payment_method VARCHAR (50) NOT NULL,
+    generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+);
+
 
  -- Recruitment
 
