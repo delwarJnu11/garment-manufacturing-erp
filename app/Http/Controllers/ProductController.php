@@ -29,15 +29,15 @@ class ProductController extends Controller
         $sizes = Size::all();
         $uoms = Uom::all();
         $categories = Category::all();
-    
+
         // filter the server-side
         // For Raw Materials (product_type = 1)
-        $rawMaterialCategories = Category::where('is_raw_material',1)->get();
+        $rawMaterialCategories = Category::where('is_raw_material', 1)->get();
         // For Finished Goods (product_type = 2)
-        $finishedGoodsCategories = Category::where('is_raw_material',0)->get();
+        $finishedGoodsCategories = Category::where('is_raw_material', 0)->get();
         return view('pages.inventory.products.create', compact('product_types', 'sizes', 'uoms', 'rawMaterialCategories', 'finishedGoodsCategories'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -65,7 +65,7 @@ class ProductController extends Controller
             'uom_id' => $request->uom_id,
             'unit_price' => $request->unit_price,
         ]);
-        return redirect('products')->with('success', 'product variants create successfully');
+        return redirect('stock/products')->with('success', 'product variants create successfully');
     }
 
     /**

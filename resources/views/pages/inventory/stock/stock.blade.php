@@ -2,7 +2,7 @@
 
 @section('page_content')
 
-<x-page-header heading="Stock Overview" btnText=" Stock" href="{{ url('stocks/create') }}" />
+{{-- <x-page-header heading="Stock Overview" btnText=" Stock" href="{{ url('stocks/create') }}" /> --}}
 
 <table class="table table-striped table-bordered">
     <thead class="thead-primary">

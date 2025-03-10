@@ -10,7 +10,7 @@ class Product extends Model
     // Define the fillable columns for mass assignment
     protected $fillable = [
         'name',
-        'product_type_id',
+        'product_type_id',//1=Raw materials, 2= Finished_goods
         'category_type_id',
         'size_id',
         'sku',

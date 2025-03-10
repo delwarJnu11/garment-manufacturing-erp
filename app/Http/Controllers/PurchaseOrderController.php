@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InvoiceStatus;
 use App\Models\InvSupplier;
 use App\Models\Product;
 use App\Models\ProductLot;
@@ -33,7 +34,7 @@ class PurchaseOrderController extends Controller
 
         $suppliers = InvSupplier::all();
         $lots = ProductLot::all();
-        $statuses = PurchaseStatus::all();
+        $statuses = InvoiceStatus::all();
         // Fetch only Product Variants with product_type_id = 1 (Raw Material)
         // $products = Product::whereHas('product_type', function ($query) {
         //     $query->where('id', 1)->orWhere('name', 'Raw Material');

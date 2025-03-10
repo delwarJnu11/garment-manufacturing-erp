@@ -286,6 +286,7 @@ CREATE TABLE inventory (
 ________________________________________
 -- 1.5 Stock Movements Table
 
+
 ________________________________________
 -- 1.6 Stock Adjustment Table
 

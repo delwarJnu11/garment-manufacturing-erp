@@ -33,7 +33,7 @@ use App\Http\Controllers\MovementTypeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
-use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\ProductionPlanController;
 use App\Http\Controllers\ProductionWorkSectionController;
 use App\Http\Controllers\ProductionWorkOrderController;
@@ -160,28 +160,33 @@ Route::resource('companyProfile', CompanyProfileController::class);
 /**
  * Invetory/category
  **/
-Route::resource('status', StatusController::class);
-Route::resource('category', CategoryController::class);
-Route::resource('categoryType', CategoryTypeController::class);
-Route::resource('raw_materials', RawMaterialController::class);
+
 Route::resource('sizes', SizeController::class);
 
-Route::resource('stockMovements', StockMovementController::class);
-Route::resource('movementTypes', MovementTypeController::class);
-// Route::prefix('stocks')->group(function () {
-//     Route::resource('stock_adjustments', StockAdjustmentController::class);
-//     // Route::post('/{id}/adjust', [StockController::class, 'adjustStock'])->name('stocks.adjust');
-// });
-Route::resource('stock_adjustments', StockAdjustmentController::class);
+
+Route::prefix('stock')->group(function () {
+    Route::resource('stock_adjustments', StockAdjustmentController::class);
+    Route::resource('status', StatusController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('product_lots', ProductlotController::class);
+    Route::resource('categoryType', CategoryTypeController::class);
+    Route::resource('raw_materials', RawMaterialController::class);
+    Route::resource('product_types', ProductTypeController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('stocks', StockController::class);
+    Route::resource('productCatelogues', ProductCatelogueController::class);
+    Route::resource('warehouses', WarehouseController::class);
+    Route::resource('stockMovements', StockMovementController::class);
+    Route::resource('movementTypes', MovementTypeController::class);
+});
+// Route::resource('stock_adjustments', StockAdjustmentController::class);
+
 
 /**
  * Warehouse
  **/
-Route::resource('product_types', ProductTypeController::class);
-Route::resource('products', ProductController::class);
-Route::resource('stocks', StockController::class);
-Route::resource('productCatelogues', ProductCatelogueController::class);
-Route::resource('warehouses', WarehouseController::class);
+
+
 // Route::resource('productsApi', ApiProductController::class);
 
 
@@ -198,7 +203,7 @@ Route::resource('uoms', UOMController::class);
 // Route::middleware('auth')->get('/stock-adjustment', [StockAdjustmentController::class, 'create']);
 
 Route::resource('valuations', ValuationMethodsController::class);
-Route::resource('product_lots', ProductlotController::class);
+
 Route::resource('purchase', PurchaseOrderController::class);
 Route::get('/invoice/{id}/print', [PurchaseOrderController::class, 'print'])->name('invoice.print');
 Route::get('purchase/{id}/generate-pdf', [PurchaseOrderController::class, 'generatePDF'])->name('purchase.generatePDF');
