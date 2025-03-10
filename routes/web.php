@@ -155,12 +155,12 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
  Route::get('hrm_payslips/create/',[HrmPayslipsController::class,'create'] );
  Route::resource('hrm_payslips', HrmPayslipsController::class);
 
- Route::get('hrm_payslips/delete/{id}/',[HrmPayslipItemsController::class,'destroy'] );
+ Route::get('hrm_payslip_items/delete/{id}/',[HrmPayslipItemsController::class,'destroy'] );
  Route::resource('hrm_payslip_items', HrmPayslipItemsController::class);
 
 
 
- Route::post('find_employee', [HrmEmployeesController::class, 'find_employee']);
+ Route::get('find_employee', [HrmEmployeesController::class, 'find_employee']);
 //  Route::get('find_payslip_items', [HrmEmployeesController::class, 'find_payslip_items']);
 
  // Route::get('/employee', function () {

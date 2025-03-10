@@ -1,6 +1,6 @@
 @extends('layout.backend.main')
 @section('css')
-    {{-- <style>
+ <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -192,57 +192,7 @@
 @endsection
 @section('page_content')
     <x-success />
-               
-
-@endsection
-
-@section('script')
-<script>
-     $(function() {
-
-        //alert();
-
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-
-$('#employee_id').on('change', function() {
-       //alert();
-    let employee_id = $(this).val();
-    //console.log(employee_id)
-
-    $.ajax({
-        url: "{{ url('find_employee') }}",
-        type: 'get',
-        data: {
-            id: employee_id
-        },
-        success: function(res) {
-            // let data=JSON.parse(res);
-            console.log(res.employees);
-            $(".employee_name").text(res.employees?.name);
-            $(".employeeID").text(res.employees?.employee_id);
-            $(".employee_designation").text(res.employees?.designations_id);
-            $(".employee_department").text(res.employees?.department_id);
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
-
- });
-
-
- })
-</script>
-
-@endsection
-
-
- {{-- <div class="container">
+    <div class="container">
                     <div class="bg-success salary-slip">
                         <h3>Employee Salary Slip</h3>
                         <div class="month-date">
@@ -402,4 +352,54 @@ $('#employee_id').on('change', function() {
                             <button class="btn btn-success">Create Payslip</button>
                         </div>
                     </div>
-                </div> --}}
+                </div>
+
+
+@endsection
+
+@section('script')
+<script>
+     $(function() {
+
+        //alert();
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+
+$('#employee_id').on('change', function() {
+       //alert();
+    let employee_id = $(this).val();
+    //console.log(employee_id)
+
+    $.ajax({
+        url: "{{ url('find_employee') }}",
+        type: 'get',
+        data: {
+            id: employee_id
+        },
+        success: function(res) {
+            // let data=JSON.parse(res);
+            console.log(res.employees);
+            $(".employee_name").text(res.employees?.name);
+            $(".employeeID").text(res.employees?.employee_id);
+            $(".employee_designation").text(res.employees?.designations_id);
+            $(".employee_department").text(res.employees?.department_id);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+
+ });
+
+
+ })
+</script>
+
+@endsection
+
+
