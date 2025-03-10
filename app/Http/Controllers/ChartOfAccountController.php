@@ -20,7 +20,7 @@ class ChartOfAccountController extends Controller
 
         // echo  json_encode( $groups[0]->children);
 
-        return View('pages.accounts.reports.chartofaccount', compact('groups'));
+        return View('pages.accounts.reports.chartofaccountpdf', compact('groups'));
     }
 
     /**
