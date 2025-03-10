@@ -34,13 +34,28 @@
                         <td>{{ $order->wastage }}</td>
                         <td>{{ $order->workStatus->name }}</td>
                         <td>
-                            <a class="btn btn-success" href="">Cutting</a>
-                            <input class="btn btn-primary" type="submit" value="Sweing">
-                            <input class="btn btn-info" type="submit" value="Finishing">
+                            <button data-id="{{ encrypt($order->id) }}" class="btn btn-warning cutting">Cutting</button>
+                            <input class="btn btn-info" type="submit" value="Sweing">
+                            <input class="btn btn-success" type="submit" value="Finishing">
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+@endsection
+
+@section('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('tbody').on('click', '.cutting', function() {
+                const encryptedWorkOrderId = $(this).data('id');
+                const url = "{{ route('cutting.create') }}?work-order-id=" + encodeURIComponent(
+                    encryptedWorkOrderId);
+                window.location.href = url;
+            });
+        });
+    </script>
 @endsection

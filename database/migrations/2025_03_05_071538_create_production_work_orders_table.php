@@ -17,10 +17,10 @@ return new class extends Migration {
             $table->integer('work_order_status_id');
             $table->integer('assigned_to');
             $table->integer('total_pieces');
-            $table->enum('cutting_status', ['Pending', 'Completed'])->default('Pending');
-            $table->enum('sewing_status', ['Pending', 'Completed'])->default('Pending');
-            $table->enum('finishing_status', ['Pending', 'Completed'])->default('Pending');
-            $table->enum('packaging_status', ['Pending', 'Completed'])->default('Pending');
+            $table->enum('cutting_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
+            $table->enum('sewing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
+            $table->enum('finishing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
+            $table->enum('packaging_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->integer('wastage')->default(0);
             $table->timestamps();
         });

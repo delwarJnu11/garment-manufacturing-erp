@@ -49,7 +49,7 @@ class ProductionWorkOrderController extends Controller
         $productionPlan = ProductionPlan::where('order_id', $order_id)->firstOrFail();
         $workStatuses = ProductionWorkStatus::all();
         $users = User::whereHas('role', function ($query) {
-            $query->where('name', 'Cutting Section Manager');
+            $query->where('name', 'Production');
         })->get();
 
         $single_order = Order::with('orderDetails')->findOrFail($order_id);

@@ -9,10 +9,6 @@
             <div class="card-body">
                 <form action="{{ route('cutting.store') }}" method="POST">
                     @csrf
-                    <div class="col-md-6 mb-3">
-                        <input hidden type="text" name="production_plan_id" id="production_plan_id"
-                            value="{{ old('production_plan_id', $productionPlan->id) }}">
-                    </div>
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Order Number</label>
                         <select name="order_id" class="form-select" id="order_dropdown" readonly>
@@ -29,16 +25,15 @@
                         <x-input-error :messages="$errors->get('order_id')" class="mt-2" />
                     </div>
                     <div class="col-md-12 mb-3">
-                        <label class="form-label">Work Section Manager</label>
-                        <select name="assigned_to" class="form-select" id="assigned_to">
+                        <label class="form-label">Cutting Section Status</label>
+                        <select name="cutting_status" class="form-select" id="cutting_status">
                             <option value="">Select Section Manager</option>
-                            @forelse ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @empty
-                                <option value="">No user Found!</option>
-                            @endforelse
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+
                         </select>
-                        <x-input-error :messages="$errors->get('assigned_to')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('cutting_status')" class="mt-2" />
                     </div>
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Work Order Status</label>

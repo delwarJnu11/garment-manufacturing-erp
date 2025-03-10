@@ -5,7 +5,7 @@
                 <li class="submenu-open">
                     <ul>
                         <li class="submenu">
-                            <a href="javascript:void(0);" class="subdrop">
+                            <a href="{{ route('dashboard') }}" class="subdrop">
                                 <i data-feather="grid"></i><span>Dashboard</span>
                             </a>
                         </li>
@@ -56,6 +56,10 @@
                                 <li>
                                     <x-nav-link icon="list" :active="request()->is('production-work*')">Production Work Order</x-nav-link>
                                     <ul style="margin-left: 20px;">
+                                        <li>
+                                            <x-link href="{{ route('production-work-orders.index') }}"
+                                                :active="request()->is('production-work-orders*')">Work Order List</x-link>
+                                        </li>
                                         <li>
                                             <x-link href="{{ route('production-work-status.index') }}"
                                                 :active="request()->is('production-work-status*')">Work Status</x-link>
