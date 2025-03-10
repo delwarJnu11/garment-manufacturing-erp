@@ -303,7 +303,7 @@ CREATE TABLE hrm_payslip_deductions (
     employee_id INT,
     amount DECIMAL(10,2) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE hrm_payslip_allowances (
@@ -312,19 +312,29 @@ CREATE TABLE hrm_payslip_allowances (
     employee_id INT,
     amount DECIMAL(10,2) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE hrm_payslip_items (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    employee_id INT,
+    factor INT not null,
+    amount DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE hrm_payslips (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
     employee_id INT,
     statuses_id_id INT,
     salary_month VARCHAR(10) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     basic_salary DECIMAL(10,2) NOT NULL,
-    allowances VARCHAR (200) NOT NULL,
-    deductions VARCHAR (200) NOT NULL,
+    payslip_items_id INT NOT NULL,
     total_working_days TINYINT UNSIGNED DEFAULT 0,
     working_days_attendance TINYINT UNSIGNED DEFAULT 0,
     leaves_taken TINYINT UNSIGNED DEFAULT 0,
@@ -334,6 +344,16 @@ CREATE TABLE hrm_payslips (
     net_salary DECIMAL(10,2),
     payment_method VARCHAR (50) NOT NULL,
     generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+);
+
+CREATE TABLE hrm_payslip_details (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    payslip_id INT NOT NULL,
+    payslip_items_id INT NOT NULL,
+    employee_id INT NOT NULL,
+    factor INT not null,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );

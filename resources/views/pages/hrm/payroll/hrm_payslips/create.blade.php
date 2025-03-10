@@ -1,57 +1,64 @@
 @extends('layout.backend.main')
 @section('css')
-<style>
-    body {
-        background-color: #f8f9fa;
-    }
-    .salary-slip-container {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .card {
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-    }
-    .card-header {
-        background-color: #28a745;
-        color: #fff;
-        padding: 16px;
-        font-size: 20px;
-        text-align: center;
-    }
-    .input-group input,
-    .input-group select {
-        border-radius: 6px;
-        border: 1px solid #ced4da;
-        font-size: 15px;
-        font-weight: 600;
-    }
-    .summary-box {
-        width: 70%;
-        margin-left: 150px;
-        background-color: #f1f1f1;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    .btn-primary {
-        background-color: #007bff;
-        color: #fff;
-        border-radius: 6px;
-    }
-    .btn-success {
-        background-color: #28a745;
-        border-radius: 6px;
-    }
-    label {
-        font-weight: 500;
-        margin-bottom: 5px;
-    }
-</style>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
 
+        .salary-slip-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: #28a745;
+            color: #fff;
+            padding: 16px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .input-group input,
+        .input-group select {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .summary-box {
+            width: 70%;
+            margin-left: 150px;
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 6px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-radius: 6px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+    </style>
 @endsection
 @section('page_content')
     <x-success />
@@ -120,19 +127,21 @@
                             <div class="card-header bg-success text-white">Allowances</div>
                             <div class="card-body">
                                 <div class="input-group mb-2">
-                                    <select class="form-select">
-                                        <option>House Rent Allowance (HRA)</option>
-                                        <option>Medical Allowance</option>
-                                        <option>Festival Allowance</option>
-                                        <option>Overtime Allowance</option>
-                                        <option>Dearness Allowance (DA)</option>
-                                        <option>Vehicle Allowance</option>
-                                        <option>Mobile Allowance</option>
-                                        <option>Vehicle Allowance</option>
+                                    <select class="form-select payslip_items_id" id="allowance_items" name="payslip_items_id"
+                                        id="payslip_items_id">
+                                        @forelse ($payslip_items as $payslip_item)
+                                            @if ($payslip_item->factor == 1)
+                                                <option value="{{ $payslip_item->id }}">{{ $payslip_item->name }}</option>
+                                            @endif
+
+                                        @empty
+                                            <option value="">No Payslip_Items Found</option>
+                                        @endforelse
                                     </select>
-                                    <input type="number" class="form-control" value="10000">
+
+                                    <input class="allowance_amount" type="number" class="form-control" value="10000">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary">+</button>
+                                        <button class="btn btn-primary add_btn" id="add_btn">+</button>
                                     </div>
                                 </div>
                                 <hr>
@@ -151,15 +160,16 @@
                             <div class="card-header bg-danger text-white">Deductions</div>
                             <div class="card-body">
                                 <div class="input-group mb-2">
-                                    <select class="form-select">
-                                        <option>Provident Fund (PF)</option>
-                                        <option>Professional Tax (PT)</option>
-                                        <option>Income Tax (TDS)</option>
-                                        <option>Employee State Insurance (ESI)</option>
-                                        <option>Late Coming Penalty</option>
-                                        <option>Unpaid Leave</option>
-                                        <option>Absenteeism</option>
-                                        <option>Overtime Penalty</option>
+                                    <select class="form-select payslip_items_id" id="deduction_items" name="payslip_items_id"
+                                        id="payslip_items_id">
+                                        @forelse ($payslip_items as $payslip_item)
+                                            @if ($payslip_item->factor == -1)
+                                                <option value="{{ $payslip_item->id }}">{{ $payslip_item->name }}</option>
+                                            @endif
+
+                                        @empty
+                                            <option value="">No Payslip_Items Found</option>
+                                        @endforelse
                                     </select>
                                     <input type="number" class="form-control" value="5000">
                                     <div class="input-group-append">
@@ -178,7 +188,7 @@
                 </div>
 
                 <!-- Summary Section -->
-                <div class="summary-box mt-3">
+                <div class="summary-box mt-3 card">
                     <h5>Summary</h5>
                     <div class="form-group">
                         <label>Basic Salary</label>
@@ -213,51 +223,114 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('script')
-<script>
-     $(function() {
+    <script>
+        $(function() {
 
-        //alert();
+            //alert();
 
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-
-$('#employee_id').on('change', function() {
-       //alert();
-    let employee_id = $(this).val();
-    //console.log(employee_id)
-
-    $.ajax({
-        url: "{{ url('find_employee') }}",
-        type: 'get',
-        data: {
-            id: employee_id
-        },
-        success: function(res) {
-            // let data=JSON.parse(res);
-            console.log(res.employees);
-            $(".employee_name").text(res.employees?.name);
-            $(".employeeID").text(res.employees?.employee_id);
-            $(".employee_designation").text(res.employees?.designations_id);
-            $(".employee_department").text(res.employees?.department_id);
-            $(".employee_bank_account").text(res.employees?.bank_accounts_id);
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
-
- });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
 
- })
-</script>
+            $('#employee_id').on('change', function() {
+                //alert();
+                let employee_id = $(this).val();
+                //console.log(employee_id)
 
+                $.ajax({
+                    url: "{{ url('find_employee') }}",
+                    type: 'get',
+                    data: {
+                        id: employee_id
+                    },
+                    success: function(res) {
+                        // let data=JSON.parse(res);
+                        console.log(res.employees);
+                        $(".employee_name").text(res.employees?.name);
+                        $(".employeeID").text(res.employees?.employee_id);
+                        $(".employee_designation").text(res.employees?.designations_id);
+                        $(".employee_department").text(res.employees?.department_id);
+                        $(".employee_bank_account").text(res.employees?.bank_accounts_id);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+
+            });
+
+
+            $('.add_btn').on('click', function() {
+
+
+                let payslip_items_allowance_id = $("#allowance_items").val();
+                let payslip_items_allowance_name = $("#allowance_items option:selected").text();
+
+                let allowance_amount = $(".allowance_amount").val();
+
+                let subtotal + = allowance_amount;
+                let total_allowance = subtotal;
+
+                let item = {
+                    "name": payslip_items_allowance_name,
+                    "item_id": payslip_items_allowance_id,
+                    "allowance_amount": allowance_amount,
+                    "total_allowance": total_allowance,
+                    "subtotal": subtotal
+                };
+
+            });
+
+            function printCart() {
+                let cartdata = cart.getCart();
+                if (cartdata) {
+
+
+                    let htmldata = "";
+                    let subtotal = 0;
+                    let total_allowance = 0;
+
+                    cartdata.forEach((element, index) => {
+                        subtotal += element.subtotal
+
+                        htmldata += `
+
+				`;
+                    });
+
+                    $('.dataAppend').html(htmldata);
+
+
+                    $('.subtotal').html(subtotal);
+                    $('.vat').html(subtotal * 5 / 100);
+                    $('.Discount').html(dicount);
+                    $('.grandtotal').html(subtotal + (subtotal * 5 / 100));
+                    cartIconIncrease()
+                }
+
+            }
+
+
+
+
+
+
+
+
+
+
+        })
+    </script>
 @endsection
+
+<div>
+    <span></span>
+    <span></span>
+    <button></button>
+</div>

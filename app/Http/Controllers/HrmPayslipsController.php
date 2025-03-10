@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hrm_employees;
+use App\Models\Hrm_payslip_items;
 use App\Models\Hrm_payslips;
 use App\Models\Hrm_statuses;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class HrmPayslipsController extends Controller
     {
         $status=Hrm_statuses::all();
         $employees=Hrm_employees::all();
-        return view('pages.hrm.payroll.hrm_payslips.create', compact('status','employees'));
+        $payslip_items=Hrm_payslip_items::all();
+        return view('pages.hrm.payroll.hrm_payslips.create', compact('status','employees','payslip_items'));
     }
 
     /**

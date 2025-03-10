@@ -27,6 +27,7 @@ use App\Http\Controllers\HrmEmployeeTimesheetsController;
 use App\Http\Controllers\HrmLeaveApplicationApproversController;
 use App\Http\Controllers\HrmLeaveApplicationsController;
 use App\Http\Controllers\HrmLeaveTypesController;
+use App\Http\Controllers\HrmPayslipItemsController;
 use App\Http\Controllers\HrmPayslipsController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
@@ -154,7 +155,13 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
  Route::get('hrm_payslips/create/',[HrmPayslipsController::class,'create'] );
  Route::resource('hrm_payslips', HrmPayslipsController::class);
 
- Route::get('find_employee', [HrmEmployeesController::class, 'find_employee']);
+ Route::get('hrm_payslips/delete/{id}/',[HrmPayslipItemsController::class,'destroy'] );
+ Route::resource('hrm_payslip_items', HrmPayslipItemsController::class);
+
+
+
+ Route::post('find_employee', [HrmEmployeesController::class, 'find_employee']);
+//  Route::get('find_payslip_items', [HrmEmployeesController::class, 'find_payslip_items']);
 
  // Route::get('/employee', function () {
  //     echo Auth::user()->isEmployee();
