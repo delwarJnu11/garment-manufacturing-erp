@@ -79,7 +79,7 @@
                                 <li><x-link href="{{ url('/customers/groups') }}" :active="request()->is('customers/groups')">Customer
                                         Groups</x-link></li>
                                 <li><x-link href="{{ url('/orders') }}" :active="request()->is('orders')">Orders</x-link></li>
-                                <li><x-link href="{{ url('/orders/create') }}" :active="request()->is('orders/create')">Create
+                                <li><x-link href="{{ route('orders.create') }}" :active="request()->is('orders/create')">Create
                                         Orders</x-link>
                                 </li>
                                 <li><x-link href="{{ url('/orders/pending') }}" :active="request()->is('orders/pending')">Pending
@@ -160,57 +160,60 @@
                                     </x-link>
                                 </li>
 
-                        <!-- 🔹 Inventory Valuation -->
-                        <li class="submenu">
-                            <a href="javascript:void(0);">Inventory Valuation <span class="menu-arrow"></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <x-link href="{{ url('/inventory/valuation/fifo') }}"
-                                        :active="request()->is('inventory/valuation/fifo')">FIFO</x-link>
+                                <!-- 🔹 Inventory Valuation -->
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Inventory Valuation <span class="menu-arrow"></span>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <x-link href="{{ url('/inventory/valuation/fifo') }}"
+                                                :active="request()->is('inventory/valuation/fifo')">FIFO</x-link>
+                                        </li>
+
+                                        <li>
+                                            <x-link href="{{ url('/inventory/valuation/weighted') }}"
+                                                :active="request()->is('inventory/valuation/weighted')">Weighted Avg</x-link>
+                                        </li>
+                                    </ul>
                                 </li>
-                               
+
+                                <!-- 🔹 Reports -->
                                 <li>
-                                    <x-link href="{{ url('/inventory/valuation/weighted') }}"
-                                        :active="request()->is('inventory/valuation/weighted')">Weighted Avg</x-link>
+                                    <x-link href="{{ url('/inventory/reports') }}" :active="request()->is('inventory/reports')">Inventory
+                                        Reports</x-link>
                                 </li>
                             </ul>
                         </li>
-
-                        <!-- 🔹 Reports -->
-                        <li>
-                            <x-link href="{{ url('/inventory/reports') }}" :active="request()->is('inventory/reports')">Inventory
-                                Reports</x-link>
+                        {{-- End Inventory Module --}}
+                        <!-- 🔸 Suppliers & Purchase -->
+                        <li class="submenu">
+                            <x-nav-link :active="request()->is('suppliers*') ||
+                                request()->is('purchase*') ||
+                                request()->is('payments/suppliers') ||
+                                request()->is('purchase/create') ||
+                                request()->is('purchaseState') ||
+                                request()->is('purchase-report')">Suppliers & Purchases</x-nav-link>
+                            <ul>
+                                <li>
+                                    <x-link href="{{ url('/suppliers') }}" :active="request()->is('suppliers')">Suppliers</x-link>
+                                </li>
+                                <li>
+                                    <x-link href="{{ route('purchase.create') }}" :active="request()->is('/purchase/create')">Create Purchase
+                                    </x-link>
+                                </li>
+                                <li><x-link href="{{ url('/purchaseState') }}" :active="request()->is('payments/suppliers')">Purchase
+                                        Pending</x-link></li>
+                                <li>
+                                    <x-link href="{{ url('/purchase') }}" :active="request()->is('purchase')">Purchase confirm</x-link>
+                                </li>
+                                {{-- <li><x-link href="{{ url('/payments/suppliers') }}" :active="request()->is('payments/suppliers')">Payments</x-link></li> --}}
+                                <li><x-link href="{{ url('purchase-report') }}" :active="request()->is('purchase-report')">Purchase
+                                        Reports</x-link></li>
+                            </ul>
                         </li>
+                        <!-- END 🔸 Suppliers & Purchase -->
                     </ul>
                 </li>
-                {{-- End Inventory Module --}}
-                <!-- 🔸 Suppliers & Purchase -->
-                <li class="submenu">
-                    <x-nav-link :active="request()->is('suppliers*') ||
-                        request()->is('purchase*') ||
-                        request()->is('payments/suppliers') ||
-                        request()->is('purchase/create') ||
-                        request()->is('purchaseState')|| request()->is('purchase-report')">Suppliers & Purchases</x-nav-link>
-                    <ul>
-                        <li>
-                            <x-link href="{{ url('/suppliers') }}" :active="request()->is('suppliers')">Suppliers</x-link>
-                        </li>
-                        <li>
-                            <x-link href="{{ route('purchase.create') }}" :active="request()->is('/purchase/create')">Create Purchase </x-link>
-                        </li>
-                        <li><x-link href="{{ url('/purchaseState') }}" :active="request()->is('payments/suppliers')">Purchase Pending</x-link></li>
-                        <li>
-                            <x-link href="{{ url('/purchase') }}" :active="request()->is('purchase')">Purchase confirm</x-link>
-                        </li>
-                        {{-- <li><x-link href="{{ url('/payments/suppliers') }}" :active="request()->is('payments/suppliers')">Payments</x-link></li> --}}
-                        <li><x-link href="{{ url('purchase-report') }}" :active="request()->is('purchase-report')">Purchase
-                                Reports</x-link></li>
-                    </ul>
-                </li>
-                <!-- END 🔸 Suppliers & Purchase -->
-            </ul>
-            </li>
             </ul>
         </div>
     </div>

@@ -4,10 +4,10 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h4 style="color: white">Create Production Work Order</h4>
+                <h4 style="color: white">Production Cutting Section</h4>
             </div>
             <div class="card-body">
-                <form action="{{ route('production-work-orders.store') }}" method="POST">
+                <form action="{{ route('cutting.store') }}" method="POST">
                     @csrf
                     <div class="col-md-6 mb-3">
                         <input hidden type="text" name="production_plan_id" id="production_plan_id"

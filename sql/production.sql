@@ -62,6 +62,8 @@ CREATE TABLE prodcution_cost_estimations (
     overhead_cost DECIMAL(10,2),
     utility_cost DECIMAL(10,2),
     total_cost DECIMAL(10,2),
+    profit DECIMAL(10,2),
+    sales_price DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
@@ -88,6 +90,7 @@ CREATE TABLE materials (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
 
+-- Production
 
 
 -- Production Floor Management

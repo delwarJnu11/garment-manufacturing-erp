@@ -31,7 +31,7 @@
                         <td>{{ $plan->end_date }}</td>
                         <td>{{ $plan->status->name }}</td>
                         <td>
-                            <button class="btn btn-success create-work-order" data-id="{{ $plan->order->id }}">
+                            <button class="btn btn-success create-work-order" data-id="{{ encrypt($plan->order->id) }}">
                                 Production
                             </button>
                         </td>
@@ -47,8 +47,9 @@
     <script>
         $(document).ready(function() {
             $('tbody').on('click', '.create-work-order', function() {
-                const orderId = $(this).data('id');
-                const url = "{{ route('production-work-orders.create') }}?order_id=" + orderId;
+                const encryptedOrderId = $(this).data('id');
+                const url = "{{ route('production-work-orders.create') }}?order_id=" + encodeURIComponent(
+                    encryptedOrderId);
                 window.location.href = url;
             });
         });

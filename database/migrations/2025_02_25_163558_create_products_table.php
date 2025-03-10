@@ -56,7 +56,7 @@ return new class extends Migration
             'name' => 'Denim fabric ',
             'product_type_id' => 1, // Example: 2 for Finished Goods
 
-            'sku' => 'WSH-L-004',
+            'sku' => 'WSH-L-005',
             'qty' => 62,
             'uom_id' => 1,
             'unit_price' => 30.00

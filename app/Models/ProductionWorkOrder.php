@@ -9,15 +9,7 @@ class ProductionWorkOrder extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'order_id',
-        'production_plan_id',
-        'production_work_section_id',
-        'production_work_status_id',
-        'assigned_to',
-        'target_quantity',
-        'actual_quantity',
-    ];
+    protected $fillable = ['production_plan_id', 'order_id', 'assigned_to', 'work_order_status_id', 'total_pieces', 'cutting_status', 'sewing_status', 'finishing_status', 'packaging_status', 'wastage'];
 
     public function productionPlan()
     {
@@ -29,19 +21,18 @@ class ProductionWorkOrder extends Model
         return $this->belongsTo(Order::class);
     }
 
-    public function workSection()
-    {
-        return $this->belongsTo(ProductionWorkSection::class, 'production_work_section_id');
-    }
+    // public function workSection()
+    // {
+    //     return $this->belongsTo(ProductionWorkSection::class, 'production_work_section_id');
+    // }
 
     public function workStatus()
     {
-        return $this->belongsTo(ProductionWorkStatus::class, 'production_work_status_id');
+        return $this->belongsTo(ProductionWorkStatus::class, 'work_order_status_id');
     }
 
     public function assignedUser()
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }
-    
 }
