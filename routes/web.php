@@ -168,6 +168,7 @@ Route::prefix('stock')->group(function () {
     Route::resource('stock_adjustments', StockAdjustmentController::class);
     Route::resource('status', StatusController::class);
     Route::resource('category', CategoryController::class);
+    Route::resource('product_lots', ProductlotController::class);
     Route::resource('categoryType', CategoryTypeController::class);
     Route::resource('raw_materials', RawMaterialController::class);
     Route::resource('product_types', ProductTypeController::class);
@@ -202,7 +203,7 @@ Route::resource('uoms', UOMController::class);
 // Route::middleware('auth')->get('/stock-adjustment', [StockAdjustmentController::class, 'create']);
 
 Route::resource('valuations', ValuationMethodsController::class);
-Route::resource('product_lots', ProductlotController::class);
+
 Route::resource('purchase', PurchaseOrderController::class);
 Route::get('/invoice/{id}/print', [PurchaseOrderController::class, 'print'])->name('invoice.print');
 Route::get('purchase/{id}/generate-pdf', [PurchaseOrderController::class, 'generatePDF'])->name('purchase.generatePDF');

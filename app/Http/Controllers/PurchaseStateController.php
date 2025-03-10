@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InvoiceStatus;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseStatus;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class PurchaseStateController extends Controller
     public function index(Request $request)
     {
         // Fetch all purchase statuses
-        $purchase_status = PurchaseStatus::all();
+        $purchase_status = InvoiceStatus::all();
 
         // Fetch the selected state from the request, default to null if not set
         $selectedState = $request->query('state', null);

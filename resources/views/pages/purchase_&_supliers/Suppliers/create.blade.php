@@ -7,7 +7,7 @@
         <div class="card-body">
             <form action="{{ route('suppliers.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                
+
                 <div class="row">
                     <!-- First Name -->
                     <div class="col-md-6">
@@ -47,28 +47,30 @@
                             <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
                             <textarea name="address" id="address" class="form-control" rows="3" required></textarea>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label f class="form-label">Bank Account <span class="text-danger">*</span></label>
-                                <select name="bank_account_id" id="" class="form-select form-controll">
-                                    @forelse ($bankAccounts as $bankAccount)
-                                        <option value="{{ $bankAccount->id }}" >
-                                            {{ $bankAccount->name }}
-                                        </option>
-                                    @empty
-                                        <option value="">No bank accounts available</option>
-                                    @endforelse
-                                </select>
-    
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label f class="form-label">Bank Account <span class="text-danger">*</span></label>
+                                    <select name="bank_account_id" id="" class="form-select form-controll">
+                                        @forelse ($bankAccounts as $bankAccount)
+                                            <option value="{{ $bankAccount->id }}">
+                                                {{ $bankAccount->name }}
+                                            </option>
+                                        @empty
+                                            <option value="">No bank accounts available</option>
+                                        @endforelse
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Photo -->
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="photo" class="form-label">Photo <span class="text-danger">*</span></label>
-                            <input type="file" name="photo" id="photo" class="form-control" accept="image/*" required>
+                            <!-- Photo -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="photo" class="form-label">Photo <span
+                                            class="text-danger">*</span></label>
+                                    <input type="file" name="photo" id="photo" class="form-control"
+                                        accept="image/*" required>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
