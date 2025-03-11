@@ -38,8 +38,8 @@ class PayslipController extends Controller
         $payslips->employee_id = $request->employee_id;
         $payslips->	statuses_id = $request->statuses_id;
         $payslips->salary_month = $request->salary_month;
-        $payslips->start_date = $request->start_date;
-        $payslips->end_date = $request->end_date;
+        $payslips->start_date = ""; //$request->start_date;
+        $payslips->end_date = "";  //$request->end_date;
         $payslips->basic_salary = $request->basic_salary;
         $payslips->	payslip_items_id = $request->payslip_items_id;
         $payslips->total_working_days = $request->total_working_days;
@@ -50,7 +50,7 @@ class PayslipController extends Controller
         $payslips->	total_deductions = $request->total_deductions;
         $payslips->net_salary = $request->net_salary;
         $payslips->payment_method = $request->payment_method;
-        $payslips->generated_at = $request->generated_at;
+        $payslips->generated_at = ""; //$request->generated_at;
 
         $payslips->save();
 
@@ -68,6 +68,7 @@ class PayslipController extends Controller
 
         }
 
+        return response()->json(['success' => "Payslip confirmed successfully"]);
 
     }
 
@@ -76,7 +77,7 @@ class PayslipController extends Controller
      */
     public function show(string $id)
     {
-       
+
     }
 
     /**

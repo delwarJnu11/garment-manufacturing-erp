@@ -137,61 +137,92 @@ border-top: 2px solid #ddd;
 padding-top: 10px;
 }
 
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #section-to-print,
+    #section-to-print * {
+        visibility: visible;
+    }
+
+    #section-to-print {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    @page {
+            size: A4;
+            margin: 20mm;
+        }
+}
+
 </style>
 @endsection
 @section('page_content')
-<div class="card-body">
+
+<div class="d-flex justify-content-end">
+    <button class="btn btn-primary" onclick="printPayslip()">Print</button>
+</div>
+
+<div class="card-body" id="section-to-print">
     <div id="viewData">
         <div class="px-5">
             <table width="99%">
                 <tbody>
                     <tr>
-                        <td width="30%"></td>
-                        <td width="40%" class="text-center">
+                        <td width="50%"><h2>Company Name</h2>
+                            <p>123 Business Rd<br>City, State, ZIP<br>Email: info@company.com<br>Phone: (123) 456-7890</p></td>
+                        <td width="50%" class="text-center">
                             <img src="https://hrm.bdtask-demoserver.com/storage/application/1716986808logo.jpg">
                             <h4 class="mt-3">Bdtask HRM <span class="text-uppercase">(Payslip)</span> </h4>
                         </td>
-                        <td width="30%"></td>
+                        {{-- <td width="30%"></td> --}}
                     </tr>
                 </tbody>
             </table>
             <br>
 
             <div class="row">
+                <div class="text-center bg-info fs-3">Employee Salary Slip</div>
                 <table width="99%" class="payrollDatatableReport table table-bordered">
                     <tbody>
                         <tr class="text-start">
                             <th>Employee name</th>
-                            <td>Honorato Imogene Curry Terry</td>
+                            <td>Honorato</td>
                             <th>Month</th>
                             <td>April, 2024</td>
                         </tr>
                         <tr class="text-start">
-                            <th>Position</th>
+                            <th>Employee ID</th>
                             <td></td>
-                            <th>From</th>
-                            <td>2024-04-01</td>
+                            <th>Total Working Days:</th>
+                            <td>20</td>
                         </tr>
                         <tr class="text-start">
-                            <th>Contact</th>
+                            <th>Employee Designation</th>
                             <td>+1 (873) 591-1817</td>
-                            <th>To</th>
-                            <td>2024-04-30</td>
+                            <th>Working Days Attendance:</th>
+                            <td>20</td>
                         </tr>
                         <tr class="text-start">
-                            <th>Address</th>
+                            <th>Employee Department</th>
                             <td></td>
-                            <th>Recruitment date</th>
-                            <td>2011-04-27</td>
+                            <th>Leaves Taken</th>
+                            <td>20</td>
                         </tr>
                         <tr>
-                            <th>Total working hours</th>
+                            <th>Employee Bank Account</th>
                             <td>10</td>
-                            <th>Worked hours</th>
+                            <th>Balance Leaves</th>
                             <td>0</td>
                         </tr>
                         <tr class="text-start">
-                            <th>Staff id</th>
+                            <th>Employee Bank Name</th>
                             <td>#000001</td>
                             <td></td>
                             <td></td>
@@ -204,7 +235,7 @@ padding-top: 10px;
                 <!-- Two-Column Layout for Description and Deduction -->
                 <div class="payroll-summary">
                     <div class="description">
-                        <h5>Description</h5>
+                        <h5 class="bg-success p-3 text-center">Allowance</h5>
                         <table width="100%" class="table table-striped">
                             <tbody>
                                 <tr>
@@ -228,7 +259,7 @@ padding-top: 10px;
                     </div>
 
                     <div class="deduction">
-                        <h5>Deduction</h5>
+                        <h5 class="bg-danger p-3 text-center">Deduction</h5>
                         <table width="100%" class="table table-striped">
                             <tbody>
                                 <tr>
@@ -253,7 +284,7 @@ padding-top: 10px;
                 </div>
 
                 <!-- Total Deductions and Net Salary -->
-                <table width="95%" class="payrollDatatableReport table table-striped table-bordered table-hover">
+                {{-- <table width="95%" class="payrollDatatableReport table table-striped table-bordered table-hover">
                     <thead>
                         <tr class="alert-warning text-start">
                             <th>Description</th>
@@ -283,14 +314,48 @@ padding-top: 10px;
                             <th class="text-start">550.00</th>
                         </tr>
                     </tbody>
-                </table>
+                </table> --}}
+                <div class="summary-box mt-3 card p-3">
+                    <h5 class="card-header bg-warning text-white text-center fs-4">Summary</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped text-center">
+                            <tbody class="text-center">
+                                <tr>
+                                    <th style="width: 30%;">Basic Salary</th>
+                                    <td>50000</td>
+                                </tr>
+                                <tr>
+                                    <th>Total Allowances</th>
+                                    <td>5000</td>
+                                </tr>
+                                <tr>
+                                    <th>Total Deductions</th>
+                                    <td>1000</td>
+                                </tr>
+                                <tr>
+                                    <th>Net Salary</th>
+                                    <td>54000</td>
+                                </tr>
+                                <tr>
+                                    <th>Payment Method</th>
+                                    <td>Cash</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>Paid</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
 
             <!-- Footer Section -->
             <table width="100%" class="mt-5">
                 <tbody>
                     <tr>
-                        <td class="border-0" width="33%">
+                        <td class="" width="33%">
                             <div class="border-top mx-5 text-center">Prepared by: <b>Admin</b></div>
                         </td>
                         <td width="33%">
@@ -305,5 +370,12 @@ padding-top: 10px;
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+    function printPayslip() {
+    window.print();
+}
+</script>
 @endsection
 

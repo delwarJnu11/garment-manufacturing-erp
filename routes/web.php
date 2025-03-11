@@ -159,9 +159,13 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
  Route::resource('hrm_payslip_items', HrmPayslipItemsController::class);
 
 
-
  Route::get('find_employee', [HrmEmployeesController::class, 'find_employee']);
 //  Route::get('find_payslip_items', [HrmEmployeesController::class, 'find_payslip_items']);
+
+Route::get('showpayslip', function(){
+    return view('pages.hrm.payroll.hrm_payslips.show');
+});
+
 
  // Route::get('/employee', function () {
  //     echo Auth::user()->isEmployee();
