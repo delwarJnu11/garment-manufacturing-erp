@@ -17,7 +17,8 @@ class CuttingController extends Controller
      */
     public function index()
     {
-        //
+        $cuttingOrders = Cutting::paginate(4);
+        return view('pages.production.cutting.index', compact('cuttingOrders'));
     }
 
     /**
@@ -75,18 +76,48 @@ class CuttingController extends Controller
         // Convert to an array
         $sizesWithUsedQty = $Quantities->toArray();
 
+
         $totalFabricsUsed = 0;
 
         foreach ($sizesWithQty as $sizeId => $orderQty) {
             if (isset($sizesWithUsedQty[$sizeId])) {
                 $totalFabricsUsed += $orderQty * $sizesWithUsedQty[$sizeId];
-                break;
             }
         }
 
-        $total_quantity_wastage = BomDetails::where('bom_id', $bom_id)->sum('wastage');
+        // Fetch all relevant data without averaging wastage
+        $wastages = BomDetails::where('bom_id', $bom_id)
+            ->where('uom_id', 2)
+            ->select('size_id', 'quantity_used', 'wastage')
+            ->get();
 
-        return view('pages.production.cutting.create', compact('work_order_id', 'totalFabricsUsed', 'total_pieces'));
+        $totalWastageBySize = [];
+
+        foreach ($wastages as $row) {
+            $sizeId = $row->size_id;
+            $quantityUsed = $row->quantity_used;
+            $wastagePercentage = $row->wastage;
+
+            // Calculate wastage for this entry
+            $wastage = ($quantityUsed * $wastagePercentage) / 100;
+
+            // Sum wastage per size_id
+            if (!isset($totalWastageBySize[$sizeId])) {
+                $totalWastageBySize[$sizeId] = 0;
+            }
+
+            $totalWastageBySize[$sizeId] += $wastage;
+        }
+
+        $totalWastage = 0;
+
+        foreach ($sizeQuantities as $sizeId => $quantity) {
+            if (isset($totalWastageBySize[$sizeId])) {
+                $totalWastage += $quantity * $totalWastageBySize[$sizeId];
+            }
+        }
+
+        return view('pages.production.cutting.create', compact('work_order_id', 'totalFabricsUsed', 'total_pieces', 'totalWastage'));
     }
 
     /**
@@ -94,7 +125,34 @@ class CuttingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'work_order_id'      => 'required|integer|exists:production_work_orders,id',
+            'cutting_status'     => 'required|string|max:255',
+            'total_pieces'       => 'required|integer|min:1',
+            'total_fabric_used'  => 'required|integer|min:1',
+            'wastage'            => 'required|numeric|min:0',
+            'target_quantity'    => 'required|integer|min:1',
+            'actual_quantity'    => 'required|integer|min:0',
+            'cutting_start_date' => 'required|date',
+            'cutting_end_date'   => 'required|date|after_or_equal:cutting_start_date',
+            'remarks'            => 'nullable|string|max:500',
+        ]);
+
+        // Create a new cutting record
+        Cutting::create([
+            'work_order_id'      => $request->work_order_id,
+            'cutting_status'     => $request->cutting_status,
+            'total_quantity'     => $request->total_pieces,
+            'total_fabric_used'  => $request->total_fabric_used,
+            'wastage'            => $request->wastage,
+            'target_quantity'    => $request->target_quantity,
+            'actual_quantity'    => $request->actual_quantity,
+            'cutting_start_date' => $request->cutting_start_date,
+            'cutting_end_date'   => $request->cutting_end_date,
+            'remarks'            => $request->remarks
+        ]);
+
+        return redirect()->route('cutting.index')->with('success', 'Cutting is Created successfully.');
     }
 
     /**

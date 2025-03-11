@@ -11,8 +11,8 @@ class Cutting extends Model
 
     protected $fillable = [
         'work_order_id',
-        'cutting_status_id',
-        'total_fabric_quantity',
+        'cutting_status',
+        'total_quantity',
         'total_fabric_used',
         'target_quantity',
         'actual_quantity',
