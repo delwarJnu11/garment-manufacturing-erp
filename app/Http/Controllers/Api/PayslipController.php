@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hrm_employees;
+use App\Models\Hrm_payslip_details;
+use App\Models\Hrm_payslips;
 use Illuminate\Http\Request;
 
 use function Pest\Laravel\json;
@@ -15,8 +17,8 @@ class PayslipController extends Controller
      */
     public function index()
     {
-        // $employees=Hrm_employees::all();
-        // return response()->json(['employees'=>$employees]);
+        $payslips=Hrm_payslips::all();
+        return response()->json(['payslips'=>$payslips]);
     }
 
     /**
@@ -32,7 +34,41 @@ class PayslipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payslips = new Hrm_payslips();
+        $payslips->employee_id = $request->employee_id;
+        $payslips->	statuses_id = $request->statuses_id;
+        $payslips->salary_month = $request->salary_month;
+        $payslips->start_date = $request->start_date;
+        $payslips->end_date = $request->end_date;
+        $payslips->basic_salary = $request->basic_salary;
+        $payslips->	payslip_items_id = $request->payslip_items_id;
+        $payslips->total_working_days = $request->total_working_days;
+        $payslips->working_days_attendance = $request->working_days_attendance;
+        $payslips->leaves_taken = $request->leaves_taken;
+        $payslips->balance_leaves = $request->balance_leaves;
+        $payslips->total_earnings = $request->total_earnings;
+        $payslips->	total_deductions = $request->total_deductions;
+        $payslips->net_salary = $request->net_salary;
+        $payslips->payment_method = $request->payment_method;
+        $payslips->generated_at = $request->generated_at;
+
+        $payslips->save();
+
+        $lastPayslipId= $payslips->id;
+        $payslipData = $request->payslips;
+
+        foreach ($payslipData as $key => $value) {
+            $payslipDetails= new Hrm_payslip_details();
+            $payslipDetails->payslip_id = $lastPayslipId;
+            $payslipDetails->payslip_items_id =$value['payslip_items_id'];
+            $payslipDetails->employee_id = $value['employee_id'];
+            $payslipDetails->factor = "";
+
+            $payslipDetails->save();
+
+        }
+
+
     }
 
     /**
@@ -40,7 +76,7 @@ class PayslipController extends Controller
      */
     public function show(string $id)
     {
-        //
+       
     }
 
     /**

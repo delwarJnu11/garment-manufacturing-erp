@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\OrderDetailsController;
+use App\Http\Controllers\API\PayslipController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\HrmPayslipsController;
@@ -19,4 +20,10 @@ Route::get('order', [OrderDetailsController::class, 'index']);
 // purchaseOrder  Api
 Route::post('purchase',[ PurchaseOrderController::class,'store']);
 
-Route::post('find_employee', [HrmPayslipsController::class, 'Purchase_store']);
+
+
+ // Start Api Route
+
+ Route::post('payslip',[ PayslipController::class,'store']);
+
+ // End Api Route

@@ -105,7 +105,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label>Month:</label>
-                        <input type="month" class="form-control">
+                        <input type="month" class="form-control salary_month">
                     </div>
                 </div>
 
@@ -124,19 +124,19 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Total Working Days:</label>
-                            <input type="number" class="form-control" value="30">
+                            <input type="number" class="form-control total_working_days" value="30">
                         </div>
                         <div class="form-group">
                             <label>Working Days Attendance:</label>
-                            <input type="number" class="form-control" value="28">
+                            <input type="number" class="form-control working_days_attendance" value="28">
                         </div>
                         <div class="form-group">
                             <label>Leaves Taken:</label>
-                            <input type="number" class="form-control" value="2">
+                            <input type="number" class="form-control leaves_taken" value="2">
                         </div>
                         <div class="form-group">
                             <label>Balance Leaves:</label>
-                            <input type="number" class="form-control" value="5">
+                            <input type="number" class="form-control balance_leaves" value="5">
                         </div>
                     </div>
                 </div>
@@ -175,7 +175,8 @@
                                                 <input class="allowance_amount form-control" type="number" value="10000">
                                             </td>
                                             <td>
-                                                <button class="btn btn-primary alowance_add_btn" id="alowance_add_btn">+</button>
+                                                <button class="btn btn-primary alowance_add_btn"
+                                                    id="alowance_add_btn">+</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -237,7 +238,8 @@
                                                 <input class=" form-control deduction_amount" type="number" value="10000">
                                             </td>
                                             <td>
-                                                <button class="btn btn-primary deduction_add_btn" id="deduction_add_btn">+</button>
+                                                <button class="btn btn-primary deduction_add_btn"
+                                                    id="deduction_add_btn">+</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -278,31 +280,33 @@
                                 <tr>
                                     <th style="width: 30%;">Basic Salary</th>
                                     <td>
-                                        <input type="number" class="form-control basic_salary" value="0" readonly>
+                                        <input type="number" class="form-control basic_salary" value="0" disabled>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Total Allowances</th>
                                     <td>
-                                        <input type="number" class="form-control total_allowance" value="0" readonly>
+                                        <input type="number" id="total_allowance" class="form-control total_allowance"
+                                            value="0" readonly>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Total Deductions</th>
                                     <td>
-                                        <input type="number" class="form-control" value="0" readonly>
+                                        <input type="number" class="form-control total_deduction" value="0"
+                                            readonly>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Net Salary</th>
                                     <td>
-                                        <input type="number" class="form-control" value="0" readonly>
+                                        <input type="number" class="form-control net_salary" value="0" readonly>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Payment Method</th>
                                     <td>
-                                        <select class="form-select">
+                                        <select class="form-select payment_method">
                                             <option>Select</option>
                                             <option>Bank Transfer</option>
                                             <option>Cash</option>
@@ -312,13 +316,13 @@
                                 <tr>
                                     <th>Status</th>
                                     <td>
-                                        <input type="text" class="form-control" value="Paid" readonly>
+                                        <input type="text" class="form-control statuses_id" value="Paid" readonly>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <button class="btn btn-primary w-100 mt-3 btn-lg">Create Payslip</button>
+                    <button class="btn btn-primary w-100 mt-3 btn-lg btn_process">Create Payslip</button>
                 </div>
             </div>
         </div>
@@ -329,9 +333,10 @@
     <script>
         $(function() {
 
-            const cart = new Cart('payslip');
-            printCart();
-            printCartDeduc();
+            const allowancecart = new Cart('allowance');
+            const deductioncart = new Cart('deduction');
+            allowanceprintCart();
+            deductionprintCart();
 
             $.ajaxSetup({
                 headers: {
@@ -360,6 +365,7 @@
                         $(".employee_department").text(res.employees?.department_id);
                         $(".employee_bank_account").text(res.employees?.bank_accounts_id);
                         $(".basic_salary").val(res.employees?.salary);
+                        // localStorage.setItem('Salary', res.employees?.salary);
                     },
                     error: function(xhr, status, error) {
                         console.error(error);
@@ -374,60 +380,50 @@
                 let payslip_items_allowance_id = $("#allowance_items").val();
                 let payslip_items_allowance_name = $("#allowance_items option:selected").text();
                 let allowance_amount = $(".allowance_amount").val();
-                let subtotal = allowance_amount;
 
-                //console.log(payslip_items_allowance_id, payslip_items_allowance_name, allowance_amount);
-                // let total_allowance = subtotal;
-                if (!payslip_items_allowance_id || allowance_amount <= 0) {
-                    alert("Please select an allowance and enter a valid amount.");
-                    return;
-                }
 
                 let item = {
                     'name': payslip_items_allowance_name,
                     'item_id': payslip_items_allowance_id,
                     'allowance_amount': allowance_amount,
-                    'subtotal': subtotal
+
                 };
 
-                cart.save(item);
-                printCart();
+                allowancecart.save(item);
+                allowanceprintCart();
 
             });
 
 
-            function printCart() {
-                let cartdata = cart.getCart();
-                if (cartdata) {
+            function allowanceprintCart() {
+                let cartdataone = allowancecart.getCart();
+                if (cartdataone) {
 
                     let htmldata = "";
                     let subtotal = 0;
-                    let total_allowance = 0;
 
-                    cartdata.forEach((element, index) => {
-                        subtotal += element.subtotal;
-                        total_allowance += element.subtotal;
+
+                    cartdataone.forEach((element, index) => {
+                        subtotal += parseInt(element.allowance_amount);
+                        localStorage.setItem("Total Allowance", subtotal);
 
                         htmldata += `
                                         <tr>
-                                            <td>
-                                                <p class="fs-14">${element.name}</p>
-                                            </td>
-                                            <td>
-                                                <p class="fs-14">${element.allowance_amount}</p>
-                                            </td>
-                                             <td>
-						                        <button data="${element.item_id}" class=' btn btn-danger remove'>-</button>
-					                        </td>
+                                            <td> <p class="fs-14">${element.name}</p></td>
+                                            <td><p class="fs-14">${element.allowance_amount}</p></td>
+                                             <td> <button data="${element.item_id}" class=' btn btn-danger remove'>-</button></td>
                                         </tr>
 				                    `;
                     });
 
+
+
                     $('.dataAppend').html(htmldata);
-                    $('.subtotal').html(subtotal);
-                    $('.total_allowance').html(subtotal);
+                    // $('.subtotal').html(subtotal);
+
+                    $('.total_allowance').val(localStorage.getItem('Total Allowance'));
                     // $('.grandtotal').html(subtotal + (subtotal * 5 / 100));
-                    cartIconIncrease()
+
                 }
 
             }
@@ -435,22 +431,18 @@
 
             $(document).on('click', '.remove', function() {
                 let id = $(this).attr('data');
-                cart.delItem(id);
-                printCart();
+                allowancecart.delItem(id);
+                allowanceprintCart();
             })
 
             $(document).on('click', '.clearAll', function() {
-                cart.clearCart();
-                printCart();
+                allowancecart.clearCart();
+                allowanceprintCart();
             });
-            cartIconIncrease()
 
-            function cartIconIncrease() {
-                let items = cart.getCart().length
-                $(".cartIcon").html(items);
-            }
+            allowancecart.clearCart();
 
-            cart.clearCart();
+
 
 
 
@@ -464,59 +456,57 @@
                 let deduction_amount = $(".deduction_amount").val();
                 let subtotal = deduction_amount;
 
-                //console.log(payslip_items_allowance_id, payslip_items_allowance_name, allowance_amount);
-                // let total_allowance = subtotal;
-                if (!payslip_items_deduction_id || deduction_amount <= 0) {
-                    alert("Please select an allowance and enter a valid amount.");
-                    return;
-                }
 
-                let item = {
+                let decitem = {
                     'name': payslip_items_deduction_name,
                     'item_id': payslip_items_deduction_id,
                     'deduction_amount': deduction_amount,
                     'subtotal': subtotal
                 };
 
-                cart.save(item);
-                printCartDeduc();
+                deductioncart.save(decitem);
+                deductionprintCart();
 
             });
 
 
 
-            function printCartDeduc() {
-                let cartdata = cart.getCart();
-                if (cartdata) {
+            function deductionprintCart() {
+                let cartdatatwo = deductioncart.getCart();
+                if (cartdatatwo) {
 
                     let htmldata = "";
                     let subtotal = 0;
-                    let total_deduction = 0;
 
-                    cartdata.forEach((element, index) => {
-                        subtotal += element.subtotal;
-                        total_deduction += element.subtotal;
+                    cartdatatwo.forEach((element, index) => {
+                        subtotal += parseInt(element.subtotal);
+                        localStorage.setItem('Total Deduction', subtotal)
+                        // total_deduction += element.subtotal;
 
                         htmldata += `
                                         <tr>
-                                            <td>
-                                                <p class="fs-14">${element.name}</p>
-                                            </td>
-                                            <td>
-                                                <p class="fs-14">${element.deduction_amount}</p>
-                                            </td>
-                                             <td>
-						                        <button data-id="${element.item_id}" class=' btn btn-danger removed'>-</button>
-					                        </td>
+                                            <td><p class="fs-14">${element.name}</p></td>
+                                            <td> <p class="fs-14">${element.deduction_amount}</p></td>
+                                             <td><button data-id="${element.item_id}" class=' btn btn-danger removed'>-</button> </td>
                                         </tr>
 				                    `;
                     });
 
                     $('.dataAppended').html(htmldata);
-                    $('.subtotal').html(subtotal);
-                    $('.total_deduction').html(subtotal);
+                    // $('.subtotal').html(subtotal);
+
+                    const allowance = $('.total_allowance').val();
+                    const deduction = $('.total_deduction').val(localStorage.getItem('Total Deduction'));
+
+                    const basicSal = parseInt($('.basic_salary').val(localStorage.getItem('Salary'))); // Ensure the basic salary is parsed as an integer.
+                    const netSal = basicSal+allowance-deduction;
+
+                    $('.net_salary').val(netSal);
+                    // alert(deduction, netSal);
+
+                    // alert(basicSal)
                     // $('.grandtotal').html(subtotal + (subtotal * 5 / 100));
-                    cartIconIncreaseDeduc()
+
                 }
 
             }
@@ -524,31 +514,97 @@
 
             $(document).on('click', '.removed', function() {
                 let id = $(this).attr('data-id');
-                cart.delItem(id);
-                printCartDeduc();
+                deductioncart.delItem(id);
+                deductionprintCart();
             })
 
             $(document).on('click', '.Clear', function() {
-                cart.clearCart();
-                printCartDeduc();
+                deductioncart.clearCart();
+                deductionprintCart();
             });
-            cartIconIncreaseDeduc()
 
-            function cartIconIncreaseDeduc() {
-                let items = cart.getCart().length
-                $(".cartIcon").html(items);
-            }
-
-            cart.clearCart();
+            deductioncart.clearCart();
 
 
 
+            $('.btn_process').on('click', function() {
+
+                let employee_id = $('#employee_id').val();
+                let payslip_items_id = $('.payslip_items_id').val();
+                let salary_month = $('.salary_month').val();
+                let total_working_days = $('.total_working_days').val();
+                let working_days_attendance = $('.working_days_attendance').val();
+                let leaves_taken = $('.leaves_taken').val();
+                let balance_leaves = $('.balance_leaves').val();
+                let total_earnings = $('.total_allowance').val();
+                let total_deductions = $('.total_deductions').val();
+                let net_salary = $('.net_salary').val();
+                let payment_method = $('.payment_method').val();
+                let statuses_id = $('.statuses_id').val();
+                //let payslips = cart.getCart()
+
+
+                $.ajax({
+                    url: "{{ url('api/payslip') }}",
+                    type: 'Post',
+                    data: {
+                        employee_id: employee_id,
+                        payslip_items_id: payslip_items_id,
+                        salary_month: salary_month,
+                        total_working_days: total_working_days,
+                        working_days_attendance: working_days_attendance,
+                        leaves_taken: leaves_taken,
+                        balance_leaves: balance_leaves,
+                        total_earnings: total_earnings,
+                        total_deductions: total_deductions,
+                        net_salary: net_salary,
+                        payment_method: payment_method,
+                        statuses_id: statuses_id,
+                        //payslips: payslips,
+                    },
+                    success: function(res) {
+                        console.log(res)
+
+                        if (res.success) {
+
+                            //cart.clearCart();
+                            //printCart();
+
+                            $('#employee_id').val("");
+                            $(".employee_name").text("");
+                            $(".employeeID").text("");
+                            $(".employee_designation").text("");
+                            $(".employee_department").text("");
+                            $(".employee_bank_account").text("");
+                            $(".employee_bank_name").text("");
+                            $(".allowance_amount").text("");
+                            $(".deduction_amount").text("");
+                            $(".basic_salary").text("");
+                            $(".total_allowance").text("");
+                            $(".total_deductions").text("");
+                            $(".net_salary").text("");
+                            $(".payment_method").text("");
+                            $(".statuses_id").text("");
+                        }
+
+                    },
+
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+
+
+
+
+
+            });
 
 
 
         })
     </script>
-     <script src="{{ asset('assets/js/cart_.js') }}"></script>
+    <script src="{{ asset('assets/js/cart_.js') }}"></script>
 @endsection
 
 
