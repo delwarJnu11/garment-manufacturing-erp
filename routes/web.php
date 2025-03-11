@@ -59,6 +59,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchasePaymentController;
 use App\Http\Controllers\PurchaseReportController;
 use App\Http\Controllers\PurchaseStateController;
+use App\Http\Controllers\SalesInvoiceController;
 use App\Http\Controllers\StockAdjustmentController;
 use Illuminate\Support\Facades\Route;
 
@@ -195,6 +196,10 @@ Route::resource('buyers', BuyerController::class);
 /**
  * Suppliers and Purcahse
  */
+// sales invoice 
+Route::resource('sales-invoice', SalesInvoiceController::class);
+
+
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
 

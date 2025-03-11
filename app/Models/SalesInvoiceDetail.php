@@ -19,4 +19,13 @@ class SalesInvoiceDetail extends Model
         '%_of_vat',
         'vat',
     ];
+
+    public function salesInvoice(){
+        return $this->belongsTo(SalesInvoice::class,'sales_invoice_id');
+
+    }
+    public function productionWorkOrder(){
+        return $this->hasMany(ProductionWorkOrder::class,'production_work_order_id');
+
+    }
 }

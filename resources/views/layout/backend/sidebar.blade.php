@@ -72,7 +72,8 @@
                         <!-- END Prodcution Module Menu -->
                         <!--START 🔸 Order & Customers -->
                         <li class="submenu">
-                            <x-nav-link :active="request()->is('orders*') || request()->is('buyers*')">Orders & Buyers</x-nav-link>
+                            <x-nav-link :active="request()->is('orders*') || request()->is('buyers*')
+                                || request()->is('sales-invoice*')">Orders & Buyers</x-nav-link>
                             <ul>
                                 <!-- 🔹 Orders -->
                                 <li><x-link href="{{ url('/buyers') }}" :active="request()->is('buyers')">Buyers</x-link></li>
@@ -98,7 +99,7 @@
                                         Types</x-link></li>
 
                                 <!-- 🔹 Invoices & Payments -->
-                                <li><x-link href="{{ url('/invoices') }}" :active="request()->is('invoices')">Invoices</x-link></li>
+                                <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales Invoices</x-link></li>
                                 <li><x-link href="{{ url('/payments') }}" :active="request()->is('payments')">Payments</x-link></li>
                                 <li><x-link href="{{ url('/refunds') }}" :active="request()->is('refunds')">Refunds</x-link></li>
 
