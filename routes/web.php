@@ -198,7 +198,8 @@ Route::resource('buyers', BuyerController::class);
  */
 // sales invoice 
 Route::resource('sales-invoice', SalesInvoiceController::class);
-
+Route::post('find_buyer',[SalesInvoiceController::class,'find_buyer']);
+Route::get('order/show',[SalesInvoiceController::class,'show']);
 
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
@@ -236,6 +237,7 @@ Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
+
 
 // Route::get('orders', [OrderDetailsController::class, 'index']);
 

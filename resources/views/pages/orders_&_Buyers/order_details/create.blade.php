@@ -215,7 +215,7 @@
                 }));
 
                 $.ajax({
-                    url: "http://127.0.0.1:8000/api/order_details",
+                    url: "/api/order_details",
                     type: "POST",
                     data: JSON.stringify({
                         items: newItems

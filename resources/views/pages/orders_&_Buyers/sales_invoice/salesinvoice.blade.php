@@ -4,7 +4,7 @@
     <x-message-banner />
 
     <div class="card flex-fill">
-        <x-page-header heading="Sales Invoices" btnText="Back" href="{{ url('sales') }}" />
+        <x-page-header heading="Sales Invoices" btnText="Back" href="{{ url('sales-invoice/create') }}" />
 
         <table class="table table-striped table-bordered">
             <thead class="thead-primary">

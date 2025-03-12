@@ -44,5 +44,10 @@ class ProductionWorkOrder extends Model
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }
+    public function salesInvoiceDetail()
+{
+    return $this->hasMany(SalesInvoiceDetail::class, 'production_work_order_id'); // Ensure this is correct
+}
+
     
 }

@@ -24,8 +24,15 @@ class SalesInvoiceDetail extends Model
         return $this->belongsTo(SalesInvoice::class,'sales_invoice_id');
 
     }
-    public function productionWorkOrder(){
-        return $this->hasMany(ProductionWorkOrder::class,'production_work_order_id');
+    // public function productionWorkOrder(){
+    //     return $this->hasMany(ProductionWorkOrder::class,'production_work_order_id');
 
+    // }
+    public function productionWorkOrder()
+    {
+        return $this->belongsTo(ProductionWorkOrder::class, 'production_work_order_id');
     }
+    
+
+
 }
