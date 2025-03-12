@@ -70,7 +70,7 @@
 
                 // console.log(cutting_id, work_order_id, actual_quantity)
 
-                const url = "{{ url('api/production-stages/cutting/update-status') }}/" + cutting_id;
+                const url = "{{ url('/api/production-stages/cutting/update-status') }}/" + cutting_id;
                 // console.log(url)
 
                 $.ajax({

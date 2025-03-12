@@ -142,7 +142,7 @@ class CuttingController extends Controller
     {
         $request->validate([
             'work_order_id'      => 'required|integer|exists:production_work_orders,id',
-            'cutting_status'     => 'required|string|max:255',
+            'cutting_status'     => 'required|in:Pending,In Progress,Completed',
             'total_pieces'       => 'required|integer|min:1',
             'total_fabric_used'  => 'required|integer|min:1',
             'wastage'            => 'required|numeric|min:0',

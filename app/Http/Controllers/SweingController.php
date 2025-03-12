@@ -12,7 +12,8 @@ class SweingController extends Controller
      */
     public function index()
     {
-        //
+        $sweings = Sweing::paginate(4);
+        return view('pages.production.sweing.index', compact('sweings'));
     }
 
     /**
@@ -44,7 +45,7 @@ class SweingController extends Controller
      */
     public function edit(Sweing $sweing)
     {
-        //
+        return view('pages.production.sweing.edit', compact('sweing'));
     }
 
     /**

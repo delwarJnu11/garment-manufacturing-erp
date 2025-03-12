@@ -12,16 +12,16 @@ return new class extends Migration {
     {
         Schema::create('production_work_orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('production_plan_id');
-            $table->integer('order_id');
-            $table->integer('work_order_status_id');
-            $table->integer('assigned_to');
+            $table->unsignedBigInteger('production_plan_id');
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('work_order_status_id');
+            $table->unsignedBigInteger('assigned_to');
             $table->integer('total_pieces');
             $table->enum('cutting_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('sewing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('finishing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('packaging_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
-            $table->integer('wastage')->default(0);
+            $table->decimal('wastage', 10, 2)->default(0);
             $table->timestamps();
         });
     }

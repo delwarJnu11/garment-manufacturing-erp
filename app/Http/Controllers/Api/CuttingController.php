@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Cutting;
 use App\Models\ProductionWorkOrder;
+use App\Models\Sweing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,10 +28,23 @@ class CuttingController extends Controller
                 'cutting_status' => 'Completed'
             ]);
 
+
             // Update the ProductionWorkOrder
             $workOrder = ProductionWorkOrder::findOrFail($request->work_order_id);
+
+            // After Cutting Completed Sweing Start
+            Sweing::create([
+                'cutting_id'      => $cutting->id,
+                'work_order_id'   => $workOrder->id,
+                'total_quantity'    => $cutting->total_quantity,
+                'target_quantity' => $cutting->actual_quantity,
+                'sewing_status'   => 'In Progress',
+                'sewing_start_date' => now(),
+            ]);
+
             $workOrder->update([
-                'cutting_status' => 'Completed'
+                'cutting_status' => 'Completed',
+                'sewing_status' => 'In Progress'
             ]);
 
             DB::commit();

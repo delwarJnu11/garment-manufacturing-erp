@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('sweings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('cutting_id');
+            $table->unsignedBigInteger('work_order_id');
+            $table->string('sewing_status')->default('Pending');
+            $table->integer('total_quantity')->default(0);
+            $table->integer('target_quantity');
+            $table->integer('actual_quantity')->default(0);
+            $table->integer('wastage')->default(0);
+            $table->decimal('efficiency', 5, 2)->nullable();
+            $table->date('sewing_start_date')->nullable();
+            $table->date('sewing_end_date')->nullable();
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }

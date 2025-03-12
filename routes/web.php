@@ -59,6 +59,7 @@ use App\Http\Controllers\WarehouseController;
 // use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseReportController;
 use App\Http\Controllers\PurchaseStateController;
+use App\Http\Controllers\SweingController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -106,6 +107,7 @@ Route::resource('production-plans', ProductionPlanController::class);
 Route::resource('production-work-orders', ProductionWorkOrderController::class);
 Route::prefix('production-stages')->group(function () {
     Route::resource('cutting', CuttingController::class);
+    Route::resource('sweing', SweingController::class);
 
     // Custom route for completed cuttings
     Route::get('cutting-completed', [CuttingController::class, 'completed'])->name('cutting.completed');

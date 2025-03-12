@@ -27,12 +27,54 @@
                         <td>{{ $order->order->order_number }}</td>
                         <td>{{ $order->assignedUser->name }}</td>
                         <td>{{ $order->total_pieces }} (pcs)</td>
-                        <td>{{ $order->cutting_status }}</td>
-                        <td>{{ $order->sewing_status }}</td>
-                        <td>{{ $order->finishing_status }}</td>
-                        <td>{{ $order->packaging_status }}</td>
+                        <td>
+                            <span
+                                class="badge 
+                                    @if ($order->cutting_status == 'Pending') badge-soft-danger
+                                    @elseif ($order->cutting_status == 'In Progress')
+                                        badg-soft-warning
+                                    @elseif ($order->cutting_status == 'Completed')
+                                        badge-soft-success @endif">
+                                {{ $order->cutting_status }}
+                            </span>
+                        </td>
+                        <td>
+                            <span
+                                class="badge 
+                                    @if ($order->sewing_status == 'Pending') badge-soft-danger
+                                    @elseif ($order->sewing_status == 'In Progress')
+                                        badge-soft-warning
+                                    @elseif ($order->sewing_status == 'Completed')
+                                        badge-soft-success @endif">
+                                {{ $order->sewing_status }}
+                            </span>
+                        </td>
+                        <td>
+                            <span
+                                class="badge 
+                                    @if ($order->finishing_status == 'Pending') badge-soft-danger
+                                    @elseif ($order->finishing_status == 'In Progress')
+                                        badge-soft-warning
+                                    @elseif ($order->finishing_status == 'Completed')
+                                        badge-soft-success @endif">
+                                {{ $order->finishing_status }}
+                            </span>
+                        </td>
+                        <td>
+                            <span
+                                class="badge 
+                                    @if ($order->packaging_status == 'Pending') badge-soft-danger
+                                    @elseif ($order->packaging_status == 'In Progress')
+                                        badge-soft-warning
+                                    @elseif ($order->packaging_status == 'Completed')
+                                        badge-soft-success @endif">
+                                {{ $order->packaging_status }}
+                            </span>
+                        </td>
                         <td>{{ $order->wastage }}</td>
-                        <td>{{ $order->workStatus->name }}</td>
+                        <td>
+                            {{ $order->packaging_status }}
+                        </td>
                         <td>
                             @if ($order->cutting_status == 'Pending' || $order->cutting_status == 'In Progress')
                                 <button data-id="{{ encrypt($order->id) }}" class="btn btn-warning cutting">Cutting

@@ -78,7 +78,12 @@
                                     <ul style="margin-left: 20px;">
                                         <li>
                                             <x-link href="{{ route('cutting.index') }}" :active="request()->is('production-stages/cutting')">
-                                                Cutting In Progress
+                                                Cutting Lists
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('sweing.index') }}" :active="request()->is('production-stages/sweing')">
+                                                Sweing Lists
                                             </x-link>
                                         </li>
                                         <li>
