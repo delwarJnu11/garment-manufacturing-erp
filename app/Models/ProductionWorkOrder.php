@@ -17,8 +17,9 @@ class ProductionWorkOrder extends Model
         'assigned_to',
         'target_quantity',
         'actual_quantity',
+        'created_at',
+        'updated_at',
     ];
-
     public function productionPlan()
     {
         return $this->belongsTo(ProductionPlan::class);
@@ -26,7 +27,7 @@ class ProductionWorkOrder extends Model
 
     public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class,'order_id');
     }
 
     public function workSection()
@@ -43,5 +44,10 @@ class ProductionWorkOrder extends Model
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }
+    public function salesInvoiceDetail()
+{
+    return $this->hasMany(SalesInvoiceDetail::class, 'production_work_order_id'); // Ensure this is correct
+}
+
     
 }

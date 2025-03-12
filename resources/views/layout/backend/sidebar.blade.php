@@ -72,24 +72,27 @@
                         <!-- END Prodcution Module Menu -->
                         <!--START 🔸 Order & Customers -->
                         <li class="submenu">
-                            <x-nav-link :active="request()->is('orders*') || request()->is('buyers*')">Orders & Buyers</x-nav-link>
+                            <x-nav-link :active="request()->is('orders*') ||
+                                request()->is('buyers*') ||
+                                request()->is('sales-invoice*')">Orders & Buyers</x-nav-link>
                             <ul>
                                 <!-- 🔹 Orders -->
                                 <li><x-link href="{{ url('/buyers') }}" :active="request()->is('buyers')">Buyers</x-link></li>
-                                <li><x-link href="{{ url('/customers/groups') }}" :active="request()->is('customers/groups')">Customer
-                                        Groups</x-link></li>
+
                                 <li><x-link href="{{ url('/orders') }}" :active="request()->is('orders')">Orders</x-link></li>
                                 <li><x-link href="{{ url('/orders/create') }}" :active="request()->is('orders/create')">Create
                                         Orders</x-link>
                                 </li>
-                                <li><x-link href="{{ url('/orders/pending') }}" :active="request()->is('orders/pending')">Pending
+                                {{-- <li><x-link href="{{ url('/orders/pending') }}" :active="request()->is('orders/pending')">Pending
                                         Orders</x-link></li>
                                 <li><x-link href="{{ url('/orders/running') }}" :active="request()->is('orders/running')">Running
                                         Orders</x-link></li>
                                 <li><x-link href="{{ url('/orders/completed') }}" :active="request()->is('orders/completed')">Completed
-                                        Orders</x-link></li>
+                                        Orders</x-link></li> --}}
                                 <li><x-link href="{{ route('order_status.index') }}" :active="request()->is('order_status.index')">Order
                                         Status</x-link></li>
+                                <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales
+                                        Invoices</x-link></li>
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color Lists</x-link>
                                 </li>
                                 <li><x-link href="{{ route('sizes.index') }}" :active="request()->is('sizes')">Size Lists</x-link>
@@ -98,7 +101,7 @@
                                         Types</x-link></li>
 
                                 <!-- 🔹 Invoices & Payments -->
-                                <li><x-link href="{{ url('/invoices') }}" :active="request()->is('invoices')">Invoices</x-link></li>
+
                                 <li><x-link href="{{ url('/payments') }}" :active="request()->is('payments')">Payments</x-link></li>
                                 <li><x-link href="{{ url('/refunds') }}" :active="request()->is('refunds')">Refunds</x-link></li>
 
@@ -127,7 +130,8 @@
                                 <li>
                                     <x-link href="{{ url('stock/category') }}" :active="request()->is('category')">Categories</x-link>
                                 </li>
-                                <li><x-link href="{{ url('stock/product_lots') }}" :active="request()->is('stock/product_lots')">Products Lot</x-link>
+                                <li><x-link href="{{ url('stock/product_lots') }}" :active="request()->is('stock/product_lots')">Products
+                                        Lot</x-link>
                                 </li>
                                 <li>
                                     <x-link href="{{ url('stock/raw_materials') }}" :active="request()->is('stock/raw_materials')">Raw
@@ -135,7 +139,8 @@
                                     </x-link>
                                 </li>
                                 <li>
-                                    <x-link href="{{ url('stock/productCatelogues') }}" :active="request()->is('stock/productCatelogues')">Product Catalogue
+                                    <x-link href="{{ url('stock/productCatelogues') }}" :active="request()->is('stock/productCatelogues')">Product
+                                        Catalogue
                                     </x-link>
                                 </li>
 
@@ -156,7 +161,8 @@
                                     </x-link>
                                 </li>
                                 <li>
-                                    <x-link href="{{ url('/stock/stock_adjustments') }}" :active="request()->is('stock/stock_adjustments')">Stock Adjustment
+                                    <x-link href="{{ url('/stock/stock_adjustments') }}" :active="request()->is('stock/stock_adjustments')">Stock
+                                        Adjustment
                                     </x-link>
                                 </li>
                                 <li>

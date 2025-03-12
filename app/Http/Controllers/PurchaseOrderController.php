@@ -68,20 +68,6 @@ class PurchaseOrderController extends Controller
 
 
 
-    // public function purchaseConfirm()
-    // {
-    //     $puchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])
-    //         ->where('status_id', '!=', 2) // Assuming '2' is the ID for 'Confirmed'
-    //         ->paginate(10);
-
-    //     return view('pages.purchase_&_supliers.purchase_order.purchaseConfirm', compact('confirmedOrders'));
-    // }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-
-
 
 
     public function find_supplier(Request $request)
