@@ -177,8 +177,7 @@
                                                 <input class="allowance_amount form-control" type="number" value="">
                                             </td>
                                             <td>
-                                                <button class="btn btn-primary alowance_add_btn"
-                                                    id="alowance_add_btn">+</button>
+                                                <button class="btn btn-primary alowance_add_btn" id="alowance_add_btn">+</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -241,8 +240,7 @@
                                                 <input class=" form-control deduction_amount" type="number" value="">
                                             </td>
                                             <td>
-                                                <button class="btn btn-primary deduction_add_btn"
-                                                    id="deduction_add_btn">+</button>
+                                                <button class="btn btn-primary deduction_add_btn" id="deduction_add_btn">+</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -283,7 +281,7 @@
                                 <tr>
                                     <th style="width: 30%;">Basic Salary</th>
                                     <td>
-                                        <input type="number" class="form-control basic_salary" value="0.00" disabled>
+                                        <input type="number" class="form-control basic_salary" value="0.00" readonly>
                                     </td>
                                 </tr>
                                 <tr>
@@ -335,7 +333,7 @@
     <script>
         $(function() {
 
-           
+
             const allowancecart = new Cart('allowance');
             const deductioncart = new Cart('deduction');
             allowanceprintCart();
@@ -415,7 +413,7 @@
                                         <tr>
                                             <td> <p class="fs-14">${element.name}</p></td>
                                             <td><p class="fs-14">${element.allowance_amount}</p></td>
-                                             <td> <button data="${element.item_id}" class=' btn btn-danger remove'>-</button></td>
+                                             <td> <button data="${element.item_id}" class=' btn btn-warning remove'>-</button></td>
                                         </tr>
 				                    `;
                     });
@@ -487,7 +485,7 @@
                                         <tr>
                                             <td><p class="fs-14">${element.name}</p></td>
                                             <td> <p class="fs-14">${element.deduction_amount}</p></td>
-                                             <td><button data-id="${element.item_id}" class=' btn btn-danger removed'>-</button> </td>
+                                             <td><button data-id="${element.item_id}" class=' btn btn-warning removed'>-</button> </td>
                                         </tr>
 				                    `;
                     });
@@ -544,6 +542,9 @@
                 let allowance = allowancecart.getCart()
 
                 let payslips =[...deduction , ...allowance]
+
+                console.log(payslips);
+
 
                 // let dataItem={
                 //         employee_id: employee_id,

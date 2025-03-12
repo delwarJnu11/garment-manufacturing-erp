@@ -97,7 +97,7 @@ CREATE TABLE hrm_designations (
 CREATE TABLE hrm_employees (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    employee_id VARCHAR(100) NOT NULL,
+    employee_id_number VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     phone VARCHAR(20) UNIQUE NULL,
     gender VARCHAR(20) UNIQUE NULL,
@@ -330,7 +330,7 @@ CREATE TABLE hrm_payslips (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     employee_id INT,
-    statuses_id_id INT,
+    statuses_id VARCHAR(100) NOT NULL,
     salary_month VARCHAR(10) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
@@ -353,10 +353,12 @@ CREATE TABLE hrm_payslip_details (
     id INT PRIMARY KEY AUTO_INCREMENT,
     payslip_id INT NOT NULL,
     payslip_items_id INT NOT NULL,
-    employee_id INT NOT NULL,
     factor INT not null,
+    allowance_amount DECIMAL(10,2),
+    deduction_amount DECIMAL(10,2),
+    total_amount DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 

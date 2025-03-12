@@ -3,7 +3,7 @@
 
 @section('page_content')
 <x-success/>
-    <x-page-header href="{{ route('hrm_payslips.create') }}" heading="Employee" btnText=" Employee" />
+    <x-page-header href="{{ route('hrm_payslips.create') }}" heading="Employee" btnText=" Salary Create" />
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">
@@ -30,19 +30,7 @@
                                 <td>{{ $payslip->statuses_id }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_payslips/{$payslip->id}")}}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-eye action-eye">
-                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                                <circle cx="12" cy="12" r="3"></circle>
-                                            </svg>
-                                        </a>
-                                        <a class="confirm-textt p-2" href="{{url("hrm_employees/delete/$payslip->id")}}">
-                                            <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Position? This action cannot be undone!');">
-                                                Yes, Delete></i>
-                                        </a>
+                                         <a href="{{url("hrm_payslips/{$payslip->id}")}}" class="btn btn-warning btn-lg  p-2 text-black" title="Payslip"><i class="fa fa-eye"></i> Payslip</a>
                                     </div>
                                 </td>
                             </tr>
