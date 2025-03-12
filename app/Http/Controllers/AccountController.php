@@ -69,7 +69,7 @@ class AccountController extends Controller
 	}
 	public function edit(Account $account)
 	{
-		return view("pages.accounts.account.edit", ["account" => $account, "account_groups" => AccountGroup::all()]);
+		return view("pages.accounts.account.edit", ["account" => $account, "accountGroups" => AccountGroup::all()]);
 	}
 	public function update(Request $request, Account $account)
 	{

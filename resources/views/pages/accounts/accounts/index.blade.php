@@ -15,8 +15,8 @@
             <tr>
                 <th>Code</th>
                 <th>Name</th>
-                <!-- <th>Account Group</th> -->
-                <!-- <th>Is Active</th> -->
+                <th>Account Group</th>
+                <th>Is Active</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,7 +25,7 @@
             <tr>
                 <td>{{ $account->code }}</td>
                 <td>{{ $account->name }}</td>
-                <td>{{ $account->accountGroup->name }}</td>
+                <td>{{ $account->accountGroup->name??'' }}</td>
                 <td>{{ $account->is_active ? 'Active' : 'Inactive' }}</td>
                 <td>
                     <a href="{{ route('accounts.edit', $account->id) }}" class="btn btn-warning btn-sm">Edit</a>
@@ -39,5 +39,8 @@
             @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-center my-3">
+        {{ $accounts->links() }}
+    </div>
 </div>
 @endsection
