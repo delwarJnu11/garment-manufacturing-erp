@@ -6,6 +6,7 @@ use App\Models\Hrm_departments;
 use App\Models\Hrm_designations;
 use App\Models\Hrm_employee_positions;
 use App\Models\Hrm_employees;
+use App\Models\Hrm_payslips;
 use App\Models\Hrm_statuses;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,7 @@ class HrmEmployeesController extends Controller
     {
 
         $request->validate([
-            'employee_id' => 'required|string|max:50',
+            'employee_id_number' => 'required|string|max:50',
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'phone' => 'required|string|max:50',
@@ -86,7 +87,7 @@ class HrmEmployeesController extends Controller
         }
 
         $employees = new Hrm_employees();
-        $employees->employee_id = $request->employee_id;
+        $employees->employee_id_number = $request->employee_id_number;
         $employees->name = $request->name;
         $employees->email = $request->email;
         $employees->phone = $request->phone;
@@ -153,7 +154,7 @@ class HrmEmployeesController extends Controller
     public function update(Request $request, Hrm_employees $Hrm_employees, $id)
     {
         $request->validate([
-            'employee_id' => 'required|string|max:50',
+            'employee_id_number' => 'required|string|max:50',
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'phone' => 'required|string|max:50',
@@ -171,7 +172,7 @@ class HrmEmployeesController extends Controller
         ]);
 
         $employees = Hrm_employees::find($id);
-        $employees->employee_id= $request->employee_id;
+        $employees->employee_id_number= $request->employee_id_number;
         $employees->name= $request->name;
         $employees->email= $request->email;
         $employees->phone= $request->phone;
@@ -212,7 +213,9 @@ class HrmEmployeesController extends Controller
 	// }
 
     public function find_employee(Request $request)
+
 {
+    // $payslips=Hrm_payslips::where('employee_id', $request->id);
     $employees = Hrm_employees::find($request->id);
 
     if (!$employees) {
@@ -220,6 +223,7 @@ class HrmEmployeesController extends Controller
     }
 
     return response()->json(['employees' => $employees]);
+    // return response()->json(['payslips' => $payslips]);
 }
 }
 

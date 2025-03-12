@@ -24,6 +24,7 @@ Route::post('purchase',[ PurchaseOrderController::class,'store']);
 
  // Start Api Route
 
+//  Route::get('payslip', [PayslipController::class,'index']);
  Route::post('payslip', [PayslipController::class,'store']);
 
  // End Api Route

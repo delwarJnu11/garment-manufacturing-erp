@@ -23,14 +23,14 @@
                         @forelse ($payslips as $payslip)
                             <tr>
                                 <td>{{ $payslip->id }}</td>
-                                <td><a class="btn btn-outline-success" href="{{url('hrm_employees/' . $employee->id)}}">{{ $payslip->employee_id }}</a></td>
-                                <td>{{ $payslip->employee_id }}</td>
+                                <td><a class="btn btn-outline-success" href="{{url('hrm_employees/' . $payslip->id)}}">{{ optional($payslip->employee)->employee_id_number }}</a></td>
+                                <td>{{ optional($payslip->employee)->name }}</td>
                                 <td>{{ $payslip->salary_month }}</td>
                                 <td>{{ $payslip->net_salary }}</td>
                                 <td>{{ $payslip->statuses_id }}</td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
-                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_employees/{$payslip->id}")}}">
+                                        <a class="me-2 p-2 mb-0" href="{{url("hrm_payslips/{$payslip->id}")}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"

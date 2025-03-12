@@ -276,8 +276,8 @@
                                 <ul>
                                     <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Salary Advance</x-link>
                                     </li>
-                                    <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Set Salary</x-link></li>
-                                    <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Payslip</x-link></li>
+                                    <li><x-link href="{{  route('hrm_payslips.create') }}" :active="request()->is( route('hrm_payslips.create'))">Set Salary</x-link></li>
+                                    <li><x-link href="{{ route('hrm_payslips.index') }}" :active="request()->is(route('hrm_payslips.index'))">Payslip</x-link></li>
                                 </ul>
                             </li>
 

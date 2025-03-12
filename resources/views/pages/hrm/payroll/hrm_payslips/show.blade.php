@@ -188,7 +188,7 @@ padding-top: 10px;
             <br>
 
             <div class="row">
-                <div class="text-center bg-info fs-3">Employee Salary Slip</div>
+                <div class="text-center bg-info fs-3 p-3 rounded-2">Employee Salary Slip</div>
                 <table width="99%" class="payrollDatatableReport table table-bordered">
                     <tbody>
                         <tr class="text-start">
@@ -235,7 +235,7 @@ padding-top: 10px;
                 <!-- Two-Column Layout for Description and Deduction -->
                 <div class="payroll-summary">
                     <div class="description">
-                        <h5 class="bg-success p-3 text-center">Allowance</h5>
+                        <h5 class="bg-success p-3 text-center rounded-2">Allowance</h5>
                         <table width="100%" class="table table-striped">
                             <tbody>
                                 <tr>
@@ -259,7 +259,7 @@ padding-top: 10px;
                     </div>
 
                     <div class="deduction">
-                        <h5 class="bg-danger p-3 text-center">Deduction</h5>
+                        <h5 class=" bg-danger p-3 text-center rounded-2">Deduction</h5>
                         <table width="100%" class="table table-striped">
                             <tbody>
                                 <tr>
@@ -315,8 +315,8 @@ padding-top: 10px;
                         </tr>
                     </tbody>
                 </table> --}}
-                <div class="summary-box mt-3 card p-3">
-                    <h5 class="card-header bg-warning text-white text-center fs-4">Summary</h5>
+                <div class="summary-box mt-3 card p-2">
+                    <h5 class="card-header bg-warning text-white text-center fs-4 rounded-2">Summary</h5>
                     <div class="table-responsive">
                         <table class="table table-striped text-center">
                             <tbody class="text-center">

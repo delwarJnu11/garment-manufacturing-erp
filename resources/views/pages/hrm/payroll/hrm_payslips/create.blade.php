@@ -96,6 +96,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="employee_id">Select Employee:</label>
                         <select class="form-select employee_id" name="employee_id" id="employee_id">
+                            <option value="">Select Employee</option>
                             @forelse ($employees as $employee)
                                 <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                             @empty
@@ -161,6 +162,7 @@
                                             <td>
                                                 <select class="form-select payslip_items_id" id="allowance_items"
                                                     name="payslip_items_id">
+                                                    <option value="">Select Allowance</option>
                                                     @forelse ($payslip_items as $payslip_item)
                                                         @if ($payslip_item->factor == 1)
                                                             <option value="{{ $payslip_item->id }}">
@@ -224,6 +226,7 @@
                                             <td>
                                                 <select class="form-select payslip_items_id" id="deduction_items"
                                                     name="payslip_items_id">
+                                                    <option value="">Select Deductions</option>
                                                     @forelse ($payslip_items as $payslip_item)
                                                         @if ($payslip_item->factor == -1)
                                                             <option value="{{ $payslip_item->id }}">
@@ -332,7 +335,7 @@
     <script>
         $(function() {
 
-            const cart = new Cart('payslips');
+           
             const allowancecart = new Cart('allowance');
             const deductioncart = new Cart('deduction');
             allowanceprintCart();
@@ -360,7 +363,7 @@
                         // let data=JSON.parse(res);
                         console.log(res.employees);
                         $(".employee_name").text(res.employees?.name);
-                        $(".employeeID").text(res.employees?.employee_id);
+                        $(".employeeID").text(res.employees?.employee_id_number	);
                         $(".employee_designation").text(res.employees?.designations_id);
                         $(".employee_department").text(res.employees?.department_id);
                         $(".employee_bank_account").text(res.employees?.bank_accounts_id);
@@ -382,7 +385,7 @@
 
 
                 let item = {
-                    'name': payslip_items_allowance_name,
+                    'name': payslip_items_allowance_name.trim(),
                     'item_id': payslip_items_allowance_id,
                     'allowance_amount': allowance_amount,
 
@@ -436,7 +439,7 @@
                 allowanceprintCart();
             });
 
-            allowancecart.clearCart();
+            // allowancecart.clearCart();
 
 
 
@@ -454,7 +457,7 @@
 
 
                 let decitem = {
-                    'name': payslip_items_deduction_name,
+                    'name':  payslip_items_deduction_name.trim(),
                     'item_id': payslip_items_deduction_id,
                     'deduction_amount': deduction_amount,
                     'subtotal': subtotal
@@ -517,14 +520,15 @@
                 deductionprintCart();
             });
 
-            deductioncart.clearCart();
+            // deductioncart.clearCart();
 
 
 
             $('.btn_process').on('click', function() {
 
                 let employee_id = $('#employee_id').val();
-                let payslip_items_id = $('.payslip_items_id').val();
+                let basic_salary = $('.basic_salary').val();
+                // let payslip_items_id = $('.payslip_items_id').val();
                 let salary_month = $('.salary_month').val();
                 let total_working_days = $('.total_working_days').val();
                 let working_days_attendance = $('.working_days_attendance').val();
@@ -535,7 +539,11 @@
                 let net_salary = $('.net_salary').val();
                 let payment_method = $('.payment_method').val();
                 let statuses_id = $('.statuses_id').val();
-                let payslips = cart.getCart()
+
+                let deduction = deductioncart.getCart()
+                let allowance = allowancecart.getCart()
+
+                let payslips =[...deduction , ...allowance]
 
                 // let dataItem={
                 //         employee_id: employee_id,
@@ -553,16 +561,18 @@
                 //         payslips: payslips,
                 // };
 
-                // console.log(dataItem);
+                 //console.log(payslips);
 
 
                 $.ajax({
                     url: "{{ url('api/payslip') }}",
-                    type: 'Post',
+                    type: 'post',
                     data: {
                         employee_id: employee_id,
-                        payslip_items_id: payslip_items_id,
+                        statuses_id: statuses_id,
                         salary_month: salary_month,
+                        basic_salary: basic_salary,
+                        // payslip_items_id: payslip_items_id,
                         total_working_days: total_working_days,
                         working_days_attendance: working_days_attendance,
                         leaves_taken: leaves_taken,
@@ -571,7 +581,6 @@
                         total_deductions: total_deductions,
                         net_salary: net_salary,
                         payment_method: payment_method,
-                        statuses_id: statuses_id,
                         payslips: payslips,
                     },
                     success: function(res) {

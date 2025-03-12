@@ -38,46 +38,46 @@ class HrmPayslipsController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'employee_id' => 'required|string|max:50',
-            'name' => 'required|string|max:50',
-            'email' => 'required|email|max:50',
-            'phone' => 'required|string|max:50',
-            // 'gender' => 'required|string|max:10',
-            'date_of_birth' => 'required|date',
-            'joining_date' => 'required|date',
-            'salary' => 'required|numeric',
-            'branch' => 'required|string|max:50',
-            'address' => 'required|string|max:200',
-            'city' => 'required|string|max:200',
-            'statuses_id' => 'required|integer',
-            'department_id' => 'required|integer',
-            'designations_id' => 'required|integer',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'certificate' => 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:2048',
-            'resume' => 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:2048',
-        ]);
+        // $request->validate([
+        //     'employee_id' => 'required|string|max:50',
+        //     'name' => 'required|string|max:50',
+        //     'email' => 'required|email|max:50',
+        //     'phone' => 'required|string|max:50',
+        //     // 'gender' => 'required|string|max:10',
+        //     'date_of_birth' => 'required|date',
+        //     'joining_date' => 'required|date',
+        //     'salary' => 'required|numeric',
+        //     'branch' => 'required|string|max:50',
+        //     'address' => 'required|string|max:200',
+        //     'city' => 'required|string|max:200',
+        //     'statuses_id' => 'required|integer',
+        //     'department_id' => 'required|integer',
+        //     'designations_id' => 'required|integer',
+        //     'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'certificate' => 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:2048',
+        //     'resume' => 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:2048',
+        // ]);
 
         $payslips = new Hrm_payslips();
         $payslips->employee_id = $request->employee_id;
-        $payslips->	statuses_id = $request->	statuses_id;
+        $payslips->	statuses_id = $request->statuses_id;
         $payslips->salary_month = $request->salary_month;
-        $payslips->start_date = $request->start_date;
-        $payslips->end_date = $request->end_date;
+        $payslips->start_date = $request->start_date;;
+        $payslips->end_date = $request->end_date;;
         $payslips->basic_salary = $request->basic_salary;
-        $payslips->	payslip_items_id = $request->	payslip_items_id;
+        $payslips->	payslip_items_id = $request->payslip_items_id;
         $payslips->total_working_days = $request->total_working_days;
         $payslips->working_days_attendance = $request->working_days_attendance;
         $payslips->leaves_taken = $request->leaves_taken;
         $payslips->balance_leaves = $request->balance_leaves;
         $payslips->total_earnings = $request->total_earnings;
-        $payslips->	total_deductions = $request->	total_deductions;
+        $payslips->	total_deductions = $request->total_deductions;
         $payslips->net_salary = $request->net_salary;
         $payslips->payment_method = $request->payment_method;
         $payslips->generated_at = $request->generated_at;
 
         if ($payslips->save()) {
-            return redirect()->back()->with('success', 'Employee has been added successfully!');
+            return redirect()->back()->with('success', 'Payslip has been added successfully!');
         } else {
             return redirect()->back()->with('error', 'Something went wrong!');
         }
@@ -88,7 +88,7 @@ class HrmPayslipsController extends Controller
     public function show(Hrm_payslips $Hrm_payslips, $id)
     {
         $payslips = Hrm_payslips::find($id);
-        return view('pages.hrm.employee.hrm_employee.employee_details', compact('payslips'));
+        return view('pages.hrm.payroll.hrm_payslips.show', compact('payslips'));
     }
 
 

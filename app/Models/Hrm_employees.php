@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Hrm_employees extends Model
 {
     protected $fillables = [
-        'employee_id',
+        'employee_id_number',
         'joining_date',
         'bank_accounts_id',
         'date_of_birth',
@@ -20,10 +20,10 @@ class Hrm_employees extends Model
         'statuses_id',
         'address',
         'city',
-            'name',
-            'email' ,
-            'phone',
-            'gender',
-            'photo',
+        'name',
+        'email' ,
+        'phone',
+        'gender',
+        'photo',
     ];
 }

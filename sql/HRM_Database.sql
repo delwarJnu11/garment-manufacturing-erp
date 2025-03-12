@@ -103,6 +103,7 @@ CREATE TABLE hrm_employees (
     gender VARCHAR(20) UNIQUE NULL,
     date_of_birth DATE NULL,
     joining_date DATE NOT NULL,
+    bank_account_id INT NOT NULL,
     department_id BIGINT UNSIGNED NOT NULL,
     salary DECIMAL(10,2) NOT NULL,
     designations_id BIGINT UNSIGNED NOT NULL,
