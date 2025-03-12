@@ -104,7 +104,12 @@ Route::resource('bom', BomController::class);
 Route::resource('bom_details', BomDetailsController::class);
 Route::resource('production-plans', ProductionPlanController::class);
 Route::resource('production-work-orders', ProductionWorkOrderController::class);
-Route::resource('cutting', CuttingController::class);
+Route::prefix('production-stages')->group(function () {
+    Route::resource('cutting', CuttingController::class);
+
+    // Custom route for completed cuttings
+    Route::get('cutting-completed', [CuttingController::class, 'completed'])->name('cutting.completed');
+});
 
 
 /**

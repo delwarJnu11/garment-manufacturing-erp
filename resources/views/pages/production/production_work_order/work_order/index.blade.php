@@ -34,9 +34,18 @@
                         <td>{{ $order->wastage }}</td>
                         <td>{{ $order->workStatus->name }}</td>
                         <td>
-                            <button data-id="{{ encrypt($order->id) }}" class="btn btn-warning cutting">Cutting</button>
-                            <input class="btn btn-info" type="submit" value="Sweing">
-                            <input class="btn btn-success" type="submit" value="Finishing">
+                            @if ($order->cutting_status == 'Pending' || $order->cutting_status == 'In Progress')
+                                <button data-id="{{ encrypt($order->id) }}" class="btn btn-warning cutting">Cutting
+                                    {{ $order->cutting_status }}</button>
+                            @endif
+                            @if ($order->sewing_status == 'Pending' || $order->sewing_status == 'In Progress')
+                                <button data-id="{{ encrypt($order->id) }}" class="btn btn-info sweing">Sweing
+                                    {{ $order->sewing_status }}</button>
+                            @endif
+                            @if ($order->finishing_status == 'Pending' || $order->finishing_status == 'In Progress')
+                                <button data-id="{{ encrypt($order->id) }}" class="btn btn-success finishing">Finishing
+                                    {{ $order->finishing_status }}</button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

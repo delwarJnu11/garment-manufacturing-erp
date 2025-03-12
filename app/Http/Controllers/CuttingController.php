@@ -17,8 +17,23 @@ class CuttingController extends Controller
      */
     public function index()
     {
-        $cuttingOrders = Cutting::paginate(4);
+        $cuttingOrders = Cutting::with('workOrder.order')
+            ->where('cutting_status', 'In Progress')
+            ->paginate(4);
         return view('pages.production.cutting.index', compact('cuttingOrders'));
+    }
+
+    /**
+     * Display Completed Cutting list
+     */
+
+    public function completed()
+    {
+        $completedCuttings = Cutting::with('workOrder.order')
+            ->where('cutting_status', 'Completed')
+            ->paginate(4);
+
+        return view('pages.production.cutting.completed', compact('completedCuttings'));
     }
 
     /**
@@ -138,22 +153,39 @@ class CuttingController extends Controller
             'remarks'            => 'nullable|string|max:500',
         ]);
 
-        // Create a new cutting record
-        Cutting::create([
-            'work_order_id'      => $request->work_order_id,
-            'cutting_status'     => $request->cutting_status,
-            'total_quantity'     => $request->total_pieces,
-            'total_fabric_used'  => $request->total_fabric_used,
-            'wastage'            => $request->wastage,
-            'target_quantity'    => $request->target_quantity,
-            'actual_quantity'    => $request->actual_quantity,
-            'cutting_start_date' => $request->cutting_start_date,
-            'cutting_end_date'   => $request->cutting_end_date,
-            'remarks'            => $request->remarks
-        ]);
+        DB::beginTransaction(); // Begin Transaction
 
-        return redirect()->route('cutting.index')->with('success', 'Cutting is Created successfully.');
+        try {
+            // Create a new cutting record
+            $cutting = Cutting::create([
+                'work_order_id'      => $request->work_order_id,
+                'cutting_status'     => $request->cutting_status,
+                'total_quantity'     => $request->total_pieces,
+                'total_fabric_used'  => $request->total_fabric_used,
+                'wastage'            => $request->wastage,
+                'target_quantity'    => $request->target_quantity,
+                'actual_quantity'    => $request->actual_quantity,
+                'cutting_start_date' => $request->cutting_start_date,
+                'cutting_end_date'   => $request->cutting_end_date,
+                'remarks'            => $request->remarks
+            ]);
+
+            // Update cutting_status in ProductionWorkOrder
+            $workOrder = ProductionWorkOrder::find($request->work_order_id);
+            if ($workOrder) {
+                $workOrder->update(['cutting_status' => 'In Progress']);
+            }
+
+            DB::commit();
+
+            return redirect()->route('cutting.index')->with('success', 'Cutting is Created successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->route('cutting.index')->with('error', 'Failed to create Cutting: ' . $e->getMessage());
+        }
     }
+
 
     /**
      * Display the specified resource.

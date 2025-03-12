@@ -21,4 +21,9 @@ class Cutting extends Model
         'wastage',
         'remarks'
     ];
+
+    public function workOrder()
+    {
+        return $this->belongsTo(ProductionWorkOrder::class, 'work_order_id');
+    }
 }

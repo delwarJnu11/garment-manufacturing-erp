@@ -70,6 +70,24 @@
                                         </li>
                                     </ul>
                                 </li>
+                                {{-- Production Floor Management Menu --}}
+                                <li>
+                                    <x-nav-link icon="list" :active="request()->is('production-stages*')">
+                                        Production Stages
+                                    </x-nav-link>
+                                    <ul style="margin-left: 20px;">
+                                        <li>
+                                            <x-link href="{{ route('cutting.index') }}" :active="request()->is('production-stages/cutting')">
+                                                Cutting In Progress
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('cutting.completed') }}" :active="request()->is('production-stages/completed')">
+                                                Cutting Completed List
+                                            </x-link>
+                                        </li>
+                                    </ul>
+                                </li>
 
                             </ul>
                         </li>
