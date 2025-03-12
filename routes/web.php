@@ -198,9 +198,10 @@ Route::resource('buyers', BuyerController::class);
  */
 // sales invoice 
 Route::resource('sales-invoice', SalesInvoiceController::class);
-Route::post('find_buyer',[SalesInvoiceController::class,'find_buyer']);
-Route::get('order/show',[SalesInvoiceController::class,'show']);
-
+Route::post('find_buyer', [SalesInvoiceController::class, 'find_buyer']);
+Route::post('find_order', [SalesInvoiceController::class, 'find_order']);
+Route::get('order/show', [SalesInvoiceController::class, 'show']);
+Route::get('getInvoiceId', [SalesInvoiceController::class, 'getInvoiceId']);
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
 

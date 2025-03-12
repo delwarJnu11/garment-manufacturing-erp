@@ -20,13 +20,16 @@ class SalesInvoice extends Model
         'remark',
     ];
 
-    public function buyer(){
-        return $this->belongsTo(Buyer::class,'buyer_id');
+    public function buyer()
+    {
+        return $this->belongsTo(Buyer::class, 'buyer_id');
     }
-    public function invoice_status(){
-        return $this->belongsTo(InvoiceStatus::class,'invoice_status_id');
+    public function invoice_status()
+    {
+        return $this->belongsTo(InvoiceStatus::class, 'invoice_status_id');
     }
-    public function salesInvoiceDetail(){
-        return $this->hasMany(SalesInvoiceDetail::class,'sales_invoice_id');
+    public function salesInvoiceDetail()
+    {
+        return $this->hasMany(SalesInvoiceDetail::class, 'sales_invoice_id');
     }
 }

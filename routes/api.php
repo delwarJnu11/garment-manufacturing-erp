@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\BomDetailsController;
 use App\Http\Controllers\Api\OrderDetailsController;
 use App\Http\Controllers\Api\RawMaterialController;
 use App\Http\Controllers\Api\PurchaseOrderController;
+use App\Http\Controllers\Api\SalesInvoiceController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -25,4 +26,5 @@ Route::get('raw_material/{id}', [RawMaterialController::class, 'show']);
 Route::get('order', [OrderDetailsController::class, 'index']);
 // purchaseOrder  Api
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
+Route::post('SalesInvoice/Api', [SalesInvoiceController::class, 'store']);
 // Route::post('/adjustment', [StockAdjustmentController::class, 'store']);

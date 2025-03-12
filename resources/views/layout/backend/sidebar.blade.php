@@ -5,7 +5,7 @@
                 <li class="submenu-open">
                     <ul>
                         <li class="submenu">
-                            <a href="javascript:void(0);" class="subdrop">
+                            <a href="" class="subdrop">
                                 <i data-feather="grid"></i><span>Dashboard</span>
                             </a>
                         </li>
@@ -173,7 +173,7 @@
 
                                 <!-- 🔹 Inventory Valuation -->
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">Inventory Valuation <span class="menu-arrow"></span>
+                                    <a href="">Inventory Valuation <span class="menu-arrow"></span>
                                     </a>
                                     <ul>
                                         <li>

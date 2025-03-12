@@ -39,13 +39,21 @@
                             </div>
 
                             <!-- Invoice Details -->
+                            <!-- Invoice Details -->
                             <div class="col-md-6 mb-3">
                                 <label class="form-label"><strong>Invoice Details</strong></label>
                                 <div class="border p-3 bg-light">
-                                    <p class="mb-1"><strong>Invoice ID: </strong>#<span class="invoice_id"></span></p>
-                                    <p class="mb-1"><strong>Sale Date:</strong><span class="sale_date"></span></p>
+                                    <p class="mb-1"><strong>Invoice ID: </strong>#<span class="invoice_id">
+                                        </span>
+                                    </p>
+                                    <p class="mb-1"><strong>Sale Date:</strong><span class="sale_date">
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
+
+
+
                         </div>
                     </div>
                     <td>
@@ -78,24 +86,20 @@
                             <tr>
                                 <th>Product</th>
                                 <th>Unit Price</th>
+                                <th>Size</th>
                                 <th>Quantity</th>
                                 <th>Discount (%)</th>
                                 <th>VAT (%)</th>
                                 <th>Subtotal</th>
                                 <th><button class="btn btn-danger clearAll">Clear All</button></th>
                             </tr>
-                            <tr>
-                                <td><input type="text" class="form-control product"></td>
 
-                                <td><input type="number" class="form-control unit_price" placeholder="0.00"></td>
-                                <td><input type="number" class="form-control qty" placeholder="0"></td>
-                                <td><input type="number" class="form-control discount" placeholder="0"></td>
-                                <td><input type="number" class="form-control vat" placeholder="0"></td>
-                                <td><input type="text" class="form-control subtotal" disabled></td>
-                                <td><button class="btn btn-primary add-item-btn">Add</button></td>
-                            </tr>
                         </thead>
+                        {{-- <tbody class="sales-details-table-body data-append">
+                            
+                        </tbody> --}}
                         <tbody class="sales-details-table-body">
+
                         </tbody>
                     </table>
                 </div>
@@ -129,37 +133,233 @@
 @endsection
 
 @section('script')
+<script>
+    $(document).ready(function() {
+        // Load stored data from localStorage when the page loads
+        loadSalesDetailsFromLocalStorage();
 
-    <script>
-        $(document).ready(function() {
-            // $.ajaxSetup({
-            //     headers: {
-            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //     }
-            // });
-
-            $('#buyer_id').on('change', function() {
-                    let buyer_id = $(this).val();
-
-                    $.ajax({
-                        url: "{{ url('find_buyer') }}",
-                        type: 'post',
-                        data: {
-                            id: buyer_id,
-                            _token: "{{ csrf_token() }}",
-                        },
-                        success: function(res) {
-                            console.log(res.buyer);
-                            $(".email").text(res.buyer?.email);
-                            $(".address").text(res.buyer?.shipping_address);
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("AJAX Error: ", error);
-                            console.log(xhr.responseText);
-                        }
-                    });
-                });
-
+        $.ajax({
+            url: "{{ url('getInvoiceId') }}", 
+            type: 'GET',
+            success: function(response) {
+                $(".invoice_id").text(response.invoice_id);
+                $(".sale_date").text(response.sale_date);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching invoice ID: ", error);
+            }
         });
-    </script>
+
+        // Event listener for buyer selection
+        $('#buyer_id').on('change', function() {
+            let buyer_id = $(this).val();
+            $.ajax({
+                url: "{{ url('find_buyer') }}",
+                type: 'post',
+                data: {
+                    id: buyer_id,
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(res) {
+                    $(".buyer_id").text(res.buyer?.id);
+                    $(".email").text(res.buyer?.email);
+                    $(".address").text(res.buyer?.shipping_address);
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: ", error);
+                }
+            });
+        });
+
+        // Event listener for order selection
+        $('#order_id').on('change', function() {
+            let order_id = $(this).val();
+            if (!order_id) {
+                console.error("Order ID is not selected.");
+                return;
+            }
+            $.ajax({
+                url: "{{ url('find_order') }}",
+                type: 'POST',
+                data: {
+                    order_id: order_id,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(res) {
+                    if (res.error) {
+                        alert(res.error);
+                        return;
+                    }
+
+                    $(".sales-details-table-body").empty();
+
+                    if (Array.isArray(res.order_details) && res.order_details.length > 0) {
+                        res.order_details.forEach(detail => {
+                            let newRow = `
+                            <tr>
+                                <td>${detail.product_name}</td>
+                                <td><input type="number" class="form-control unit_price" value="${detail.unit_price}" readonly></td>
+                                <td>${detail.size}</td>
+                                <td>${detail.qty}</td>
+                                <td><input type="number" class="form-control discount" placeholder="0"></td>
+                                <td><input type="number" class="form-control vat" placeholder="0"></td>
+                                <td><input type="text" class="form-control subtotal" disabled></td>
+                                <td><button class="btn btn-danger remove-item-btn">Remove</button></td>
+                            </tr>`;
+
+                            $(".sales-details-table-body").append(newRow);
+                        });
+                    }
+                    calculateTotals();
+                    saveSalesDetailsToLocalStorage(); // Save the updated data to localStorage
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: ", error);
+                }
+            });
+        });
+
+        // Handle discount, vat, and subtotal calculation
+        $(document).on('input', '.discount, .vat', function() {
+            let row = $(this).closest('tr');
+            let unitPrice = parseFloat(row.find('.unit_price').val());
+            let qty = parseInt(row.find('td:eq(3)').text());
+            let discount = parseFloat(row.find('.discount').val()) || 0;
+            let vat = parseFloat(row.find('.vat').val()) || 0;
+
+            let totalAmount = unitPrice * qty;
+            let discountAmount = (totalAmount * discount) / 100;
+            let vatAmount = (totalAmount * vat) / 100;
+            let subtotal = totalAmount - discountAmount + vatAmount;
+
+            row.find('.subtotal').val(subtotal.toFixed(2));
+            calculateTotals();
+            saveSalesDetailsToLocalStorage(); // Save after calculation
+        });
+
+        // Function to calculate the grand totals
+        function calculateTotals() {
+            let totalAmount = 0;
+            let totalDiscount = 0;
+            let totalVat = 0;
+
+            $(".sales-details-table-body tr").each(function() {
+                let unitPrice = parseFloat($(this).find('.unit_price').val());
+                let qty = parseInt($(this).find('td:eq(3)').text());
+                let discount = parseFloat($(this).find('.discount').val()) || 0;
+                let vat = parseFloat($(this).find('.vat').val()) || 0;
+
+                let rowTotalAmount = unitPrice * qty;
+                totalAmount += rowTotalAmount;
+
+                let discountAmount = (rowTotalAmount * discount) / 100;
+                let vatAmount = (rowTotalAmount * vat) / 100;
+
+                totalDiscount += discountAmount;
+                totalVat += vatAmount;
+            });
+
+            $(".total_amount").text(totalAmount.toFixed(2));
+            $(".total_discount").text(totalDiscount.toFixed(2));
+            $(".total_vat").text(totalVat.toFixed(2));
+
+            let grandTotal = totalAmount - totalDiscount + totalVat;
+            $(".grand_total").text(grandTotal.toFixed(2));
+        }
+
+        // Handle remove item button click
+        $(document).on('click', '.remove-item-btn', function() {
+            $(this).closest('tr').remove();
+            calculateTotals();
+            saveSalesDetailsToLocalStorage(); // Save after removal
+        });
+
+        // Clear all rows and localStorage
+        $('.clearAll').on('click', function() {
+            $(".sales-details-table-body").empty();
+            calculateTotals();
+            localStorage.removeItem('sales_details'); // Clear sales details from localStorage
+        });
+
+        // Save the sales details to localStorage
+        function saveSalesDetailsToLocalStorage() {
+            let salesDetails = [];
+            $(".sales-details-table-body tr").each(function() {
+                let row = $(this);
+                let item = {
+                    product_name: row.find('td:eq(0)').text(),
+                    unit_price: row.find('.unit_price').val(),
+                    size: row.find('td:eq(2)').text(),
+                    qty: row.find('td:eq(3)').text(),
+                    discount: row.find('.discount').val(),
+                    vat: row.find('.vat').val(),
+                    subtotal: row.find('.subtotal').val()
+                };
+                salesDetails.push(item);
+            });
+            localStorage.setItem('sales_details', JSON.stringify(salesDetails));
+        }
+
+        // Load sales details from localStorage
+        function loadSalesDetailsFromLocalStorage() {
+            let salesDetails = JSON.parse(localStorage.getItem('sales_details'));
+            if (salesDetails) {
+                salesDetails.forEach(detail => {
+                    let newRow = `
+                    <tr>
+                        <td>${detail.product_name}</td>
+                        <td><input type="number" class="form-control unit_price" value="${detail.unit_price}" readonly></td>
+                        <td>${detail.size}</td>
+                        <td>${detail.qty}</td>
+                        <td><input type="number" class="form-control discount" value="${detail.discount}" placeholder="0"></td>
+                        <td><input type="number" class="form-control vat" value="${detail.vat}" placeholder="0"></td>
+                        <td><input type="text" class="form-control subtotal" value="${detail.subtotal}" disabled></td>
+                        <td><button class="btn btn-danger remove-item-btn">Remove</button></td>
+                    </tr>`;
+                    $(".sales-details-table-body").append(newRow);
+                });
+                calculateTotals();
+            }
+        }
+
+
+        $('.btn_process').on('click', function() {
+    let customer_id = $('#customer_id').val();
+    let invoice_total = $('.grandtotal').text();
+    let paid_amount = $('.paid-amount').text();  // Adjusted based on the layout of the page
+    let discount = $('.discount').text();
+    let vat = $('.vat').text();
+    let products = cart.getCart();  // Ensure the product array is in the correct format
+
+    // Prepare data to send to the API
+    let invoiceData = {
+        customer_id: customer_id,
+        invoice_total: invoice_total,
+        paid_amount: paid_amount,
+        discount: discount,
+        vat: vat,
+        products: products,
+    };
+
+    $.ajax({
+        url: "{{ url('SalesInvoice/Api') }}",
+        type: 'POST',
+        data: invoiceData,
+        success: function(res) {
+            if (res.success) {
+                console.log('Invoice processed successfully:', res);
+                // You can trigger UI updates or redirect here
+            } else {
+                console.error('Error processing invoice:', res.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('AJAX Error:', error);
+        }
+    });
+});
+
+    });
+</script>
 @endsection
+
