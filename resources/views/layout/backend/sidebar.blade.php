@@ -305,9 +305,11 @@
                                 <li class="submenu submenu-two"><a href="">Reports<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
+                                        <li><a href="{{ url('transactions') }}">Transactions</a></li>
+                                        <li><a href="{{ url('ledgers') }}">General Ledger Reports</a></li>
+                                        <li><a href="{{ url('trialbalance') }}">Trial Balance</a></li>
+                                        <li><a href="{{ url('reports/chartofaccount') }}">Chart of Accounts</a></li>
                                         <li><a href="{{ url('reports/finance') }}">Financial Statements</a></li>
-                                        <li><a href="{{ url('reports/receivable-payable') }}">P/R Reports</a></li>
-                                        <li><a href="{{ url('reports/GeneralLedgerReports') }}">General Ledger Reports</a></li>
                                     </ul>
                                 </li>
                                 <li class="submenu submenu-two"><a href="">Accounts<span

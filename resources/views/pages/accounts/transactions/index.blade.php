@@ -1,7 +1,7 @@
 @extends('layout.backend.main')
 @section('page_content')
 
-<div class="container">
+<div class="">
     <h1 class="my-4">Transactions</h1>
     <a href="{{ route('transactions.create') }}" class="btn btn-primary mb-3">Create New Transaction</a>
 

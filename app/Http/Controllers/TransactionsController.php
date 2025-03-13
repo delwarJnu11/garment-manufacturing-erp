@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\transactions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionsController extends Controller
 {
@@ -83,4 +84,33 @@ class TransactionsController extends Controller
 
         return redirect()->route('transactions.index')->with('success', 'Transaction deleted successfully');
     }
+
+    public function balanceSheet()
+{
+    // Calculate Assets, Liabilities, and Equity
+    $assets = DB::table('transactions')
+        ->whereIn('account_id', [1, 2, 3, 5, 6, 7, 8, 9])
+        ->selectRaw('SUM(debit) - SUM(credit) as total_assets')
+        ->first();
+
+    $liabilities = DB::table('transactions')
+        ->whereIn('account_id', [10, 13, 14, 15, 16, 17, 18, 19, 20, 40, 41, 42, 43, 44, 45, 46])
+        ->selectRaw('SUM(credit) - SUM(debit) as total_liabilities')
+        ->first();
+
+    $equity = DB::table('transactions')
+        ->whereIn('account_id', [24, 25])
+        ->selectRaw('SUM(debit) - SUM(credit) as total_equity')
+        ->first();
+
+    // Return to view
+    return view('pages.accounts.reports.balanceSheet', [
+        'assets' => $assets->total_assets,
+        'liabilities' => $liabilities->total_liabilities,
+        'equity' => $equity->total_equity,
+    ]);
+
+    echo $assets;
+}
+
 }

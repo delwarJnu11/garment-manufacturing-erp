@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 
 use App\Models\AccountGroup;
+use App\Models\Accounts;
 use App\Models\Transaction;
+use App\Models\transactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
@@ -34,9 +36,11 @@ class AccountController extends Controller
 	public function ledger_report(Request $request)
 	{
 		$accounts = Account::all();
-         $transactions= Transaction::where('account_id', $request->account_id)->whereBetween('transaction_date', [ $request->start_date,$request->end_date ])->with("account")->get();
-        //  echo json_encode($transactions);
-		return view("pages.erp.account.show", ["transactions" => $transactions, "accounts" => $accounts]);
+		
+        $transactions= transactions::where('account_id', $request->account_id)->whereBetween('transaction_date', [ $request->start_date,$request->end_date ])->with("account")->get();
+    
+		echo json_encode($accounts);
+		// return view("pages.accounts.accounts.show", ["transactions" => $transactions, "accounts" => $accounts]);
 	}
 	public function store(Request $request)
 	{

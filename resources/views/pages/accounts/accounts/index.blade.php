@@ -45,9 +45,6 @@
             @endforeach
         </tbody>
     </table>
-    <div class="d-flex justify-content-center my-3">
-        {{ $accounts->links() }}
-    </div>
 
       <!-- Pagination links -->
       <div class="pagination-wrapper d-flex justify-content-center my-2">

@@ -6,6 +6,7 @@ use App\Models\Account;
 use App\Models\accountGroups;
 use App\Models\accounts;
 use App\Models\Transaction;
+use App\Models\transactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,13 +28,7 @@ class AccountsController extends Controller
 			]
 		);
 	}
-	public function ledger_report(Request $request)
-	{
-		$accounts = Accounts::all();
-         $transactions= Transaction::where('account_id', $request->account_id)->whereBetween('transaction_date', [ $request->start_date,$request->end_date ])->with("account")->get();
-        //  echo json_encode($transactions);
-		return view("pages.accounts.accounts.show", ["transactions" => $transactions, "accounts" => $accounts]);
-	}
+	
 	public function store(Request $request)
 	{
 		//Account::create($request->all());
@@ -130,6 +125,15 @@ class AccountsController extends Controller
 		$account->updated_by = Auth::user()->id;
 		$account->save();
 		//return back()->with('success', 'Created Successfully.');
+	}
+
+	public function ledger_report(Request $request)
+	{
+		
+		$accounts = Account::all();
+         $transactions= transactions::where('account_id', $request->account_id)->whereBetween('transaction_date', [ $request->start_date,$request->end_date ])->with("account")->get();
+        //   echo json_encode($accounts);
+		return view("pages.accounts.accounts.show", ["transactions" => $transactions, "accounts" => $accounts]);
 	}
 
 }

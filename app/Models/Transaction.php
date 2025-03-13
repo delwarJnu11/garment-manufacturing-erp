@@ -10,6 +10,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model{
 
+    protected $fillable = [
+        'voucher_ref',
+        'transaction_date',
+        'account_id',
+        'amount',
+        'description',
+        'transaction_against',
+        'debit',
+        'credit',
+        'user_id',
+    ];
+
     function account(){
         return $this->belongsTo(Account::class);
     }

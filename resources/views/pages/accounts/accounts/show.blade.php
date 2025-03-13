@@ -1,15 +1,26 @@
 @extends('layout.backend.main')
+@section('css')
+<style>
+    @media Print{
+        .ledger{
+            display: none;
+            visibility: hidden;
+        }
+    }
+</style>
+
+@endsection
 @section('page_content')
 <div class="row">
 		<div class="card">
 		<div class="card-body">
-			<form action="{{ url('accounts/ledger') }}" method ="post" enctype="multipart/form-data">
+			<form action="{{ url('ledgers') }}" method ="get" enctype="multipart/form-data" class="ledger">
 				@csrf
 				<div class="row">
 				<div class="col-sm-4">
 				
 					<select class="form-control" name="account_id" id="account_id">
-						@foreach ($accounts as $account)
+						@foreach ($accounts??[] as $account)
 							<option value="{{ $account->id }}">{{ $account->code }}-{{ $account->name }}</option>
 						@endforeach
 					</select>
@@ -26,6 +37,8 @@
 				</div>
 			</div>
 			</form>
+
+            
 		</div>
 		</div>
 	</div>
@@ -33,7 +46,7 @@
         <div class="card">
 
             <div class="card-body">
-                
+            <h1 class="text-center">Ledger</h1>
 
                 <table class='table table-striped text-nowrap'>
                     <thead>
@@ -50,7 +63,7 @@
                             $debit = 0;
                             $credit = 0;
                         @endphp
-                        @forelse ($transactions as $item)
+                        @forelse ($transactions??[] as $item)
                             <tr>
                                 <td>{{ $item->transaction_date }}</td>
                                 <td>{{ $item->description }}</td>

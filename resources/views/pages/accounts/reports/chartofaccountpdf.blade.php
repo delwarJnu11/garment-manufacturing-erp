@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chart of Accounts</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
 
     <style>
         body { font-family: Arial, sans-serif; }
@@ -19,7 +21,7 @@
     <h2 style="text-align: center;">Chart of Accounts</h2>
     
 
-    <table>
+    <table class="table table-striped table-light w-75 mx-auto ">
         <thead>
             <tr>
                 <th colspan="1">Account Code</th>

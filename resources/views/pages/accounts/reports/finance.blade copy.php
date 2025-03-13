@@ -271,97 +271,247 @@ $equity = DB::table('transactions')
 
         <!-- Balance Sheet Tab -->
         <div class="tab-pane fade" id="balance-sheet" role="tabpanel" aria-labelledby="balance-sheet-tab">
-
+            <!-- <h4 class="mb-1">Balance Sheet</h4>
+            <table class="table table-bordered w-50 mx-auto">
+                <thead>
+                    <tr class="bg-secondary">
+                        <th class="text-center">Description</th>
+                        <th class="text-center">Amount (USD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Assets</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Current Assets</td>
+                        <td class="text-end">500,000 ৳</td>
+                    </tr>
+                    <tr>
+                        <td>Non-Current Assets</td>
+                        <td class="text-end">1,200,000 ৳</td>
+                    </tr>
+                    <tr>
+                        <td>Total Assets</td>
+                        <td class="text-end">1,700,000 ৳</td>
+                    </tr>
+                    <tr>
+                        <td>Liabilities</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Current Liabilities</td>
+                        <td class="text-end">200,000 ৳</td>
+                    </tr>
+                    <tr>
+                        <td>Non-Current Liabilities</td>
+                        <td class="text-end">500,000 ৳</td>
+                    </tr>
+                    <tr>
+                        <td>Total Liabilities</td>
+                        <td class="text-end">700,000 ৳</td>
+                    </tr>
+                    <tr>
+                        <td>Equity</td>
+                        <td class="text-end">1,000,000 ৳</td>
+                    </tr>
+                </tbody>
+            </table> -->
 
             <!-- <h1>Balance Sheet</h1> -->
-            <div class="statement-section">
-                <!-- <h2>Balance Sheet</h2> -->
-                <h3>Assets</h3>
-                <table class="table table-light table-striped w-75 mx-auto">
-                    <thead>
-                        <tr>
-                            <th>Assets</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Cash</td>
-                            <td>$6,000.00</td> <!-- Based on transactions like cash received, deposits -->
-                        </tr>
-                        <tr>
-                            <td>Accounts Receivable</td>
-                            <td>$1,500.00</td> <!-- Receivables from customer payments -->
-                        </tr>
-                        <tr>
-                            <td>Raw Materials</td>
-                            <td>$500.00</td> <!-- Raw materials purchase -->
-                        </tr>
-                        <tr>
-                            <td>Finished Goods Inventory</td>
-                            <td>$3,000.00</td> <!-- Finished goods inventory addition -->
-                        </tr>
-                        <tr>
-                            <td>Prepaid Expenses</td>
-                            <td>$600.00</td> <!-- Payment for prepaid expenses -->
-                        </tr>
-                        <tr>
-                            <td>Fixed Assets</td>
-                            <td>$2,000.00</td> <!-- Purchase of fixed assets -->
-                        </tr>
-                    </tbody>
-                </table>
 
-                <h3>Liabilities</h3>
-                <table class="table table-light table-striped w-75 mx-auto">
-                    <thead>
-                        <tr>
-                            <th>Liabilities</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Accounts Payable</td>
-                            <td>$1,000.00</td> <!-- Accounts payable to suppliers -->
-                        </tr>
-                        <tr>
-                            <td>Short-term Loan</td>
-                            <td>$3,000.00</td> <!-- Short-term loan received -->
-                        </tr>
-                        <tr>
-                            <td>Long-term Loan</td>
-                            <td>$5,000.00</td> <!-- Long-term loan received -->
-                        </tr>
-                        <tr>
-                            <td>Accrued Liabilities</td>
-                            <td>$1,000.00</td> <!-- Accrued liabilities (taxes, wages, expenses) -->
-                        </tr>
-                    </tbody>
-                </table>
+            <h2>Assets</h2>
+            <table class="table table-light table-striped w-75 mx-auto">
+                <thead>
+                    <tr>
+                        <th>Asset Type</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="section-title">
+                        <td>Current Assets</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Cash</td>
+                        <td>8,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Receivables</td>
+                        <td>1,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Finished Goods Inventory</td>
+                        <td>3,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Raw Materials</td>
+                        <td>500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Prepaid Expenses</td>
+                        <td>600.00</td>
+                    </tr>
+                    <tr class="total">
+                        <td>Total Current Assets</td>
+                        <td>13,600.00</td>
+                    </tr>
+                    <tr class="section-title">
+                        <td>Fixed Assets</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Fixed Assets</td>
+                        <td>2,000.00</td>
+                    </tr>
+                    <tr class="section-title">
+                        <td>Work-in-Progress</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Work-in-Progress</td>
+                        <td>1,200.00</td>
+                    </tr>
+                    <tr class="total">
+                        <td>Total Assets</td>
+                        <td>16,800.00</td>
+                    </tr>
+                </tbody>
+            </table>
 
-                <h3>Equity</h3>
-                <table class="table table-light table-striped w-75 mx-auto">
-                    <thead>
-                        <tr>
-                            <th>Equity</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Owner's Equity</td>
-                            <td>$5,000.00</td> <!-- Owner's equity capital contribution -->
-                        </tr>
-                        <tr>
-                            <td>Retained Earnings</td>
-                            <td>$1,000.00</td> <!-- Retained earnings from last year -->
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <h2>Liabilities</h2>
+            <table class="table table-light table-striped w-75 mx-auto">
+                <thead>
+                    <tr>
+                        <th>Liability Type</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="section-title">
+                        <td>Current Liabilities</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Accounts Payable</td>
+                        <td>1,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Accrued Taxes</td>
+                        <td>1,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Accrued Wages</td>
+                        <td>800.00</td>
+                    </tr>
+                    <tr>
+                        <td>Accrued Expenses</td>
+                        <td>500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Sales Tax Receivable</td>
+                        <td>400.00</td>
+                    </tr>
+                    <tr class="total">
+                        <td>Total Current Liabilities</td>
+                        <td>3,700.00</td>
+                    </tr>
+                    <tr class="section-title">
+                        <td>Loans</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Short-Term Loan</td>
+                        <td>3,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Long-Term Loan</td>
+                        <td>5,000.00</td>
+                    </tr>
+                    <tr class="total">
+                        <td>Total Liabilities</td>
+                        <td>11,700.00</td>
+                    </tr>
+                </tbody>
+            </table>
 
+            <h2>Equity</h2>
+            <table class="table table-light table-striped w-75 mx-auto">
+                <thead>
+                    <tr>
+                        <th>Equity Type</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="section-title">
+                        <td>Owner's Equity</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Owner's Equity Capital</td>
+                        <td>5,000.00</td>
+                    </tr>
+                    <tr class="section-title">
+                        <td>Retained Earnings</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Retained Earnings from Last Year</td>
+                        <td>1,000.00</td>
+                    </tr>
+                    <tr class="section-title">
+                        <td>Revenue</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Sales Revenue</td>
+                        <td>4,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Service Income</td>
+                        <td>400.00</td>
+                    </tr>
+                    <tr>
+                        <td>Embroidery Services Income</td>
+                        <td>500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Miscellaneous Revenue</td>
+                        <td>200.00</td>
+                    </tr>
+                    <tr class="total">
+                        <td>Total Equity</td>
+                        <td>11,600.00</td>
+                    </tr>
+                </tbody>
+            </table>
 
+            <h2>Balance Sheet Summary</h2>
+            <table class="table table-light table-striped w-75 mx-auto">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="total">
+                        <td>Total Assets</td>
+                        <td>16,800.00</td>
+                    </tr>
+                    <tr class="total">
+                        <td>Total Liabilities</td>
+                        <td>11,700.00</td>
+                    </tr>
+                    <tr class="total">
+                        <td>Total Equity</td>
+                        <td>11,600.00</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <!-- Cash Flow Statement Tab -->
