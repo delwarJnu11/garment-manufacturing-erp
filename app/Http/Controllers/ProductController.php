@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\ProductType;
 use App\Models\Product;
 use App\Models\Size;
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('product_type', 'size', 'uom')->paginate(4);
+        $products = Product::with('product_type', 'category_type', 'size', 'uom')->paginate(4);
         return view('pages.inventory.products.index', compact('products'));
     }
 
@@ -27,8 +28,14 @@ class ProductController extends Controller
         $product_types = ProductType::all();
         $sizes = Size::all();
         $uoms = Uom::all();
+        $categories = Category::all();
 
-        return view('pages.inventory.products.create', compact('product_types', 'sizes', 'uoms'));
+        // filter the server-side
+        // For Raw Materials (product_type = 1)
+        $rawMaterialCategories = Category::where('is_raw_material', 1)->get();
+        // For Finished Goods (product_type = 2)
+        $finishedGoodsCategories = Category::where('is_raw_material', 0)->get();
+        return view('pages.inventory.products.create', compact('product_types', 'sizes', 'uoms', 'rawMaterialCategories', 'finishedGoodsCategories'));
     }
 
     /**
@@ -39,6 +46,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => "required|min:5",
             'product_type_id' => "required",
+            'category_type_id' => "required",
             'size' => "nullable",
             'sku' => "required|min:4",
             'qty' => "required",
@@ -50,13 +58,14 @@ class ProductController extends Controller
         Product::create([
             'name' => $request->name,
             'product_type_id' => $request->product_type_id,
+            'category_type_id' => $request->category_type_id,
             'size' => $request->size,
             'sku' => $request->sku,
             'qty' => $request->qty,
             'uom_id' => $request->uom_id,
             'unit_price' => $request->unit_price,
         ]);
-        return redirect('products')->with('success', 'product variants create successfully');
+        return redirect('stock/products')->with('success', 'product variants create successfully');
     }
 
     /**

@@ -213,6 +213,33 @@
                     uom_id: item.uom_id,
                     subtotal: 0
                 }));
+                console.log(newItems)
+
+                $.ajax({
+<<<<<<< HEAD
+                    url: '/api/order_details',
+=======
+                    url: "/api/order_details",
+>>>>>>> 5974f2b7ccea101babc15445f301e85a12c4dcb9
+                    type: "POST",
+                    data: JSON.stringify({
+                        items: newItems
+                    }),
+                    contentType: "application/json",
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                    },
+                    success: function(response) {
+                        if (response.status === 201) {
+                            localStorage.clear();
+                            return window.location.assign('/orders');
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                        alert("Error saving items.");
+                    }
+                });
 
             })
         });

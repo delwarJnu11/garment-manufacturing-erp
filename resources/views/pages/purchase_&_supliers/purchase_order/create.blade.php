@@ -51,6 +51,10 @@
                             </div>
 
                         </div>
+                      
+                        <p><strong>Warehouse Name:</strong> <span id="warehouse_name"></span></p>
+                        
+                        </div>
                     </div>
                     <!-- Raw Material Table -->
                     <div class="container mt-5">
@@ -116,7 +120,8 @@
                             <div class="row mt-4">
                                 <div class="col-md-6">
 
-                                    <p><strong >Delivery Address: </strong> <span >123 Factory Road, City Road, Bangladesh</span></p>
+                                    <p><strong>Delivery Address: </strong> <span>123 Factory Road, City Road,
+                                            Bangladesh</span></p>
                                     <p><strong>Notes:</strong> Urgent delivery required.</p>
                                 </div>
                                 <div class="col-md-6 text-end">
@@ -173,6 +178,7 @@
                 year: 'numeric'
             });
 
+
             // Format delivery date (7 days later)
             let deliveryDate = new Date();
             deliveryDate.setDate(today.getDate() + 7);
@@ -189,6 +195,7 @@
                     ' X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             })
+
 
             $('#supplier_id').on('change', function() {
                 let supplier_id = $(this).val();
@@ -215,6 +222,7 @@
                 });
 
             })
+            
             $("#product_id").on('change', function() {
                 let product_id = $(this).val();
                 console.log("Selected Product ID: " + product_id);
@@ -269,11 +277,11 @@
                 cart.save(item);
                 printCart();
                 parseFloat($(".p_price").val(""));
-                 parseFloat($(".p_qty").val(""));
-                 parseFloat($(".p_discount").val("")) ;
-                parseFloat($(".p_vat").val("")) ;
+                parseFloat($(".p_qty").val(""));
+                parseFloat($(".p_discount").val(""));
+                parseFloat($(".p_vat").val(""));
 
-                
+
             });
 
             function printCart() {
@@ -319,7 +327,7 @@
                 }
             }
 
-            $("tbody").on('click','.remove', function() {
+            $("tbody").on('click', '.remove', function() {
                 let id = $(this).attr('data');
                 cart.delItem(id);
                 printCart();
@@ -359,27 +367,7 @@
                     products
                 });
 
-                // $.ajax({
-                //     url: "{{ url('api/purchase') }}",
-                //     type: "POST",
-                //     contentType: "application/json",
-                //     data: JSON.stringify({
-                //         _token: '{{ csrf_token() }}',
-                //         supplier_id: supplier_id,
-                //         total_amount: purchase_total, 
-                //         paid_amount: paid_amount,
-                //         discount: discount,
-                //         vat: vat,
-                //         products: JSON.stringify(products)
-                //     }),
-                //     success: function(res) {
-                //         console.log("API Response:", res);
-                //     },
-                //     error: function(xhr, status, error) {
-                //         console.log("API Error:", xhr
-                //         .responseText); 
-                //     }
-                // });
+            //retrive only purchase_order information
                 $.ajax({
                     url: "{{ url('api/purchase') }}",
                     type: "POST",
@@ -391,16 +379,16 @@
                         paid_amount: paid_amount,
                         discount: discount,
                         vat: vat,
-                        products: products 
+                        products: products
                     }),
                     success: function(res) {
-                        if(res.success){
+                        if (res.success) {
                             console.log("API Response:", res);
-                            window.location.href= res.redirect_url
-                        }else{
-                            alert("Error"+res.message)
+                            window.location.href = res.redirect_url
+                        } else {
+                            alert("Error" + res.message)
                         }
-                    
+
                     },
                     error: function(xhr, status, error) {
                         console.log("API Error:", xhr.responseText);
@@ -409,52 +397,9 @@
 
 
 
+
             });
 
-
-
-
-            //    $('.process_btn').on('click',function(){
-            //     // alert()
-            //     let supplier_id  = $("#supplier_id").val();
-            //     let purchase_total = $('.grand_total').text();
-            //     let paid_amount = $('.grand_total').text();
-            //     let discount = $('.discount').text();
-            //     let vat = $('.vat').text();
-            //     let products = cart.getCart();
-            //     // const newItems = products.map(item => ({
-            //     //     product_id: item.item_id,
-            //     //     discount: item.p_discount,
-            //     //     quantity: item.qty,
-            //     //     vat: item.p_vat,
-            //     //     price: item.price
-            //     // }));
-            //     // console.log(newItems);
-
-
-            //     $.ajax({
-            //         url:"{{ url('api/purchase') }}",
-            //         type:"POST",
-            //         data:{
-            //             supplier_id:supplier_id,
-            //             purchase_total:purchase_total,
-            //             paid_amount:paid_amount,
-            //             discount:discount,
-            //             vat:vat,
-            //             products:products,
-            //         },
-            //         success:function(res){
-            //             console.log(res)
-            //         },
-            //         error:function(xhr,status,error){
-            //             console.log(error)
-            //         }
-
-            //     })
-
-
-
-            //    })
         })
     </script>
     <script src="{{ asset('assets/js/cart_.js') }}"></script>

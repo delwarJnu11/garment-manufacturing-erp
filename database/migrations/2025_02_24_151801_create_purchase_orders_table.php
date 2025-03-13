@@ -17,18 +17,18 @@ return new class extends Migration
             $table->integer('supplier_id');
             $table->integer('lot_id')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);
-
+            $table->date('purchase_date')->nullable();
             $table->decimal('total_amount', 10, 2)->default(0.00);
             $table->decimal('paid_amount', 10, 2)->default(0.00);
             $table->decimal('discount', 10, 2)->default(0.00); // ✅ FIXED: Column name corrected
             $table->decimal('vat', 10, 2)->default(0.00);
-            $table->date('delivery_date')->nullable(); 
+            $table->date('delivery_date')->nullable();
             $table->string('shipping_address', 255)->nullable();
-            $table->text('description')->nullable(); 
+            $table->string('payment_method', 255)->nullable();
+            $table->text('description')->nullable();
             $table->timestamps(0);
         });
 
-        // ✅ Correct Data Insert
         PurchaseOrder::create([
             'supplier_id' => 1,
             'lot_id' => 10,
@@ -39,6 +39,7 @@ return new class extends Migration
             'vat' => 0.00,
             'delivery_date' => '2025-03-10',
             'shipping_address' => '123 Main Street, City',
+            'payment_method' => 'Cash',
             'description' => 'Order for 500 meters of cotton fabric',
         ]);
     }

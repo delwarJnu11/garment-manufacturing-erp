@@ -44,9 +44,25 @@
 
                     <!-- Address -->
                     <div class="col-md-12">
-                        <div class="mb-3">
+                        <div class="col-md-6 mb-3">
                             <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
                             <textarea name="address" id="address" class="form-control" rows="3" required>{{ old('address', $supplier->address) }}</textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label f class="form-label">Bank Account <span class="text-danger">*</span></label>
+                                <select name="bank_account_id" id="" class="form-select form-controll">
+                                    @forelse ($bankAccounts as $bankAccount)
+                                        <option value="{{ $bankAccount->id }}"
+                                            {{ $buyer->bank_account_id == $bankAccount->id ? 'selected' : '' }}>
+                                            {{ $bankAccount->name }}
+                                        </option>
+                                    @empty
+                                        <option value="">No bank accounts available</option>
+                                    @endforelse
+                                </select>
+    
+                            </div>
                         </div>
                     </div>
 

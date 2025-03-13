@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            $table->integer('bank_account_id')->nullable();
             $table->string('photo')->nullable();
             $table->string('email')->unique();
             $table->string('phone')->nullable();
@@ -31,6 +32,7 @@ return new class extends Migration
                 [
                     'first_name' => 'Andrew',
                     'last_name' => 'Ray',
+                    'account_for_id' => '1',
                     'photo' => 'https://via.placeholder.com/150',
                     'email' => 'ray@example.com',
                     'phone' => '+1234567890',

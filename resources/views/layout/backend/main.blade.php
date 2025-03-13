@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Sigmar&display=swap" rel="stylesheet">
     <title>Garments Manufacturing ERP SOFTWARE</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script
         src="{{asset('assets')}}/js/theme-script.js"
         type="6bc737fdedebc88b41732761-text/javascript"></script>

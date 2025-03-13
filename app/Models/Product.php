@@ -10,7 +10,8 @@ class Product extends Model
     // Define the fillable columns for mass assignment
     protected $fillable = [
         'name',
-        'product_type_id',
+        'product_type_id',//1=Raw materials, 2= Finished_goods
+        'category_type_id',
         'size_id',
         'sku',
         'qty',
@@ -26,6 +27,10 @@ class Product extends Model
     {
         return $this->belongsTo(ProductType::class, 'product_type_id');
     }
+    function category_type(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_type_id');
+    }
     function size(): BelongsTo
     {
         return $this->belongsTo(Size::class, 'size_id');
@@ -33,5 +38,9 @@ class Product extends Model
     function uom(): BelongsTo
     {
         return $this->belongsTo(Uom::class, 'uom_id');
+    }
+    function purchaseDetails()
+    {
+        return $this->hasMany(PurchaseOrderDetail::class);
     }
 }

@@ -1,7 +1,7 @@
 @extends('layout.backend.main')
 @section('page_content')
 
-<x-page-header heading="Product Variations" btnText="Product Variants" href="{{url('products/create')}}"/>
+<x-page-header heading="Product Variations" btnText="Product Variants" href="{{url('stock/products/create')}}"/>
 {{-- <x-page-header heading="Category" btnText="category" href="{{ url('categoryType/create') }}" /> --}}
 <table class="table table-striped table-bordered">
     <thead class="thead-primary">
@@ -9,6 +9,7 @@
             <th>#</th>
             <th>Name</th>
             <th>Product Type</th>
+            <th>Category Type</th>
             <th>SKU</th>
            
             <th>Size</th>
@@ -26,6 +27,9 @@
             {{$product['name']}}</td>
         <td>
             {{$product->product_type->name}}
+        </td>
+        <td>
+            {{$product->Category_type->name ?? 'N/A'}}
         </td>
         <td>
             {{$product['sku']}}
@@ -59,7 +63,7 @@
                         <i data-feather="edit" class="feather-edit"></i>
                     </a>
                   
-                    <x-delete action="{{ url('products.destroy', $product->id) }}" />
+                    <x-delete action="{{ url('stock/products.destroy', $product->id) }}" />
                 </div>
             </td>
     </tr>
