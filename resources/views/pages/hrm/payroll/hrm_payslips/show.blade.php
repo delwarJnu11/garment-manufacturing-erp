@@ -193,37 +193,37 @@ padding-top: 10px;
                     <tbody>
                         <tr class="text-start">
                             <th>Employee name</th>
-                            <td>Honorato</td>
+                            <td>Hasan</td>
                             <th>Month</th>
-                            <td>April, 2024</td>
+                            <td>March, 2025</td>
                         </tr>
                         <tr class="text-start">
                             <th>Employee ID</th>
-                            <td></td>
+                            <td>#EMP0000002</td>
                             <th>Total Working Days:</th>
-                            <td>20</td>
+                            <td>22</td>
                         </tr>
                         <tr class="text-start">
                             <th>Employee Designation</th>
-                            <td>+1 (873) 591-1817</td>
+                            <td>Managing Director</td>
                             <th>Working Days Attendance:</th>
                             <td>20</td>
                         </tr>
                         <tr class="text-start">
                             <th>Employee Department</th>
-                            <td></td>
+                            <td>The Pre-Production</td>
                             <th>Leaves Taken</th>
-                            <td>20</td>
+                            <td>2</td>
                         </tr>
                         <tr>
                             <th>Employee Bank Account</th>
-                            <td>10</td>
+                            <td>123456789</td>
                             <th>Balance Leaves</th>
-                            <td>0</td>
+                            <td>8</td>
                         </tr>
                         <tr class="text-start">
                             <th>Employee Bank Name</th>
-                            <td>#000001</td>
+                            <td>Duch Bangla Bank</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -239,20 +239,16 @@ padding-top: 10px;
                         <table width="100%" class="table table-striped">
                             <tbody>
                                 <tr>
-                                    <td>Basic salary</td>
-                                    <td>6,400.00</td>
+                                    <td>House Rent Allowance (HRA)</td>
+                                    <td>1000</td>
                                 </tr>
                                 <tr>
-                                    <td>Transport allowance</td>
-                                    <td>470.00</td>
+                                    <td>Medical Allowance</td>
+                                    <td>1000</td>
                                 </tr>
                                 <tr>
-                                    <td>Total benefit</td>
-                                    <td>1,570.00</td>
-                                </tr>
-                                <tr>
-                                    <td>Overtime</td>
-                                    <td>0.00</td>
+                                    <td>Festival Allowance</td>
+                                    <td>1000</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -263,20 +259,16 @@ padding-top: 10px;
                         <table width="100%" class="table table-striped">
                             <tbody>
                                 <tr>
-                                    <td>State income tax</td>
-                                    <td>0.00</td>
+                                    <td>Provident Fund (PF)</td>
+                                    <td>500</td>
                                 </tr>
                                 <tr>
-                                    <td>Social security</td>
-                                    <td>0.00</td>
+                                    <td>Income Tax (TDS)</td>
+                                    <td>500</td>
                                 </tr>
                                 <tr>
-                                    <td>Loan deduction</td>
-                                    <td>1,020.00</td>
-                                </tr>
-                                <tr>
-                                    <td>Salary advance</td>
-                                    <td>0.00</td>
+                                    <td>Absenteeism</td>
+                                    <td>500</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -322,23 +314,23 @@ padding-top: 10px;
                             <tbody class="text-center">
                                 <tr>
                                     <th style="width: 30%;">Basic Salary</th>
-                                    <td>50000</td>
+                                    <td>40000.00</td>
                                 </tr>
                                 <tr>
                                     <th>Total Allowances</th>
-                                    <td>5000</td>
+                                    <td>3000.00</td>
                                 </tr>
                                 <tr>
                                     <th>Total Deductions</th>
-                                    <td>1000</td>
+                                    <td>1500.00</td>
                                 </tr>
                                 <tr>
                                     <th>Net Salary</th>
-                                    <td>54000</td>
+                                    <td>41500.00</td>
                                 </tr>
                                 <tr>
                                     <th>Payment Method</th>
-                                    <td>Cash</td>
+                                    <td>Bank Transfer</td>
                                 </tr>
                                 <tr>
                                     <th>Status</th>

@@ -174,7 +174,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input class="allowance_amount form-control" type="number" value="">
+                                                <input class="allowance_amount form-control" type="number" value="1000">
                                             </td>
                                             <td>
                                                 <button class="btn btn-primary alowance_add_btn" id="alowance_add_btn">+</button>
@@ -237,7 +237,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input class=" form-control deduction_amount" type="number" value="">
+                                                <input class=" form-control deduction_amount" type="number" value="500">
                                             </td>
                                             <td>
                                                 <button class="btn btn-primary deduction_add_btn" id="deduction_add_btn">+</button>

@@ -367,17 +367,17 @@
             $(".sidebar-menu ul li a").each(function() {
                 if (this.href === currentUrl) {
                     $(this).addClass("active");
-                    // $(this).closest("li.submenu").addClass("active"); // Open parent menu
+                    $(this).closest("li.submenu").addClass("active"); // Open parent menu
                     $(this).closest("ul").slideDown();
                 }
             });
 
-            // Toggle submenu on click
-            // $(".submenu > a").click(function() {
-            //     $(this).toggleClass("active");
-            //     $(this).next("ul").slideToggle();
-            //     $(this).parent().toggleClass("active");
-            // });
+            Toggle submenu on click
+            $(".submenu > a").click(function() {
+                $(this).toggleClass("active");
+                $(this).next("ul").slideToggle();
+                $(this).parent().toggleClass("active");
+            });
         });
     </script>
 @endsection
