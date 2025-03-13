@@ -55,5 +55,4 @@
 <div class="d-flex justify-content-end">
     {{ $stocks->links('vendor.pagination.custom') }}
 </div>
-
 @endsection
