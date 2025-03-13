@@ -12,6 +12,7 @@
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Contact Number</th>
+                            <th>Bank Acconut</th>
                             <th>Country</th>
                             <th>Shipping address</th>
                             <th>Billings Address</th>
@@ -33,6 +34,7 @@
                                 <td>{{ $buyer->last_name }}</td>
                                 <td><a href="mailto:{{ $buyer->email }}">{{ $buyer->email }}</a></td>
                                 <td>{{ $buyer->phone }}</td>
+                                <td>{{ $buyer->bankAccount->name ?? 'N/A' }}</td>
                                 <td>{{ $buyer->country }}</td>
                                 <td>{{ $buyer->shipping_address }}</td>
                                 <td>{{ $buyer->billing_address }}</td>
@@ -68,7 +70,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-end mt-3">
-        {{ $buyers->links() }}
+        {{ $buyers->links('vendor.pagination.custom') }}
     </div>
     
 @endsection

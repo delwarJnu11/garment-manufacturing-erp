@@ -23,7 +23,7 @@
                             <tr>
                                 <td>{{ $designation->id }}</td>
                                 <td>{{ $designation->name }}</td>
-                                <td>{{ $designation->departments_id }}</td>
+                                <td>{{ $designation->department_id }}</td>
                                 <td>{{ $designation->statuses_id }}</td>
                                 <td>{{ $designation->description }}</td>
                                 <td class="action-table-data">

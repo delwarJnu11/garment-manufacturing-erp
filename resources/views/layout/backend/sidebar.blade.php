@@ -3,8 +3,11 @@
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
                 <li class="submenu-open">
-                    <h6 class="submenu-hdr">Dashboards</h6>
+                    <a href="{{ url('home') }}" class="subdrop">
+                        <i data-feather="grid"></i><span>Dashboard</span>
+                    </a>
                     <ul>
+<<<<<<< HEAD
                         <li class="submenu">
                             <a href="javascript:void(0);" class="subdrop"><i
                                     data-feather="grid"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
@@ -20,266 +23,282 @@
                                 <i data-feather="users"></i>
                                 <span>Users</span>
                                 <span class="menu-arrow"></span>
+=======
+                        {{-- @if (Auth::user()->isEmployee()) --}}
+                        {{-- <li> --}}
+                        {{-- </li> --}}
+                        {{-- @endif --}}
+                        {{-- @if (Auth::user()->isAdmin()) --}}
+                        {{-- <li class="submenu">
+                            <a href="javascript:void(0);" class="subdrop">
+                                <i data-feather="grid"></i><span>Dashboard</span>
+>>>>>>> a61669e680b409c332941726addbe3a66a713ab7
                             </a>
-                            <ul>
-                                <li><a href="{{ route('users.index') }}" class="{{ request()->is('users') ? 'active' : '' }}">All Users</a></li>
-                                <li><a href="{{ route('roles.index') }}" class="{{ request()->is('roles') ? 'active' : '' }}">All Roles</a></li>
-                            </ul>
-                </li> -->
-
+                        </li> --}}
                         <li class="submenu">
-                            <a href="javascript:void(0);"
-                                class="subdrop {{ request()->routeIs('users') || request()->routeIs('roles') ? 'active' : '' }}"><i
-                                    data-feather="users"></i><span>User Management</span><span
-                                    class="menu-arrow"></span></a>
+                            <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
                                 <li>
-                                    <a href="{{ route('users.index') }}"
-                                        class="{{ request()->routeIs('users') ? 'active' : '' }}">All Users</a>
+                                    <x-link href="{{ route('users.index') }}" :active="request()->is('users')">User Lists</x-link>
                                 </li>
                                 <li>
-                                    <a href="{{ route('roles.index') }}"
-                                        class="{{ request()->routeIs('roles') ? 'active' : '' }}">All Roles</a>
+                                    <x-link href="{{ route('roles.index') }}" :active="request()->is('roles')">Roles Lists</x-link>
                                 </li>
                             </ul>
                         </li>
 
-                        {{-- USER MODULE MENU END --}}
-                        {{-- PRODUCTION MODULE MENU START --}}
+                        <!-- START Prodcution Module Menu -->
                         <li class="submenu">
-                            <a href="javascript:void(0);"
-                                class="subdrop {{ request()->routeIs('production') ? 'active' : '' }}"><i
-                                    data-feather="users"></i><span>Production Management</span><span
-                                    class="menu-arrow"></span></a>
+                            <x-nav-link icon="settings" :active="request()->is('production*')">Production
+                                Management</x-nav-link>
                             <ul>
+                                <!-- BOM MENU START -->
                                 <li>
-                                    <a href="javascript:void(0);"
-                                        class="subdrop {{ request()->routeIs('production') ? 'active' : '' }}"><i
-                                            data-feather="users"></i><span>Bill Of Materials</span><span
-                                            class="menu-arrow"></span></a>
-                                    <ul>
+                                    <x-nav-link icon="list" :active="request()->is('bom*')">Bill Of
+                                        Materials</x-nav-link>
+                                    <ul style="margin-left: 20px;">
                                         <li>
-                                            <a href="" class="">BOM's Product</a>
+                                            <x-link href="{{ route('bom.index') }}">BOM Lists</x-link>
                                         </li>
                                         <li>
-                                            <a href="" class="">Cost Estimation</a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="">Production Planning</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('production_plan_status.index') }}"
-                                                class="{{ request()->is('production_plan_status.index') ? 'active' : '' }}">Production
-                                                Planning Status</a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="">Production Planning Section</a>
+                                            <x-link>Cost Estimation</x-link>
                                         </li>
                                     </ul>
                                 </li>
+                                <!-- BOM MENU END -->
                                 <li>
-                                    <a href="{{ route('roles.index') }}"
-                                        class="{{ request()->routeIs('roles') ? 'active' : '' }}">All Roles</a>
+                                    <x-nav-link icon="list" :active="request()->is('plans*')">Production
+                                        Plan</x-nav-link>
+                                    <ul style="margin-left: 20px;">
+                                        <li>
+                                            <x-link href="{{ route('production-plans.index') }}"
+                                                :active="request()->is('production-plan*')">Production Plans</x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('production_plan_status.index') }}"
+                                                :active="request()->is('production_plan_status*')">Plan Status</x-link>
+                                        </li>
+                                    </ul>
                                 </li>
+                                {{-- Production Work Order Section  --}}
+                                <li>
+                                    <x-nav-link icon="list" :active="request()->is('production-work*')">Production Work
+                                        Order</x-nav-link>
+                                    <ul style="margin-left: 20px;">
+                                        <li>
+                                            <x-link href="{{ route('production-work-orders.index') }}"
+                                                :active="request()->is('production-work-orders*')">Work Order List</x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('production-work-status.index') }}"
+                                                :active="request()->is('production-work-status*')">Work Status</x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('production_work_sections.index') }}"
+                                                :active="request()->is('production_work_sections*')">Production Sections</x-link>
+                                        </li>
+                                    </ul>
+                                </li>
+                                {{-- Production Floor Management Menu --}}
+                                <li>
+                                    <x-nav-link icon="list" :active="request()->is('production-stages*')">
+                                        Production Stages
+                                    </x-nav-link>
+                                    <ul style="margin-left: 20px;">
+                                        <li>
+                                            <x-link href="{{ route('cutting.index') }}" :active="request()->is('production-stages/cutting')">
+                                                Cutting Lists
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('sweing.index') }}" :active="request()->is('production-stages/sweing')">
+                                                Sweing Lists
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('cutting.completed') }}" :active="request()->is('production-stages/completed')">
+                                                Cutting Completed List
+                                            </x-link>
+                                        </li>
+                                    </ul>
+                                </li>
+
                             </ul>
                         </li>
-                        {{-- PRODUCTION MODULE MENU END --}}
-                        <!-- 🔸 Order & Customers -->
+                        <!-- END Prodcution Module Menu -->
+
+                        <!--START 🔸 Order & Customers -->
                         <li class="submenu">
-                            <a href="javascript:void(0);">
-                                <i data-feather="shopping-cart"></i>
-                                <span>Orders & Customers</span>
-                                <span class="menu-arrow"></span>
-                            </a>
+                            <x-nav-link :active="request()->is('orders*') || request()->is('buyers*')">Orders & Buyers</x-nav-link>
                             <ul>
                                 <!-- 🔹 Orders -->
-                                <li><a href="{{ url('/orders') }}">Orders</a></li>
-                                <li><a href="{{ url('/orders/create') }}">Create Order</a></li>
-                                <li><a href="{{ url('/orders/pending') }}">Pending Orders</a></li>
-                                <li><a href="{{ url('/orders/pending') }}">Running Orders</a></li>
-                                <li><a href="{{ url('/orders/completed') }}">Completed Orders</a></li>
-
-                                <!-- 🔹 Customers -->
-                                <li><a href="{{ url('/buyers') }}">Buyers</a></li>
-                                <li><a href="{{ url('/customers/groups') }}">Customer Groups</a></li>
+                                <li><x-link href="{{ url('/buyers') }}" :active="request()->is('buyers')">Buyers</x-link></li>
+                                <li><x-link href="{{ url('/customers/groups') }}" :active="request()->is('customers/groups')">Customer
+                                        Groups</x-link></li>
+                                <li><x-link href="{{ url('/orders') }}" :active="request()->is('orders')">Orders</x-link></li>
+                                <li><x-link href="{{ url('/orders/create') }}" :active="request()->is('orders/create')">Create
+                                        Orders</x-link>
+                                </li>
+                                <li><x-link href="{{ url('/orders/pending') }}" :active="request()->is('orders/pending')">Pending
+                                        Orders</x-link></li>
+                                <li><x-link href="{{ url('/orders/running') }}" :active="request()->is('orders/running')">Running
+                                        Orders</x-link></li>
+                                <li><x-link href="{{ url('/orders/completed') }}" :active="request()->is('orders/completed')">Completed
+                                        Orders</x-link></li>
+                                <li><x-link href="{{ route('order_status.index') }}" :active="request()->is('order_status.index')">Order
+                                        Status</x-link></li>
+                                <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color
+                                        Lists</x-link>
+                                </li>
+                                <li><x-link href="{{ route('sizes.index') }}" :active="request()->is('sizes')">Size
+                                        Lists</x-link>
+                                </li>
+                                <li><x-link href="{{ route('fabric_types.index') }}" :active="request()->is('fabric_types')">Fabrics
+                                        Types</x-link></li>
 
                                 <!-- 🔹 Invoices & Payments -->
-                                <li><a href="{{ url('/invoices') }}">Invoices</a></li>
-                                <li><a href="{{ url('/payments') }}">Payments</a></li>
-                                <li><a href="{{ url('/refunds') }}">Refunds</a></li>
+                                <li><x-link href="{{ url('/invoices') }}" :active="request()->is('invoices')">Invoices</x-link></li>
+                                <li><x-link href="{{ url('/payments') }}" :active="request()->is('payments')">Payments</x-link></li>
+                                <li><x-link href="{{ url('/refunds') }}" :active="request()->is('refunds')">Refunds</x-link></li>
+                                {{-- Start Menu HR & Workforce Management --}}
 
-                                <!-- 🔹 Sales Reports -->
-                                <li><a href="{{ url('/reports/sales') }}">Sales Reports</a></li>
-                                <li><a href="{{ url('/reports/revenue') }}">Revenue Report</a></li>
+                                {{-- End Menu HR & Workforce Management --}}
                             </ul>
                         </li>
-                        {{-- End Sales Module --}}
-
-                        {{-- Start Inventory Module --}}
-                        <li class="submenu">
-                            <a href="javascript:void(0);">
-                                <i data-feather="shopping-bag"></i>
-                                <span>Inventory & Warehouse</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul>
-                                <!-- 🔹 Categories -->
-                                <li><a href="{{ url('/category') }}">Categories</a></li>
-
-                                <!-- 🔹 Warehouse & Stock -->
-                                <li><a href="{{ url('/warehouses') }}">Warehouses</a></li>
-                                <li><a href="{{ url('/storage-locations') }}">Storage Locations</a></li>
-                                <li><a href="{{ url('/stock-movements') }}">Stock Movements</a></li>
-
-                                <!-- 🔹 Stock Management -->
-                                <li>
-                                    <a href="{{ url('/products') }}">Stock Overview</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/products/create') }}">Raw Materials</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/products/create') }}">Product Catelog</a>
-                                </li>
-                                <li><a href="{{ url('/products/variants') }}">Finished Goods</a></li>
-                                <li><a href="{{ url('/products/barcode') }}">Print Barcode & QR</a></li>
-
-                                <!-- 🔹 Inventory Valuation -->
-                                <li class="submenu">
-                                    <a href="javascript:void(0);">Inventory Valuation <span
-                                            class="menu-arrow"></span></a>
-                                    <ul>
-                                        <li><a href="{{ url('/inventory/valuation/fifo') }}">FIFO</a></li>
-                                        <li><a href="{{ url('/inventory/valuation/lifo') }}">LIFO</a></li>
-                                        <li><a href="{{ url('/inventory/valuation/weighted') }}">Weighted Avg</a></li>
-                                    </ul>
-                                </li>
-
-                                <!-- 🔹 Reports -->
-                                <li><a href="{{ url('/inventory/reports') }}">Inventory Reports</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- 🔸 Suppliers & Purchase -->
-                        <li class="submenu">
-                            <a href="javascript:void(0);">
-                                <i data-feather="truck"></i>
-                                <span>Suppliers & Purchases</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <ul>
-                                <li><a href="{{ url('/suppliers') }}">Suppliers</a></li>
-                                <li><a href="{{ url('/purchases') }}">Purchase Orders</a></li>
-                                <li><a href="{{ url('/payments/suppliers') }}">Payments</a></li>
-                                <li><a href="{{ url('/reports/purchases') }}">Purchase Reports</a></li>
-                            </ul>
-                        </li>
-
-                        <!--END 🔸 Suppliers & Purchase -->
-
                         {{-- Start HR & Workforce Management --}}
 
                         <li class="submenu">
-                            <a href="javascript:void(0);"><i data-feather="file-minus"></i><span>HR &
-                                    Workforce</span><span class="menu-arrow"></span></a>
+                            <x-nav-link :active="request()->is('hrm*')">HR & Workforce</x-nav-link>
                             <ul>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Department<span
-                                            class="menu-arrow inside-submenu"></span></a>
+                                {{-- @endif --}}
+
+                                {{-- @if (Auth::user()->isAdmin()) --}}
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Department<span class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Department</a></li>
-                                        <li><a href="javascript:void(0);">Sub Department</a></li>
+                                        <li><x-link href="{{ route('hrm_departments.index') }}"
+                                                :active="request()->is('hrm_departments.index')">Department</x-link></li>
+                                        <li><x-link href="{{ route('hrm_sub_departments.index') }}"
+                                                :active="request()->is('hrm_sub_departments.index')">Sub
+                                                Department</x-link></li>
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Employee<span
-                                            class="menu-arrow inside-submenu"></span></a>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Designation<span class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Position</a></li>
-                                        <li><a href="javascript:void(0);">Employee</a></li>
-                                        <li><a href="javascript:void(0);">Employee Performance</a></li>
+                                        <li><x-link href="{{ route('hrm_designations.index') }}"
+                                                :active="request()->is('hrm_designations.index')">Desigination List</x-link></li>
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Attendance<span
-                                            class="menu-arrow inside-submenu"></span></a>
+
+
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Employee<span class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Attendance Form</a></li>
-                                        <li><a href="javascript:void(0);">Attendance List</a></li>
+                                        <li><x-link href="{{ route('hrm_employees.index') }}"
+                                                :active="request()->is('hrm_employees.index')">Employee
+                                                List</x-link></li>
+                                        <li><x-link href="{{ route('hrm_employee_bank_accounts.index') }}"
+                                                :active="request()->is('hrm_employee_bank_accounts.index')">Employee Banc Account</x-link></li>
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Leave<span
-                                            class="menu-arrow inside-submenu"></span></a>
+
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Employee Performence<span
+                                            class="menu-arrow"></span></a>
                                     <ul>
-                                        <li class="submenu submenu-two submenu-three">
-                                            <a href="javascript:void(0);">Leave<span
-                                                    class="menu-arrow inside-submenu inside-submenu-two"></span></a>
-                                            <ul>
-                                                <li><a href="javascript:void(0);">Leave Type</a></li>
-                                                <li><a href="javascript:void(0);">Leave Approval</a></li>
-                                                <li><a href="javascript:void(0);">Leave Application</a></li>
-                                            </ul>
+                                        <li><x-link href="{{ route('hrm_employee_performances.index') }}"
+                                                :active="request()->is('hrm_employee_performances.index')">Performence List</x-link></li>
+                                    </ul>
+                                </li>
+
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Payroll<span class="menu-arrow"></span></a>
+                                    <ul>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Salary
+                                                Advance</x-link>
                                         </li>
-                                        <li><a href="javascript:void(0);">Holiday</a></li>
+                                        <li><x-link href="{{ route('hrm_payslips.create') }}" :active="request()->is(route('hrm_payslips.create'))">Set
+                                                Salary</x-link></li>
+                                        <li><x-link href="{{ route('hrm_payslips.index') }}"
+                                                :active="request()->is(route('hrm_payslips.index'))">Payslip</x-link></li>
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Payroll<span
-                                            class="menu-arrow inside-submenu"></span></a>
+
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Award<span class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Salary Advance</a></li>
-                                        <li><a href="javascript:void(0);">Set Salary</a></li>
-                                        <li><a href="javascript:void(0);">Payslip</a></li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Award List</x-link>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Notice Board<span
-                                            class="menu-arrow inside-submenu"></span></a>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Recruitment<span class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Notice</a></li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Candidate
+                                                List</x-link>
+                                        </li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Interview</x-link>
+                                        </li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Candidate
+                                                Selection</x-link></li>
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Recruitment<span
-                                            class="menu-arrow inside-submenu"></span></a>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Report<span class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Candidate List</a></li>
-                                        <li><a href="javascript:void(0);">Interview</a></li>
-                                        <li><a href="javascript:void(0);">Candidate Selection</a></li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Attendance
+                                                Report</x-link></li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Leave Report</x-link>
+                                        </li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Employee
+                                                Report</x-link>
+                                        </li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Payroll</x-link></li>
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Procurement<span
-                                            class="menu-arrow inside-submenu"></span></a>
+                                {{-- @endif --}}
+
+                                {{-- @if (Auth::user()->isEmployee() || Auth::user()->isAdmin()) --}}
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Attendence<span class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Request</a></li>
-                                        <li><a href="javascript:void(0);">Quotation</a></li>
-                                        <li><a href="javascript:void(0);">Bid analysis</a></li>
-                                        <li><a href="javascript:void(0);">Purchase Order</a></li>
-                                        <li><a href="javascript:void(0);">Goods Received</a></li>
-                                        <li><a href="javascript:void(0);">Vendors</a></li>
-                                        <li><a href="javascript:void(0);">Commitees</a></li>
-                                        <li><a href="javascript:void(0);">Units</a></li>
+                                        <li><x-link href="{{ route('hrm_attendance_list.index') }}"
+                                                :active="request()->is('hrm_attendance_list.index')">Attendence List</x-link></li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Attendence
+                                                Details</x-link></li>
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Award<span
-                                            class="menu-arrow inside-submenu"></span></a>
+
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Leave<span class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Award List</a></li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Holiday</x-link></li>
+                                        <li><x-link href="{{ route('hrm_leave_types.index') }}"
+                                                :active="request()->is('hrm_leave_types.index')">Leave
+                                                Type</x-link></li>
+                                        <li><x-link href="{{ route('hrm_leave_applications.index') }}"
+                                                :active="request()->is('hrm_leave_applications.index')">Leave Application</x-link></li>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Leave
+                                                Details</x-link>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two">
-                                    <a href="javascript:void(0);">Reports<span
-                                            class="menu-arrow inside-submenu"></span></a>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Timesheet<span class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><a href="javascript:void(0);">Attendance Report</a></li>
-                                        <li><a href="javascript:void(0);">Leave Report</a></li>
-                                        <li><a href="javascript:void(0);">Employee Report</a></li>
-                                        <li><a href="javascript:void(0);">Payroll</a></li>
+                                        <li><x-link href="{{ route('hrm_employee_timesheets.index') }}"
+                                                :active="request()->is('hrm_employee_timesheets.index')">Timesheet</x-link></li>
                                     </ul>
                                 </li>
+                                <li class="submenu">
+                                    <a href="javascript:void(0);">Notice Board<span class="menu-arrow"></span></a>
+                                    <ul>
+                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Notice</x-link></li>
+                                    </ul>
+                                </li>
+                                {{-- @endif --}}
+
                             </ul>
                         </li>
 
@@ -382,43 +401,70 @@
                                     </ul>
                                 </li>
 
-                                <li class="submenu submenu-two"><a href="javascript:void(0);">Financial Reporting<span
-                                            class="menu-arrow inside-submenu"></span></a>
-                                    <ul>
-                                        <li><a href="">Balance Sheet</a></li>
-                                        <li><a href="">Profit & Loss Statement</a></li>
-                                        <li><a href="">Cash Flow Statement</a></li>
-                                        <li><a href="">Tax Reports</a></li>
-                                        <li><a href="">Custom Report</a></li>
-                                        <li><a href="">Consolidated Financial Reports</a></li>
-                                    </ul>
-                                </li>
-                                <li class="submenu submenu-two"><a href="">Fixed Asset Maangement<span
-                                            class="menu-arrow inside-submenu"></span></a>
-                                    <ul>
-                                        <li><a href="">Asset Register</a></li>
-                                        <li><a href="">Depreciation</a></li>
-                                        <li><a href="">Asset Disposal</a></li>
-                                        <li><a href="">Asset Reports</a></li>
-                                    </ul>
-                                </li>
-                                <li class="submenu submenu-two"><a href="">Taxation Management<span
-                                            class="menu-arrow inside-submenu"></span></a>
-                                    <ul>
-                                        <li><a href="">Tax Setup</a></li>
-                                        <li><a href="">Tax Calculations</a></li>
-                                        <li><a href="">Tax Filing Reports</a></li>
-                                        <li><a href="">Tax Deduction at Source</a></li>
-                                    </ul>
+                                <!-- 🔹 Reports -->
+                                <li>
+                                    <x-link href="{{ url('/inventory/reports') }}" :active="request()->is('inventory/reports')">Inventory
+                                        Reports</x-link>
                                 </li>
                             </ul>
                         </li>
-                        {{-- FINANCE & ACCOUNTS MODULE MENU END --}}
-
-
+                        {{-- End Inventory Module --}}
+                        <!-- 🔸 Suppliers & Purchase -->
+                        <li class="submenu">
+                            <x-nav-link :active="request()->is('suppliers*') ||
+                                request()->is('purchase*') ||
+                                request()->is('payments/suppliers') ||
+                                request()->is('purchase/create') ||
+                                request()->is('purchaseState') ||
+                                request()->is('purchase-report') ||
+                                request()->is('payments')">Suppliers & Purchases</x-nav-link>
+                            <ul>
+                                <li>
+                                    <x-link href="{{ url('/suppliers') }}" :active="request()->is('suppliers')">Suppliers</x-link>
+                                </li>
+                                <li>
+                                    <x-link href="{{ route('purchase.create') }}" :active="request()->is('/purchase/create')">Create Purchase
+                                    </x-link>
+                                </li>
+                                <li><x-link href="{{ url('/purchaseState') }}" :active="request()->is('payments/suppliers')">Pending Purchase
+                                    </x-link></li>
+                                <li>
+                                    <x-link href="{{ url('/purchase') }}" :active="request()->is('purchase')">Confirm Purchase</x-link>
+                                </li>
+                                {{-- <li><x-link href="{{ url('/payments/suppliers') }}" :active="request()->is('payments/suppliers')">Payments</x-link></li> --}}
+                                <li><x-link href="{{ url('purchase-report') }}" :active="request()->is('purchase-report')">Purchase
+                                        Reports</x-link></li>
+                                <li><x-link href="{{ url('payments') }}" :active="request()->is('payments')">Payments</x-link></li>
+                            </ul>
+                        </li>
+                        <!-- END 🔸 Suppliers & Purchase -->
+                    </ul>
                 </li>
             </ul>
-            </li>
         </div>
     </div>
 </div>
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            var currentUrl = window.location.href;
+
+            // Add active class to the current menu
+            $(".sidebar-menu ul li a").each(function() {
+                if (this.href === currentUrl) {
+                    $(this).addClass("active");
+                    $(this).closest("li.submenu").addClass("active"); // Open parent menu
+                    $(this).closest("ul").slideDown();
+                }
+            });
+
+          //  Toggle submenu on click
+            $(".submenu > a").click(function() {
+                $(this).toggleClass("active");
+                $(this).next("ul").slideToggle();
+                $(this).parent().toggleClass("active");
+            });
+        });
+    </script>
+@endsection

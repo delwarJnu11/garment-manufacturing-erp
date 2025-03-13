@@ -19,3 +19,20 @@
     background-color: #ff1a1a !important;
     color: #fff !important;
 }
+
+.menu-bg {
+    background-color: purple !important;
+    color: #fff !important;
+}
+
+.form-control:focus {
+    outline: 1px solid #800080 !important; 
+    border-color: #800080 !important; 
+    box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25) !important;
+}
+
+.form-select:focus{
+    outline: 1px solid #800080 !important; 
+    /* border-color: #800080 !important;  */
+    box-shadow: 0 0 0 0.2rem rgba(128, 0, 128, 0.25) !important;
+}

@@ -13,7 +13,7 @@ class ColorController extends Controller
     public function index()
     {
         $colors = Color::paginate(4);
-        return view('pages.sales-and-orders.color.index',compact('colors'));
+        return view('pages.orders_&_Buyers.color.index', compact('colors'));
     }
 
     /**
@@ -31,7 +31,7 @@ class ColorController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-        ],[
+        ], [
             'name.required' => 'The color name field is required.',
         ]);
 

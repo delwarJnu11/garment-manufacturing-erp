@@ -39,13 +39,13 @@ class HrmDesignationsController extends Controller
             'name' => 'required|string|max:50',
             'description' => 'required|string|max:200',
             'statuses_id' => 'required|string|max:200',
-            'departments_id' => 'required|string|max:200'
+            'department_id' => 'required|string|max:200'
         ]);
 
         $designations = new Hrm_designations();
         $designations->name= $request->name;
         $designations->statuses_id= $request->statuses_id;
-        $designations->departments_id= $request->departments_id;
+        $designations->department_id= $request->department_id;
         $designations->description= $request->description;
 
         if($designations->save()){

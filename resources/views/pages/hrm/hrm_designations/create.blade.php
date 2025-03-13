@@ -24,13 +24,13 @@
                         <label class="col-lg-2 col-form-label">Department Name :</label>
                         <div class="col-lg-10">
                             {{-- <input type="text" name="statuses_id" value="{{old('statuses_id')}}" class="form-control" placeholder="Enter Status Name..."  autocomplete="name"> --}}
-                            <select name="departments_id" id="departments_id"  class="form-select">
+                            <select name="department_id" id="department_id"  class="form-select">
                                 <option value="" >Select a Department </option>
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                 @endforeach
                             </select>
-                            <x-input-error :messages="$errors->get('departments_id')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
                         </div>
                     </div>
                     <div class="row mb-3">

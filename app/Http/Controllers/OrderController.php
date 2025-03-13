@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buyer;
+use App\Models\fabricType;
 use App\Models\Order;
+use App\Models\OrderStatus;
+use App\Models\Size;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,8 +17,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate(4);
-        return view('pages.sales-and-orders.order.create', compact('orders'));
+        $orders = Order::with([
+            'buyer',
+            'status',
+            'orderDetails.product',
+            'orderDetails.size',
+            'orderDetails.color',
+            'orderDetails.uom'
+        ])->groupBy('order_number')->paginate(4);
+
+        // Get all unique sizes dynamically
+        $sizes = Size::pluck('name')->toArray();
+
+        return view('pages.orders_&_buyers.order.index', compact('orders', 'sizes'));
     }
 
     /**
@@ -21,8 +37,14 @@ class OrderController extends Controller
      */
     public function create()
     {
+        $buyers = Buyer::all();
+        $supervisors = User::whereHas('role', function ($query) {
+            $query->where('name', 'Supervisor');
+        })->get();
+        $order_status = OrderStatus::all();
+        $fabrics_types = fabricType::all();
 
-        return view('pages.sales-and-orders.order.create');
+        return view('pages.orders_&_buyers.order.create', compact('buyers', 'supervisors', 'order_status', 'fabrics_types'));
     }
 
     /**
@@ -57,7 +79,7 @@ class OrderController extends Controller
         // Generate the order number with current time
         $orderNumber = 'ORD-' . time();
 
-        // Now manually assign and create the order
+
         $order = Order::create([
             'order_number'  => $orderNumber,
             'buyer_id'      => $request->buyer_id,
@@ -70,7 +92,7 @@ class OrderController extends Controller
         ]);
 
         // Return success response
-        return redirect()->route('orders.index')->with('success', 'Order created successfully!');
+        return redirect()->route('order_details.create')->with('success', 'Order created successfully!');
     }
 
 

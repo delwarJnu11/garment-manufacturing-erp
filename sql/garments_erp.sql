@@ -49,7 +49,7 @@ CREATE TABLE products (
     offer_price DECIMAL(10,2) DEFAULT(0.00), -- Discounted price
     weight INT NULL, -- Weight in grams/kilograms
     size_id INT, -- Reference to size table
-    is_raw_material INT NOT NULL, -- 1 = Raw Material, 0 = Finished Product
+    product_type_id INT NOT NULL, -- 1 = Raw Material, 0 = Finished Product
     barcode VARCHAR(255) UNIQUE NULL, -- Barcode for scanning
     rfid VARCHAR(255) UNIQUE NULL, -- RFID for tracking
     category_id INT NOT NULL, -- Reference to categories table
@@ -61,13 +61,13 @@ CREATE TABLE products (
 );
 
 
-CREATE TABLE product_variants (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    variant_name VARCHAR(255) NOT NULL, -- Variant name (e.g., Small, Medium, Large)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE product_variants (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     product_id INT NOT NULL, -- Reference to products table
+--     variant_name VARCHAR(255) NOT NULL, -- Variant name (e.g., Small, Medium, Large)
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
 
 CREATE TABLE uom(
@@ -94,18 +94,18 @@ CREATE TABLE warehouses (
 );
 
 
-CREATE TABLE storage_locations (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    warehouse_id INT NOT NULL, -- Reference to warehouses table
-    location_name VARCHAR(255) NOT NULL, -- Section name (e.g., Aisle 1, Rack 2)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE storage_locations (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     warehouse_id INT NOT NULL, -- Reference to warehouses table
+--     location_name VARCHAR(255) NOT NULL, -- Section name (e.g., Aisle 1, Rack 2)
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
 --End warehouses Management
 
 -- Inventory Stock
-CREATE TABLE stock_in (
+CREATE TABLE stock (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL, -- Reference to products table
     quantity INT NOT NULL, -- Quantity received
@@ -118,21 +118,63 @@ CREATE TABLE stock_in (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 CREATE TABLE lots (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    quantity INT NOT NULL, -- Quantity received
-    cost_price double,
-    sales_price double,
+    raw_material_id INT NOT NULL, -- Reference to raw_materials table
+    quantity INT NOT NULL, -- Quantity of raw material received
+    cost_price DOUBLE,
     warehouse_id INT NOT NULL, -- Reference to warehouses table
-    transaction_type_id int ,
-    description text,
+    description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE purchase_orders(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    supplier_id INT NOT NULL,
+    lot_id INT, -- Foreign key referencing 'lots' table (for raw materials)
+    status_id INT NOT NULL,
+    order_total DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
+    paid_amount DECIMAL(10,2) DEFAULT(0.00),
+    discount DECIMAL(10,2) DEFAULT(0.00),
+    vat DECIMAL(10,2) DEFAULT(0.00),
+    delivery_date DATE,
+    shipping_address VARCHAR(255),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (lot_id) REFERENCES lots(id) ON DELETE SET NULL
+);
 
 
+
+CREATE TABLE suppliers(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(80) NOT NULL,
+    last_name VARCHAR(80) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    photo VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE purchase_orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    supplier_id INT NOT NULL,
+    status_id INT NOT NULL,
+    order_total DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
+    paid_amount DECIMAL(10,2) DEFAULT(0.00),
+    discount DECIMAL(10,2) DEFAULT(0.00),
+    vat DECIMAL(10,2) DEFAULT(0.00),
+    delivery_date DATE,
+    shipping_address VARCHAR (255),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
 
 
@@ -206,47 +248,6 @@ CREATE TABLE inventory_audit (
 -- END  Inventory & Warehouse Management Module
 
 
-CREATE TABLE suppliers(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(80) NOT NULL,
-    last_name VARCHAR(80) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-    phone VARCHAR(20) UNIQUE NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    photo VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE purchases(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    supplier_id INT NOT NULL,
-    lot_id int,
-    status_id int NOT NULL,
-    order_total DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
-    paid_amount DECIMAL(10,2) DEFAULT(0.00),
-    discount DECIMAL(10,2) DEFAULT(0.00),
-    vat DECIMAL(10,2) DEFAULT(0.00),
-    delivery_date DATE,
-    shipping_address VARCHAR (255),
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE purchase_details(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    purchase_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    price DECIMAL(10,2) DEFAULT(0.00) NOT NULL,
-    discount_price DECIMAL(10,2) DEFAULT(0.00),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-
-
 CREATE TABLE purchase_returns (
     id INT AUTO_INCREMENT PRIMARY KEY,
     purchase_id INT NOT NULL, -- Reference to purchases table
@@ -284,6 +285,7 @@ CREATE TABLE inventory (
 );
 ________________________________________
 -- 1.5 Stock Movements Table
+
 
 ________________________________________
 -- 1.6 Stock Adjustment Table
@@ -557,7 +559,6 @@ CREATE TABLE bom (
     total_cost DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 
@@ -565,31 +566,18 @@ CREATE TABLE bom_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     bom_id INT,
     material_id INT,
+    size_id INT,
     quantity_used DECIMAL(10,2),
-    unit_cost
+    unit_cost DECIMAL(10,2),
     wastage DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id),
-    -- FOREIGN KEY (material_id) REFERENCES materials(id)
 );
 
 
 
--- Cost Estimation & Control
-CREATE TABLE prodcution_cost_estimations (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
-    bom_id INT,
-    material_cost DECIMAL(10,2),
-    labor_cost DECIMAL(10,2),
-    overhead_cost DECIMAL(10,2),
-    utility_cost DECIMAL(10,2),
-    total_cost DECIMAL(10,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
-);
+-- PRODUCTION
+
 
 
 CREATE TABLE material_usage (
