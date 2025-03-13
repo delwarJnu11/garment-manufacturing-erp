@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\supplierMail;
+use App\Models\BankAccount;
 use App\Models\inv_suppliers;
 use App\Models\InvSupplier;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class InvSuppliersController extends Controller
      */
     public function index()
     {
-        $suppliers = InvSupplier::paginate(4);
+        $suppliers = InvSupplier::with('bankAccount')->paginate(4);
         // Mail::to('abc@gmail.com')->send(new supplierMail($suppliers));
         return view('pages.purchase_&_supliers.Suppliers.suppliers', compact('suppliers'));
     }
@@ -25,7 +26,8 @@ class InvSuppliersController extends Controller
      */
     public function create()
     {
-        return view('pages.purchase_&_supliers.Suppliers.create');
+        $bankAccounts = BankAccount::where('account_for_id', 1)->get();
+        return view('pages.purchase_&_supliers.Suppliers.create', compact('bankAccounts'));
     }
 
     /**
@@ -36,6 +38,7 @@ class InvSuppliersController extends Controller
         $request->validate([
             "first_name" => "required|string|max:40",
             "last_name" => "required|string|max:40",
+            "bank_account_id" => "nullable",
             "email" => "required|email|unique:inv_suppliers,email,max:50",
             "phone" => "required|string|unique:inv_suppliers,phone,max:20",
             "address" => "required|string|max:100",
@@ -56,6 +59,7 @@ class InvSuppliersController extends Controller
         InvSupplier::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
+            'bank_account_id' => $request->bank_account_id,
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,

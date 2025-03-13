@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('product_type_id'); // Integer column for product_type_id
-            $table->integer('size_id')->nullable(); // Integer column for product_type_id
+            $table->integer('product_type_id'); // Integer column for product_type_id 1=Raw material, 2= Finished Goods
+            $table->integer('size_id')->nullable(); //For Finished goods only
             $table->string('sku')->unique();
             $table->integer('qty')->default(1);
             $table->integer('uom_id')->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
         Product::create([
             'name' => 'Red Cotton Fabric',
             'product_type_id' => 1, // Example: 1 for Raw Material
-            'size_id' => 1,
+
             'sku' => 'RCF-001',
             'qty' => 50,
             'uom_id' => 1,

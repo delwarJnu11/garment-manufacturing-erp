@@ -36,24 +36,24 @@ class StockController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'product_id' => "required",
-            'warehouse_id' => "required",
-            'qty' => "required",
-            // 'warehouse_id' => "nullable",
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'product_id' => "required",
+    //         'warehouse_id' => "required",
+    //         'qty' => "required",
+    //         // 'warehouse_id' => "nullable",
+    //     ]);
 
-        Stock::create([
-            'product_id' => $request->product_id,
-            'warehouse_id' => $request->warehouse_id,
-            'qty' => $request->qty,
-            'total_value' => $request->total_value,
-        ]);
+    //     Stock::create([
+    //         'product_id' => $request->product_id,
+    //         'warehouse_id' => $request->warehouse_id,
+    //         'qty' => $request->qty,
+    //         'total_value' => $request->total_value,
+    //     ]);
 
-        return redirect()->route('stocks.index')->with('success', 'Stock overview created successfully');
-    }
+    //     return redirect()->route('stocks.index')->with('success', 'Stock overview created successfully');
+    // }
 
 
     /**

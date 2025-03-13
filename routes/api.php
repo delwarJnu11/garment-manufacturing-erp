@@ -29,3 +29,4 @@ Route::post('purchase', [PurchaseOrderController::class, 'store']);
 Route::prefix('production-stages')->group(function () {
     Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');
 });
+// Route::post('/adjustment', [StockAdjustmentController::class, 'store']);

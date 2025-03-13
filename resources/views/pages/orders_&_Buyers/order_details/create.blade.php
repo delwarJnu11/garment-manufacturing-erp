@@ -216,7 +216,11 @@
                 console.log(newItems)
 
                 $.ajax({
+<<<<<<< HEAD
                     url: '/api/order_details',
+=======
+                    url: "/api/order_details",
+>>>>>>> 5974f2b7ccea101babc15445f301e85a12c4dcb9
                     type: "POST",
                     data: JSON.stringify({
                         items: newItems

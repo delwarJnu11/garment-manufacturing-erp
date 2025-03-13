@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountTypesController;
 
 // use App\Http\Controllers\Api\ProductController as ApiProductController;
 
+
 use App\Http\Controllers\Api\OrderDetailsController;
 
 use App\Http\Controllers\AssetStatusController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\BomController;
 use App\Http\Controllers\BomDetailsController;
 use App\Http\Controllers\BuyerController;
 // use App\Http\Controllers\CategoryAttributesController;
+
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\ColorController;
@@ -34,7 +36,7 @@ use App\Http\Controllers\MovementTypeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
-use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\ProductionPlanController;
 use App\Http\Controllers\ProductionWorkSectionController;
 use App\Http\Controllers\ProductionWorkOrderController;
@@ -45,8 +47,8 @@ use App\Http\Controllers\ProductTypeController;
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseOrderController;
-use App\Http\Controllers\PurchaseOrdersController;
-use App\Http\Controllers\Raw_materialController;
+
+use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\StatusController;
@@ -57,9 +59,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
 // use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PurchaseReportController;
 use App\Http\Controllers\PurchaseStateController;
 use App\Http\Controllers\SweingController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchasePaymentController;
+use App\Http\Controllers\PurchaseReportController;
+use App\Http\Controllers\SalesInvoiceController;
+use App\Http\Controllers\StockAdjustmentController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -167,22 +173,33 @@ Route::resource('companyProfile', CompanyProfileController::class);
 /**
  * Invetory/category
  **/
-Route::resource('status', StatusController::class);
-Route::resource('category', CategoryController::class);
-Route::resource('categoryType', CategoryTypeController::class);
-Route::resource('raw_materials', Raw_materialController::class);
+
 Route::resource('sizes', SizeController::class);
 
-Route::resource('stockMovements', StockMovementController::class);
-Route::resource('movementTypes', MovementTypeController::class);
+
+Route::prefix('stock')->group(function () {
+    Route::resource('stock_adjustments', StockAdjustmentController::class);
+    Route::resource('status', StatusController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('product_lots', ProductlotController::class);
+    Route::resource('categoryType', CategoryTypeController::class);
+    Route::resource('raw_materials', RawMaterialController::class);
+    Route::resource('product_types', ProductTypeController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('stocks', StockController::class);
+    Route::resource('productCatelogues', ProductCatelogueController::class);
+    Route::resource('warehouses', WarehouseController::class);
+    Route::resource('stockMovements', StockMovementController::class);
+    Route::resource('movementTypes', MovementTypeController::class);
+});
+// Route::resource('stock_adjustments', StockAdjustmentController::class);
+
+
 /**
  * Warehouse
  **/
-Route::resource('product_types', ProductTypeController::class);
-Route::resource('products', ProductController::class);
-Route::resource('stocks', StockController::class);
-Route::resource('productCatelogues', ProductCatelogueController::class);
-Route::resource('warehouses', WarehouseController::class);
+
+
 // Route::resource('productsApi', ApiProductController::class);
 
 
@@ -191,11 +208,20 @@ Route::resource('buyers', BuyerController::class);
 /**
  * Suppliers and Purcahse
  */
+// sales invoice 
+Route::resource('sales-invoice', SalesInvoiceController::class);
+Route::post('find_buyer', [SalesInvoiceController::class, 'find_buyer']);
+Route::get('order/show', [SalesInvoiceController::class, 'show']);
+
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
 
+//adjusment
+
+// Route::middleware('auth')->get('/stock-adjustment', [StockAdjustmentController::class, 'create']);
+
 Route::resource('valuations', ValuationMethodsController::class);
-Route::resource('product_lots', ProductlotController::class);
+
 Route::resource('purchase', PurchaseOrderController::class);
 Route::get('/invoice/{id}/print', [PurchaseOrderController::class, 'print'])->name('invoice.print');
 Route::get('purchase/{id}/generate-pdf', [PurchaseOrderController::class, 'generatePDF'])->name('purchase.generatePDF');
@@ -211,6 +237,8 @@ Route::post('/purchase/updateStatus', [PurchaseOrderController::class, 'updateSt
 // Report 
 Route::get('/purchase-report', [PurchaseReportController::class, 'index']);
 Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
+// payment 
+Route::resource('payments', PurchasePaymentController::class);
 
 
 /*
@@ -221,6 +249,7 @@ Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
+
 
 // Route::get('orders', [OrderDetailsController::class, 'index']);
 

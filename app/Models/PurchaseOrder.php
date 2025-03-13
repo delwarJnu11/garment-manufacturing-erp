@@ -48,7 +48,7 @@ class PurchaseOrder extends Model
      */
     public function purchase_status(): BelongsTo
     {
-        return $this->belongsTo(PurchaseStatus::class, 'status_id');
+        return $this->belongsTo(InvoiceStatus::class, 'status_id');
     }
 
     /**
@@ -57,5 +57,20 @@ class PurchaseOrder extends Model
     public function purchaseDetails(): HasMany
     {
         return $this->hasMany(PurchaseOrderDetail::class, 'purchase_id');
+    }
+
+    public function getDueAmountAttribute()
+    {
+        return $this->total_amount - $this->paid_amount;
+    }
+    public function getPaymentStatusAttribute()
+    {
+        if ($this->paid_amount == 0) {
+            return "Due";
+        } elseif ($this->paid_amount < $this->total_amount) {
+            return "Partially Paid"; // Fixed casing
+        } else {
+            return "Paid"; // Fixed casing
+        }
     }
 }
