@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('total_quantity')->default(0);
             $table->integer('target_quantity');
             $table->integer('actual_quantity')->default(0);
+            $table->integer('swen_complete')->default(0);
             $table->integer('wastage')->default(0);
             $table->decimal('efficiency', 5, 2)->nullable();
             $table->date('sewing_start_date')->nullable();

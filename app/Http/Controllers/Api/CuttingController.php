@@ -32,12 +32,14 @@ class CuttingController extends Controller
             // Update the ProductionWorkOrder
             $workOrder = ProductionWorkOrder::findOrFail($request->work_order_id);
 
+            $updatedCutting = Cutting::findOrFail($id);
+
             // After Cutting Completed Sweing Start
             Sweing::create([
-                'cutting_id'      => $cutting->id,
+                'cutting_id'      => $updatedCutting->id,
                 'work_order_id'   => $workOrder->id,
-                'total_quantity'    => $cutting->total_quantity,
-                'target_quantity' => $cutting->actual_quantity,
+                'total_quantity'    => $updatedCutting->total_quantity,
+                'target_quantity' => $updatedCutting->actual_quantity,
                 'sewing_status'   => 'In Progress',
                 'sewing_start_date' => now(),
             ]);

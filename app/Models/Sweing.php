@@ -16,6 +16,7 @@ class Sweing extends Model
         'total_pieces',
         'target_quantity',
         'actual_quantity',
+        'swen_complete',
         'wastage',
         'efficiency',
         'sewing_start_date',
