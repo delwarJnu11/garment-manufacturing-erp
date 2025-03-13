@@ -16,6 +16,9 @@
                 <th>Code</th>
                 <th>Name</th>
                 <th>Account Group</th>
+                <th>Is Active</th>
+                <th>Actions</th>
+                <th>Account Group</th>
                 <th class="text-center">Is Active</th>
                 <th class="text-center">Actions</th>
             </tr>
@@ -25,6 +28,9 @@
             <tr>
                 <td>{{ $account->code }}</td>
                 <td>{{ $account->name }}</td>
+                <td>{{ $account->accountGroup->name??'' }}</td>
+                <td>{{ $account->is_active ? 'Active' : 'Inactive' }}</td>
+                <td>
                 <td>{{ $account->accountGroup->name??"" }}</td>
                 <td class="text-center">{{ $account->is_active ? 'Active' : 'Inactive' }}</td>
                 <td class="text-center">
@@ -39,6 +45,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-center my-3">
+        {{ $accounts->links() }}
+    </div>
 
       <!-- Pagination links -->
       <div class="pagination-wrapper d-flex justify-content-center my-2">
