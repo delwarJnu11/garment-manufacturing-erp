@@ -23,7 +23,7 @@
                 <option value="Liablity">Liability</option> 
                 <option value="Revenue">Revenue</option>
                 <option value="Expense">Expense</option> -->
-                @foreach($parents as $group)
+                @foreach($accountGroups as $group)
                 <option value="{{ $group->id }}">{{ $group->name }}</option>
                 @endforeach
             </select>

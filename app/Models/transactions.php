@@ -17,4 +17,8 @@ class transactions extends Model
         'credit',
         'user_id',
     ];
+
+    function account(){
+        return $this->belongsTo(Account::class);
+    }
 }

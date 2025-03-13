@@ -15,9 +15,9 @@
             <tr>
                 <th>Code</th>
                 <th>Name</th>
-                <!-- <th>Account Group</th> -->
-                <!-- <th>Is Active</th> -->
-                <th>Actions</th>
+                <th>Account Group</th>
+                <th class="text-center">Is Active</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,9 +25,9 @@
             <tr>
                 <td>{{ $account->code }}</td>
                 <td>{{ $account->name }}</td>
-                <td>{{ $account->accountGroup->name }}</td>
-                <td>{{ $account->is_active ? 'Active' : 'Inactive' }}</td>
-                <td>
+                <td>{{ $account->accountGroup->name??"" }}</td>
+                <td class="text-center">{{ $account->is_active ? 'Active' : 'Inactive' }}</td>
+                <td class="text-center">
                     <a href="{{ route('accounts.edit', $account->id) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{ route('accounts.destroy', $account->id) }}" method="POST" class="d-inline-block">
                         @csrf
@@ -39,5 +39,10 @@
             @endforeach
         </tbody>
     </table>
+
+      <!-- Pagination links -->
+      <div class="pagination-wrapper d-flex justify-content-center my-2">
+        {{ $accounts->links() }}
+    </div>
 </div>
 @endsection

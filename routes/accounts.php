@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AccountGroupsController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\AccountTypesController;
@@ -15,6 +16,7 @@ Route::resource('accountTypes', AccountTypesController::class);
 Route::resource('accounts', AccountsController::class);
 Route::resource('accountGroups', AccountGroupsController::class);
 Route::resource('transactions', TransactionsController::class);
+Route::post('accounts/ledger',[AccountsController::class, 'ledger_report']);
 
 Route::prefix('reports')->group(function(){
     Route::get('finance', function(){ return view('pages.accounts.reports.finance'); });

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\accountGroups;
 use App\Models\accounts;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,9 +23,16 @@ class AccountsController extends Controller
 		return view(
 			"pages.accounts.accounts.create",
 			[
-				"account_groups" => accountGroups::whereNotNull('parent_id')->get(),
+				"accountGroups" => accountGroups::whereNotNull('parent_id')->get(),
 			]
 		);
+	}
+	public function ledger_report(Request $request)
+	{
+		$accounts = Accounts::all();
+         $transactions= Transaction::where('account_id', $request->account_id)->whereBetween('transaction_date', [ $request->start_date,$request->end_date ])->with("account")->get();
+        //  echo json_encode($transactions);
+		return view("pages.accounts.accounts.show", ["transactions" => $transactions, "accounts" => $accounts]);
 	}
 	public function store(Request $request)
 	{

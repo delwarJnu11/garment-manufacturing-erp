@@ -117,9 +117,52 @@ return new class extends Migration
             ["code" => 50010221, "name" => "Interest Expense", "account_group_id" => 14, 'is_payment_method' => 0, 'is_trx_no_required' => 0,  'is_active' => 1],
             ["code" => 50010222, "name" => "Loss on Sale of Assets", "account_group_id" => 14, 'is_payment_method' => 0, 'is_trx_no_required' => 0,  'is_active' => 1],
             ["code" => 50010223, "name" => "Miscellaneous Expenses", "account_group_id" => 14, 'is_payment_method' => 0, 'is_trx_no_required' => 0,  'is_active' => 1],
-
-
         ]);
+
+    //     INSERT INTO `accounts` (`code`, `name`, `account_group_id`, `is_payment_method`, `is_trx_no_required`, `description`, `is_active`) VALUES
+    // -- Accounts Receivable (Garments Manufacturing)
+    // (10050106, 'Fashion Apparel Co.', 5, 0, 0, 'Pending payment from Fashion Apparel Co.', 1),
+    // (10050107, 'Trendy Styles Ltd.', 5, 0, 0, 'Outstanding invoice from Trendy Styles Ltd.', 1),
+    // (10050108, 'Elegant Threads', 5, 0, 0, 'Pending payment from Elegant Threads', 1),
+    // (10050109, 'Chic Couture Ltd.', 5, 0, 0, 'Outstanding invoice from Chic Couture Ltd.', 1),
+    
+    // -- Accounts Payable (Garments Manufacturing)
+    // (20040106, 'Textile Suppliers Ltd.', 10, 0, 0, 'Pending payment for fabric purchase', 1),
+    // (20040107, 'Button & Zipper Co.', 10, 0, 0, 'Outstanding payment for buttons and zippers', 1),
+    // (20040108, 'Fabric World Inc.', 10, 0, 0, 'Pending payment for fabric supplies', 1),
+    // (20040109, 'Packaging Solutions Co.', 10, 0, 0, 'Outstanding payment for packaging materials', 1),
+
+    // -- Revenue (Garments Manufacturing)
+    // (40010101, 'Wholesale Clothing Sales', 12, 0, 0, 'Revenue from wholesale clothing sales', 1),
+    // (40010102, 'Custom Apparel Sales', 12, 0, 0, 'Revenue from custom apparel orders', 1),
+
+    // -- Expense (Garments Manufacturing)
+    // (50010101, 'Salaries & Wages', 13, 0, 0, 'Salaries and wages for factory workers', 1),
+    // (50010102, 'Factory Rent', 13, 0, 0, 'Rent for factory premises', 1),
+    // (50010201, 'Fabric Cost', 14, 0, 0, 'Cost of raw fabric used in production', 1),
+    // (50010202, 'Packaging Cost', 14, 0, 0, 'Cost of packaging materials', 1),
+    // (50010203, 'Shipping Cost', 14, 0, 0, 'Shipping and delivery cost for orders', 1),
+    // (50010204, 'Operating Expenses', NULL, 0, 0, 'Expenses incurred in normal business operations', 1),
+    // (50010205, 'Rent Expense', NULL, 0, 0, 'Costs related to leasing property', 1),
+    // (50010206, 'Utilities Expense', NULL, 0, 0, 'Costs for electricity, water, etc.', 1),
+    // (50010207, 'Depreciation', NULL, 0, 0, 'Depreciation of assets', 1),
+    // (50010208, 'Cost of Goods Sold (COGS)', 14, 0, 0, NULL, 1),
+    // (50010209, 'Direct Labor', 14, 0, 0, NULL, 1),
+    // (50010210, 'Direct Materials', 14, 0, 0, NULL, 1),
+    // (50010211, 'Manufacturing Overhead', 14, 0, 0, NULL, 1),
+    // (50010212, 'Inventory Write-offs', 14, 0, 0, NULL, 1),
+    // (50010213, 'Office Supplies', 14, 0, 0, NULL, 1),
+    // (50010214, 'Insurance', 14, 0, 0, NULL, 1),
+    // (50010215, 'Advertising and Marketing', 14, 0, 0, NULL, 1),
+    // (50010216, 'Travel and Meals', 14, 0, 0, NULL, 1),
+    // (50010217, 'Payroll Taxes', 14, 0, 0, NULL, 1),
+    // (50010218, 'Professional Fees', 14, 0, 0, NULL, 1),
+    // (50010219, 'Bank Fees', 14, 0, 0, NULL, 1),
+    // (50010220, 'Other Expenses', 14, 0, 0, NULL, 1),
+    // (50010221, 'Interest Expense', 14, 0, 0, NULL, 1),
+    // (50010222, 'Loss on Sale of Assets', 14, 0, 0, NULL, 1),
+    // (50010223, 'Miscellaneous Expenses', 14, 0, 0, NULL, 1);
+
 
         // Insert account group records based on Chart of Accounts (COA)
         // DB::table("account_groups")->insert(

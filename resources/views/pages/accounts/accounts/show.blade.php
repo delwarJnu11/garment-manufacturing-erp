@@ -1,56 +1,86 @@
 @extends('layout.backend.main')
 @section('page_content')
-<div class="container mt-5">
-    <h1>Edit Account</h1>
-    <a href="{{ route('accounts.index') }}" class="btn btn-secondary mb-3">Back to List</a>
+<div class="row">
+		<div class="card">
+		<div class="card-body">
+			<form action="{{ url('accounts/ledger') }}" method ="post" enctype="multipart/form-data">
+				@csrf
+				<div class="row">
+				<div class="col-sm-4">
+				
+					<select class="form-control" name="account_id" id="account_id">
+						@foreach ($accounts as $account)
+							<option value="{{ $account->id }}">{{ $account->code }}-{{ $account->name }}</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="col-sm-3">
+					<input class="form-control" type="date" name="start_date">
+				</div>
+				<div class="col-sm-3">
+					<input class="form-control" type="date" name="end_date">
+				</div>
+			
+				<div class="col-sm-2">
+					<button class="btn btn-primary" type="submit">Generate</button>
+				</div>
+			</div>
+			</form>
+		</div>
+		</div>
+	</div>
+    <div class="col-md-12">
+        <div class="card">
 
-    <form action="{{ route('accounts.update', $account->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="mb-3">
-            <label for="code" class="form-label">Code</label>
-            <input type="number" class="form-control" id="code" name="code" value="{{ $account->code }}" required>
+            <div class="card-body">
+                
+
+                <table class='table table-striped text-nowrap'>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Naretion</th>
+                            <th>Dabit</th>
+                            <th>Credit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+
+                            $debit = 0;
+                            $credit = 0;
+                        @endphp
+                        @forelse ($transactions as $item)
+                            <tr>
+                                <td>{{ $item->transaction_date }}</td>
+                                <td>{{ $item->description }}</td>
+                                <td>{{ $item->debit }}</td>
+                                <td>{{ $item->credit }}</td>
+                            </tr>
+                            @php
+                                $debit += $item->debit;
+                                $credit += $item->credit;
+                            @endphp
+                        @empty
+                            <tr>
+                                <td colspan="4">Data Not found</td>
+                            </tr>
+                        @endforelse
+                        @php
+                            $closing_balance = $debit - $credit;
+                        @endphp
+                        <tr>
+                            <td></td>
+                            <td>Closing Balance </td>
+                            <td>{{ $closing_balance > 0 ? $closing_balance : 0.0 }}</td>
+                            <td>{{ $closing_balance < 0 ? abs($closing_balance) : 0.0 }}</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ $account->name }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="account_group_id" class="form-label">Account Group</label>
-            <select class="form-control" id="account_group_id" name="account_group_id" required>
-                @foreach($accountGroups as $group)
-                <option value="{{ $group->id }}" {{ $account->account_group_id == $group->id ? 'selected' : '' }}>
-                    {{ $group->name }}
-                </option>
-                @endforeach
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="is_payment_method" class="form-label">Is Payment Method</label>
-            <select class="form-control" id="is_payment_method" name="is_payment_method">
-                <option value="0" {{ $account->is_payment_method == 0 ? 'selected' : '' }}>No</option>
-                <option value="1" {{ $account->is_payment_method == 1 ? 'selected' : '' }}>Yes</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="is_trx_no_required" class="form-label">Is Transaction No Required</label>
-            <select class="form-control" id="is_trx_no_required" name="is_trx_no_required">
-                <option value="0" {{ $account->is_trx_no_required == 0 ? 'selected' : '' }}>No</option>
-                <option value="1" {{ $account->is_trx_no_required == 1 ? 'selected' : '' }}>Yes</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" name="description">{{ $account->description }}</textarea>
-        </div>
-        <div class="mb-3">
-            <label for="is_active" class="form-label">Is Active</label>
-            <select class="form-control" id="is_active" name="is_active" required>
-                <option value="1" {{ $account->is_active == 1 ? 'selected' : '' }}>Active</option>
-                <option value="0" {{ $account->is_active == 0 ? 'selected' : '' }}>Inactive</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
-</div>
+    </div>
+    </div>
 @endsection

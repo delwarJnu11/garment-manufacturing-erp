@@ -26,7 +26,7 @@
 	<label for="account_group_id" class="col-sm-2 col-form-label">Account_Group</label>
 	<div class="col-sm-10">
 		<select class="form-control" name="account_group_id" id="account_group_id">
-			@foreach($account_groups as $account_group)
+			@foreach($accountGroups as $account_group)
 				<option value="{{$account_group->id}}">{{$account_group->name}}</option>
 			@endforeach
 		</select>

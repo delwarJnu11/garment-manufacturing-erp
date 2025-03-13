@@ -34,7 +34,7 @@ class ChartOfAccountController extends Controller
 
         // echo  json_encode( $groups[0]->children);
 
-        $pdf = PDF::loadView('pages.erp.accounts_report.chartofaccountpdf', compact('groups') );
+        $pdf = PDF::loadView('pages.accounts.reports.chartofaccountpdf', compact('groups') );
 
         return $pdf->download('chartofaccount.pdf');
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chart of Accounts</title>
+
     <style>
         body { font-family: Arial, sans-serif; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
@@ -14,7 +15,9 @@
 </head>
 <body>
 
+    <h2 style="text-align: center;">Garments Manufacturing ERP</h2>
     <h2 style="text-align: center;">Chart of Accounts</h2>
+    
 
     <table>
         <thead>
