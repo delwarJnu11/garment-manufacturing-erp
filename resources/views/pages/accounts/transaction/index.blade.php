@@ -1,6 +1,6 @@
 @extends('layout.backend.main')
 @section('title','Manage Transaction')
-@section('style')
+@section('css')
 
 
 @endsection

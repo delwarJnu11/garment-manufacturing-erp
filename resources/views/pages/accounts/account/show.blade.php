@@ -1,6 +1,6 @@
 @extends('layout.backend.main')
 @section('title','Show Account')
-@section('style')
+@section('css')
 
 
 @endsection

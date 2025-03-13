@@ -1,7 +1,7 @@
 
 @extends('layout.backend.main')
 @section('title','Manage AccountGroup')
-@section('style')
+@section('css')
 
 
 @endsection

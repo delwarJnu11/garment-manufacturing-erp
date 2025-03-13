@@ -7,23 +7,6 @@
                         <i data-feather="grid"></i><span>Dashboard</span>
                     </a>
                     <ul>
-<<<<<<< HEAD
-                        <li class="submenu">
-                            <a href="javascript:void(0);" class="subdrop"><i
-                                    data-feather="grid"></i><span>Dashboard</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="{{ url('dashboard') }}" class="active">Admin Dashboard</a></li>
-                                <li><a href="{{ url('dashboard') }}" class="">Account Dashboard</a></li>
-                                <!-- https://dreamspos.dreamstechnologies.com/html/template/index.html -->
-                            </ul>
-                        </li>
-                        {{-- USER MODULE MENU START --}}
-                        <!-- <li class="submenu">
-                            <a href="javascript:void(0);">
-                                <i data-feather="users"></i>
-                                <span>Users</span>
-                                <span class="menu-arrow"></span>
-=======
                         {{-- @if (Auth::user()->isEmployee()) --}}
                         {{-- <li> --}}
                         {{-- </li> --}}
@@ -32,7 +15,6 @@
                         {{-- <li class="submenu">
                             <a href="javascript:void(0);" class="subdrop">
                                 <i data-feather="grid"></i><span>Dashboard</span>
->>>>>>> a61669e680b409c332941726addbe3a66a713ab7
                             </a>
                         </li> --}}
                         <li class="submenu">
@@ -344,7 +326,10 @@
                                         <li><a href="">Account Reconciliation</a></li> -->
                                     </ul>
                                 </li>
-                                <li class="submenu submenu-two"><a href="">Accounts Payable<span
+
+
+
+                                <!-- <li class="submenu submenu-two"><a href="">Accounts Payable<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Suppliers</a></li>
@@ -352,8 +337,8 @@
                                         <li><a href="">Payments</a></li>
                                         <li><a href="">Aging Reports</a></li>
                                     </ul>
-                                </li>
-                                <li class="submenu submenu-two"><a href="">Accounts Receivable<span
+                                </li> -->
+                                <!-- <li class="submenu submenu-two"><a href="">Accounts Receivable<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Customers</a></li>
@@ -361,8 +346,8 @@
                                         <li><a href="">Receipts</a></li>
                                         <li><a href="">Customer Statement</a></li>
                                     </ul>
-                                </li>
-                                <li class="submenu submenu-two"><a href="">Cash & Bank Management<span
+                                </li> -->
+                                <!-- <li class="submenu submenu-two"><a href="">Cash & Bank Management<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Bank Accounts</a></li>
@@ -371,8 +356,8 @@
                                         <li><a href="">Petty Cash Management</a></li>
                                         <li><a href="">Bank Transfers</a></li>
                                     </ul>
-                                </li>
-                                <li class="submenu submenu-two"><a href="">Inventory Valuation and Costing<span
+                                </li> -->
+                                <!-- <li class="submenu submenu-two"><a href="">Inventory Valuation and Costing<span
                                             class="menu-arrow inside-submenu"></span></a>
                                     <ul>
                                         <li><a href="">Inventory Overview</a></li>
@@ -399,13 +384,13 @@
                                         <li><a href="">Variance Analysis</a></li>
                                         <li><a href="">Cash Flow Projections</a></li>
                                     </ul>
-                                </li>
+                                </li> -->
 
                                 <!-- 🔹 Reports -->
-                                <li>
+                                <!-- <li>
                                     <x-link href="{{ url('/inventory/reports') }}" :active="request()->is('inventory/reports')">Inventory
                                         Reports</x-link>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>
                         {{-- End Inventory Module --}}
@@ -448,23 +433,24 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            var currentUrl = window.location.href;
+            // alert()
+        //     var currentUrl = window.location.href;
 
-            // Add active class to the current menu
-            $(".sidebar-menu ul li a").each(function() {
-                if (this.href === currentUrl) {
-                    $(this).addClass("active");
-                    $(this).closest("li.submenu").addClass("active"); // Open parent menu
-                    $(this).closest("ul").slideDown();
-                }
-            });
+        //     // Add active class to the current menu
+        //     $(".sidebar-menu ul li a").each(function() {
+        //         if (this.href === currentUrl) {
+        //             $(this).addClass("active");
+        //             $(this).closest("li.submenu").addClass("active"); // Open parent menu
+        //             $(this).closest("ul").slideDown();
+        //         }
+        //     });
 
-          //  Toggle submenu on click
-            $(".submenu > a").click(function() {
-                $(this).toggleClass("active");
-                $(this).next("ul").slideToggle();
-                $(this).parent().toggleClass("active");
-            });
+        //   //  Toggle submenu on click
+        //     $(".submenu > a").click(function() {
+        //         $(this).toggleClass("active");
+        //         $(this).next("ul").slideToggle();
+        //         $(this).parent().toggleClass("active");
+        //     });
         });
     </script>
 @endsection
