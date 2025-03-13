@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\BomDetailsController;
+use App\Http\Controllers\Api\CuttingController;
 use App\Http\Controllers\Api\OrderDetailsController;
 use App\Http\Controllers\Api\RawMaterialController;
 use App\Http\Controllers\Api\PurchaseOrderController;
@@ -25,4 +26,7 @@ Route::get('raw_material/{id}', [RawMaterialController::class, 'show']);
 Route::get('order', [OrderDetailsController::class, 'index']);
 // purchaseOrder  Api
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
+Route::prefix('production-stages')->group(function () {
+    Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');
+});
 // Route::post('/adjustment', [StockAdjustmentController::class, 'store']);

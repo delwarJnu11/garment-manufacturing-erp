@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AccountTypesController;
 
+// use App\Http\Controllers\Api\ProductController as ApiProductController;
 
 
 use App\Http\Controllers\Api\OrderDetailsController;
@@ -12,11 +13,13 @@ use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\BomController;
 use App\Http\Controllers\BomDetailsController;
 use App\Http\Controllers\BuyerController;
+// use App\Http\Controllers\CategoryAttributesController;
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\CuttingController;
 use App\Http\Controllers\FabricTypeController;
 use App\Http\Controllers\HrmAttendanceListController;
 use App\Http\Controllers\HrmDepartmentController;
@@ -55,10 +58,12 @@ use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
+// use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseStateController;
+use App\Http\Controllers\SweingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchasePaymentController;
 use App\Http\Controllers\PurchaseReportController;
-use App\Http\Controllers\PurchaseStateController;
 use App\Http\Controllers\SalesInvoiceController;
 use App\Http\Controllers\StockAdjustmentController;
 use Illuminate\Support\Facades\Route;
@@ -106,6 +111,13 @@ Route::resource('bom', BomController::class);
 Route::resource('bom_details', BomDetailsController::class);
 Route::resource('production-plans', ProductionPlanController::class);
 Route::resource('production-work-orders', ProductionWorkOrderController::class);
+Route::prefix('production-stages')->group(function () {
+    Route::resource('cutting', CuttingController::class);
+    Route::resource('sweing', SweingController::class);
+
+    // Custom route for completed cuttings
+    Route::get('cutting-completed', [CuttingController::class, 'completed'])->name('cutting.completed');
+});
 
 
 /**
@@ -198,8 +210,8 @@ Route::resource('buyers', BuyerController::class);
  */
 // sales invoice 
 Route::resource('sales-invoice', SalesInvoiceController::class);
-Route::post('find_buyer',[SalesInvoiceController::class,'find_buyer']);
-Route::get('order/show',[SalesInvoiceController::class,'show']);
+Route::post('find_buyer', [SalesInvoiceController::class, 'find_buyer']);
+Route::get('order/show', [SalesInvoiceController::class, 'show']);
 
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
@@ -241,7 +253,7 @@ Route::resource('fabric_types', FabricTypeController::class);
 
 // Route::get('orders', [OrderDetailsController::class, 'index']);
 
-Route::get('orders', [OrderDetailsController::class, 'index']);
+// Route::get('orders', [OrderDetailsController::class, 'index']);
 /**
  *END Invetory/category
  **/

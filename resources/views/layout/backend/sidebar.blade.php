@@ -5,7 +5,7 @@
                 <li class="submenu-open">
                     <ul>
                         <li class="submenu">
-                            <a href="javascript:void(0);" class="subdrop">
+                            <a href="{{ route('dashboard') }}" class="subdrop">
                                 <i data-feather="grid"></i><span>Dashboard</span>
                             </a>
                         </li>
@@ -57,12 +57,39 @@
                                     <x-nav-link icon="list" :active="request()->is('production-work*')">Production Work Order</x-nav-link>
                                     <ul style="margin-left: 20px;">
                                         <li>
+                                            <x-link href="{{ route('production-work-orders.index') }}"
+                                                :active="request()->is('production-work-orders*')">Work Order List</x-link>
+                                        </li>
+                                        <li>
                                             <x-link href="{{ route('production-work-status.index') }}"
                                                 :active="request()->is('production-work-status*')">Work Status</x-link>
                                         </li>
                                         <li>
                                             <x-link href="{{ route('production_work_sections.index') }}"
                                                 :active="request()->is('production_work_sections*')">Production Sections</x-link>
+                                        </li>
+                                    </ul>
+                                </li>
+                                {{-- Production Floor Management Menu --}}
+                                <li>
+                                    <x-nav-link icon="list" :active="request()->is('production-stages*')">
+                                        Production Stages
+                                    </x-nav-link>
+                                    <ul style="margin-left: 20px;">
+                                        <li>
+                                            <x-link href="{{ route('cutting.index') }}" :active="request()->is('production-stages/cutting')">
+                                                Cutting Lists
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('sweing.index') }}" :active="request()->is('production-stages/sweing')">
+                                                Sweing Lists
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('cutting.completed') }}" :active="request()->is('production-stages/completed')">
+                                                Cutting Completed List
+                                            </x-link>
                                         </li>
                                     </ul>
                                 </li>
@@ -80,7 +107,7 @@
                                 <li><x-link href="{{ url('/buyers') }}" :active="request()->is('buyers')">Buyers</x-link></li>
 
                                 <li><x-link href="{{ url('/orders') }}" :active="request()->is('orders')">Orders</x-link></li>
-                                <li><x-link href="{{ url('/orders/create') }}" :active="request()->is('orders/create')">Create
+                                <li><x-link href="{{ route('orders.create') }}" :active="request()->is('orders/create')">Create
                                         Orders</x-link>
                                 </li>
                                 {{-- <li><x-link href="{{ url('/orders/pending') }}" :active="request()->is('orders/pending')">Pending
