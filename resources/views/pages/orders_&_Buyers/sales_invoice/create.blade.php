@@ -51,9 +51,6 @@
                                     </p>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                     <td>
@@ -74,7 +71,6 @@
                             </div>
                         </div>
 
-                        {{-- <a href="{{ route('products.create') }}" class="btn btn-primary">+</a> --}}
                 </div>
             </div>
 
@@ -95,10 +91,10 @@
                             </tr>
 
                         </thead>
-                        {{-- <tbody class="sales-details-table-body data-append">
+                        {{-- <tbody class="sales-details data-append">
                             
                         </tbody> --}}
-                        <tbody class="sales-details-table-body">
+                        <tbody class="sales-details">
 
                         </tbody>
                     </table>
@@ -123,23 +119,22 @@
 
         <!-- Footer with Action Buttons -->
         <div class="card-footer text-center">
-            <button class="btn btn-primary process-btn">Process Invoice</button>
+            <button class="btn btn-primary btn_process">Process Invoice</button>
             <button class="btn btn-success" onclick="window.print();">Print Invoice</button>
-            <button class="btn btn-primary">Save</button>
             <button class="btn btn-danger">Cancel</button>
         </div>
     </div>
     </div>
 @endsection
-
 @section('script')
+
 <script>
     $(document).ready(function() {
-        // Load stored data from localStorage when the page loads
         loadSalesDetailsFromLocalStorage();
 
+        // Fetch invoice ID and sale date
         $.ajax({
-            url: "{{ url('getInvoiceId') }}", 
+            url: "{{ url('getInvoiceId') }}",
             type: 'GET',
             success: function(response) {
                 $(".invoice_id").text(response.invoice_id);
@@ -150,15 +145,14 @@
             }
         });
 
-        // Event listener for buyer selection
+       
         $('#buyer_id').on('change', function() {
             let buyer_id = $(this).val();
             $.ajax({
                 url: "{{ url('find_buyer') }}",
-                type: 'post',
-                data: {
-                    id: buyer_id,
-                    _token: "{{ csrf_token() }}",
+                type: 'POST',
+                data: { id: buyer_id, 
+                    _token: "{{ csrf_token() }}" 
                 },
                 success: function(res) {
                     $(".buyer_id").text(res.buyer?.id);
@@ -171,7 +165,7 @@
             });
         });
 
-        // Event listener for order selection
+        
         $('#order_id').on('change', function() {
             let order_id = $(this).val();
             if (!order_id) {
@@ -181,23 +175,19 @@
             $.ajax({
                 url: "{{ url('find_order') }}",
                 type: 'POST',
-                data: {
-                    order_id: order_id,
-                    _token: "{{ csrf_token() }}"
-                },
+                data: { order_id: order_id, _token: "{{ csrf_token() }}" },
                 success: function(res) {
                     if (res.error) {
                         alert(res.error);
                         return;
                     }
 
-                    $(".sales-details-table-body").empty();
-
-                    if (Array.isArray(res.order_details) && res.order_details.length > 0) {
-                        res.order_details.forEach(detail => {
-                            let newRow = `
+                    $(".sales-details").empty();
+                    res.order_details.forEach(detail => {
+                        let newRow = `
                             <tr>
                                 <td>${detail.product_name}</td>
+                              
                                 <td><input type="number" class="form-control unit_price" value="${detail.unit_price}" readonly></td>
                                 <td>${detail.size}</td>
                                 <td>${detail.qty}</td>
@@ -206,12 +196,10 @@
                                 <td><input type="text" class="form-control subtotal" disabled></td>
                                 <td><button class="btn btn-danger remove-item-btn">Remove</button></td>
                             </tr>`;
-
-                            $(".sales-details-table-body").append(newRow);
-                        });
-                    }
+                        $(".sales-details").append(newRow);
+                    });
                     calculateTotals();
-                    saveSalesDetailsToLocalStorage(); // Save the updated data to localStorage
+                    saveSalesDetailsToLocalStorage();
                 },
                 error: function(xhr, status, error) {
                     console.error("AJAX Error: ", error);
@@ -219,7 +207,7 @@
             });
         });
 
-        // Handle discount, vat, and subtotal calculation
+        //  saving sales details to localStorage
         $(document).on('input', '.discount, .vat', function() {
             let row = $(this).closest('tr');
             let unitPrice = parseFloat(row.find('.unit_price').val());
@@ -234,16 +222,29 @@
 
             row.find('.subtotal').val(subtotal.toFixed(2));
             calculateTotals();
-            saveSalesDetailsToLocalStorage(); // Save after calculation
+            saveSalesDetailsToLocalStorage();
         });
 
-        // Function to calculate the grand totals
+        $(document).on('click', '.remove-item-btn', function() {
+            $(this).closest('tr').remove();
+            calculateTotals();
+            saveSalesDetailsToLocalStorage();
+        });
+
+        // Clear all items from the table
+        $('.clearAll').on('click', function() {
+            $(".sales-details").empty();
+            calculateTotals();
+            localStorage.removeItem('sales_details');
+        });
+
+        // Calculate totals (amount, discount, vat)
         function calculateTotals() {
             let totalAmount = 0;
             let totalDiscount = 0;
             let totalVat = 0;
 
-            $(".sales-details-table-body tr").each(function() {
+            $(".sales-details tr").each(function() {
                 let unitPrice = parseFloat($(this).find('.unit_price').val());
                 let qty = parseInt($(this).find('td:eq(3)').text());
                 let discount = parseFloat($(this).find('.discount').val()) || 0;
@@ -267,24 +268,10 @@
             $(".grand_total").text(grandTotal.toFixed(2));
         }
 
-        // Handle remove item button click
-        $(document).on('click', '.remove-item-btn', function() {
-            $(this).closest('tr').remove();
-            calculateTotals();
-            saveSalesDetailsToLocalStorage(); // Save after removal
-        });
-
-        // Clear all rows and localStorage
-        $('.clearAll').on('click', function() {
-            $(".sales-details-table-body").empty();
-            calculateTotals();
-            localStorage.removeItem('sales_details'); // Clear sales details from localStorage
-        });
-
-        // Save the sales details to localStorage
+        // Save sales details to localStorage
         function saveSalesDetailsToLocalStorage() {
             let salesDetails = [];
-            $(".sales-details-table-body tr").each(function() {
+            $(".sales-details tr").each(function() {
                 let row = $(this);
                 let item = {
                     product_name: row.find('td:eq(0)').text(),
@@ -306,60 +293,82 @@
             if (salesDetails) {
                 salesDetails.forEach(detail => {
                     let newRow = `
-                    <tr>
-                        <td>${detail.product_name}</td>
-                        <td><input type="number" class="form-control unit_price" value="${detail.unit_price}" readonly></td>
-                        <td>${detail.size}</td>
-                        <td>${detail.qty}</td>
-                        <td><input type="number" class="form-control discount" value="${detail.discount}" placeholder="0"></td>
-                        <td><input type="number" class="form-control vat" value="${detail.vat}" placeholder="0"></td>
-                        <td><input type="text" class="form-control subtotal" value="${detail.subtotal}" disabled></td>
-                        <td><button class="btn btn-danger remove-item-btn">Remove</button></td>
-                    </tr>`;
-                    $(".sales-details-table-body").append(newRow);
+                        <tr>
+                            <td>${detail.product_name}</td>
+                            <td><input type="number" class="form-control unit_price" value="${detail.unit_price}" readonly></td>
+                            <td>${detail.size}</td>
+                            <td>${detail.qty}</td>
+                            <td><input type="number" class="form-control discount" value="${detail.discount}" placeholder="0"></td>
+                            <td><input type="number" class="form-control vat" value="${detail.vat}" placeholder="0"></td>
+                            <td><input type="text" class="form-control subtotal" value="${detail.subtotal}" disabled></td>
+                            <td><button class="btn btn-danger remove-item-btn">Remove</button></td>
+                        </tr>`;
+                    $(".sales-details").append(newRow);
                 });
                 calculateTotals();
             }
         }
 
-
+        // Submit invoice data to the backend
         $('.btn_process').on('click', function() {
-    let customer_id = $('#customer_id').val();
-    let invoice_total = $('.grandtotal').text();
-    let paid_amount = $('.paid-amount').text();  // Adjusted based on the layout of the page
-    let discount = $('.discount').text();
-    let vat = $('.vat').text();
-    let products = cart.getCart();  // Ensure the product array is in the correct format
+            let buyer_id = $('#buyer_id').val(); // Buyer ID instead of customer_id
+            let invoice_total = $('.grand_total').text();
+            let paid_amount = $('.paid_amount').text();
+            let discount = $('.total_discount').text();
+            let vat = $('.total_vat').text();
+            let order_id = $('#order_id').val();
 
-    // Prepare data to send to the API
-    let invoiceData = {
-        customer_id: customer_id,
-        invoice_total: invoice_total,
-        paid_amount: paid_amount,
-        discount: discount,
-        vat: vat,
-        products: products,
-    };
+            let products = [];
+            $(".sales-details tr").each(function() {
+                let row = $(this);
+                products.push({
+                    product_name: row.find('td:eq(0)').text(),
+                    product_id: row.find('td:eq(0)').text(),
+                    unit_price: row.find('.unit_price').val(),
+                    size: row.find('td:eq(2)').text(),
+                    qty: row.find('td:eq(3)').text(),
+                    discount: row.find('.discount').val(),
+                    vat: row.find('.vat').val(),
+                    subtotal: row.find('.subtotal').val()
+                });
+            });
 
-    $.ajax({
-        url: "{{ url('SalesInvoice/Api') }}",
-        type: 'POST',
-        data: invoiceData,
-        success: function(res) {
-            if (res.success) {
-                console.log('Invoice processed successfully:', res);
-                // You can trigger UI updates or redirect here
-            } else {
-                console.error('Error processing invoice:', res.message);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.log('AJAX Error:', error);
-        }
-    });
-});
+            // Prepare data to send to the API
+            let invoiceData = {
+                buyer_id: buyer_id, 
+                invoice_total: invoice_total,
+                paid_amount: paid_amount,
+                discount: discount,
+                vat: vat,
+                products: products,
+                order_id:order_id
+            };
+            // console.log(invoiceData);
+            $.ajax({
+                url: "{{ url('api/salesinvoice') }}",
+                type: 'POST',
+                data: {
+                    invoiceData,
+                    _token: "{{ csrf_token() }}"
+                },
 
+                success: function(res) {
+                    
+                    console.log(res)
+                    
+                    // if (res.success) {
+                    //     console.log('Invoice processed successfully:', res);
+                    // } else {
+                    //     console.error('Error processing invoice:', res.message);
+                    // }
+                },
+                error: function(xhr, status, error) {
+                    console.log('AJAX Error:', error);
+                }
+            });
+        });
     });
 </script>
-@endsection
 
+
+@endsection

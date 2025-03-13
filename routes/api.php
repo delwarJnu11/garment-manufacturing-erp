@@ -26,5 +26,6 @@ Route::get('raw_material/{id}', [RawMaterialController::class, 'show']);
 Route::get('order', [OrderDetailsController::class, 'index']);
 // purchaseOrder  Api
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
-Route::post('SalesInvoice/Api', [SalesInvoiceController::class, 'store']);
-// Route::post('/adjustment', [StockAdjustmentController::class, 'store']);
+
+Route::post('salesinvoice', [SalesInvoiceController::class, 'store']);
+

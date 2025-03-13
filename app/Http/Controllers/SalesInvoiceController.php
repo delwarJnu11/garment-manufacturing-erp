@@ -41,57 +41,6 @@ class SalesInvoiceController extends Controller
         return view('pages.orders_&_Buyers.sales_invoice.create', compact('buyers', 'orders', 'invoiceStatus'));
     }
 
-    // public function find_order(Request $request)
-    // {
-    //     $order_id = $request->order_id;
-
-    //     $order = Order::with('orderDetails.product', 'orderDetails.size', 'bom', 'bom.bomDetails')->find($order_id);
-
-    //     if (!$order) {
-    //         return response()->json(['error' => 'Order not found'], 404);
-    //     }
-
-    //     $bom = $order->bom;
-
-    //     if (!$bom) {
-    //         return response()->json(['error' => 'BOM not found for this order'], 404);
-    //     }
-
-    //     if (!$order->orderDetails) {
-    //         return response()->json(['error' => 'Order details not found'], 404);
-    //     }
-
-    //     $order_details = [];
-
-    //     foreach ($order->orderDetails as $detail) {
-    //         $size_id = $detail->size_id->name;
-
-    //         $bom_detail = $bom->bomDetails->where('size_id', $size_id)->first();
-
-    //         if (!$bom_detail) {
-    //             continue; // Skip if no BOM detail for this size
-    //         }
-
-    //         $unit_price_bom = $bom_detail->unit_price;
-    //         $total_quantity = $detail->qty; // Quantity of this size in order
-
-    //         // Calculate cost per unit (overhead + labor)
-    //         $cost_per_unit = ($bom->overhead_cost + $bom->labour_cost) / max($total_quantity, 1);
-
-    //         // Calculate final unit price
-    //         $final_unit_price = ($unit_price_bom + $cost_per_unit) * 1.4;
-
-    //         $order_details[] = [
-    //             'product_name' => $detail->product,
-    //             'size' => $size_id,
-    //             'qty' => intval($detail->qty), // Convert to integer
-    //             'unit_price' => round($final_unit_price, 2)
-    //         ];
-    //     }
-
-    //     return response()->json(['order_details' => $order_details]);
-    // }
-
     public function find_order(Request $request)
     {
         $order_id = $request->order_id;
