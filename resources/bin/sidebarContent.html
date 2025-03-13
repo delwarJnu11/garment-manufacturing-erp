@@ -1,0 +1,122 @@
+<li class="submenu">
+    <x-nav-link :active="request()->is('hrm*')">HR & Workforce</x-nav-link>
+    <ul>
+@endif
+
+@if (Auth::user()->isAdmin())
+<li class="submenu">
+<a href="javascript:void(0);">Department<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="{{ route('hrm_departments.index') }}"
+        :active="request()->is('hrm_departments.index')">Department</x-link></li>
+<li><x-link href="{{ route('hrm_sub_departments.index') }}" :active="request()->is('hrm_sub_departments.index')">Sub
+        Department</x-link></li>
+</ul>
+</li>
+<li class="submenu">
+<a href="javascript:void(0);">Designation<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="{{ route('hrm_designations.index') }}"
+        :active="request()->is('hrm_designations.index')">Desigination List</x-link></li>
+</ul>
+</li>
+
+
+<li class="submenu">
+<a href="javascript:void(0);">Employee<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="{{ route('hrm_employees.index') }}" :active="request()->is('hrm_employees.index')">Employee
+        List</x-link></li>
+<li><x-link href="{{ route('hrm_employee_bank_accounts.index') }}"
+        :active="request()->is('hrm_employee_bank_accounts.index')">Employee Banc Account</x-link></li>
+</ul>
+</li>
+
+<li class="submenu">
+<a href="javascript:void(0);">Employee Performence<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="{{ route('hrm_employee_performances.index') }}"
+        :active="request()->is('hrm_employee_performances.index')">Performence List</x-link></li>
+</ul>
+</li>
+
+<li class="submenu">
+<a href="javascript:void(0);">Payroll<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Salary Advance</x-link>
+</li>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Set Salary</x-link></li>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Payslip</x-link></li>
+</ul>
+</li>
+
+<li class="submenu">
+<a href="javascript:void(0);">Award<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Award List</x-link></li>
+</ul>
+</li>
+<li class="submenu">
+<a href="javascript:void(0);">Recruitment<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Candidate List</x-link>
+</li>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Interview</x-link></li>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Candidate
+        Selection</x-link></li>
+</ul>
+</li>
+<li class="submenu">
+<a href="javascript:void(0);">Report<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Attendance
+        Report</x-link></li>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Leave Report</x-link>
+</li>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Employee Report</x-link>
+</li>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Payroll</x-link></li>
+</ul>
+</li>
+@endif
+
+@if (Auth::user()->isEmployee() || Auth::user()->isAdmin())
+<li class="submenu">
+<a href="javascript:void(0);">Attendence<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="{{ route('hrm_attendance_list.index') }}"
+        :active="request()->is('hrm_attendance_list.index')">Attendence List</x-link></li>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Attendence
+        Details</x-link></li>
+</ul>
+</li>
+
+<li class="submenu">
+<a href="javascript:void(0);">Leave<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Holiday</x-link></li>
+<li><x-link href="{{ route('hrm_leave_types.index') }}" :active="request()->is('hrm_leave_types.index')">Leave
+        Type</x-link></li>
+<li><x-link href="{{ route('hrm_leave_applications.index') }}"
+        :active="request()->is('hrm_leave_applications.index')">Leave Application</x-link></li>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Leave Details</x-link>
+</li>
+</ul>
+</li>
+<li class="submenu">
+<a href="javascript:void(0);">Timesheet<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="{{ route('hrm_employee_timesheets.index') }}"
+        :active="request()->is('hrm_employee_timesheets.index')">Timesheet</x-link></li>
+</ul>
+</li>
+<li class="submenu">
+<a href="javascript:void(0);">Notice Board<span class="menu-arrow"></span></a>
+<ul>
+<li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Notice</x-link></li>
+</ul>
+</li>
+@endif
+
+</ul>
+</li>
