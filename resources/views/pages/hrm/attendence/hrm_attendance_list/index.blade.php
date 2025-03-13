@@ -2,7 +2,7 @@
 
 @section('page_content')
 <x-success/>
-    {{-- <x-page-header href="{{ route('hrm_attendance_list.create') }}" heading="Attendance" btnText=" Attendence" /> --}}
+    <x-page-header href="{{ route('hrm_attendance_list.create') }}" heading="Attendance" btnText=" Attendence" />
     <div class="card">
         <div class="card-body">
             <div class="table-responsive dataview">

@@ -57,22 +57,22 @@ class PayslipController extends Controller
 
         $payslips->save();
 
-        $lastPayslipId= $payslips->id;
-        $payslipData = $request->payslips;
+        // $lastPayslipId= $payslips->id;
+        // $payslipData = $request->payslips;
 
-        foreach ($payslipData as $key => $value) {
-        $payslip_details = new Hrm_payslip_details();
-        $payslip_details->payslip_id=$lastPayslipId;
-        $payslip_details->payslip_items_id=$value['item_id'] ;
+        // foreach ($payslipData as $key => $value) {
+        // $payslip_details = new Hrm_payslip_details();
+        // $payslip_details->payslip_id=$lastPayslipId;
+        // $payslip_details->payslip_items_id=$value['item_id'] ;
         // $payslip_details->factor=$value['factor'] ;
         // $payslip_details->allowance_amount=$value['allowance_amount'];
         // $payslip_details->deduction_amount=$value['deduction_amount'] ;
         // $payslip_details->total_amount= $value[''] ;
 
-        $payslip_details->save();
-        }
+        // $payslip_details->save();
+        // }
 
-        return response()->json(['success' => "Payslip confirmed successfully"]);
+        // return response()->json(['success' => "Payslip confirmed successfully"]);
 
     }
 
