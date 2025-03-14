@@ -14,9 +14,9 @@ class SalesInvoiceDetail extends Model
         'order_id',
         'qty',
         'unit_price',
-        '%_of_discount',
+        'percent_of_discount',
         'discount',
-        '%_of_vat',
+        'percent_of_vat',
         'vat',
     ];
 
@@ -24,7 +24,7 @@ class SalesInvoiceDetail extends Model
     {
         return $this->belongsTo(SalesInvoice::class, 'sales_invoice_id');
     }
-   
+
     public function order()
     {
         return $this->belongsTo(Order::class, 'order_id');

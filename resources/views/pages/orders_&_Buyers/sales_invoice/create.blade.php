@@ -127,67 +127,70 @@
     </div>
 @endsection
 @section('script')
+  
+    <script>
+        $(document).ready(function() {
+            loadSalesDetailsFromLocalStorage();
 
-<script>
-    $(document).ready(function() {
-        loadSalesDetailsFromLocalStorage();
-
-        // Fetch invoice ID and sale date
-        $.ajax({
-            url: "{{ url('getInvoiceId') }}",
-            type: 'GET',
-            success: function(response) {
-                $(".invoice_id").text(response.invoice_id);
-                $(".sale_date").text(response.sale_date);
-            },
-            error: function(xhr, status, error) {
-                console.error("Error fetching invoice ID: ", error);
-            }
-        });
-
-       
-        $('#buyer_id').on('change', function() {
-            let buyer_id = $(this).val();
+            // Fetch invoice ID and sale date
             $.ajax({
-                url: "{{ url('find_buyer') }}",
-                type: 'POST',
-                data: { id: buyer_id, 
-                    _token: "{{ csrf_token() }}" 
-                },
-                success: function(res) {
-                    $(".buyer_id").text(res.buyer?.id);
-                    $(".email").text(res.buyer?.email);
-                    $(".address").text(res.buyer?.shipping_address);
+                url: "{{ url('getInvoiceId') }}",
+                type: 'GET',
+                success: function(response) {
+                    $(".invoice_id").text(response.invoice_id);
+                    $(".sale_date").text(response.sale_date);
                 },
                 error: function(xhr, status, error) {
-                    console.error("AJAX Error: ", error);
+                    console.error("Error fetching invoice ID: ", error);
                 }
             });
-        });
 
-        
-        $('#order_id').on('change', function() {
-            let order_id = $(this).val();
-            if (!order_id) {
-                console.error("Order ID is not selected.");
-                return;
-            }
-            $.ajax({
-                url: "{{ url('find_order') }}",
-                type: 'POST',
-                data: { order_id: order_id, _token: "{{ csrf_token() }}" },
-                success: function(res) {
-                    if (res.error) {
-                        alert(res.error);
-                        return;
+            $('#buyer_id').on('change', function() {
+                let buyer_id = $(this).val();
+                $.ajax({
+                    url: "{{ url('find_buyer') }}",
+                    type: 'POST',
+                    data: {
+                        id: buyer_id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(res) {
+                        $(".buyer_id").text(res.buyer?.id);
+                        $(".email").text(res.buyer?.email);
+                        $(".address").text(res.buyer?.shipping_address);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error: ", error);
                     }
+                });
+            });
 
-                    $(".sales-details").empty();
-                    res.order_details.forEach(detail => {
-                        let newRow = `
+            $('#order_id').on('change', function() {
+                let order_id = $(this).val();
+                if (!order_id) {
+                    console.error("Order ID is not selected.");
+                    return;
+                }
+                $.ajax({
+                    url: "{{ url('find_order') }}",
+                    type: 'POST',
+                    data: {
+                        order_id: order_id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(res) {
+                        if (res.error) {
+                            alert(res.error);
+                            return;
+                        }
+
+                        $(".sales-details").empty();
+
+                        res.order_details.forEach(detail => {
+                            let newRow = `
                             <tr>
+                                <input type="hidden" class="product_id" value="${detail.product_id}">
                                 <td>${detail.product_name}</td>
-                              
                                 <td><input type="number" class="form-control unit_price" value="${detail.unit_price}" readonly></td>
                                 <td>${detail.size}</td>
                                 <td>${detail.qty}</td>
@@ -196,103 +199,103 @@
                                 <td><input type="text" class="form-control subtotal" disabled></td>
                                 <td><button class="btn btn-danger remove-item-btn">Remove</button></td>
                             </tr>`;
-                        $(".sales-details").append(newRow);
-                    });
-                    calculateTotals();
-                    saveSalesDetailsToLocalStorage();
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error: ", error);
-                }
-            });
-        });
-
-        //  saving sales details to localStorage
-        $(document).on('input', '.discount, .vat', function() {
-            let row = $(this).closest('tr');
-            let unitPrice = parseFloat(row.find('.unit_price').val());
-            let qty = parseInt(row.find('td:eq(3)').text());
-            let discount = parseFloat(row.find('.discount').val()) || 0;
-            let vat = parseFloat(row.find('.vat').val()) || 0;
-
-            let totalAmount = unitPrice * qty;
-            let discountAmount = (totalAmount * discount) / 100;
-            let vatAmount = (totalAmount * vat) / 100;
-            let subtotal = totalAmount - discountAmount + vatAmount;
-
-            row.find('.subtotal').val(subtotal.toFixed(2));
-            calculateTotals();
-            saveSalesDetailsToLocalStorage();
-        });
-
-        $(document).on('click', '.remove-item-btn', function() {
-            $(this).closest('tr').remove();
-            calculateTotals();
-            saveSalesDetailsToLocalStorage();
-        });
-
-        // Clear all items from the table
-        $('.clearAll').on('click', function() {
-            $(".sales-details").empty();
-            calculateTotals();
-            localStorage.removeItem('sales_details');
-        });
-
-        // Calculate totals (amount, discount, vat)
-        function calculateTotals() {
-            let totalAmount = 0;
-            let totalDiscount = 0;
-            let totalVat = 0;
-
-            $(".sales-details tr").each(function() {
-                let unitPrice = parseFloat($(this).find('.unit_price').val());
-                let qty = parseInt($(this).find('td:eq(3)').text());
-                let discount = parseFloat($(this).find('.discount').val()) || 0;
-                let vat = parseFloat($(this).find('.vat').val()) || 0;
-
-                let rowTotalAmount = unitPrice * qty;
-                totalAmount += rowTotalAmount;
-
-                let discountAmount = (rowTotalAmount * discount) / 100;
-                let vatAmount = (rowTotalAmount * vat) / 100;
-
-                totalDiscount += discountAmount;
-                totalVat += vatAmount;
+                            $(".sales-details").append(newRow);
+                        });
+                        calculateTotals();
+                        saveSalesDetailsToLocalStorage();
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("API Error:", xhr.responseText);
+                    }
+                });
             });
 
-            $(".total_amount").text(totalAmount.toFixed(2));
-            $(".total_discount").text(totalDiscount.toFixed(2));
-            $(".total_vat").text(totalVat.toFixed(2));
+            $(document).on('input', '.discount, .vat', function() {
+                let row = $(this).closest('tr');
+                let unitPrice = parseFloat(row.find('.unit_price').val()) || 0;
+                let qty = parseInt(row.find('td:eq(3)').text()) || 0;
+                let discount = parseFloat(row.find('.discount').val()) || 0;
+                let vat = parseFloat(row.find('.vat').val()) || 0;
 
-            let grandTotal = totalAmount - totalDiscount + totalVat;
-            $(".grand_total").text(grandTotal.toFixed(2));
-        }
+                let totalAmount = unitPrice * qty;
+                let discountAmount = (totalAmount * discount) / 100;
+                let netAmount = totalAmount - discountAmount; // Net after discount
+                let vatAmount = (netAmount * vat) / 100; // VAT applied on net amount
+                let subtotal = netAmount + vatAmount; // Final subtotal including VAT
 
-        // Save sales details to localStorage
-        function saveSalesDetailsToLocalStorage() {
-            let salesDetails = [];
-            $(".sales-details tr").each(function() {
-                let row = $(this);
-                let item = {
-                    product_name: row.find('td:eq(0)').text(),
-                    unit_price: row.find('.unit_price').val(),
-                    size: row.find('td:eq(2)').text(),
-                    qty: row.find('td:eq(3)').text(),
-                    discount: row.find('.discount').val(),
-                    vat: row.find('.vat').val(),
-                    subtotal: row.find('.subtotal').val()
-                };
-                salesDetails.push(item);
+                row.find('.subtotal').val(subtotal.toFixed(2));
+                row.find('.vat_amount').val(vatAmount.toFixed(2)); // Store VAT separately
+
+                calculateTotals();
+                saveSalesDetailsToLocalStorage();
             });
-            localStorage.setItem('sales_details', JSON.stringify(salesDetails));
-        }
 
-        // Load sales details from localStorage
-        function loadSalesDetailsFromLocalStorage() {
-            let salesDetails = JSON.parse(localStorage.getItem('sales_details'));
-            if (salesDetails) {
-                salesDetails.forEach(detail => {
-                    let newRow = `
+            $(document).on('click', '.remove-item-btn', function() {
+                $(this).closest('tr').remove();
+                calculateTotals();
+                saveSalesDetailsToLocalStorage();
+            });
+
+            $('.clearAll').on('click', function() {
+                $(".sales-details").empty();
+                calculateTotals();
+                localStorage.removeItem('sales_details');
+            });
+
+            function calculateTotals() {
+                let totalAmount = 0;
+                let totalDiscount = 0;
+                let totalVat = 0;
+
+                $(".sales-details tr").each(function() {
+                    let unitPrice = parseFloat($(this).find('.unit_price').val()) || 0;
+                    let qty = parseInt($(this).find('td:eq(3)').text()) || 0;
+                    let discount = parseFloat($(this).find('.discount').val()) || 0;
+                    let vat = parseFloat($(this).find('.vat').val()) || 0;
+
+                    let rowTotalAmount = unitPrice * qty;
+                    totalAmount += rowTotalAmount;
+
+                    let discountAmount = (rowTotalAmount * discount) / 100;
+                    totalDiscount += discountAmount;
+
+                    let vatAmount = ((rowTotalAmount - discountAmount) * (vat / 100)) || 0;
+                    totalVat += vatAmount;
+                    $(".total_vat").text(totalVat.toFixed(2));
+                });
+
+                $(".total_amount").text(totalAmount.toFixed(2));
+                $(".total_discount").text(totalDiscount.toFixed(2));
+                $(".total_vat").text(totalVat.toFixed(2));
+
+                let grandTotal = totalAmount - totalDiscount + totalVat;
+                $(".grand_total").text(grandTotal.toFixed(2));
+            }
+
+            function saveSalesDetailsToLocalStorage() {
+                let salesDetails = [];
+                $(".sales-details tr").each(function() {
+                    let row = $(this);
+                    let item = {
+                        product_name: row.find('td:eq(0)').text(),
+                        unit_price: row.find('.unit_price').val(),
+                        size: row.find('td:eq(2)').text(),
+                        qty: row.find('td:eq(3)').text(),
+                        discount: row.find('.discount').val(),
+                        vat: row.find('.vat').val(),
+                        subtotal: row.find('.subtotal').val()
+                    };
+                    salesDetails.push(item);
+                });
+                localStorage.setItem('sales_details', JSON.stringify(salesDetails));
+            }
+
+            function loadSalesDetailsFromLocalStorage() {
+                let salesDetails = JSON.parse(localStorage.getItem('sales_details'));
+                if (salesDetails) {
+                    salesDetails.forEach(detail => {
+                        console.log(detail)
+                        let newRow = `
                         <tr>
                             <td>${detail.product_name}</td>
                             <td><input type="number" class="form-control unit_price" value="${detail.unit_price}" readonly></td>
@@ -303,72 +306,75 @@
                             <td><input type="text" class="form-control subtotal" value="${detail.subtotal}" disabled></td>
                             <td><button class="btn btn-danger remove-item-btn">Remove</button></td>
                         </tr>`;
-                    $(".sales-details").append(newRow);
-                });
-                calculateTotals();
-            }
-        }
-
-        // Submit invoice data to the backend
-        $('.btn_process').on('click', function() {
-            let buyer_id = $('#buyer_id').val(); // Buyer ID instead of customer_id
-            let invoice_total = $('.grand_total').text();
-            let paid_amount = $('.paid_amount').text();
-            let discount = $('.total_discount').text();
-            let vat = $('.total_vat').text();
-            let order_id = $('#order_id').val();
-
-            let products = [];
-            $(".sales-details tr").each(function() {
-                let row = $(this);
-                products.push({
-                    product_name: row.find('td:eq(0)').text(),
-                    product_id: row.find('td:eq(0)').text(),
-                    unit_price: row.find('.unit_price').val(),
-                    size: row.find('td:eq(2)').text(),
-                    qty: row.find('td:eq(3)').text(),
-                    discount: row.find('.discount').val(),
-                    vat: row.find('.vat').val(),
-                    subtotal: row.find('.subtotal').val()
-                });
-            });
-
-            // Prepare data to send to the API
-            let invoiceData = {
-                buyer_id: buyer_id, 
-                invoice_total: invoice_total,
-                paid_amount: paid_amount,
-                discount: discount,
-                vat: vat,
-                products: products,
-                order_id:order_id
-            };
-            // console.log(invoiceData);
-            $.ajax({
-                url: "{{ url('api/salesinvoice') }}",
-                type: 'POST',
-                data: {
-                    invoiceData,
-                    _token: "{{ csrf_token() }}"
-                },
-
-                success: function(res) {
-                    
-                    console.log(res)
-                    
-                    // if (res.success) {
-                    //     console.log('Invoice processed successfully:', res);
-                    // } else {
-                    //     console.error('Error processing invoice:', res.message);
-                    // }
-                },
-                error: function(xhr, status, error) {
-                    console.log('AJAX Error:', error);
+                        $(".sales-details").append(newRow);
+                    });
+                    calculateTotals();
                 }
-            });
+            }
+
+            $('.btn_process').on('click', function() {
+    let buyer_id = $('#buyer_id').val();
+    let invoice_total = parseFloat($('.grand_total').text()) || 0;
+    let discount = parseFloat($('.total_discount').text()) || 0;
+    let paid_amount = parseFloat($('.grand_total').text()) || 0;
+    let vat = parseFloat($('.total_vat').text()) || 0;
+    let order_id = $('#order_id').val();
+
+    let products = [];
+    $(".sales-details tr").each(function() {
+        let row = $(this);
+        let unitPrice = parseFloat(row.find('.unit_price').val()) || 0;
+        let qty = parseInt(row.find('td:eq(3)').text()) || 0;
+        let discountPercentage = parseFloat(row.find('.discount').val()) || 0;
+        let vatPercentage = parseFloat(row.find('.vat').val()) || 0;
+
+        let totalAmount = unitPrice * qty;
+        let discountAmount = (totalAmount * discountPercentage) / 100;
+        let vatAmount = ((totalAmount - discountAmount) * vatPercentage) / 100;
+
+        products.push({//push in api
+            product_name: row.find('td:eq(0)').text(),
+            product_id: row.find('.product_id').val(),
+            unit_price: unitPrice.toFixed(2),
+            size: row.find('td:eq(2)').text(),
+            qty: qty,
+            discount: discountPercentage.toFixed(2),
+            discount_amount: discountAmount.toFixed(2),
+            vat: vatPercentage.toFixed(2),
+            vat_amount: vatAmount.toFixed(2),
+            subtotal: (totalAmount - discountAmount + vatAmount).toFixed(2)
         });
     });
-</script>
+
+    let invoiceData = {
+        order_id:order_id,
+        buyer_id: buyer_id,
+        invoice_total: invoice_total,
+        paid_amount: paid_amount,
+        discount: discount,
+        vat: vat,
+        products: products
+    };
+
+    $.ajax({
+        url: "{{ url('api/salesinvoice') }}",
+        type: 'POST',
+        data: {
+            invoiceData,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function(res) {
+            console.log(res);
+        },
+        error: function(xhr, status, error) {
+            console.log("API Error:", xhr.responseText);
+        }
+    });
+});
 
 
+        });
+    </script>
 @endsection
+
+
