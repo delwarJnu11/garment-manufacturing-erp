@@ -66,10 +66,6 @@ class PurchaseOrderController extends Controller
         return redirect()->route('purchase.index')->with('success', 'Selected orders updated successfully.');
     }
 
-
-
-
-
     public function find_supplier(Request $request)
     {
         $supplier = InvSupplier::find($request->id);
@@ -127,9 +123,6 @@ class PurchaseOrderController extends Controller
 
         return $pdf->download('invoice_' . $id . '.pdf');
     }
-
-
-
 
     /**
      * Show the form for editing the specified resource.

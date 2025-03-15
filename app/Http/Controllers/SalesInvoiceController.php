@@ -158,12 +158,19 @@ class SalesInvoiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    // public function show(Request $request)
+    // {
+    //     $order_id = 2;
+    //     $order = Order::where('id', $order_id)->with(['orderDetails', 'bom', 'bom.bomDetails'])->get();
+    //     echo json_encode($order);
+    // }
+    public function show(SalesInvoice $salesInvoice, $id)
     {
-        $order_id = 2;
-        $order = Order::where('id', $order_id)->with(['orderDetails', 'bom', 'bom.bomDetails'])->get();
-        echo json_encode($order);
+
+        $salesInvoice = SalesInvoice::with(['inv_supplier', 'orderDetails.product'])->findOrFail($id);
+        return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice'));
     }
+
 
     // public function show(Request $request)
     // {
