@@ -18,9 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->integer('qty'); // Sold quantity
             $table->decimal('unit_price', 10, 2);
-            $table->decimal('%_of_discount', 5, 2)->default(0);
+            $table->decimal('percent_of_discount', 5, 2)->default(0);
             $table->decimal('discount', 10, 2)->default(0);
-            $table->decimal('%_of_vat', 5, 2)->default(0);
+            $table->decimal('percent_of_vat', 5, 2)->default(0);
             $table->decimal('vat', 10, 2)->default(0);
             $table->timestamps();
         });
@@ -31,9 +31,9 @@ return new class extends Migration
             'order_id' => 1,
             'qty' => 5,
             'unit_price' => 1000.00,
-            '%_of_discount' => 0.00,
+            'percent_of_discount' => 0.00,
             'discount' => 200.00,
-            '%_of_vat' => 0.00,
+            'percent_of_vat' => 0.00,
             'vat' => 250.00,
         ]);
     }

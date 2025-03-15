@@ -228,7 +228,7 @@
     </div>
 </div>
 
-@section('script')
+{{-- @section('script')
     <script>
         $(document).ready(function() {
             var currentUrl = window.location.href;
@@ -250,4 +250,4 @@
             });
         });
     </script>
-@endsection
+@endsection --}}

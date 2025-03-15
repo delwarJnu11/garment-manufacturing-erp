@@ -88,7 +88,9 @@ class SalesInvoiceController extends Controller
 
             // Prepare order details for response
             $order_details[] = [
+
                 'product_name' => $detail->product->name,
+                'product_id' => $detail->product->id,
                 'size' => $size_name, // Use size name here
                 'qty' => $total_quantity,
                 'unit_price' => round($final_unit_price, 2) // Ensure the price is rounded to 2 decimal places
