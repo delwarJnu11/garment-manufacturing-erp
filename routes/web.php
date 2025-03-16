@@ -218,6 +218,7 @@ Route::get('purchase/{id}/generate-pdf', [PurchaseOrderController::class, 'gener
 Route::post('/get-warehouse', [WarehouseController::class, 'getWarehouse'])->name('get.warehouse');
 Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
 Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
+Route::post('find_warehouse', [PurchaseOrderController::class, 'find_warehouse']);
 Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
 // Route::get('/purchaseState', [PurchaseOrderController::class,])->name('purchaseState.index');
 Route::get('/purchaseState', [PurchaseStateController::class, 'index'])->name('purchaseState.index');

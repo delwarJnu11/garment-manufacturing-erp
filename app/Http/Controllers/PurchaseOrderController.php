@@ -33,14 +33,18 @@ class PurchaseOrderController extends Controller
     {
 
         $suppliers = InvSupplier::all();
+   
         $lots = ProductLot::all();
+       
         $statuses = InvoiceStatus::all();
         // Fetch only Product Variants with product_type_id = 1 (Raw Material)
         // $products = Product::whereHas('product_type', function ($query) {
         //     $query->where('id', 1)->orWhere('name', 'Raw Material');
         // })->get();
+        
+        $warehouses=Warehouse::all();
         $products = Product::where('product_type_id', 1)->get();
-        return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'products'));
+        return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'products','warehouses'));
     }
 
 
@@ -77,6 +81,11 @@ class PurchaseOrderController extends Controller
         $product = Product::find($request->id);
         return response()->json(['product' => $product]);
     }
+    public function find_warehouse(Request $request)
+    {
+        $warehouse = Warehouse::find($request->id);
+        return response()->json(['warehouse' => $warehouse]);
+    }
 
     public function getInvoiceId()
     {
@@ -104,8 +113,6 @@ class PurchaseOrderController extends Controller
         $purchaseOrder = PurchaseOrder::with(['inv_supplier', 'purchaseDetails.product'])->findOrFail($id);
         return view('pages.purchase_&_supliers.purchase_order.show', compact('purchaseOrder'));
     }
-
-
 
     // Print Invoice
     public function print($id)

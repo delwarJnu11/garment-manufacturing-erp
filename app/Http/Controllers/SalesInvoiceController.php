@@ -174,35 +174,6 @@ class SalesInvoiceController extends Controller
     }
 
 
-    // public function show(Request $request)
-    // {
-    //     $order_id = $request->order_id; // Get selected order ID from request
-
-    //     $order = Order::where('id', $order_id)
-    //         ->with([
-    //             'orderDetails.product', // Include product name
-    //             'bom'
-    //         ])
-    //         ->first();
-
-    //     if (!$order) {
-    //         return response()->json(['error' => 'No order found'], 404);
-    //     }
-
-    //     // Extract required data
-    //     $products = $order->orderDetails->map(function ($detail) {
-    //         return [
-    //             'product_name' => $detail->product->name, // Get product name
-    //             'qty' => $detail->qty // Get quantity
-    //         ];
-    //     });
-
-    //     return response()->json([
-    //         'products' => $products,
-    //         'total_cost' => $order->bom->total_cost ?? 0 // Get total cost from BOM
-    //     ]);
-    // }
-
 
     /**
      * Show the form for editing the specified resource.

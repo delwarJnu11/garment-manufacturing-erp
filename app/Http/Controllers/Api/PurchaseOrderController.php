@@ -47,6 +47,14 @@ class PurchaseOrderController extends Controller
 
     public function store(Request $request)
     {
+        // \Log::info('Received request data:', $request->all());
+
+        // // Return JSON response
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Data received successfully',
+        //     'data' => $request->all()
+        // ], 200);
         try {
             DB::beginTransaction();
 
@@ -112,7 +120,7 @@ class PurchaseOrderController extends Controller
                     'qty' => $product['qty'],
                     'cost_price' => $product['price'],
                     'sales_price' => $product['sales_price'] ?? 0.0,
-                    'warehouse_id' => 1,
+                    'warehouse_id' => $product['warehouse_id'] ?? 1,
                     'transaction_type_id' => 3,
                     'description' => '',
                     'created_at' => now(),
@@ -128,11 +136,11 @@ class PurchaseOrderController extends Controller
 
                 Stock::create([
                     'product_id' => $product['item_id'],
-                    'qty' => $product['qty'],
+                    'qty' =>  $lot->qty,
                     'transaction_type_id' => 3,
                     'created_at' => now(),
                     'updated_at' => now(),
-                    // 'wearhouse_id' => 1,
+                    'wearhouse_id' =>$lot->warehouse_id,
                     'lot_id' => $lastId,
                 ]);
             }
@@ -159,9 +167,6 @@ class PurchaseOrderController extends Controller
             ], 500);
         }
     }
-
-
-
 
 
     /**
