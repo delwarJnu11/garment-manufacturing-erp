@@ -97,6 +97,10 @@
 </div>
 
 <!-- jQuery Script for search and filter -->
+
+@endsection
+
+@section('script')
 <script>
     $(document).ready(function() {
         // Search functionality

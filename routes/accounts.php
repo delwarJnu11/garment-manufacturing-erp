@@ -6,7 +6,7 @@ use App\Http\Controllers\AccountTypesController;
 use App\Http\Controllers\AssetStatusController;
 use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\ChartOfAccountController;
-use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TrialBalanceController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +16,9 @@ Route::resource('assetTypes', AssetTypesController::class);
 Route::resource('accountTypes', AccountTypesController::class);
 Route::resource('accounts', AccountsController::class);
 Route::resource('accountGroups', AccountGroupsController::class);
-Route::resource('transactions', TransactionsController::class);
+Route::resource('transactions', TransactionController::class);
 Route::get('ledgers',[AccountsController::class, 'ledger_report']);
-Route::get('accounts/balanceSheet',[TransactionsController::class, 'balanceSheet']);
+Route::get('accounts/balanceSheet',[TransactionController::class, 'balanceSheet']);
 
 Route::get('trialbalance', [TrialBalanceController::class, 'index'])->name('trial.balance.index');
 Route::get('/trialbalance/pdf', [TrialBalanceController::class, 'printPdf'])->name('trial.balance.pdf');

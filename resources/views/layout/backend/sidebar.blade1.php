@@ -337,6 +337,7 @@
         </div>
     </div>
 </div> -->
+@section('script')
 
 <script>
     $(document).ready(function() {
@@ -375,6 +376,7 @@
         });
     });
 </script>
+@endsection
 
 {{-- old sidebar --}}
 <div class="sidebar" id="sidebar">
@@ -1091,7 +1093,7 @@
             </ul>
         </div>
     </div>
-</div> -->
+</div>
 <!--
 @section('script')
     <script>

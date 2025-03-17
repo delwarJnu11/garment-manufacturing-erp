@@ -160,7 +160,11 @@
         </div>
     </div>
 
-    <script>
+   
+@endsection --}}
+
+<!-- @section('script')
+<script>
         document.addEventListener('DOMContentLoaded', function() {
             const addMaterialButton = document.getElementById('add-material');
             const materialsTable = document.getElementById('materials-table');
@@ -192,4 +196,4 @@
             }
         });
     </script>
-@endsection --}}
+@endsection -->

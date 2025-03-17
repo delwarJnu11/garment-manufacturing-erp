@@ -78,7 +78,11 @@
     </div>
 
     <!-- JavaScript to Select All Checkboxes -->
-    <script>
+  
+@endsection
+
+@section('script')
+<script>
         document.getElementById('select-all').addEventListener('click', function() {
             let checkboxes = document.querySelectorAll('input[name="selected_orders[]"]');
             checkboxes.forEach(checkbox => checkbox.checked = this.checked);

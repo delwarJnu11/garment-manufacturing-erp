@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\accountGroups;
 use App\Models\transactions;
@@ -14,8 +15,8 @@ class AccountsController extends Controller
 {
     public function index()
 	{
-		$accounts = Account::paginate(10);
-		return view("pages.accounts.accounts.index", ["accounts" => $accounts]);
+		$accounts = Account::all();
+		return response()->json($accounts);
 	}
 	public function create()
 	{

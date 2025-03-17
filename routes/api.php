@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AccountsController;
 use App\Http\Controllers\Api\BomDetailsController;
 use App\Http\Controllers\Api\CuttingController;
 use App\Http\Controllers\Api\OrderDetailsController;
@@ -44,3 +45,6 @@ Route::prefix('production-stages')->group(function () {
     Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');
 });
 // Route::post('/adjustment', [StockAdjustmentController::class, 'store']);
+
+
+Route::get('accounts', [AccountsController::class, 'index']);

@@ -93,6 +93,11 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+@endsection
+
+@section('script')
 <script>
     $(document).ready(function() {
         // Handle product type selection change
@@ -127,7 +132,4 @@
         });
     });
 </script>
-
 @endsection
-
-{

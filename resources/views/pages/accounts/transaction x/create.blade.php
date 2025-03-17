@@ -1,11 +1,14 @@
 @extends('layout.backend.main')
-@section('page_content')
+@section('title','Create Transaction')
+@section('css')
 
-<div class="container my-5">
-    <h2>Create Transaction</h2>
-    <form action="{{ route('transactions.store') }}" method="POST">
-        @csrf
-        <div class="row mb-3">
+
+@endsection
+@section('page_content')
+<a class='btn btn-success' href="{{route('transactions.index')}}">Manage</a>
+<form action="{{route('transactions.store')}}" method ="post" enctype="multipart/form-data">
+@csrf
+<div class="row mb-3">
             <label for="voucher_ref" class="col-sm-2 col-form-label">Voucher Ref</label>
             <div class="col-sm-4">
                 <input type = "text" class="form-control" name="voucher_ref" id="voucher_ref" placeholder="Voucher Ref">
@@ -76,5 +79,8 @@
 
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
-</div>
+@endsection
+@section('script')
+
+
 @endsection

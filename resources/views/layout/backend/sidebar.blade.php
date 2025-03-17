@@ -431,26 +431,26 @@
 </div>
 
 @section('script')
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             // alert()
-        //     var currentUrl = window.location.href;
+            var currentUrl = window.location.href;
 
-        //     // Add active class to the current menu
-        //     $(".sidebar-menu ul li a").each(function() {
-        //         if (this.href === currentUrl) {
-        //             $(this).addClass("active");
-        //             $(this).closest("li.submenu").addClass("active"); // Open parent menu
-        //             $(this).closest("ul").slideDown();
-        //         }
-        //     });
+            // Add active class to the current menu
+            $(".sidebar-menu ul li a").each(function() {
+                if (this.href === currentUrl) {
+                    $(this).addClass("active");
+                    $(this).closest("li.submenu").addClass("active"); // Open parent menu
+                    $(this).closest("ul").slideDown();
+                }
+            });
 
-        //   //  Toggle submenu on click
-        //     $(".submenu > a").click(function() {
-        //         $(this).toggleClass("active");
-        //         $(this).next("ul").slideToggle();
-        //         $(this).parent().toggleClass("active");
-        //     });
+          //  Toggle submenu on click
+            $(".submenu > a").click(function() {
+                $(this).toggleClass("active");
+                $(this).next("ul").slideToggle();
+                $(this).parent().toggleClass("active");
+            });
         });
-    </script>
+    </script> -->
 @endsection

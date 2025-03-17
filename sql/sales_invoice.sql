@@ -238,106 +238,106 @@ WHERE bom_id = (
 );
 
 -- 12.03.25
-<script>
-    $(document).ready(function() {
-        -- // Set CSRF token for AJAX requests
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+-- <script>
+--     $(document).ready(function() {
+--         -- // Set CSRF token for AJAX requests
+--         $.ajaxSetup({
+--             headers: {
+--                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+--             }
+--         });
 
-        -- // When buyer is selected, get buyer details
-        $('#buyer_id').on('change', function() {
-            let buyer_id = $(this).val();
+--         -- // When buyer is selected, get buyer details
+--         $('#buyer_id').on('change', function() {
+--             let buyer_id = $(this).val();
 
-            $.ajax({
-                url: "{{ url('find_buyer') }}",
-                type: 'POST',
-                data: {
-                    id: buyer_id
-                },
-                success: function(res) {
-                    if (res.buyer) {
-                        $(".email").text(res.buyer.email);
-                        $(".address").text(res.buyer.shipping_address);
-                        $(".buyer_id").text(res.buyer.id);
-                    } else {
-                        $(".email").text('');
-                        $(".address").text('');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error: ", error);
-                    console.log(xhr.responseText); 
-                }
-            });
-        });
+--             $.ajax({
+--                 url: "{{ url('find_buyer') }}",
+--                 type: 'POST',
+--                 data: {
+--                     id: buyer_id
+--                 },
+--                 success: function(res) {
+--                     if (res.buyer) {
+--                         $(".email").text(res.buyer.email);
+--                         $(".address").text(res.buyer.shipping_address);
+--                         $(".buyer_id").text(res.buyer.id);
+--                     } else {
+--                         $(".email").text('');
+--                         $(".address").text('');
+--                     }
+--                 },
+--                 error: function(xhr, status, error) {
+--                     console.error("AJAX Error: ", error);
+--                     console.log(xhr.responseText); 
+--                 }
+--             });
+--         });
 
-        -- // When order is selected, get order details
-        $('#order_id').on('change', function() {
-            let order_id = $(this).val();
+--         -- // When order is selected, get order details
+--         $('#order_id').on('change', function() {
+--             let order_id = $(this).val();
 
-            $.ajax({
-                url: "{{ url('find_order') }}",  // You will need to create this route
-                type: 'POST',
-                data: {
-                    id: order_id
-                },
-                success: function(res) {
-                    if (res.order) {
-                        $(".invoice_id").text(res.order.order_number);
-                        $(".sale_date").text(res.order.created_at);
-                        -- // Additional order details (like buyer information for that order)
-                    } else {
-                        $(".invoice_id").text('');
-                        $(".sale_date").text('');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX Error: ", error);
-                    console.log(xhr.responseText);
-                }
-            });
-        });
+--             $.ajax({
+--                 url: "{{ url('find_order') }}",  // You will need to create this route
+--                 type: 'POST',
+--                 data: {
+--                     id: order_id
+--                 },
+--                 success: function(res) {
+--                     if (res.order) {
+--                         $(".invoice_id").text(res.order.order_number);
+--                         $(".sale_date").text(res.order.created_at);
+--                         -- // Additional order details (like buyer information for that order)
+--                     } else {
+--                         $(".invoice_id").text('');
+--                         $(".sale_date").text('');
+--                     }
+--                 },
+--                 error: function(xhr, status, error) {
+--                     console.error("AJAX Error: ", error);
+--                     console.log(xhr.responseText);
+--                 }
+--             });
+--         });
 
-        -- // Add item to sales details table
-        $(".add-item-btn").on('click', function() {
-            let product = $(".product").val();
-            let unit_price = $(".unit_price").val();
-            let qty = $(".qty").val();
-            let discount = $(".discount").val();
-            let vat = $(".vat").val();
-            let subtotal = (unit_price * qty) - discount + vat;
+--         -- // Add item to sales details table
+--         $(".add-item-btn").on('click', function() {
+--             let product = $(".product").val();
+--             let unit_price = $(".unit_price").val();
+--             let qty = $(".qty").val();
+--             let discount = $(".discount").val();
+--             let vat = $(".vat").val();
+--             let subtotal = (unit_price * qty) - discount + vat;
 
-            let row = `<tr>
-                <td>${product}</td>
-                <td>${unit_price}</td>
-                <td>${qty}</td>
-                <td>${discount}</td>
-                <td>${vat}</td>
-                <td>${subtotal}</td>
-                <td><button class="btn btn-danger remove-item-btn">Remove</button></td>
-            </tr>`;
+--             let row = `<tr>
+--                 <td>${product}</td>
+--                 <td>${unit_price}</td>
+--                 <td>${qty}</td>
+--                 <td>${discount}</td>
+--                 <td>${vat}</td>
+--                 <td>${subtotal}</td>
+--                 <td><button class="btn btn-danger remove-item-btn">Remove</button></td>
+--             </tr>`;
 
-            $(".sales-details-table-body").append(row);
+--             $(".sales-details-table-body").append(row);
 
-            -- // Clear input fields
-            $(".product").val('');
-            $(".unit_price").val('');
-            $(".qty").val('');
-            $(".discount").val('');
-            $(".vat").val('');
-        });
+--             -- // Clear input fields
+--             $(".product").val('');
+--             $(".unit_price").val('');
+--             $(".qty").val('');
+--             $(".discount").val('');
+--             $(".vat").val('');
+--         });
 
-        -- // Remove item from sales details table
-        $(document).on('click', '.remove-item-btn', function() {
-            $(this).closest('tr').remove();
-        });
+--         -- // Remove item from sales details table
+--         $(document).on('click', '.remove-item-btn', function() {
+--             $(this).closest('tr').remove();
+--         });
 
-        -- // Clear all items from the table
-        $(".clearAll").on('click', function() {
-            $(".sales-details-table-body").empty();
-        });
-    });
-</script>
+--         -- // Clear all items from the table
+--         $(".clearAll").on('click', function() {
+--             $(".sales-details-table-body").empty();
+--         });
+--     });
+-- </script>

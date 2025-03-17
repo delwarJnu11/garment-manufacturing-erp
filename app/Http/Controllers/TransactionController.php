@@ -13,10 +13,10 @@ use Illuminate\Pagination\Paginator;
 class TransactionController extends Controller{
 	public function index(){
 		$transactions = Transaction::paginate(10);
-		return view("pages.accounts.transaction.index",["transactions"=>$transactions]);
+		return view("pages.accounts.transactions.index",["transactions"=>$transactions]);
 	}
 	public function create(){
-		return view("pages.accounts.transaction.create",["accounts"=>Account::all(),"users"=>User::all()]);
+		return view("pages.accounts.transactions.create",["accounts"=>Account::all(),"users"=>User::all()]);
 	}
 	public function store(Request $request){
 
@@ -43,10 +43,10 @@ class TransactionController extends Controller{
 	}
 	public function show($id){
 		$transaction = Transaction::find($id);
-		return view("pages.accounts.transaction.show",["transaction"=>$transaction]);
+		return view("pages.accounts.transactions.show",["transaction"=>$transaction]);
 	}
 	public function edit(Transaction $transaction){
-		return view("pages.accounts.transaction.edit",["transaction"=>$transaction,"accounts"=>Account::all(),"users"=>User::all()]);
+		return view("pages.accounts.transactions.edit",["transaction"=>$transaction,"accounts"=>Account::all(),"users"=>User::all()]);
 	}
 	public function update(Request $request,Transaction $transaction){
 		//Transaction::update($request->all());
@@ -74,4 +74,4 @@ date_default_timezone_set("Asia/Dhaka");
 		return redirect()->route("transactions.index")->with('success', 'Deleted Successfully.');
 	}
 }
-?>
+

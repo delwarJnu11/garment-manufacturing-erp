@@ -33,7 +33,7 @@
 
 			<td>
 			<form action = "{{route('accountGroups.destroy',$accountgroup->id)}}" method = "post">
-				<a class= 'btn btn-primary' href = "{{route('accountGroups.show',$accountgroup->id)}}">View</a>
+				<!-- <a class= 'btn btn-primary' href = "{{route('accountGroups.show',$accountgroup->id)}}">View</a> -->
 				<a class= 'btn btn-success' href = "{{route('accountGroups.edit',$accountgroup->id)}}"> Edit </a>
 				@method('DELETE')
 				@csrf
@@ -44,6 +44,10 @@
 	@endforeach
 	</tbody>
 </table>
+
+<div class="d-flex justify-content-center my-3">
+{{ $accountgroups->links() }}
+</div>
 @endsection
 @section('script')
 
