@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hrm_employees;
@@ -18,8 +18,9 @@ class PayslipController extends Controller
     public function index()
     {
         $payslips=Hrm_payslips::all();
+        //print_r($payslips);
         return response()->json(['payslips' => $payslips]);
-        // echo 'payslips';
+         //echo 'payslips';
     }
 
     /**

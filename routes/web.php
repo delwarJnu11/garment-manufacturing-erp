@@ -189,6 +189,7 @@ Route::prefix('production-stages')->group(function () {
 
  Route::get('find_employee', [HrmEmployeesController::class, 'find_employee']);
 //  Route::get('find_payslip_items', [HrmEmployeesController::class, 'find_payslip_items']);
+  Route::get('payslipsduplicate', [HrmPayslipsController::class, 'indexTwo']);
 
 
 // Route::get('showpayslip', function(){

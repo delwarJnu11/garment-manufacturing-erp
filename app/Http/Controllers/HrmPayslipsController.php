@@ -16,7 +16,7 @@ class HrmPayslipsController extends Controller
     public function index()
     {
         $payslips = Hrm_payslips::paginate(5);
-         //print_r($employees);
+         //print_r($payslips);
 
          return view('pages.hrm.payroll.hrm_payslips.index', compact('payslips'));
     }
@@ -125,4 +125,15 @@ class HrmPayslipsController extends Controller
 	// 	$employees = Hrm_employees::find($id);
 	// 	return response()->json(['employees'=> $employees]);
 	// }
+
+
+
+    public function indexTwo()
+    {
+        $payslips=Hrm_payslips::all();
+        //print_r($payslips);
+        return response()->json(['payslips' => $payslips]);
+        // echo 'payslips';
+    }
+
 }

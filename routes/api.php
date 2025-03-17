@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Api\BomDetailsController;
 use App\Http\Controllers\Api\CuttingController;
+use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\OrderDetailsController;
-use App\Http\Controllers\API\PayslipController;
+use App\Http\Controllers\Api\Payslip_ItemsController;
+use App\Http\Controllers\Api\PayslipController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\HrmPayslipsController;
@@ -33,12 +35,14 @@ Route::post('purchase',[ PurchaseOrderController::class,'store']);
 
 
 
- // Start Api Route
+ // Start HRM Api Route
 
-//  Route::get('payslip', [PayslipController::class,'index']);
  Route::post('payslip', [PayslipController::class,'store']);
+ Route::get('employeeapi', [EmployeeController::class,'index']);
+ Route::get('payslip_itemsapi', [Payslip_ItemsController::class,'index']);
 
- // End Api Route
+ // End HRM Api Route
+
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
 Route::prefix('production-stages')->group(function () {
     Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');
