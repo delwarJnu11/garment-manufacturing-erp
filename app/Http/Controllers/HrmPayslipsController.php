@@ -136,4 +136,6 @@ class HrmPayslipsController extends Controller
         // echo 'payslips';
     }
 
+   
+
 }

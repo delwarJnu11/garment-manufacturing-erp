@@ -181,7 +181,7 @@ padding-top: 10px;
                             <img src="https://hrm.bdtask-demoserver.com/storage/application/1716986808logo.jpg">
                             <h4 class="mt-3">Bdtask HRM <span class="text-uppercase">(Payslip)</span> </h4>
                         </td>
-                        {{-- <td width="30%"></td> --}}
+
                     </tr>
                 </tbody>
             </table>
@@ -232,7 +232,7 @@ padding-top: 10px;
             </div>
 
             <div class="row">
-                <!-- Two-Column Layout for Description and Deduction -->
+
                 <div class="payroll-summary">
                     <div class="description">
                         <h5 class="bg-success p-3 text-center rounded-2">Allowance</h5>
@@ -274,39 +274,6 @@ padding-top: 10px;
                         </table>
                     </div>
                 </div>
-
-                <!-- Total Deductions and Net Salary -->
-                {{-- <table width="95%" class="payrollDatatableReport table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr class="alert-warning text-start">
-                            <th>Description</th>
-                            <th>Amount (৳)</th>
-                            <th>Rate (৳)</th>
-                            <th>#Value (৳)</th>
-                            <th>Deduction (৳)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-start">
-                            <th>Gross salary</th>
-                            <th></th>
-                            <th></th>
-                            <th>1,570.00</th>
-                            <th></th>
-                        </tr>
-                        <tr class="text-start">
-                            <th>Total deductions</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>1,020.00</th>
-                        </tr>
-                        <tr class="text-start alert-warning">
-                            <th colspan="4">Net salary</th>
-                            <th class="text-start">550.00</th>
-                        </tr>
-                    </tbody>
-                </table> --}}
                 <div class="summary-box mt-3 card p-2">
                     <h5 class="card-header bg-warning text-white text-center fs-4 rounded-2">Summary</h5>
                     <div class="table-responsive">
@@ -343,7 +310,7 @@ padding-top: 10px;
                 </div>
             </div>
 
-            <!-- Footer Section -->
+           
             <table width="100%" class="mt-5">
                 <tbody>
                     <tr>

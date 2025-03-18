@@ -38,6 +38,9 @@ Route::post('purchase',[ PurchaseOrderController::class,'store']);
  // Start HRM Api Route
 
  Route::post('payslip', [PayslipController::class,'store']);
+ Route::get('payslip', [PayslipController::class,'store']);
+//  Route::get('payslip', [PayslipController::class, 'getPayslips']);
+ Route::get('payslipindex', [PayslipController::class,'index']);
  Route::get('employeeapi', [EmployeeController::class,'index']);
  Route::get('payslip_itemsapi', [Payslip_ItemsController::class,'index']);
 
