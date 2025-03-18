@@ -21,7 +21,7 @@ class PurchaseOrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request) //purchaseConfirm
     {
         $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->where('status_id', '!=', 1)->paginate(8);
 
@@ -33,18 +33,18 @@ class PurchaseOrderController extends Controller
     {
 
         $suppliers = InvSupplier::all();
-   
+
         $lots = ProductLot::all();
-       
+
         $statuses = InvoiceStatus::all();
         // Fetch only Product Variants with product_type_id = 1 (Raw Material)
         // $products = Product::whereHas('product_type', function ($query) {
         //     $query->where('id', 1)->orWhere('name', 'Raw Material');
         // })->get();
-        
-        $warehouses=Warehouse::all();
+
+        $warehouses = Warehouse::all();
         $products = Product::where('product_type_id', 1)->get();
-        return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'products','warehouses'));
+        return view('pages.purchase_&_supliers.purchase_order.create', compact('suppliers', 'lots', 'statuses', 'products', 'warehouses'));
     }
 
 
@@ -110,7 +110,9 @@ class PurchaseOrderController extends Controller
     public function show(PurchaseOrder $purchaseOrder, $id)
     {
 
+
         $purchaseOrder = PurchaseOrder::with(['inv_supplier', 'purchaseDetails.product'])->findOrFail($id);
+        // dd($purchaseOrder);
         return view('pages.purchase_&_supliers.purchase_order.show', compact('purchaseOrder'));
     }
 

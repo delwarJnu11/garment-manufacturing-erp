@@ -109,9 +109,9 @@ class PurchaseOrderController extends Controller
                     'quantity' => $product['qty'],
                     'lot_id' =>  1,
                     'price' => $product['price'],
-                    '%_of_discount' => $product['p_discount'],
+                    'percent_of_discount' => $product['p_discount'],
                     'vat' =>  $product['total_vat'] ?? 0,
-                    '%_of_vat' =>  $product['p_vat'] ?? 0,
+                    'percent_of_vat' =>  $product['p_vat'] ?? 0,
                     'discount' => $product['total_discount'] ?? 0
                 ]);
 
@@ -140,7 +140,7 @@ class PurchaseOrderController extends Controller
                     'transaction_type_id' => 3,
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'wearhouse_id' =>$lot->warehouse_id,
+                    'wearhouse_id' => $lot->warehouse_id,
                     'lot_id' => $lastId,
                 ]);
             }

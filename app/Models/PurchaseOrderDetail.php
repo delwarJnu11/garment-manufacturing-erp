@@ -13,9 +13,9 @@ class PurchaseOrderDetail extends Model
         'product_id',
         'lot_id',
         'quantity',
-        '%_of_discount',
+        'percent_of_discount',
         'price',
-        '%_of_vat',
+        'percent_of_vat',
         'vat',
         'discount',
     ];

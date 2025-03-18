@@ -39,7 +39,7 @@ class PurchaseInvoiceController extends Controller
     public function saveReactpurchase(Request $request)
     {
 
-        print_r( $request->all());
+        print_r($request->all());
         try {
             DB::beginTransaction();
 
@@ -89,16 +89,18 @@ class PurchaseInvoiceController extends Controller
 
             // Insert Purchase Order Details & Update Stock
             foreach ($products as $product) {
+                $vat = $product['subtotal'] * 0.05;
                 PurchaseOrderDetail::create([
                     'purchase_id' => $purchase->id,
                     'product_id' => $product['item_id'],
                     'quantity' => $product['qty'],
                     'lot_id' =>  1,
                     'price' => $product['price'],
-                    '%_of_discount' => 0,
-                    'vat' =>  $request->vat ?? 0,
-                    '%_of_vat' =>  0,
-                    'discount' =>  $request->discount ?? 0
+                    'percent_of_discount' => 0,
+                    // 'vat' =>  $product['vat'] ?? 0,
+                    'vat' =>  $vat ?? 0,
+                    'percent_of_vat' =>  0,
+                    'discount' =>  $product['discount'] ?? 0
                 ]);
 
                 $lot = ProductLot::create([
@@ -106,7 +108,7 @@ class PurchaseInvoiceController extends Controller
                     'qty' => $product['qty'],
                     'cost_price' => $product['price'],
                     'sales_price' => $product['sales_price'] ?? 0.0,
-                    'warehouse_id' =>$request->warehouse_id ?? 1,
+                    'warehouse_id' => $request->warehouse_id ?? 1,
                     'transaction_type_id' => 3,
                     'description' => '',
                     'created_at' => now(),
@@ -117,7 +119,7 @@ class PurchaseInvoiceController extends Controller
                     throw new \Exception('Failed to create product_lot id');
                 }
 
-            //     // Assign last inserted lot ID
+                //     // Assign last inserted lot ID
                 $lastId = $lot->id;
 
                 Stock::create([
@@ -157,9 +159,19 @@ class PurchaseInvoiceController extends Controller
 
     public function purchase_orders(Request $request)
     {
-        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->where('status_id', '!=', 1)->paginate(8);
-        return response()->json(['purchase_orders'=>$purchase_orders]);
+        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->paginate(20);
+        return response()->json(['purchase_orders' => $purchase_orders]);
     }
+
+    public function show($id)
+    {
+        $purchaseOrder = PurchaseOrder::with('inv_supplier', 'purchaseDetails.product')
+            ->findOrFail($id); // Ensure to load related data
+
+
+        return response()->json($purchaseOrder);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -176,13 +188,7 @@ class PurchaseInvoiceController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
