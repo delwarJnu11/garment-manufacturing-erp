@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+
 class TransactionController extends Controller{
 	public function index(){
 		$transactions = Transaction::paginate(10);
@@ -21,25 +23,48 @@ class TransactionController extends Controller{
 	public function store(Request $request){
 
 		
-		//Transaction::create($request->all());
-		$transaction = new Transaction;
-		$transaction->voucher_ref=$request->voucher_ref;
-		$transaction->transaction_date=$request->transaction_date;
-		$transaction->account_id=$request->account_id;
-		$transaction->amount=$request->amount;
-		$transaction->description=$request->description;
-		$transaction->transaction_against=$request->transaction_against;
-		$transaction->debit=$request->debit;
-		$transaction->credit=$request->credit;
-		$transaction->user_id=$request->user_id;
-        date_default_timezone_set("Asia/Dhaka");
-		$transaction->created_at=date('Y-m-d H:i:s');
-          date_default_timezone_set("Asia/Dhaka");
-		$transaction->updated_at=date('Y-m-d H:i:s');
+		try {
+			DB::beginTransaction();
 
-		$transaction->save();
+			$transaction = new Transaction;
+			$transaction->voucher_ref=$request->voucher_ref;
+			$transaction->transaction_date=$request->transaction_date;
+			$transaction->account_id=$request->account_id;
+			$transaction->amount=$request->debit;
+			$transaction->description=$request->description;
+			$transaction->transaction_against=$request->transaction_against_id;
+			$transaction->debit=$request->debit ?? 0;
+			$transaction->credit=$request->credit ?? 0;
+			$transaction->user_id= Auth::user()->id;
+			date_default_timezone_set("Asia/Dhaka");
+			$transaction->created_at=date('Y-m-d H:i:s');
+			date_default_timezone_set("Asia/Dhaka");
+			$transaction->updated_at=date('Y-m-d H:i:s');
+			$transaction->save();
+	
+			$transaction = new Transaction;
+			$transaction->voucher_ref=$request->voucher_ref;
+			$transaction->transaction_date=$request->transaction_date;
+			$transaction->account_id= $request->transaction_against_id;
+			$transaction->amount=$request->debit;
+			$transaction->description=$request->description;
+			$transaction->transaction_against=$request->account_id;
+			$transaction->debit=$request->t_a_debit ?? 0;
+			$transaction->credit=$request->t_a_credit ?? 0;
+			$transaction->user_id= Auth::user()->id;
+			date_default_timezone_set("Asia/Dhaka");
+			$transaction->created_at=date('Y-m-d H:i:s');
+			  date_default_timezone_set("Asia/Dhaka");
+			$transaction->updated_at=date('Y-m-d H:i:s');
+			$transaction->save();
+			DB::commit();
 
-		return back()->with('success', 'Created Successfully.');
+			return back()->with('success', 'Created Successfully.');
+
+		} catch (\Throwable $th) {
+			DB::rollBack();
+			return back()->with('success', ' Unsuccessfull.');
+		}
 	}
 	public function show($id){
 		$transaction = Transaction::find($id);

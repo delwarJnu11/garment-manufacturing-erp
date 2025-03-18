@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\accountGroups;
+use App\Models\Transaction;
 use App\Models\transactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,11 @@ class AccountsController extends Controller
 		$accounts = Account::all();
 		return response()->json($accounts);
 	}
+    public function journal()
+	{
+		$journal = Transaction::all();
+		return response()->json($journal);
+	}
 	public function create()
 	{
 		return view(
@@ -27,39 +33,55 @@ class AccountsController extends Controller
 			]
 		);
 	}
+
+
 	
 	public function store(Request $request)
 	{
-		//Account::create($request->all());
 
-		$validator = Validator::make($request->all(), [
-			'name' => 'required|unique:accounts',
-		]);
-		if ($validator->fails()) {
-			return redirect()->back()->withErrors($validator)->withInput();
+		// return response()->json($request);
+		try {
+			DB::beginTransaction();
+
+			$transaction = new Transaction;
+			$transaction->voucher_ref=$request->voucher_ref;
+			$transaction->transaction_date=$request->transaction_date;
+			$transaction->account_id=$request->account_id;
+			$transaction->amount=$request->debit;
+			$transaction->description=$request->description;
+			$transaction->transaction_against=$request->transaction_against_id;
+			$transaction->debit=$request->debit ?? 0;
+			$transaction->credit=$request->credit ?? 0;
+			$transaction->user_id= 1;
+			// $transaction->user_id= Auth::user()->id;
+			date_default_timezone_set("Asia/Dhaka");
+			$transaction->created_at=date('Y-m-d H:i:s');
+			date_default_timezone_set("Asia/Dhaka");
+			$transaction->updated_at=date('Y-m-d H:i:s');
+			$transaction->save();
+	
+			$transaction = new Transaction;
+			$transaction->voucher_ref=$request->voucher_ref;
+			$transaction->transaction_date=$request->transaction_date;
+			$transaction->account_id= $request->transaction_against_id;
+			$transaction->amount=$request->debit;
+			$transaction->description=$request->description;
+			$transaction->transaction_against=$request->account_id;
+			$transaction->debit=$request->t_a_debit ?? 0;
+			$transaction->credit=$request->t_a_credit ?? 0;
+			$transaction->user_id= 1;
+			date_default_timezone_set("Asia/Dhaka");
+			$transaction->created_at=date('Y-m-d H:i:s');
+			  date_default_timezone_set("Asia/Dhaka");
+			$transaction->updated_at=date('Y-m-d H:i:s');
+			$transaction->save();
+			DB::commit();
+	
+			return response()->json("Transaction Successfully saved!");
+		} catch (\Throwable $th) {
+			DB::rollBack();
+			return response()->json("Please Try Again. Error: $th" );
 		}
-
-		$lastAccount = DB::table('accounts')->where('account_group_id', $request->account_group_id)->orderByDesc('code')->value('code');
-		$parentCode = AccountGroups::where('id', $request->account_group_id)->value('code');
-		$gencode = $lastAccount ? str_pad((int)substr($lastAccount, -2) + 1, 2, 0, STR_PAD_LEFT) : "01";
-		$accountCode = $parentCode . $gencode;
-
-		$account = new Account;
-		$account->code = $accountCode;
-		$account->name = $request->name;
-		$account->account_group_id = $request->account_group_id;
-		$account->is_payment_method = $request->is_payment_method;
-		$account->is_trx_no_required = $request->is_trx_no_required;
-		$account->description = $request->description;
-		$account->is_active = $request->is_active;
-		date_default_timezone_set("Asia/Dhaka");
-		$account->created_at = date('Y-m-d H:i:s');
-		$account->created_by = Auth::user()->id;
-		date_default_timezone_set("Asia/Dhaka");
-		$account->updated_at = date('Y-m-d H:i:s');
-		$account->updated_by = Auth::user()->id;
-		$account->save();
-		return back()->with('success', 'Created Successfully.');
 	}
 	public function show($id)
 	{
@@ -97,7 +119,6 @@ class AccountsController extends Controller
 		$account->delete();
 		return redirect()->route("accounts.index")->with('success', 'Deleted Successfully.');
 	}
-
 
 	public static function  createAccount(  $request, string $name = "", int $account_group_id = 0, string $description = "")
 	{

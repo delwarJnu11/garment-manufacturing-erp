@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 
-
 // API FOR ORDER DETAILS
 Route::get('order_details', [OrderDetailsController::class, 'index']);
 Route::post('order_details', [OrderDetailsController::class, 'store']);
@@ -32,8 +31,6 @@ Route::get('order', [OrderDetailsController::class, 'index']);
 // purchaseOrder  Api
 Route::post('purchase',[ PurchaseOrderController::class,'store']);
 
-
-
  // Start Api Route
 
 //  Route::get('payslip', [PayslipController::class,'index']);
@@ -46,5 +43,6 @@ Route::prefix('production-stages')->group(function () {
 });
 // Route::post('/adjustment', [StockAdjustmentController::class, 'store']);
 
-
 Route::get('accounts', [AccountsController::class, 'index']);
+Route::post('transactions', [AccountsController::class, 'store']);
+Route::get('journal', [AccountsController::class, 'journal']);
