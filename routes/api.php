@@ -33,4 +33,6 @@ Route::post('salesinvoice', [SalesInvoiceController::class, 'store']);
 Route::get('suppliers', [PurchaseInvoiceController::class, 'supplier']);
 Route::get('warehouses', [PurchaseInvoiceController::class, 'warehouse']);
 Route::get('products', [PurchaseInvoiceController::class, 'product']);
+
 Route::post('saveReactpurchase', [PurchaseInvoiceController::class, 'saveReactpurchase']);
+Route::get('purchase_orders', [PurchaseInvoiceController::class, 'purchase_orders']);

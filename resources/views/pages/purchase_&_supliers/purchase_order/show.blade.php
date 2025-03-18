@@ -41,13 +41,13 @@
                     @forelse($purchaseOrder->purchaseDetails as $detail) 
                     <tr>
                         <td>{{ optional($detail->product)->name }}</td> <!-- Product Name -->
-                        <td>${{ number_format($detail->price, 2) }}</td> <!-- Product Price -->
+                        <td>{{ number_format($detail->price, 2) }}</td> <!-- Product Price -->
                         <td>{{ $detail->quantity }}</td>
                         <td>{{ $detail->discount }}</td>
                         <td>{{ $detail->vat }}</td>
                        
                         <td>
-                            ${{ number_format(
+                            {{ number_format(
                                 (($detail->price * $detail->quantity) - 
                                 (($detail->discount / 100) * ($detail->price * $detail->quantity))) + 
                                 ((($detail->price * $detail->quantity) - (($detail->discount / 100) * ($detail->price * $detail->quantity))) * ($detail->vat / 100)),
@@ -70,9 +70,9 @@
                      <p><strong>Notes:</strong> {{ $purchaseOrder->description }}</p>
                  </div>
                  <div class="col-md-6 text-end">
-                     <h4>Total: ${{ number_format($purchaseOrder->total_amount, 2) }}</h4>
-                     <h5>Paid: ${{ number_format($purchaseOrder->paid_amount, 2) }}</h5>
-                     <h5>Grand Total: ${{ number_format($purchaseOrder->total_amount - $purchaseOrder->paid_amount, 2) }}</h5>
+                     <h4>Total: {{ number_format($purchaseOrder->total_amount, 2) }}</h4>
+                     <h5>Paid: {{ number_format($purchaseOrder->paid_amount, 2) }}</h5>
+                     <h5>Grand Total: {{ number_format($purchaseOrder->total_amount - $purchaseOrder->paid_amount, 2) }}</h5>
                  </div>
              </div>
          </div>
