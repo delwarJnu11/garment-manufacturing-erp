@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\BomDetailsController;
 use App\Http\Controllers\Api\OrderDetailsController;
+use App\Http\Controllers\api\PurchaseInvoiceController;
 use App\Http\Controllers\Api\RawMaterialController;
 use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\SalesInvoiceController;
@@ -28,4 +29,7 @@ Route::get('order', [OrderDetailsController::class, 'index']);
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
 
 Route::post('salesinvoice', [SalesInvoiceController::class, 'store']);
+Route::get('suppliers', [PurchaseInvoiceController::class, 'supplier']);
+Route::get('warehouses', [PurchaseInvoiceController::class, 'warehouse']);
+Route::get('products', [PurchaseInvoiceController::class, 'product']);
 
