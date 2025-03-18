@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Size;
 use Illuminate\Http\Request;
 
 class OrderDetailsController extends Controller
@@ -18,6 +20,30 @@ class OrderDetailsController extends Controller
             'status'  => 200,
             'message' => 'Orders retrieved successfully',
             'data'    => $orders,
+        ]);
+    }
+
+    // for React 
+    public function getOrders()
+    {
+        $orders = Order::with([
+            'buyer',
+            'status',
+            'orderDetails.product',
+            'orderDetails.size',
+            'orderDetails.color',
+            'orderDetails.uom'
+        ])->whereHas('status', function ($query) {
+            $query->where('name', 'Pending');
+        })->groupBy('order_number')->paginate(4);
+
+        // Get all unique sizes dynamically
+        $sizes = Size::pluck('name')->toArray();
+
+        return response()->json([
+            'status'  => 200,
+            'message' => 'Orders retrieved successfully',
+            'data'    => ['orders' => $orders, 'sizes' => $sizes],
         ]);
     }
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buyer;
-use App\Models\fabricType;
+use App\Models\FabricType;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Size;
@@ -24,12 +24,57 @@ class OrderController extends Controller
             'orderDetails.size',
             'orderDetails.color',
             'orderDetails.uom'
-        ])->groupBy('order_number')->paginate(4);
+        ])->whereHas('status', function ($query) {
+            $query->where('name', 'Pending');
+        })->groupBy('order_number')->paginate(4);
 
         // Get all unique sizes dynamically
         $sizes = Size::pluck('name')->toArray();
 
         return view('pages.orders_&_buyers.order.index', compact('orders', 'sizes'));
+    }
+    /**
+     * In Progress Orders
+     */
+    public function runningOrders()
+    {
+        $orders = Order::with([
+            'buyer',
+            'status',
+            'orderDetails.product',
+            'orderDetails.size',
+            'orderDetails.color',
+            'orderDetails.uom'
+        ])->whereHas('status', function ($query) {
+            $query->where('name', 'In Progress');
+        })->groupBy('order_number')->paginate(4);
+
+        // Get all unique sizes dynamically
+        $sizes = Size::pluck('name')->toArray();
+
+        return view('pages.orders_&_buyers.order.running', compact('orders', 'sizes'));
+    }
+
+    /**
+     * Display Completed Orders
+     */
+    public function completedOrders()
+    {
+        $orders = Order::with([
+            'buyer',
+            'status',
+            'orderDetails.product',
+            'orderDetails.size',
+            'orderDetails.color',
+            'orderDetails.uom'
+        ])->whereHas('status', function ($query) {
+            $query->where('name', 'Completed');
+        })->groupBy('order_number')->paginate(4);
+
+        // Get all unique sizes dynamically
+        $sizes = Size::pluck('name')->toArray();
+
+        return view('pages.orders_&_buyers.order.completed', compact('orders', 'sizes'));
     }
 
     /**
@@ -42,7 +87,7 @@ class OrderController extends Controller
             $query->where('name', 'Supervisor');
         })->get();
         $order_status = OrderStatus::all();
-        $fabrics_types = fabricType::all();
+        $fabrics_types = FabricType::all();
 
         return view('pages.orders_&_buyers.order.create', compact('buyers', 'supervisors', 'order_status', 'fabrics_types'));
     }
