@@ -44,19 +44,7 @@
                                             <i  data-feather="trash-2" class="feather-trash-2" onclick="return confirm('Are you sure you want to delete this Status? This action cannot be undone!');">
                                                 Yes, Delete></i>
                                         </a>
-                                        {{-- <form action="{{url("hrm_status/{$data['id']}")}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <div class="d-flex justify-content-end mt-4">
-                                                <button type="submit" class="btn btn-danger px-4"
-                                                    onclick="return confirm('Are you sure you want to delete this customer? This action cannot be undone!');">
-                                                    Yes, Delete
-                                                </button>
-                                                <a class="confirm-text p-2" href="">
-                                                    <i data-feather="trash-2" class="feather-trash-2"></i>
-                                                </a>
-                                            </div>
-                                        </form> --}}
+                                       
                                     </div>
                                 </td>
                             </tr>

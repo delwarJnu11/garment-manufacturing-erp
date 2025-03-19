@@ -10,7 +10,7 @@ class Hrm_payslips extends Model
         return $this->belongsTo(Hrm_departments::class);
     }
     public function employee(){
-        return $this->belongsTo(Hrm_employees::class);
+        return $this->belongsTo(Hrm_employees::class, 'employee_id');
     }
 
     public function designations(){

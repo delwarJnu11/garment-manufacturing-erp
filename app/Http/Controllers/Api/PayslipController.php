@@ -18,10 +18,17 @@ class PayslipController extends Controller
     public function index()
     {
         $payslips=Hrm_payslips::all();
-        //print_r($payslips);
         return response()->json(['payslips' => $payslips]);
-         //echo 'payslips';
+
     }
+
+    // public function getPayslips()
+    // {
+    //     $payslips = Hrm_payslips::with('employee')->get();
+
+    //     return response()->json($payslips);
+    // }
+
 
     /**
      * Show the form for creating a new resource.

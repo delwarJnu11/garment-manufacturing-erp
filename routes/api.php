@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\BomDetailsController;
 use App\Http\Controllers\Api\CuttingController;
+use App\Http\Controllers\Api\DepartmentController;
+use App\Http\Controllers\Api\DesignationController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\OrderDetailsController;
 use App\Http\Controllers\Api\Payslip_ItemsController;
@@ -38,12 +40,23 @@ Route::post('purchase',[ PurchaseOrderController::class,'store']);
  // Start HRM Api Route
 
  Route::post('payslip', [PayslipController::class,'store']);
+
+
+//  Start React Api
  Route::get('payslip', [PayslipController::class,'store']);
+//  Route::get('payslip', [PayslipController::class, 'getPayslips']);
+ Route::get('payslipindex', [PayslipController::class,'index']);
  Route::get('employeeapi', [EmployeeController::class,'index']);
  Route::get('payslip_itemsapi', [Payslip_ItemsController::class,'index']);
+ Route::get('employeeapi', [EmployeeController::class,'index']);
+ Route::get('departments', [DepartmentController::class, 'index']);
+ Route::get('designations', [DesignationController::class, 'index']);
+//  End React Api
 
  // End HRM Api Route
 
+
+ 
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
 Route::prefix('production-stages')->group(function () {
     Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');
