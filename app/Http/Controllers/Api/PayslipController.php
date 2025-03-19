@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hrm_employees;
@@ -17,7 +17,7 @@ class PayslipController extends Controller
      */
     public function index()
     {
-        $payslips=Hrm_payslips::all();
+        $payslips = Hrm_payslips::all();
         return response()->json(['payslips' => $payslips]);
         // echo 'payslips';
     }
@@ -50,39 +50,35 @@ class PayslipController extends Controller
         $payslips->leaves_taken = $request->leaves_taken;
         $payslips->balance_leaves = $request->balance_leaves;
         $payslips->total_earnings = $request->total_earnings;
-        $payslips->	total_deductions = $request->total_deductions;
+        $payslips->total_deductions = $request->total_deductions;
         $payslips->net_salary = $request->net_salary;
         $payslips->payment_method = $request->payment_method;
         // $payslips->generated_at = ""; //$request->generated_at;
 
         $payslips->save();
 
-        $lastPayslipId= $payslips->id;
+        $lastPayslipId = $payslips->id;
         $payslipData = $request->payslips;
 
         foreach ($payslipData as $key => $value) {
-        $payslip_details = new Hrm_payslip_details();
-        $payslip_details->payslip_id=$lastPayslipId;
-        $payslip_details->payslip_items_id=$value['item_id'] ;
-        // $payslip_details->factor=$value['factor'] ;
-        // $payslip_details->allowance_amount=$value['allowance_amount'];
-        // $payslip_details->deduction_amount=$value['deduction_amount'] ;
-        // $payslip_details->total_amount= $value[''] ;
+            $payslip_details = new Hrm_payslip_details();
+            $payslip_details->payslip_id = $lastPayslipId;
+            $payslip_details->payslip_items_id = $value['item_id'];
+            // $payslip_details->factor=$value['factor'] ;
+            // $payslip_details->allowance_amount=$value['allowance_amount'];
+            // $payslip_details->deduction_amount=$value['deduction_amount'] ;
+            // $payslip_details->total_amount= $value[''] ;
 
-        $payslip_details->save();
+            $payslip_details->save();
         }
 
         return response()->json(['success' => "Payslip confirmed successfully"]);
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.

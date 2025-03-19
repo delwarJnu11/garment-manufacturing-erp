@@ -138,56 +138,56 @@ Route::prefix('production-stages')->group(function () {
  * Start Hr & Workforce Management.
  */
 
- Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
- Route::resource('hrm_status', HrmStatusesController::class);
+Route::get('hrm_status/delete/{id}', [HrmStatusesController::class, 'destroy']);
+Route::resource('hrm_status', HrmStatusesController::class);
 
- Route::get('hrm_departments/delete/{id}/', [HrmDepartmentsController::class, 'destroy']);
- Route::resource('hrm_departments', HrmDepartmentsController::class);
+Route::get('hrm_departments/delete/{id}/', [HrmDepartmentsController::class, 'destroy']);
+Route::resource('hrm_departments', HrmDepartmentsController::class);
 
- Route::get('hrm_sub_departments/delete/{id}/', [HrmSubDepartmentsController::class, 'destroy']);
- Route::resource('hrm_sub_departments', HrmSubDepartmentsController::class);
+Route::get('hrm_sub_departments/delete/{id}/', [HrmSubDepartmentsController::class, 'destroy']);
+Route::resource('hrm_sub_departments', HrmSubDepartmentsController::class);
 
- Route::get('hrm_designations/delete/{id}/', [HrmDesignationsController::class, 'destroy']);
- Route::resource('hrm_designations', HrmDesignationsController::class);
+Route::get('hrm_designations/delete/{id}/', [HrmDesignationsController::class, 'destroy']);
+Route::resource('hrm_designations', HrmDesignationsController::class);
 
- Route::get('hrm_employees/delete/{id}/', [HrmEmployeesController::class, 'destroy']);
- Route::resource('hrm_employees', HrmEmployeesController::class);
+Route::get('hrm_employees/delete/{id}/', [HrmEmployeesController::class, 'destroy']);
+Route::resource('hrm_employees', HrmEmployeesController::class);
 
- Route::get('hrm_employee_performances/delete/{id}/', [HrmEmployeePerformancesController::class, 'destroy']);
- Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::class);
+Route::get('hrm_employee_performances/delete/{id}/', [HrmEmployeePerformancesController::class, 'destroy']);
+Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::class);
 
- Route::get('hrm_employee_bank_accounts/delete/{id}/', [HrmEmployeeBankAccountsController::class, 'destroy']);
- Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
+Route::get('hrm_employee_bank_accounts/delete/{id}/', [HrmEmployeeBankAccountsController::class, 'destroy']);
+Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
 
- Route::post('/hrm_attendance_list/clock-in', [HrmAttendanceListController::class, 'clockIn']);
- Route::post('/hrm_attendance_list/clock-out', [HrmAttendanceListController::class, 'clockOut']);
- Route::get('hrm_attendance_list/delete/{id}/', [HrmAttendanceListController::class, 'destroy']);
- Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
+Route::post('/hrm_attendance_list/clock-in', [HrmAttendanceListController::class, 'clockIn']);
+Route::post('/hrm_attendance_list/clock-out', [HrmAttendanceListController::class, 'clockOut']);
+Route::get('hrm_attendance_list/delete/{id}/', [HrmAttendanceListController::class, 'destroy']);
+Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
 
- Route::get('hrm_employee_timesheets/delete/{id}/',[HrmEmployeeTimesheetsController::class,'destroy'] );
- Route::resource('hrm_employee_timesheets', HrmEmployeeTimesheetsController::class);
+Route::get('hrm_employee_timesheets/delete/{id}/', [HrmEmployeeTimesheetsController::class, 'destroy']);
+Route::resource('hrm_employee_timesheets', HrmEmployeeTimesheetsController::class);
 
- Route::get('hrm_leave_types/delete/{id}/',[HrmLeaveTypesController::class,'destroy'] );
- Route::resource('hrm_leave_types', HrmLeaveTypesController::class);
-
-
- Route::post('/hrm_leave_applications/leaveUpdate', [HrmLeaveApplicationsController::class, 'leaveUpdate']);
- Route::get('hrm_leave_applications/delete/{id}/',[HrmLeaveApplicationsController::class,'destroy'] );
- Route::resource('hrm_leave_applications', HrmLeaveApplicationsController::class);
+Route::get('hrm_leave_types/delete/{id}/', [HrmLeaveTypesController::class, 'destroy']);
+Route::resource('hrm_leave_types', HrmLeaveTypesController::class);
 
 
- Route::get('hrm_leave_application_approvers/delete/{id}/',[HrmLeaveApplicationApproversController::class,'destroy'] );
- Route::resource('hrm_leave_application_approvers', HrmLeaveApplicationApproversController::class);
-
- Route::get('hrm_payslips/delete/{id}/',[HrmPayslipsController::class,'destroy'] );
- Route::get('hrm_payslips/create/',[HrmPayslipsController::class,'create'] );
- Route::resource('hrm_payslips', HrmPayslipsController::class);
-
- Route::get('hrm_payslip_items/delete/{id}/',[HrmPayslipItemsController::class,'destroy'] );
- Route::resource('hrm_payslip_items', HrmPayslipItemsController::class);
+Route::post('/hrm_leave_applications/leaveUpdate', [HrmLeaveApplicationsController::class, 'leaveUpdate']);
+Route::get('hrm_leave_applications/delete/{id}/', [HrmLeaveApplicationsController::class, 'destroy']);
+Route::resource('hrm_leave_applications', HrmLeaveApplicationsController::class);
 
 
- Route::get('find_employee', [HrmEmployeesController::class, 'find_employee']);
+Route::get('hrm_leave_application_approvers/delete/{id}/', [HrmLeaveApplicationApproversController::class, 'destroy']);
+Route::resource('hrm_leave_application_approvers', HrmLeaveApplicationApproversController::class);
+
+Route::get('hrm_payslips/delete/{id}/', [HrmPayslipsController::class, 'destroy']);
+Route::get('hrm_payslips/create/', [HrmPayslipsController::class, 'create']);
+Route::resource('hrm_payslips', HrmPayslipsController::class);
+
+Route::get('hrm_payslip_items/delete/{id}/', [HrmPayslipItemsController::class, 'destroy']);
+Route::resource('hrm_payslip_items', HrmPayslipItemsController::class);
+
+
+Route::get('find_employee', [HrmEmployeesController::class, 'find_employee']);
 //  Route::get('find_payslip_items', [HrmEmployeesController::class, 'find_payslip_items']);
 
 
@@ -195,13 +195,13 @@ Route::prefix('production-stages')->group(function () {
 //     return view('pages.hrm.payroll.hrm_payslips.show');
 // });
 
- // Route::get('/employee', function () {
- //     echo Auth::user()->isEmployee();
- // })->middleware(['employee']);
+// Route::get('/employee', function () {
+//     echo Auth::user()->isEmployee();
+// })->middleware(['employee']);
 
-     Route::get('/home', function () {
-         return view('home');
-      });
+Route::get('/home', function () {
+    return view('home');
+});
 
 
 
@@ -284,8 +284,8 @@ Route::get('/purchaseState', [PurchaseStateController::class, 'index'])->name('p
 Route::post('/purchase/updateStatus', [PurchaseOrderController::class, 'updateStatus'])->name('purchase.updateStatus');
 
 // Report
-Route::get('/purchase-report',[PurchaseReportController::class,'index']);
-Route::post('/purchase-report',[PurchaseReportController::class,'show']);
+Route::get('/purchase-report', [PurchaseReportController::class, 'index']);
+Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
 // Report
 Route::get('/purchase-report', [PurchaseReportController::class, 'index']);
 Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
@@ -296,6 +296,8 @@ Route::resource('payments', PurchasePaymentController::class);
 /*
  *  Orders & Buyers
  */
+Route::get('/orders/completed', [OrderController::class, 'completedOrders'])->name('orders.completed');
+Route::get('/orders/running', [OrderController::class, 'runningOrders'])->name('orders.running');
 Route::resource('orders', OrderController::class);
 Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
