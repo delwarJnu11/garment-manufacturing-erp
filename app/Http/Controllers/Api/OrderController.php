@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Buyer;
+use App\Models\FabricType;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderStatus;
+use App\Models\Role;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -39,5 +44,34 @@ class OrderController extends Controller
         ]);
 
         return response()->json($order, 201);
+    }
+
+    public function getBuyers()
+    {
+        return response()->json(Buyer::select('id', 'first_name', 'last_name')->get());
+    }
+
+    public function getSupervisors()
+    {
+        $supervisorRole = Role::where('name', 'Supervisor')->first();
+
+        if (!$supervisorRole) {
+            return response()->json(['message' => 'Supervisor role not found'], 404);
+        }
+
+        $supervisors = User::where('role_id', $supervisorRole->id)
+            ->select('id', 'name', 'email') // Fetch only required fields
+            ->get();
+
+        return response()->json($supervisors);
+    }
+
+    public function getOrderStatuses()
+    {
+        return response()->json(OrderStatus::select('id', 'name')->get());
+    }
+    public function getFabricsTypes()
+    {
+        return response()->json(FabricType::select('id', 'name')->get());
     }
 }
