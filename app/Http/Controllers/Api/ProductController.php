@@ -10,11 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::paginate(10);
-        return response()->json([
-            "status" => 200,
-            "message" => "product get successfully",
-            "data" => $products,
-        ]);
+        $products = Product::with('product_type', 'category_type', 'size', 'uom')->paginate(10);
+        return  response()->json(["products" => $products]);
     }
 }
