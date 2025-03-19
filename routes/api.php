@@ -35,6 +35,7 @@ Route::get('/buyers', [OrderController::class, 'getBuyers']);
 Route::get('/supervisors', [OrderController::class, 'getSupervisors']);
 Route::get('/order-statuses', [OrderController::class, 'getOrderStatuses']);
 Route::get('/fabrics', [OrderController::class, 'getFabricsTypes']);
+Route::get('/order-details/data', [OrderDetailsController::class, 'fetchData']);
 // purchaseOrder  Api
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
 

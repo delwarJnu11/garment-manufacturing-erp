@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Color;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Product;
 use App\Models\Size;
+use App\Models\Uom;
 use Illuminate\Http\Request;
 
 class OrderDetailsController extends Controller
@@ -105,5 +108,15 @@ class OrderDetailsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function fetchData()
+    {
+        return response()->json([
+            'products' => Product::select('id', 'name')->get(),
+            'sizes' => Size::select('id', 'name')->get(),
+            'uoms' => Uom::select('id', 'name')->get(),
+            'colors' => Color::select('id', 'name')->get()
+        ]);
     }
 }
