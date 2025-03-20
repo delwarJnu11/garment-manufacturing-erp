@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\ProductLot;
+use App\Models\ProductType;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderDetail;
+use App\Models\Size;
 use App\Models\Stock;
-
-
+use App\Models\Uom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -28,10 +30,7 @@ class PurchaseOrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+   
 
 
 

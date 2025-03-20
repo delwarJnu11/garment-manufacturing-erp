@@ -42,4 +42,8 @@ Route::get('products', [PurchaseInvoiceController::class, 'product']);
 Route::post('saveReactpurchase', [PurchaseInvoiceController::class, 'saveReactpurchase']);
 Route::get('purchaseOrder/{id}', [PurchaseInvoiceController::class, 'show']);
 Route::get('purchase_orders', [PurchaseInvoiceController::class, 'purchase_orders']);
+// Product Api
 Route::get('get-products', [ProductController::class, 'index']);
+Route::post('create-product', [ProductController::class, 'create']);
+Route::post('store-product', [ProductController::class, 'store']);
+Route::post('stocks', [ProductController::class, 'stock']);
