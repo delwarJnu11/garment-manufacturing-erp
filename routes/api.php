@@ -30,10 +30,13 @@ Route::get('order', [OrderDetailsController::class, 'index']);
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
 
 Route::post('salesinvoice', [SalesInvoiceController::class, 'store']);
+
+
+
+// FarzDev branch React Api
 Route::get('suppliers', [PurchaseInvoiceController::class, 'supplier']);
 Route::get('warehouses', [PurchaseInvoiceController::class, 'warehouse']);
 Route::get('products', [PurchaseInvoiceController::class, 'product']);
-Route::get('purchaseOrder/{id}', [PurchaseInvoiceController::class, 'show']);
-
 Route::post('saveReactpurchase', [PurchaseInvoiceController::class, 'saveReactpurchase']);
+Route::get('purchaseOrder/{id}', [PurchaseInvoiceController::class, 'show']);
 Route::get('purchase_orders', [PurchaseInvoiceController::class, 'purchase_orders']);
