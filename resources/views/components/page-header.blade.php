@@ -8,8 +8,8 @@
 
     <ul class="table-top-head">
         <li>
-            <a data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Pdf" data-bs-original-title="Pdf"><img
-                    src="{{ asset('assets') }}/img/icons/pdf.svg" alt="img"></a>
+            <a href={{ $pdf }} data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Pdf"
+                data-bs-original-title="Pdf"><img src="{{ asset('assets') }}/img/icons/pdf.svg" alt="img"></a>
         </li>
         <li>
             <a data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Excel" data-bs-original-title="Excel"><img
@@ -44,8 +44,8 @@
         </li>
     </ul>
     <div class="page-btn">
-        <a {{$attributes}} class="btn btn-added"><svg xmlns="http://www.w3.org/2000/svg"
-                width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        <a {{ $attributes }} class="btn btn-added"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle me-2">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="8" x2="12" y2="16"></line>

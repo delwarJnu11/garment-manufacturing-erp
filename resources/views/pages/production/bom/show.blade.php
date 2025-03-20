@@ -1,7 +1,11 @@
 @extends('layout.backend.main')
+@php
+    use Carbon\Carbon;
+@endphp
 
 @section('page_content')
-    <x-page-header heading="Bill Of materials" btnText="BOM" href="{{ route('bom.create') }}" />
+    <x-page-header pdf="{{ route('bom.show', ['bom' => $bom->id, 'download' => true]) }}" heading="Bill Of materials"
+        btnText="BOM" href="{{ route('bom.create') }}" />
     <div class="flex-fill">
         <h2 class="mb-4 text-center">Bill Of Material for Order <strong
                 class="text-primary">#{{ $order->order_number }}</strong></h2>
@@ -16,15 +20,17 @@
             <div>
                 <h4 class="mb-2">Order Details</h3>
                     <p class="my-1"><strong>Order Number : </strong>{{ $order->order_number }}</p>
-                    <p class="my-1"><strong>Order Date : </strong>{{ $order->created_at }}</p>
-                    <p class="my-1"><strong>Delivery Date : </strong>{{ $order->delivery_date }}</p>
-                    <p class="my-1"><strong>Current Date: </strong>{{ now() }}</p>
+                    <p class="my-1"><strong>Order Date :
+                        </strong>{{ Carbon::parse($order->created_at)->format('d M, Y') }}</p>
+                    <p class="my-1"><strong>Delivery Date :
+                        </strong>{{ Carbon::parse($order->delivery_date)->format('d M, Y') }}</p>
+                    <p class="my-1"><strong>Current Date: </strong> {{ Carbon::parse(now())->format('d M, Y') }} </p>
             </div>
         </div>
 
         @foreach ($data as $sizeData)
             <h4 class="my-2 bg-secondary">Size: {{ $sizeData['size'] }}</h4>
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered my-4">
                 <thead>
                     <tr>
                         <th>Material Name</th>

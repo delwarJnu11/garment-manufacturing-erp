@@ -6,6 +6,7 @@ use App\Models\Bom;
 use App\Models\Order;
 use App\Models\Raw_material;
 use App\Models\Size;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class BomController extends Controller
@@ -101,10 +102,11 @@ class BomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bom $bom)
+
+    public function show(Bom $bom, Request $request)
     {
         $bomDetails = $bom->bomDetails()
-            ->with('product', 'size', 'bom.order', 'bom.order.buyer',)
+            ->with('product', 'size', 'bom.order', 'bom.order.buyer')
             ->get()
             ->groupBy('size_id');
 
@@ -114,13 +116,8 @@ class BomController extends Controller
             $materials = [];
 
             foreach ($details as $detail) {
-                // Ensure product exists before accessing its properties
                 $productName = $detail->product ? $detail->product->name : 'Unknown Product';
-
-                // Calculate wastage (0.2% of quantity used)
                 $wastage = $detail->quantity_used * ($detail->wastage / 100);
-
-                // Total price calculation
                 $materialTotal = ($detail->quantity_used + $wastage) * $detail->unit_price;
                 $totalPrice += $materialTotal;
                 $order = $detail->bom->order;
@@ -135,7 +132,6 @@ class BomController extends Controller
                 ];
             }
 
-            // Store data for the size
             $data[] = [
                 'size' => Size::find($size_id)->name ?? 'Unknown Size',
                 'materials' => $materials,
@@ -143,8 +139,72 @@ class BomController extends Controller
             ];
         }
 
+        // **Check if PDF download is requested**
+        if ($request->has('download')) {
+            $pdf = Pdf::loadView('pages.production.bom.pdf', compact('bom', 'data', 'order', 'buyer'))
+                ->setPaper('a4', 'portrait');
+
+            return $pdf->download('BOM_Details.pdf');
+        }
+
         return view('pages.production.bom.show', compact('bom', 'data', 'order', 'buyer'));
     }
+
+
+    /**
+     * 
+     * Download BOM As PDF
+     */
+
+    // public function downloadBOM(Bom $bom)
+    // {
+    //     $bomDetails = $bom->bomDetails()
+    //         ->with('product', 'size', 'bom.order', 'bom.order.buyer',)
+    //         ->get()
+    //         ->groupBy('size_id');
+
+    //     $data = [];
+    //     foreach ($bomDetails as $size_id => $details) {
+    //         $totalPrice = 0;
+    //         $materials = [];
+
+    //         foreach ($details as $detail) {
+    //             // Ensure product exists before accessing its properties
+    //             $productName = $detail->product ? $detail->product->name : 'Unknown Product';
+
+    //             // Calculate wastage (0.2% of quantity used)
+    //             $wastage = $detail->quantity_used * ($detail->wastage / 100);
+
+    //             // Total price calculation
+    //             $materialTotal = ($detail->quantity_used + $wastage) * $detail->unit_price;
+    //             $totalPrice += $materialTotal;
+    //             $order = $detail->bom->order;
+    //             $buyer = $detail->bom->order->buyer;
+
+    //             $materials[] = [
+    //                 'material_name' => $productName,
+    //                 'quantity_used' => $detail->quantity_used,
+    //                 'unit_price' => $detail->unit_price,
+    //                 'wastage' => number_format($wastage, 4),
+    //                 'total_price' => number_format($materialTotal, 2),
+    //             ];
+    //         }
+
+    //         // Store data for the size
+    //         $data[] = [
+    //             'size' => Size::find($size_id)->name ?? 'Unknown Size',
+    //             'materials' => $materials,
+    //             'total_cost' => number_format($totalPrice, 2),
+    //         ];
+    //     }
+
+    //     // Load Blade view into PDF
+    //     $pdf = Pdf::loadView('pages.production.bom.show', compact('bom', 'data', 'order', 'buyer'));
+
+    //     return $pdf->download("BOM_Order_{$order->order_number}.pdf");
+    // }
+
+
 
 
 
