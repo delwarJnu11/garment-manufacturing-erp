@@ -4,8 +4,7 @@
 @endphp
 
 @section('page_content')
-    <x-page-header pdf="{{ route('bom.show', ['bom' => $bom->id, 'download' => true]) }}" heading="Bill Of materials"
-        btnText="BOM" href="{{ route('bom.create') }}" />
+    <x-page-header :pdf="isset($bom) ? route('bom.show', ['bom' => $bom->id, 'download' => true]) : null" heading="Bill Of materials" btnText="BOM" href="{{ route('bom.create') }}" />
     <div class="flex-fill">
         <h2 class="mb-4 text-center">Bill Of Material for Order <strong
                 class="text-primary">#{{ $order->order_number }}</strong></h2>
@@ -41,6 +40,9 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $totalMaterialCost = array_sum(array_column($sizeData['materials'], 'total_price'));
+                    @endphp
                     @foreach ($sizeData['materials'] as $material)
                         <tr>
                             <td>{{ $material['material_name'] }}</td>
@@ -50,18 +52,22 @@
                             <td>{{ ceil($material['total_price']) }}
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="4" class="text-end"><strong>Operating Cost</strong></td>
-                            <td><strong>{{ ceil($bom->labour_cost + $bom->overhead_cost + $bom->utility_cost) }}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="text-end"><strong>Total Cost for {{ $sizeData['size'] }}</strong>
-                            </td>
-                            <td><strong>{{ ceil($sizeData['total_cost'] + $bom->labour_cost + $bom->overhead_cost + $bom->utility_cost) }}</strong>
-                            </td>
-                        </tr>
                     @endforeach
+                    <tr>
+                        <td colspan="4" class="text-end"><strong>Material Cost</strong></td>
+                        <td>{{ ceil($totalMaterialCost) }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-end"><strong>Operating Cost</strong></td>
+                        <td><strong>{{ ceil($bom->labour_cost + $bom->overhead_cost + $bom->utility_cost) }}</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-end"><strong>Total Cost for {{ $sizeData['size'] }}</strong>
+                        </td>
+                        <td><strong>{{ ceil($sizeData['total_cost'] + $bom->labour_cost + $bom->overhead_cost + $bom->utility_cost) }}</strong>
+                        </td>
+                    </tr>
                 </tbody>
                 {{-- <tfoot>
                     

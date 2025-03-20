@@ -41,7 +41,7 @@
                         @foreach ($sizes as $size)
                             <td>
                                 {{ $order->orderDetails->where('size.name', $size)->sum('qty') ?? 0 }}
-                                ({{ $order->orderDetails->pluck('uom.name')->unique()->implode(', ') }})
+                                (pcs)
                             </td>
                         @endforeach
                         <td>{{ $order->status->name ?? 'N/A' }}</td>

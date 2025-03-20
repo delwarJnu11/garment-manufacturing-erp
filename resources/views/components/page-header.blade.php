@@ -1,3 +1,5 @@
+@props(['pdf' => null, 'heading', 'btnText', 'href'])
+
 <div class="page-header">
     <div class="add-item d-flex">
         <div class="page-title">
@@ -7,10 +9,12 @@
     </div>
 
     <ul class="table-top-head">
-        <li>
-            <a href={{ $pdf }} data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Pdf"
-                data-bs-original-title="Pdf"><img src="{{ asset('assets') }}/img/icons/pdf.svg" alt="img"></a>
-        </li>
+        @if ($pdf)
+            <li>
+                <a href={{ $pdf }} data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Pdf"
+                    data-bs-original-title="Pdf"><img src="{{ asset('assets') }}/img/icons/pdf.svg" alt="img"></a>
+            </li>
+        @endif
         <li>
             <a data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Excel" data-bs-original-title="Excel"><img
                     src="{{ asset('assets') }}/img/icons/excel.svg" alt="img"></a>
