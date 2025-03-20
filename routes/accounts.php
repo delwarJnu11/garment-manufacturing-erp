@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 Route::resource('assetRegister', AssetStatusController::class);
 Route::resource('assetTypes', AssetTypesController::class);
 Route::resource('accountTypes', AccountTypesController::class);
-Route::resource('accounts', AccountsController::class);
+Route::resource('accounts', AccountController::class);
 Route::resource('accountGroups', AccountGroupsController::class);
 Route::resource('transactions', TransactionController::class);
-Route::get('ledgers',[AccountsController::class, 'ledger_report']);
+Route::get('ledgers',[AccountController::class, 'ledger_report']);
 Route::get('accounts/balanceSheet',[TransactionController::class, 'balanceSheet']);
 
 Route::get('trialbalance', [TrialBalanceController::class, 'index'])->name('trial.balance.index');

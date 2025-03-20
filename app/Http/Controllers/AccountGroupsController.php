@@ -52,8 +52,9 @@ class AccountGroupsController extends Controller
 		$accountgroup->updated_at = date('Y-m-d H:i:s');
 
 		$accountgroup->save();
+		return back()->with('success', 'Created Successfully.');
 
-		return redirect('accountGroups')->with(['success' => 'Created Successfully.', 'parent_id' => $request->parent_id]);
+		// return redirect('accountGroups')->with(['success' => 'Created Successfully.', 'parent_id' => $request->parent_id]);
 	}
 	public function show($id)
 	{

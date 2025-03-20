@@ -20,14 +20,12 @@ class TransactionController extends Controller{
 	public function create(){
 		return view("pages.accounts.transactions.create",["accounts"=>Account::all(),"users"=>User::all()]);
 	}
-	public function store(Request $request){
-
-		
+	public function store(Request $request){	
 		try {
 			DB::beginTransaction();
 
 			$transaction = new Transaction;
-			$transaction->voucher_ref=$request->voucher_ref;
+			$transaction->voucher_ref=$request->voucher_ref??"";
 			$transaction->transaction_date=$request->transaction_date;
 			$transaction->account_id=$request->account_id;
 			$transaction->amount=$request->debit;
@@ -43,7 +41,7 @@ class TransactionController extends Controller{
 			$transaction->save();
 	
 			$transaction = new Transaction;
-			$transaction->voucher_ref=$request->voucher_ref;
+			$transaction->voucher_ref=$request->voucher_ref??"";
 			$transaction->transaction_date=$request->transaction_date;
 			$transaction->account_id= $request->transaction_against_id;
 			$transaction->amount=$request->debit;
@@ -59,11 +57,11 @@ class TransactionController extends Controller{
 			$transaction->save();
 			DB::commit();
 
-			return back()->with('success', 'Created Successfully.');
+			return back()->with('Success', 'Created Successfully.');
 
 		} catch (\Throwable $th) {
 			DB::rollBack();
-			return back()->with('success', ' Unsuccessfull.');
+			return back()->with('Error', ' Unsuccessfull.');
 		}
 	}
 	public function show($id){

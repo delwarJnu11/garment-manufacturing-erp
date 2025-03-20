@@ -52,7 +52,8 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Naretion</th>
+                            <th>Account</th>
+                            <th>Narration</th>
                             <th>Dabit</th>
                             <th>Credit</th>
                         </tr>
@@ -66,6 +67,7 @@
                         @forelse ($transactions??[] as $item)
                             <tr>
                                 <td>{{ $item->transaction_date }}</td>
+                                <td>{{ $item->transaction_against }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td>{{ $item->debit }}</td>
                                 <td>{{ $item->credit }}</td>

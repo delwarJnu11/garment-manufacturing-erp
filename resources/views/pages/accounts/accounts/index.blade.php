@@ -16,9 +16,6 @@
                 <th>Code</th>
                 <th>Name</th>
                 <th>Account Group</th>
-                <th>Is Active</th>
-                <th>Actions</th>
-                <th>Account Group</th>
                 <th class="text-center">Is Active</th>
                 <th class="text-center">Actions</th>
             </tr>
@@ -29,9 +26,6 @@
                 <td>{{ $account->code }}</td>
                 <td>{{ $account->name }}</td>
                 <td>{{ $account->accountGroup->name??'' }}</td>
-                <td>{{ $account->is_active ? 'Active' : 'Inactive' }}</td>
-                <td>
-                <td>{{ $account->accountGroup->name??"" }}</td>
                 <td class="text-center">{{ $account->is_active ? 'Active' : 'Inactive' }}</td>
                 <td class="text-center">
                     <a href="{{ route('accounts.edit', $account->id) }}" class="btn btn-warning btn-sm">Edit</a>
