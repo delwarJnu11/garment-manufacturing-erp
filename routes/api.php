@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Api\BomDetailsController;
 use App\Http\Controllers\Api\OrderDetailsController;
+
 use App\Http\Controllers\api\PurchaseInvoiceController;
 use App\Http\Controllers\Api\RawMaterialController;
 use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\SalesInvoiceController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -40,3 +42,4 @@ Route::get('products', [PurchaseInvoiceController::class, 'product']);
 Route::post('saveReactpurchase', [PurchaseInvoiceController::class, 'saveReactpurchase']);
 Route::get('purchaseOrder/{id}', [PurchaseInvoiceController::class, 'show']);
 Route::get('purchase_orders', [PurchaseInvoiceController::class, 'purchase_orders']);
+Route::get('get-products', [ProductController::class, 'index']);
