@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hrm_attendances_lists;
+use App\Models\Hrm_departments;
 use App\Models\Hrm_employee_timesheets;
 use App\Models\Hrm_employees;
 use App\Models\Hrm_statuses;
@@ -258,6 +259,48 @@ class HrmAttendanceListController extends Controller
 }
 
 
+
+// public function dailyReport(Request $request)
+// {
+//     $date = $request->input('date', Carbon::today()->toDateString());
+
+//     $attendances = Hrm_attendances_lists::where('date', $date)
+//         ->join('hrm_employees', 'hrm_employees.id', '=', 'hrm_attendances_lists.employee_id')
+//         ->select('hrm_attendances_lists.*', 'hrm_employees.name as employee_name')
+//         ->get();
+
+//     return view('pages.hrm.attendence.attendance_daily_report.index', compact('attendances', 'date'));
+// }
+
+
+public function dailyReport(Request $request)
+{
+    // Get the date, employee ID, and department ID from the request
+    $date = $request->input('date', Carbon::today()->toDateString());
+    $employee_id = $request->input('employee_id');
+    $department_id = $request->input('department_id');
+
+    // Get all employees and departments for the dropdown
+    $employees = Hrm_employees::all();  // Get all employees from the HrmEmployee model
+    $departments = Hrm_departments::all(); // Assuming you have a Department model for departments
+
+    // Query the attendance records based on selected date, employee, and department
+    $attendances = Hrm_attendances_lists::query()
+        ->when($employee_id, function ($query) use ($employee_id) {
+            return $query->where('employee_id', $employee_id);
+        })
+        ->when($department_id, function ($query) use ($department_id) {
+            return $query->whereHas('employee', function ($query) use ($department_id) {
+                return $query->where('department_id', $department_id);
+            });
+        })
+        ->where('date', $date)
+        ->join('hrm_employees', 'hrm_employees.id', '=', 'hrm_attendances_lists.employee_id')
+        ->select('hrm_attendances_lists.*', 'hrm_employees.name as employee_name', 'hrm_employees.department_id')
+        ->get();
+
+    return view('pages.hrm.attendence.attendance_daily_report.index', compact('attendances', 'date', 'employees', 'departments'));
+}
 
 
 

@@ -26,4 +26,15 @@ class Hrm_employees extends Model
         'gender',
         'photo',
     ];
+
+    public function department()
+{
+    return $this->belongsTo(Hrm_departments::class);
+}
+
+public function employee()
+{
+    return $this->belongsTo(Hrm_employees::class);
+}
+
 }

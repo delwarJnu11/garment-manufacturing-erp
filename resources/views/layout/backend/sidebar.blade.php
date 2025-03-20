@@ -229,8 +229,8 @@
                                 <li class="submenu">
                                     <a href="javascript:void(0);">Report<span class="menu-arrow"></span></a>
                                     <ul>
-                                        <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Attendance
-                                                Report</x-link></li>
+                                        <li><x-link href="{{ route('attendance.dailyReport') }}"
+                                            :active="request()->is('attendance.dailyReport')">Attendance Report</x-link></li>
                                         <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Leave Report</x-link>
                                         </li>
                                         <li><x-link href="javascript:void(0);" :active="request()->is('javascript:void(0);')">Employee

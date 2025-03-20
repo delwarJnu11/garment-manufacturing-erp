@@ -192,6 +192,11 @@ Route::prefix('production-stages')->group(function () {
   Route::get('payslipsduplicate', [HrmPayslipsController::class, 'indexTwo']);
 
 
+
+  Route::get('attendance/daily-report', [HrmAttendanceListController::class, 'dailyReport'])->name('attendance.dailyReport');
+
+
+
 // Route::get('showpayslip', function(){
 //     return view('pages.hrm.payroll.hrm_payslips.show');
 // });

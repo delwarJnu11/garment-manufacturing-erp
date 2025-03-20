@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\BomDetailsController;
 use App\Http\Controllers\Api\CuttingController;
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\DesignationController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\LeaveApplicationController;
+use App\Http\Controllers\Api\LeaveTypeController;
 use App\Http\Controllers\Api\OrderDetailsController;
 use App\Http\Controllers\Api\Payslip_ItemsController;
 use App\Http\Controllers\Api\PayslipController;
@@ -51,12 +54,15 @@ Route::post('purchase',[ PurchaseOrderController::class,'store']);
  Route::get('employeeapi', [EmployeeController::class,'index']);
  Route::get('departments', [DepartmentController::class, 'index']);
  Route::get('designations', [DesignationController::class, 'index']);
+ Route::get('attendance', [AttendanceController::class, 'index']);
+ Route::get('leaveapplication', [LeaveApplicationController::class, 'index']);
+ Route::get('leavetype', [LeaveTypeController::class, 'index']);
 //  End React Api
 
  // End HRM Api Route
 
 
- 
+
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
 Route::prefix('production-stages')->group(function () {
     Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');
