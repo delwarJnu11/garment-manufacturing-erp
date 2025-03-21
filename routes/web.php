@@ -33,7 +33,7 @@ use App\Http\Controllers\MovementTypeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
-
+use App\Http\Controllers\PaymentSalePurchaseController;
 use App\Http\Controllers\ProductionPlanController;
 use App\Http\Controllers\ProductionWorkSectionController;
 use App\Http\Controllers\ProductionWorkOrderController;
@@ -56,7 +56,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PurchasePaymentController;
+
 use App\Http\Controllers\PurchaseReportController;
 use App\Http\Controllers\PurchaseStateController;
 use App\Http\Controllers\SalesInvoiceController;
@@ -227,10 +227,10 @@ Route::post('/purchase/updateStatus', [PurchaseOrderController::class, 'updateSt
 // Report 
 Route::get('/purchase-report', [PurchaseReportController::class, 'index']);
 Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
-// payment 
-Route::resource('payments', PurchasePaymentController::class);
-
-
+//Purchase payment 
+Route::resource('payments', PaymentSalePurchaseController::class);
+// sales payment
+Route::get('/sales-payments', [PaymentSalePurchaseController::class, 'salesPayment']);
 /*
  *  Orders & Buyers
  */
@@ -241,9 +241,11 @@ Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
 
 
+
 // Route::get('orders', [OrderDetailsController::class, 'index']);
 
 Route::get('orders', [OrderDetailsController::class, 'index']);
+
 /**
  *END Invetory/category
  **/

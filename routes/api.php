@@ -46,4 +46,4 @@ Route::get('purchase_orders', [PurchaseInvoiceController::class, 'purchase_order
 Route::get('get-products', [ProductController::class, 'index']);
 Route::post('create-product', [ProductController::class, 'create']);
 Route::post('store-product', [ProductController::class, 'store']);
-Route::post('stocks', [ProductController::class, 'stock']);
+Route::get('stocks', [ProductController::class, 'stock']);

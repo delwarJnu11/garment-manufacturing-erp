@@ -20,7 +20,7 @@ class ProductController extends Controller
             "products" => $products
         ]);
     }
-    
+
 
 
 
@@ -51,9 +51,9 @@ class ProductController extends Controller
         //     'uom_id' => 'required|integer|exists:uoms,id',
         //     'size_id' => 'required|integer|exists:sizes,id',
         // ]);
-    
+
         $product = new Product();
-        $product->name = $request['name'];  
+        $product->name = $request['name'];
         $product->sku = $request['sku'];
         $product->product_type_id = $request['product_type_id'];
         $product->category_type_id = $request['category_type_id'];
@@ -61,9 +61,9 @@ class ProductController extends Controller
         $product->unit_price = $request['unit_price'];
         $product->uom_id = $request['uom_id'];
         $product->size_id = $request['size_id'];
-    
+
         $product->save();
-    
+
         return response()->json(['message' => 'Product created successfully!'], 201);
     }
 
@@ -71,13 +71,8 @@ class ProductController extends Controller
     //stock api
     public function stock()
     {
-
-
-        $stocks = Stock::with('product', 'transactionType', 'lot.warehouse')->paginate(5);
+        $stocks = Stock::with('product', 'transactionType', 'lot.warehouse')->paginate(10);
         // dd($stocks->toArray()['data']);
-
-       return response()->json(['stocks'=>$stocks]);
+        return response()->json(['stocks' => $stocks]);
     }
-
-
 }
