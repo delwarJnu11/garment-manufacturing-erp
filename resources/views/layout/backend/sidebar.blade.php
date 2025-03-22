@@ -3,25 +3,15 @@
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
                 <li class="submenu-open">
-                    <a href="{{ url('home') }}" class="subdrop">
+                    <a href="{{ url('dashboard') }}" class="subdrop">
                         <i data-feather="grid"></i><span>Dashboard</span>
                     </a>
                     <ul>
 
                         <li class="submenu">
-                            <a href="" class="subdrop">
-                        {{-- @if (Auth::user()->isEmployee()) --}}
-                        {{-- <li> --}}
-                        {{-- </li> --}}
-                        {{-- @endif --}}
-                        {{-- @if (Auth::user()->isAdmin()) --}}
+                            {{-- <a href="" class="subdrop"> --}}
+                       
                         {{-- <li class="submenu">
-                            <a href="javascript:void(0);" class="subdrop">
-
-                                <i data-feather="grid"></i><span>Dashboard</span>
-                            </a>
-                        </li> --}}
-                        <li class="submenu">
                             <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
                                 <li>
@@ -31,7 +21,7 @@
                                     <x-link href="{{ route('roles.index') }}" :active="request()->is('roles')">Roles Lists</x-link>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
 
                         <!-- START Prodcution Module Menu -->
                         <li class="submenu">
@@ -122,7 +112,7 @@
                                 ||
                                 request()->is('sales-payments*')">Orders & Buyers</x-nav-link>
 
-                            <x-nav-link :active="request()->is('orders*') || request()->is('buyers*')">Orders & Buyers</x-nav-link>
+                           
 
                             <ul>
                                 <!-- 🔹 Orders -->

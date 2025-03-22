@@ -71,7 +71,7 @@ class ProductController extends Controller
     //stock api
     public function stock()
     {
-        $stocks = Stock::with('product', 'transactionType', 'lot.warehouse')->paginate(10);
+        $stocks = Stock::with('product', 'transactionType', 'lot.warehouse')->paginate(8);
         // dd($stocks->toArray()['data']);
         return response()->json(['stocks' => $stocks]);
     }
