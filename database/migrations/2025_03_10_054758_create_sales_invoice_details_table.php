@@ -14,26 +14,26 @@ return new class extends Migration
     {
         Schema::create('sales_invoice_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sales_invoice_id'); 
-            $table->unsignedBigInteger('production_work_order_id'); 
+            $table->unsignedBigInteger('sales_invoice_id');
+            $table->unsignedBigInteger('order_id');
             $table->integer('qty'); // Sold quantity
-            $table->decimal('unit_price', 10, 2); 
-            $table->decimal('%_of_discount', 5, 2)->default(0);
-            $table->decimal('discount', 10, 2)->default(0); 
-            $table->decimal('%_of_vat', 5, 2)->default(0); 
-            $table->decimal('vat', 10, 2)->default(0); 
+            $table->decimal('unit_price', 10, 2);
+            $table->decimal('percent_of_discount', 5, 2)->default(0);
+            $table->decimal('discount', 10, 2)->default(0);
+            $table->decimal('percent_of_vat', 5, 2)->default(0);
+            $table->decimal('vat', 10, 2)->default(0);
             $table->timestamps();
         });
 
 
         SalesInvoiceDetail::create([
             'sales_invoice_id' => 1,
-            'production_work_order_id' => 1,
+            'order_id' => 1,
             'qty' => 5,
             'unit_price' => 1000.00,
-            '%_of_discount' => 0.00,
+            'percent_of_discount' => 0.00,
             'discount' => 200.00,
-            '%_of_vat' => 0.00,
+            'percent_of_vat' => 0.00,
             'vat' => 250.00,
         ]);
     }
