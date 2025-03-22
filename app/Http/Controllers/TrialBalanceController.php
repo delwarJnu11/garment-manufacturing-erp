@@ -19,7 +19,7 @@ class TrialBalanceController extends Controller
 
         // Fetch trial balance within the selected date range
         $trialBalance = DB::table('accounts as a')
-            ->leftJoin('transactions', 'a.id', '=', 'transactions.account_id')
+            ->rightJoin('transactions', 'a.id', '=', 'transactions.account_id')
             ->select(
                 'a.id',
                 'a.code',
