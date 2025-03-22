@@ -1,34 +1,101 @@
-@extends('layout.backend.main')
-
 @php
     use Carbon\Carbon;
 @endphp
 
+<!DOCTYPE html>
+<html lang="en">
 
-@section('page_content')
-    <x-page-header heading="Orders" :pdf="isset($order) ? route('order.show', ['order' => $order->id, 'download' => true]) : null" btnText="Order" href="{{ route('orders.create') }}" />
-    <div class="flex-fill">
-        <h2 class="mb-4 text-center">Order Details <strong class="text-primary">#{{ $order->order_number }}</strong></h2>
-        <div class="d-flex justify-content-between align-items-center py-4">
-            <div>
-                <h4 class="mb-2">Buyer Details</h3>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .details {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .details div {
+            width: 48%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .text-end {
+            text-align: right;
+        }
+
+        .thead-primary {
+            background-color: grey;
+            color: white;
+        }
+
+        .title {
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .text {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="title">Order Invoice <strong class="text">#{{ $order->order_number }}</strong></h2>
+        <table style="border: none; width: 100%; border-collapse: collapse;">
+            <tr>
+                <td style="border: none; padding: 10px;">
+                    <h4 class="mb-2">Buyer Details</h4>
                     <p class="my-1"><strong>Name: </strong>{{ $buyer->first_name . ' ' . $buyer->last_name }}</p>
                     <p class="my-1"><strong>Email: </strong>{{ $buyer->email }}</p>
                     <p class="my-1"><strong>Phone: </strong>{{ $buyer->phone }}</p>
-                    <p class="my-1"><strong>Address: </strong>{{ $buyer->shipping_address . ',' . $buyer->country }}</p>
-            </div>
-            <div>
-                <h4 class="mb-2">Order Details</h3>
-                    <p class="my-1"><strong>Order Number : </strong>{{ $order->order_number }}</p>
-                    <p class="my-1"><strong>Order Date :
+                    <p class="my-1"><strong>Address: </strong>{{ $buyer->shipping_address . ',' . $buyer->country }}
+                    </p>
+                </td>
+                <td style="border: none; padding: 10px;">
+                    <h4 class="mb-2">Order Details</h4>
+                    <p class="my-1"><strong>Order Number: </strong>{{ $order->order_number }}</p>
+                    <p class="my-1"><strong>Order Date:
                         </strong>{{ Carbon::parse($order->created_at)->format('d M, Y') }}</p>
-                    <p class="my-1"><strong>Delivery Date :
+                    <p class="my-1"><strong>Delivery Date:
                         </strong>{{ Carbon::parse($order->delivery_date)->format('d M, Y') }}</p>
-                    <p class="my-1"><strong>Current Date: </strong> {{ Carbon::parse(now())->format('d M, Y') }} </p>
-            </div>
-        </div>
+                    <p class="my-1"><strong>Current Date: </strong>{{ Carbon::parse(now())->format('d M, Y') }}</p>
+                </td>
+            </tr>
+        </table>
 
-        <table class="table table-striped table-bordered my-4">
+        <table>
             <thead class="thead-primary">
                 <tr>
                     <th>Product</th>
@@ -77,9 +144,7 @@
                 </tr>
             </tbody>
         </table>
-
-
-
-
     </div>
-@endsection
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-@props(['pdf' => null, 'heading', 'btnText', 'href'])
+@props(['pdf' => null, 'heading', 'btnText'])
 
 <div class="page-header">
     <div class="add-item d-flex">

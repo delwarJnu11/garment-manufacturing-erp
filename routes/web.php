@@ -304,6 +304,8 @@ Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
+//Download Order Details as PDF
+Route::get('/order/{order}', [OrderController::class, 'show'])->name('order.show');
 
 
 // Route::get('orders', [OrderDetailsController::class, 'index']);

@@ -9,6 +9,7 @@ use App\Models\OrderDetail;
 use App\Models\OrderStatus;
 use App\Models\Size;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -145,7 +146,7 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function show(Request $request, Order $order)
     {
         $buyer = $order->buyer;
 
@@ -181,6 +182,13 @@ class OrderController extends Controller
                     'operating_cost' => $operatingCost,
                 ];
             }
+        }
+        // Check if PDF download is requested
+        if ($request->has('download')) {
+            $pdf = Pdf::loadView('pages.orders_&_buyers.order.orderpdf', compact('order', 'buyer', 'orderDetails', 'sizeData'))
+                ->setPaper('a4', 'portrait');
+
+            return $pdf->download($order->order_number . '.pdf');
         }
 
         return view('pages.orders_&_buyers.order.show', compact('order', 'buyer', 'orderDetails', 'sizeData'));
