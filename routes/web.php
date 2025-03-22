@@ -42,7 +42,7 @@ use App\Http\Controllers\MovementTypeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
-
+use App\Http\Controllers\PaymentSalePurchaseController;
 use App\Http\Controllers\ProductionPlanController;
 use App\Http\Controllers\ProductionWorkSectionController;
 use App\Http\Controllers\ProductionWorkOrderController;
@@ -71,7 +71,7 @@ use App\Models\ProductType;
 use App\Http\Controllers\PurchaseStateController;
 use App\Http\Controllers\SweingController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PurchasePaymentController;
+
 use App\Http\Controllers\PurchaseReportController;
 use App\Http\Controllers\SalesInvoiceController;
 use App\Http\Controllers\StockAdjustmentController;
@@ -260,7 +260,13 @@ Route::resource('buyers', BuyerController::class);
 // sales invoice
 Route::resource('sales-invoice', SalesInvoiceController::class);
 Route::post('find_buyer', [SalesInvoiceController::class, 'find_buyer']);
+
+Route::post('find_order', [SalesInvoiceController::class, 'find_order']);
 Route::get('order/show', [SalesInvoiceController::class, 'show']);
+Route::get('getInvoiceId', [SalesInvoiceController::class, 'getInvoiceId']);
+
+Route::get('order/show', [SalesInvoiceController::class, 'show']);
+
 
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
@@ -278,6 +284,7 @@ Route::get('purchase/{id}/generate-pdf', [PurchaseOrderController::class, 'gener
 Route::post('/get-warehouse', [WarehouseController::class, 'getWarehouse'])->name('get.warehouse');
 Route::post('find_supplier', [PurchaseOrderController::class, 'find_supplier']);
 Route::post('find_product', [PurchaseOrderController::class, 'find_product']);
+Route::post('find_warehouse', [PurchaseOrderController::class, 'find_warehouse']);
 Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
 // Route::get('/purchaseState', [PurchaseOrderController::class,])->name('purchaseState.index');
 Route::get('/purchaseState', [PurchaseStateController::class, 'index'])->name('purchaseState.index');
@@ -286,11 +293,18 @@ Route::post('/purchase/updateStatus', [PurchaseOrderController::class, 'updateSt
 // Report
 Route::get('/purchase-report', [PurchaseReportController::class, 'index']);
 Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
+
+//Purchase payment 
+Route::resource('payments', PaymentSalePurchaseController::class);
+// sales payment
+Route::get('/sales-payments', [PaymentSalePurchaseController::class, 'salesPayment']);
+
 // Report
 Route::get('/purchase-report', [PurchaseReportController::class, 'index']);
 Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
 // payment
 Route::resource('payments', PurchasePaymentController::class);
+
 
 
 /*
@@ -305,9 +319,13 @@ Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
 
 
-// Route::get('orders', [OrderDetailsController::class, 'index']);
 
 // Route::get('orders', [OrderDetailsController::class, 'index']);
+
+Route::get('orders', [OrderDetailsController::class, 'index']);
+
+// Route::get('orders', [OrderDetailsController::class, 'index']);
+
 /**
  *END Invetory/category
  **/

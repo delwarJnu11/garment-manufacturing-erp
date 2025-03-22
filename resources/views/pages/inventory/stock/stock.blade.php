@@ -38,13 +38,13 @@
                     <a class="me-2 p-2" href="{{ route('stocks.edit', $stock->id) }}">
                         <i data-feather="edit" class="feather-edit"></i>
                     </a>
-                    <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST" class="d-inline" style="margin-bottom: 0">
+                    {{-- <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST" class="d-inline" style="margin-bottom: 0">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="confirm-delete" onclick="return confirm('Are you sure?')" style="color: red; border: none;">
                             <i data-feather="trash-2" class="feather-trash-2 delete_icon"></i>
                         </button>
-                    </form>
+                    </form> --}}
                 </div>
             </td>
         </tr>

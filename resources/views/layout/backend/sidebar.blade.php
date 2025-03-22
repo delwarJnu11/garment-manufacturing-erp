@@ -7,6 +7,9 @@
                         <i data-feather="grid"></i><span>Dashboard</span>
                     </a>
                     <ul>
+
+                        <li class="submenu">
+                            <a href="" class="subdrop">
                         {{-- @if (Auth::user()->isEmployee()) --}}
                         {{-- <li> --}}
                         {{-- </li> --}}
@@ -14,6 +17,7 @@
                         {{-- @if (Auth::user()->isAdmin()) --}}
                         {{-- <li class="submenu">
                             <a href="javascript:void(0);" class="subdrop">
+
                                 <i data-feather="grid"></i><span>Dashboard</span>
                             </a>
                         </li> --}}
@@ -111,7 +115,15 @@
 
                         <!--START 🔸 Order & Customers -->
                         <li class="submenu">
+
+                            <x-nav-link :active="request()->is('orders*') ||
+                                request()->is('buyers*') ||
+                                request()->is('sales-invoice*')
+                                ||
+                                request()->is('sales-payments*')">Orders & Buyers</x-nav-link>
+
                             <x-nav-link :active="request()->is('orders*') || request()->is('buyers*')">Orders & Buyers</x-nav-link>
+
                             <ul>
                                 <!-- 🔹 Orders -->
                                 <li><x-link href="{{ url('/buyers') }}" :active="request()->is('buyers')">Buyers</x-link></li>
@@ -129,8 +141,15 @@
                                         Orders</x-link></li>
                                 <li><x-link href="{{ route('order_status.index') }}" :active="request()->is('order_status.index')">Order
                                         Status</x-link></li>
+
+                                <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales
+                                        Invoices</x-link></li>
+                                <li><x-link href="{{ url('/sales-payments') }}" :active="request()->is('sales-payments')">Payments</x-link></li>
+                                <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color Lists</x-link>
+
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color
                                         Lists</x-link>
+
                                 </li>
                                 <li><x-link href="{{ route('sizes.index') }}" :active="request()->is('sizes')">Size
                                         Lists</x-link>
@@ -344,7 +363,7 @@
 
                                 <!-- 🔹 Inventory Valuation -->
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">Inventory Valuation <span class="menu-arrow"></span>
+                                    <a href="">Inventory Valuation <span class="menu-arrow"></span>
                                     </a>
                                     <ul>
                                         <li>
@@ -399,7 +418,7 @@
     </div>
 </div>
 
-@section('script')
+{{-- @section('script')
     <script>
         $(document).ready(function() {
             var currentUrl = window.location.href;
@@ -421,4 +440,4 @@
             });
         });
     </script>
-@endsection
+@endsection --}}

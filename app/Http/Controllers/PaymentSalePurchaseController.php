@@ -3,50 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\PurchaseOrder;
+use App\Models\SalesInvoiceDetail;
+use Illuminate\Console\View\Components\Component;
 use Illuminate\Http\Request;
 
-class PurchasePaymentController extends Controller
+class PaymentSalePurchaseController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing For Purchase
      */
     public function index()
     {
         $payments = PurchaseOrder::with('inv_supplier')->paginate(5);
         return view('pages.purchase_&_supliers.purchasePayment.index', compact('payments'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create() {}
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    // public function edit(PurchaseOrder $purchaseOrder)
-    // {
-    //     return view('pages.purchase_&_supliers.purchasePayment.edit', [
-    //         'purchaseOrder' => $purchaseOrder,
-    //         'btnText' => 'Update Payment'
-    //     ]);
-    // }
     public function edit(PurchaseOrder $purchaseOrder, $id)
     {
         $purchaseOrder = PurchaseOrder::findOrFail($id); // Ensures it exists
@@ -74,13 +44,10 @@ class PurchasePaymentController extends Controller
 
         return redirect()->route('payments.index')->with('success', 'Payment updated successfully.');
     }
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function salesPayment()
     {
-        //
+        $salesPayments = SalesInvoiceDetail::with('order.buyer', 'salesInvoice.invoice_status')->get();
+        // print_r($salesPayments->toArray());
+        return view('pages.orders_&_Buyers.sales_payment.sales_payment', compact('salesPayments'));
     }
 }

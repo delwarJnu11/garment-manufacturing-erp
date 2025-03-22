@@ -1,59 +1,45 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\InvSupplier;
+use App\Models\Product;
 use App\Models\ProductLot;
-use App\Models\ProductType;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderDetail;
-use App\Models\Size;
 use App\Models\Stock;
-use App\Models\Uom;
+use App\Models\Warehouse;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
-
-class PurchaseOrderController extends Controller
+class PurchaseInvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function supplier()
     {
-        $purchase = PurchaseOrder::all();
-        return response()->json(['purchase' => $purchase]);
+        $suppliers = InvSupplier::all();
+        return response()->json(['suppliers' => $suppliers]);
+    }
+    public function warehouse()
+    {
+        $warehouses = Warehouse::all();
+        return response()->json(['warehouses' => $warehouses]);
+    }
+    public function product()
+    {
+        $products = Product::all();
+        return response()->json(['products' => $products]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-   
 
-
-
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-
-
-
-
-
-    public function store(Request $request)
+    public function saveReactpurchase(Request $request)
     {
-        // \Log::info('Received request data:', $request->all());
 
-        // // Return JSON response
-        // return response()->json([
-        //     'success' => true,
-        //     'message' => 'Data received successfully',
-        //     'data' => $request->all()
-        // ], 200);
+        print_r($request->all());
         try {
             DB::beginTransaction();
 
@@ -64,21 +50,21 @@ class PurchaseOrderController extends Controller
             $products = is_string($request->products) ? json_decode($request->products, true) : $request->products;
 
             // Validate the request
-            $validated = $request->validate([
-                'supplier_id' => 'required|exists:inv_suppliers,id',
-                'total_amount' => 'required|numeric',
-                'paid_amount' => 'required|numeric',
-                'discount' => 'sometimes|numeric',
-                'vat' => 'sometimes|numeric',
-                'products' => 'required|array',
-                'products.*.item_id' => 'required|exists:products,id',
-                'products.*.qty' => 'required|numeric|min:1',
-                'products.*.price' => 'required|numeric|min:0',
-                // 'products.*.lot_id' => 'nullable|exists:product_lots,id',
-                'products.*.total_discount' => 'sometimes|numeric'
-            ]);
+            // $validated = $request->validate([
+            //     'supplier_id' => 'required|exists:inv_suppliers,id',
+            //     'total_amount' => 'required|numeric',
+            //     'paid_amount' => 'required|numeric',
+            //     'discount' => 'sometimes|numeric',
+            //     'vat' => 'sometimes|numeric',
+            //     'products' => 'required|array',
+            //     'products.*.item_id' => 'required|exists:products,id',
+            //     'products.*.qty' => 'required|numeric|min:1',
+            //     'products.*.price' => 'required|numeric|min:0',
+            //     // 'products.*.lot_id' => 'nullable|exists:product_lots,id',
+            //     'products.*.total_discount' => 'sometimes|numeric'
+            // ]);
 
-            Log::info('Validation Passed:', $validated);
+            // Log::info('Validation Passed:', $validated);
 
 
             $purchaseDate = now();
@@ -89,29 +75,32 @@ class PurchaseOrderController extends Controller
                 'purchase_date' => $purchaseDate,
                 'delivery_date' => now()->addDays(7),
                 'shipping_address' => "123 Factory Road, City, Country",
-                'total_amount' => $request->total_amount,
-                'paid_amount' => $request->paid_amount,
+                'total_amount' => $request->purchase_total,
+                'paid_amount' => $request->purchase_total,
                 'pending_amount' => $pendingAmount,
                 'status_id' => 1,
                 'discount' => $request->discount ?? 0,
                 'vat' => $request->vat ?? 0,
             ]);
 
+            //sir finish above
 
             Log::info('Purchase Order Created:', ['id' => $purchase->id]);
 
             // Insert Purchase Order Details & Update Stock
             foreach ($products as $product) {
+                $vat = $product['subtotal'] * 0.05;
                 PurchaseOrderDetail::create([
                     'purchase_id' => $purchase->id,
                     'product_id' => $product['item_id'],
                     'quantity' => $product['qty'],
                     'lot_id' =>  1,
                     'price' => $product['price'],
-                    'percent_of_discount' => $product['p_discount'],
-                    'vat' =>  $product['total_vat'] ?? 0,
-                    'percent_of_vat' =>  $product['p_vat'] ?? 0,
-                    'discount' => $product['total_discount'] ?? 0
+                    'percent_of_discount' => 0,
+                    // 'vat' =>  $product['vat'] ?? 0,
+                    'vat' =>  $vat ?? 0,
+                    'percent_of_vat' =>  0,
+                    'discount' =>  $product['discount'] ?? 0
                 ]);
 
                 $lot = ProductLot::create([
@@ -119,7 +108,7 @@ class PurchaseOrderController extends Controller
                     'qty' => $product['qty'],
                     'cost_price' => $product['price'],
                     'sales_price' => $product['sales_price'] ?? 0.0,
-                    'warehouse_id' => $product['warehouse_id'] ?? 1,
+                    'warehouse_id' => $request->warehouse_id ?? 1,
                     'transaction_type_id' => 3,
                     'description' => '',
                     'created_at' => now(),
@@ -130,7 +119,7 @@ class PurchaseOrderController extends Controller
                     throw new \Exception('Failed to create product_lot id');
                 }
 
-                // Assign last inserted lot ID
+                //     // Assign last inserted lot ID
                 $lastId = $lot->id;
 
                 Stock::create([
@@ -139,7 +128,7 @@ class PurchaseOrderController extends Controller
                     'transaction_type_id' => 3,
                     'created_at' => now(),
                     'updated_at' => now(),
-                    'wearhouse_id' => $lot->warehouse_id,
+                    'wearhouse_id' => $request->warehouse_id,
                     'lot_id' => $lastId,
                 ]);
             }
@@ -168,13 +157,35 @@ class PurchaseOrderController extends Controller
     }
 
 
+    public function purchase_orders(Request $request)
+    {
+        $purchase_orders = PurchaseOrder::with(['inv_supplier', 'product_lot', 'purchase_status'])->paginate(20);
+        return response()->json(['purchase_orders' => $purchase_orders]);
+    }
+
+    public function show($id)
+    {
+        $purchaseOrder = PurchaseOrder::with('inv_supplier', 'purchaseDetails.product')
+            ->findOrFail($id); // Ensure to load related data
+
+
+        return response()->json($purchaseOrder);
+    }
+
     /**
-     * Display the specified resource.
+     * Show the form for creating a new resource.
      */
-    public function show(string $id)
+
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
         //
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
