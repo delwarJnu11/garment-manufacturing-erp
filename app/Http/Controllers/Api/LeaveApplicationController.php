@@ -13,7 +13,7 @@ class LeaveApplicationController extends Controller
      */
     public function index()
     {
-        $leaveapplications = Hrm_leave_applications::all();
+        $leaveapplications = Hrm_leave_applications::with('statuses', 'employee', 'leave_type')->get();
         return response()->json(['leaveapplications' => $leaveapplications]);
     }
 

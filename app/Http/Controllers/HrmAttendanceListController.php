@@ -275,16 +275,16 @@ class HrmAttendanceListController extends Controller
 
 public function dailyReport(Request $request)
 {
-    // Get the date, employee ID, and department ID from the request
+
     $date = $request->input('date', Carbon::today()->toDateString());
     $employee_id = $request->input('employee_id');
     $department_id = $request->input('department_id');
 
-    // Get all employees and departments for the dropdown
-    $employees = Hrm_employees::all();  // Get all employees from the HrmEmployee model
-    $departments = Hrm_departments::all(); // Assuming you have a Department model for departments
 
-    // Query the attendance records based on selected date, employee, and department
+    $employees = Hrm_employees::all();
+    $departments = Hrm_departments::all();
+
+ 
     $attendances = Hrm_attendances_lists::query()
         ->when($employee_id, function ($query) use ($employee_id) {
             return $query->where('employee_id', $employee_id);

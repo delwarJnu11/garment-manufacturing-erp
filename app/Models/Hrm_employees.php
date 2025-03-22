@@ -29,8 +29,26 @@ class Hrm_employees extends Model
 
     public function department()
 {
-    return $this->belongsTo(Hrm_departments::class);
+    return $this->belongsTo(Hrm_departments::class, 'department_id');
 }
+
+
+
+    public function designations()
+{
+    return $this->belongsTo(Hrm_designations::class, 'designations_id');
+}
+
+
+    public function statuses()
+{
+    return $this->belongsTo(Hrm_statuses::class, 'statuses_id');
+}
+
+public function bank_accounts()
+    {
+        return $this->belongsTo(Hrm_employee_bank_accounts::class, 'bank_accounts_id');
+    }
 
 public function employee()
 {

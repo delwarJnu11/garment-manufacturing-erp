@@ -13,7 +13,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendances = Hrm_attendances_lists::all();
+        $attendances = Hrm_attendances_lists::with('statuses', 'employee')->get();
         return response()->json(['attendances' => $attendances]);
     }
 

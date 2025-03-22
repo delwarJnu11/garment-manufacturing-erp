@@ -158,7 +158,7 @@ class HrmEmployeesController extends Controller
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'phone' => 'required|string|max:50',
-            'gender' => 'required|string|max:50',
+            // 'gender' => 'required|string|max:50',
             'date_of_birth' => 'required|date_format:Y-M-D|before:today',
             'joining_date' => 'required|date_format:d-m-Y',
             'salary' => 'required|string|max:50',

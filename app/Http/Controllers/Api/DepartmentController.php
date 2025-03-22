@@ -13,7 +13,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Hrm_departments::all();
+        $departments = Hrm_departments::with('statuses')->get();
         return response()->json(['departments' => $departments]);
     }
 

@@ -100,7 +100,7 @@ CREATE TABLE hrm_employees (
     employee_id_number VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     phone VARCHAR(20) UNIQUE NULL,
-    gender VARCHAR(20) UNIQUE NULL,
+    gender VARCHAR(20) NULL,
     date_of_birth DATE NULL,
     joining_date DATE NOT NULL,
     bank_account_id INT NOT NULL,

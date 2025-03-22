@@ -18,10 +18,14 @@ class Hrm_leave_applications extends Model
     // Automatically calculate the number of days before saving
 
     public function employee(){
-        return $this->belongsTo(Hrm_employees::class);
+        return $this->belongsTo(Hrm_employees::class, 'employee_id');
     }
     public function leave_type(){
-        return $this->belongsTo(Hrm_leave_types::class);
+        return $this->belongsTo(Hrm_leave_types::class, 'leave_type_id');
+    }
+
+    public function statuses(){
+        return $this->belongsTo(Hrm_statuses::class, 'statuses_id');
     }
 
 }

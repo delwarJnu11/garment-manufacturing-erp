@@ -17,7 +17,7 @@ class PayslipController extends Controller
      */
     public function index()
     {
-        $payslips=Hrm_payslips::all();
+        $payslips=Hrm_payslips::with('employee')->get();
         return response()->json(['payslips' => $payslips]);
 
     }
