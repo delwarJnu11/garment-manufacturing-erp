@@ -303,7 +303,7 @@ Route::get('/sales-payments', [PaymentSalePurchaseController::class, 'salesPayme
 Route::get('/purchase-report', [PurchaseReportController::class, 'index']);
 Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
 // payment
-Route::resource('payments', PurchasePaymentController::class);
+Route::resource('payments', PaymentSalePurchaseController::class);
 
 
 

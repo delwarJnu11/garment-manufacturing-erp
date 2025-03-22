@@ -5,18 +5,18 @@ use App\Http\Controllers\Api\CuttingController;
 use App\Http\Controllers\Api\OrderDetailsController;
 
 
-use App\Http\Controllers\api\PurchaseInvoiceController;
+use App\Http\Controllers\Api\PurchaseInvoiceController;
 use App\Http\Controllers\Api\RawMaterialController;
 use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\SalesInvoiceController;
-use App\Http\Controllers\Api\ProductController;
+
 
 use App\Http\Controllers\API\PayslipController;
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\PurchaseOrderController;
+
 use App\Http\Controllers\HrmPayslipsController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\RawMaterialController;
+
 use App\Http\Controllers\Api\OrderController;
 
 use Illuminate\Support\Facades\Route;
