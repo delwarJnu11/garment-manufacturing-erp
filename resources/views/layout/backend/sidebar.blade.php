@@ -110,7 +110,7 @@
                                 request()->is('buyers*') ||
                                 request()->is('sales-invoice*')
                                 ||
-                                request()->is('sales-payments*')">Orders & Buyers</x-nav-link>
+                                request()->is('salesPayments*')">Orders & Buyers</x-nav-link>
 
                            
 
@@ -132,9 +132,9 @@
                                 <li><x-link href="{{ route('order_status.index') }}" :active="request()->is('order_status.index')">Order
                                         Status</x-link></li>
 
-                                <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales
+                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-invoice')">Sales
                                         Invoices</x-link></li>
-                                <li><x-link href="{{ url('/sales-payments') }}" :active="request()->is('sales-payments')">Payments</x-link></li>
+                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link></li>
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color Lists</x-link>
 
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color

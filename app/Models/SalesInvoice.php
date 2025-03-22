@@ -19,7 +19,7 @@ class SalesInvoice extends Model
         'vat',
         'invoice_status_id',
         'payment_method_id',
-        'remark',
+        'payment_status_id',
     ];
 
     public function buyer()
