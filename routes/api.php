@@ -1,13 +1,24 @@
 <?php
 
 use App\Http\Controllers\Api\BomDetailsController;
+use App\Http\Controllers\Api\CuttingController;
 use App\Http\Controllers\Api\OrderDetailsController;
+
 
 use App\Http\Controllers\api\PurchaseInvoiceController;
 use App\Http\Controllers\Api\RawMaterialController;
 use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\SalesInvoiceController;
 use App\Http\Controllers\Api\ProductController;
+
+use App\Http\Controllers\API\PayslipController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\PurchaseOrderController;
+use App\Http\Controllers\HrmPayslipsController;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Api\RawMaterialController;
+use App\Http\Controllers\Api\OrderController;
+
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -28,6 +39,7 @@ Route::get('raw_material/{id}', [RawMaterialController::class, 'show']);
 // Route::get('order_details', [OrderDetailsController::class, 'index']);
 Route::get('order', [OrderDetailsController::class, 'index']);
 
+
 // purchaseOrder  Api
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
 
@@ -47,3 +59,28 @@ Route::get('get-products', [ProductController::class, 'index']);
 Route::post('create-product', [ProductController::class, 'create']);
 Route::post('store-product', [ProductController::class, 'store']);
 Route::get('stocks', [ProductController::class, 'stock']);
+
+Route::get('/orders', [OrderDetailsController::class, 'getOrders']);
+Route::post('/orders', [OrderController::class, 'store']);
+Route::get('/buyers', [OrderController::class, 'getBuyers']);
+Route::get('/supervisors', [OrderController::class, 'getSupervisors']);
+Route::get('/order-statuses', [OrderController::class, 'getOrderStatuses']);
+Route::get('/fabrics', [OrderController::class, 'getFabricsTypes']);
+Route::get('/order-details/data', [OrderDetailsController::class, 'fetchData']);
+// purchaseOrder  Api
+Route::post('purchase', [PurchaseOrderController::class, 'store']);
+
+
+
+// Start Api Route
+
+//  Route::get('payslip', [PayslipController::class,'index']);
+Route::post('payslip', [PayslipController::class, 'store']);
+
+// End Api Route
+Route::post('purchase', [PurchaseOrderController::class, 'store']);
+Route::prefix('production-stages')->group(function () {
+    Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');
+});
+// Route::post('/adjustment', [StockAdjustmentController::class, 'store']);
+

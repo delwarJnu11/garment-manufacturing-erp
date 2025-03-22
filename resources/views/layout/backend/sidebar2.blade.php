@@ -959,3 +959,20 @@
         </div>
     </div>
 </div>
+
+
+@if (Auth::user()->isEmployee())
+<ul>
+    <li class="submenu">
+        <a href="javascript:void(0);" class="subdrop">
+            <i data-feather="users"></i><span>Leaves</span><span class="menu-arrow"></span>
+        </a>
+        <ul>
+            <li>
+                <x-link id="user-link" href="{{ route('users.index') }}">User Lists</x-link>
+            </li>
+            <li><a href="" class="">Account Dashboard</a></li>
+        </ul>
+    </li>
+</ul>
+@endif

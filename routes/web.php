@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AccountTypesController;
 
+// use App\Http\Controllers\Api\ProductController as ApiProductController;
 
 
 use App\Http\Controllers\Api\OrderDetailsController;
@@ -12,11 +13,13 @@ use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\BomController;
 use App\Http\Controllers\BomDetailsController;
 use App\Http\Controllers\BuyerController;
+// use App\Http\Controllers\CategoryAttributesController;
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\CuttingController;
 use App\Http\Controllers\FabricTypeController;
 use App\Http\Controllers\HrmAttendanceListController;
 use App\Http\Controllers\HrmDepartmentController;
@@ -25,6 +28,12 @@ use App\Http\Controllers\HrmDesignationsController;
 use App\Http\Controllers\HrmEmployeeBankAccountsController;
 use App\Http\Controllers\HrmEmployeePerformancesController;
 use App\Http\Controllers\HrmEmployeesController;
+use App\Http\Controllers\HrmEmployeeTimesheetsController;
+use App\Http\Controllers\HrmLeaveApplicationApproversController;
+use App\Http\Controllers\HrmLeaveApplicationsController;
+use App\Http\Controllers\HrmLeaveTypesController;
+use App\Http\Controllers\HrmPayslipItemsController;
+use App\Http\Controllers\HrmPayslipsController;
 use App\Http\Controllers\HrmStatusesController;
 use App\Http\Controllers\ProductionPlanStatusesController;
 use App\Http\Controllers\HrmSubDepartmentsController;
@@ -55,10 +64,15 @@ use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
+use App\Models\Hrm_leave_types;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ProductType;
+// use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseStateController;
+use App\Http\Controllers\SweingController;
 use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\PurchaseReportController;
-use App\Http\Controllers\PurchaseStateController;
 use App\Http\Controllers\SalesInvoiceController;
 use App\Http\Controllers\StockAdjustmentController;
 use Illuminate\Support\Facades\Route;
@@ -73,7 +87,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('pages.dashboard-home');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -106,6 +120,13 @@ Route::resource('bom', BomController::class);
 Route::resource('bom_details', BomDetailsController::class);
 Route::resource('production-plans', ProductionPlanController::class);
 Route::resource('production-work-orders', ProductionWorkOrderController::class);
+Route::prefix('production-stages')->group(function () {
+    Route::resource('cutting', CuttingController::class);
+    Route::resource('sweing', SweingController::class);
+
+    // Custom route for completed cuttings
+    Route::get('cutting-completed', [CuttingController::class, 'completed'])->name('cutting.completed');
+});
 
 
 /**
@@ -138,12 +159,52 @@ Route::resource('hrm_employee_performances', HrmEmployeePerformancesController::
 Route::get('hrm_employee_bank_accounts/delete/{id}/', [HrmEmployeeBankAccountsController::class, 'destroy']);
 Route::resource('hrm_employee_bank_accounts', HrmEmployeeBankAccountsController::class);
 
+Route::post('/hrm_attendance_list/clock-in', [HrmAttendanceListController::class, 'clockIn']);
+Route::post('/hrm_attendance_list/clock-out', [HrmAttendanceListController::class, 'clockOut']);
 Route::get('hrm_attendance_list/delete/{id}/', [HrmAttendanceListController::class, 'destroy']);
 Route::resource('hrm_attendance_list', HrmAttendanceListController::class);
 
-Route::get('/route', function () {
-    echo "hello";
+Route::get('hrm_employee_timesheets/delete/{id}/', [HrmEmployeeTimesheetsController::class, 'destroy']);
+Route::resource('hrm_employee_timesheets', HrmEmployeeTimesheetsController::class);
+
+Route::get('hrm_leave_types/delete/{id}/', [HrmLeaveTypesController::class, 'destroy']);
+Route::resource('hrm_leave_types', HrmLeaveTypesController::class);
+
+
+Route::post('/hrm_leave_applications/leaveUpdate', [HrmLeaveApplicationsController::class, 'leaveUpdate']);
+Route::get('hrm_leave_applications/delete/{id}/', [HrmLeaveApplicationsController::class, 'destroy']);
+Route::resource('hrm_leave_applications', HrmLeaveApplicationsController::class);
+
+
+Route::get('hrm_leave_application_approvers/delete/{id}/', [HrmLeaveApplicationApproversController::class, 'destroy']);
+Route::resource('hrm_leave_application_approvers', HrmLeaveApplicationApproversController::class);
+
+Route::get('hrm_payslips/delete/{id}/', [HrmPayslipsController::class, 'destroy']);
+Route::get('hrm_payslips/create/', [HrmPayslipsController::class, 'create']);
+Route::resource('hrm_payslips', HrmPayslipsController::class);
+
+Route::get('hrm_payslip_items/delete/{id}/', [HrmPayslipItemsController::class, 'destroy']);
+Route::resource('hrm_payslip_items', HrmPayslipItemsController::class);
+
+
+Route::get('find_employee', [HrmEmployeesController::class, 'find_employee']);
+//  Route::get('find_payslip_items', [HrmEmployeesController::class, 'find_payslip_items']);
+
+
+// Route::get('showpayslip', function(){
+//     return view('pages.hrm.payroll.hrm_payslips.show');
+// });
+
+// Route::get('/employee', function () {
+//     echo Auth::user()->isEmployee();
+// })->middleware(['employee']);
+
+Route::get('/home', function () {
+    return view('home');
 });
+
+
+
 
 /**
  * End Hr & Workforce Management.
@@ -196,12 +257,17 @@ Route::resource('buyers', BuyerController::class);
 /**
  * Suppliers and Purcahse
  */
-// sales invoice 
+// sales invoice
 Route::resource('sales-invoice', SalesInvoiceController::class);
 Route::post('find_buyer', [SalesInvoiceController::class, 'find_buyer']);
+
 Route::post('find_order', [SalesInvoiceController::class, 'find_order']);
 Route::get('order/show', [SalesInvoiceController::class, 'show']);
 Route::get('getInvoiceId', [SalesInvoiceController::class, 'getInvoiceId']);
+
+Route::get('order/show', [SalesInvoiceController::class, 'show']);
+
+
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);
 
@@ -224,16 +290,28 @@ Route::get('/get-invoice-id', [PurchaseOrderController::class, 'getInvoiceId']);
 Route::get('/purchaseState', [PurchaseStateController::class, 'index'])->name('purchaseState.index');
 Route::post('/purchase/updateStatus', [PurchaseOrderController::class, 'updateStatus'])->name('purchase.updateStatus');
 
-// Report 
+// Report
 Route::get('/purchase-report', [PurchaseReportController::class, 'index']);
 Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
+
 //Purchase payment 
 Route::resource('payments', PaymentSalePurchaseController::class);
 // sales payment
 Route::get('/sales-payments', [PaymentSalePurchaseController::class, 'salesPayment']);
+
+// Report
+Route::get('/purchase-report', [PurchaseReportController::class, 'index']);
+Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
+// payment
+Route::resource('payments', PurchasePaymentController::class);
+
+
+
 /*
  *  Orders & Buyers
  */
+Route::get('/orders/completed', [OrderController::class, 'completedOrders'])->name('orders.completed');
+Route::get('/orders/running', [OrderController::class, 'runningOrders'])->name('orders.running');
 Route::resource('orders', OrderController::class);
 Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
@@ -245,6 +323,8 @@ Route::resource('fabric_types', FabricTypeController::class);
 // Route::get('orders', [OrderDetailsController::class, 'index']);
 
 Route::get('orders', [OrderDetailsController::class, 'index']);
+
+// Route::get('orders', [OrderDetailsController::class, 'index']);
 
 /**
  *END Invetory/category

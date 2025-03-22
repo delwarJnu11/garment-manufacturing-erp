@@ -19,7 +19,7 @@ return new class extends Migration
         });
 
         //Insert Demo Data
-        fabricType::create([
+        FabricType::create([
             'name' => 'cotton',
         ]);
     }

@@ -40,4 +40,9 @@ class Order extends Model
     {
         return $this->hasOne(Bom::class, 'order_id');
     }
+
+    public function productionPlans()
+    {
+        return $this->hasMany(ProductionPlan::class, 'order_id');
+    }
 }

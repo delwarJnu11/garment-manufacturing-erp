@@ -213,9 +213,10 @@
                     uom_id: item.uom_id,
                     subtotal: 0
                 }));
+                console.log(newItems)
 
                 $.ajax({
-                    url: "/api/order_details",
+                    url: "{{ url('/api/order_details') }}",
                     type: "POST",
                     data: JSON.stringify({
                         items: newItems
@@ -227,7 +228,7 @@
                     success: function(response) {
                         if (response.status === 201) {
                             localStorage.clear();
-                            return window.location.assign('/orders');
+                            return window.location.assign("{{ url('/orders') }}");
                         }
                     },
                     error: function(xhr) {

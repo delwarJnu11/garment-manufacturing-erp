@@ -6,6 +6,7 @@ use App\Models\Hrm_departments;
 use App\Models\Hrm_designations;
 use App\Models\Hrm_employee_positions;
 use App\Models\Hrm_employees;
+use App\Models\Hrm_payslips;
 use App\Models\Hrm_statuses;
 use Illuminate\Http\Request;
 
@@ -39,85 +40,13 @@ class HrmEmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'employee_id' => 'required|string|max:50',
-        //     'name' => 'required|string|max:50',
-        //     'email' => 'required|email|max:50',
-        //     'phone' => 'required|string|max:50',
-        //     'gender' => 'required|string|max:50',
-        //     'date_of_birth' => 'required|date',
-        //     'joining_date' => 'required|date',
-        //     'salary' => 'required|string|max:50',
-        //     'branch' => 'required|string|max:50',
-        //     'address' => 'required|string|max:200',
-        //     'city' => 'required|string|max:200',
-        //     'statuses_id' => 'required|string|max:200',
-        //     'department_id' => 'required|string|max:200',
-        //     'positions_id' => 'required|string|max:200',
-        //     'designations_id' => 'required|string|max:200',
-        //     'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        //     'certificate' => 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:2048',
-        //     'resume' => 'nullable|mimes:jpeg,png,jpg,gif,pdf|max:2048',
-
-        // ]);
-
-        // if ($request->hasFile('certificate')) {
-        //     $file = $request->file('certificate');
-        //     $fileName = time() . '_' . $file->getClientOriginalName();
-        //     $file->move(public_path('uploads/employee'), $fileName);
-        //     $certificatePath = 'uploads/employee/' . $fileName;
-        // } else {
-        //     $certificatePath = null;
-        // }
-
-        // if ($request->hasFile('resume')) {
-        //     $file = $request->file('resume');
-        //     $fileName = time() . '_' . $file->getClientOriginalName();
-        //     $file->move(public_path('uploads/employee'), $fileName);
-        //     $resumePath = 'uploads/employee/' . $fileName;
-        // } else {
-        //     $resumePath = null;
-        // }
-
-        // if($request->hasFile('photo')){
-        //     $file=$request->file('photo');
-        //     $fileName=time().'_'.$file->getClientOriginalName();
-        //     $file->move(public_path('uploads/employee'),$fileName);
-        //     $photoPath='uploads/employee/'.$fileName;
-        // }else{
-        //     $photoPath=null;
-        // }
-
-        // $employees = new Hrm_employees();
-        // $employees->name= $request->name;
-        // $employees->email= $request->email;
-        // $employees->phone= $request->phone;
-        // $employees->gender= $request->gender;
-        // $employees->date_of_birth= $request->date_of_birth;
-        // $employees->joining_date= $request->joining_date;
-        // $employees->positions_id= $request->positions_id;
-        // $employees->designations_id= $request->designations_id;
-        // $employees->salary= $request->salary;
-        // $employees->branch= $request->branch;
-        // $employees->statuses_id= $request->statuses_id;
-        // $employees->department_id= $request->department_id;
-        // $employees->address= $request->address;
-        // $employees->city= $request->city;
-        // $employees->photo=  $photoPath;
-        // $employees->certificate=  $certificatePath;
-        // $employees->certificate=  $resumePath;
-
-        // if($employees->save()){
-        //     return redirect()->back()->with('success', 'Employee has been added successfully!');
-        //  } ;
-
 
         $request->validate([
-            'employee_id' => 'required|string|max:50',
+            'employee_id_number' => 'required|string|max:50',
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'phone' => 'required|string|max:50',
-            'gender' => 'required|string|max:10',
+            // 'gender' => 'required|string|max:10',
             'date_of_birth' => 'required|date',
             'joining_date' => 'required|date',
             'salary' => 'required|numeric',
@@ -158,7 +87,7 @@ class HrmEmployeesController extends Controller
         }
 
         $employees = new Hrm_employees();
-        $employees->employee_id = $request->employee_id;
+        $employees->employee_id_number = $request->employee_id_number;
         $employees->name = $request->name;
         $employees->email = $request->email;
         $employees->phone = $request->phone;
@@ -198,6 +127,12 @@ class HrmEmployeesController extends Controller
         $employees = Hrm_employees::find($id);
         return view('pages.hrm.employee.hrm_employee.employee_details', compact('employees'));
     }
+    public function showEmp($id)
+    {
+        $employees = Hrm_employees::find($id);
+        // print_r($employees);
+        return view('pages.hrm.employee.hrm_employee.employee_details', compact('employees'));
+    }
 
 
     /**
@@ -219,7 +154,7 @@ class HrmEmployeesController extends Controller
     public function update(Request $request, Hrm_employees $Hrm_employees, $id)
     {
         $request->validate([
-            'employee_id' => 'required|string|max:50',
+            'employee_id_number' => 'required|string|max:50',
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50',
             'phone' => 'required|string|max:50',
@@ -237,7 +172,7 @@ class HrmEmployeesController extends Controller
         ]);
 
         $employees = Hrm_employees::find($id);
-        $employees->employee_id= $request->employee_id;
+        $employees->employee_id_number= $request->employee_id_number;
         $employees->name= $request->name;
         $employees->email= $request->email;
         $employees->phone= $request->phone;
@@ -271,5 +206,24 @@ class HrmEmployeesController extends Controller
             return redirect('hrm_employees')->with('success', "employee has been Deleted");
         }
     }
+
+    //  public function find_employee($id){
+	// 	$employees = Hrm_employees::find($id);
+	// 	return response()->json(['employees'=> $employees]);
+	// }
+
+    public function find_employee(Request $request)
+
+{
+    // $payslips=Hrm_payslips::where('employee_id', $request->id);
+    $employees = Hrm_employees::find($request->id);
+
+    if (!$employees) {
+        return response()->json(['message' => 'Employee not found'], 404);
+    }
+
+    return response()->json(['employees' => $employees]);
+    // return response()->json(['payslips' => $payslips]);
+}
 }
 

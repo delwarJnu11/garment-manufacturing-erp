@@ -9,25 +9,53 @@ use App\Models\ProductionWorkSection;
 use App\Models\ProductionWorkStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ProductionWorkOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() {}
+    public function index()
+    {
+
+        $workOrders = ProductionWorkOrder::with([
+            'assignedUser',
+            'order',
+            'productionPlan',
+            'workStatus'
+        ])->get();
+
+        return view('pages.production.production_work_order.work_order.index', compact('workOrders'));
+    }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        $encryptedOrderId = $request->query('order_id');
+        if (!$encryptedOrderId) {
+            return redirect()->route('production-plans.index')->with('error', 'Order ID is required.');
+        }
+
+        try {
+            $order_id = Crypt::decrypt($encryptedOrderId);
+        } catch (\Exception $e) {
+            return redirect()->route('production-plans.index')->with('error', 'Invalid Order ID.');
+        }
+
         $orders = Order::with('buyer')->get();
-        $productionPlans = ProductionPlan::all();
-        $workSections = ProductionWorkSection::all();
+        $productionPlan = ProductionPlan::where('order_id', $order_id)->firstOrFail();
         $workStatuses = ProductionWorkStatus::all();
-        $users = User::all();
-       return view('pages.production.production_work_order.work_order.create', compact('orders', 'productionPlans', 'workSections', 'workStatuses', 'users'));
+        $users = User::whereHas('role', function ($query) {
+            $query->where('name', 'Production');
+        })->get();
+
+        $single_order = Order::with('orderDetails')->findOrFail($order_id);
+        $totalQty = $single_order->orderDetails->sum('qty');
+
+        return view('pages.production.production_work_order.work_order.create', compact('orders', 'productionPlan', 'workStatuses', 'users', 'order_id', 'totalQty'));
     }
 
     /**
@@ -35,7 +63,31 @@ class ProductionWorkOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // print_r($request->all());
+        // die;
+        $request->validate([
+            'order_id' => 'required|numeric',
+            'production_plan_id' => 'required|numeric',
+            'work_order_status_id' => 'required|numeric',
+            'assigned_to' => 'required|numeric',
+            'total_pieces' => 'required|integer|min:1',
+            'wastage' => 'nullable|integer|min:0',
+        ]);
+
+        // ProductionWorkOrder::create([
+        //     'order_id' => $request->order_id,
+        //     'production_plan_id' => $request->production_plan_id,
+        //     'production_work_section_id' => $request->production_work_section_id,
+        //     'production_work_status_id' => $request->production_work_status_id,
+        //     'assigned_to' => $request->assigned_to,
+        //     'target_quantity' => $request->target_quantity,
+        //     'actual_quantity' => $request->actual_quantity ?? 0,
+        // ]);
+
+        ProductionWorkOrder::create($request->all());
+
+        return redirect()->route('production-work-orders.index')->with('success', 'Production work order has bee successfully created');
     }
 
     /**
