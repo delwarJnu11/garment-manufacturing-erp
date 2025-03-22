@@ -23,7 +23,7 @@ class PurchaseOrder extends Model
         'delivery_date',
         'shipping_address',
         'payment_method',
-        'invoice_status_id',
+        'status_id',
         'description',
     ];
 
@@ -48,7 +48,7 @@ class PurchaseOrder extends Model
      */
     public function purchase_status(): BelongsTo
     {
-        return $this->belongsTo(InvoiceStatus::class, 'invoice_status_id');
+        return $this->belongsTo(InvoiceStatus::class, 'status_id');
     }
 
     /**

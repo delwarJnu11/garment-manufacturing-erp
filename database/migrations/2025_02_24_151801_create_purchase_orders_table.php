@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->integer('supplier_id');
             $table->integer('lot_id')->nullable();
-            $table->unsignedBigInteger('invoice_status_id')->default(1);
+            $table->unsignedBigInteger('status_id')->default(1);
             $table->date('purchase_date')->nullable();
             $table->decimal('total_amount', 10, 2)->default(0.00);
             $table->decimal('paid_amount', 10, 2)->default(0.00);
@@ -31,8 +31,8 @@ return new class extends Migration
 
         PurchaseOrder::create([
             'supplier_id' => 1,
-            'lot_id' => 10,
-            'invoice_status_id' => 2,
+            'lot_id' => 1,
+            'status_id' => 2,
             'total_amount' => 0.00,
             'paid_amount' => 0.00,
             'discount' => 0.00,

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->decimal('vat', 10, 2)->default(0);
             $table->unsignedBigInteger('invoice_status_id')->default(1);
             $table->unsignedBigInteger('payment_method_id')->default(1);
-            $table->text('remark')->nullable(); // Optional remark
+            $table->unsignedBigInteger('payment_status_id')->default(1); // Optional remark
             $table->timestamps();
         });
         SalesInvoice::create([
@@ -35,7 +35,7 @@ return new class extends Migration
             'vat' => 250.00,
             'payment_method_id' => 1,
             'invoice_status_id' => 1,
-            'remark' => 'First test sale',
+            'payment_status_id' => 1
         ]);
     }
 
