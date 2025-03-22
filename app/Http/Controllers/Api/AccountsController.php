@@ -21,7 +21,7 @@ class AccountsController extends Controller
 	}
     public function journal()
 	{
-		$journal = Transaction::all();
+		$journal = Transaction::with(['account', 'againstAccount'])->get();
 		return response()->json($journal);
 	}
 	public function create()

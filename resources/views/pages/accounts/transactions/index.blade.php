@@ -7,14 +7,14 @@
 
     <table class="table table-bordered table-striped">
         <thead>
-            <tr>
+            <tr class="text-center">
                 <th>#</th>
-                <th>Voucher Ref</th>
+                <!-- <th>Voucher Ref</th> -->
                 <th>Transaction Date</th>
-                <th>Amount</th>
+                <th>Account</th>
+                <th>Description</th>
                 <th>Debit</th>
                 <th>Credit</th>
-                <th>Description</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -22,12 +22,12 @@
             @foreach ($transactions as $transaction)
                 <tr>
                     <td>{{ $transaction->id }}</td>
-                    <td>{{ $transaction->voucher_ref }}</td>
+                    <!-- <td>{{ $transaction->voucher_ref }}</td> -->
                     <td>{{ $transaction->transaction_date }}</td>
-                    <td>{{ $transaction->amount }}</td>
-                    <td>{{ $transaction->debit }}</td>
-                    <td>{{ $transaction->credit }}</td>
+                    <td>{{ $transaction->account->name }}</td>
                     <td>{{ $transaction->description }}</td>
+                    <td class="text-end">{{ $transaction->debit>0? $transaction->debit: "" }}</td>
+                    <td class="text-end">{{ $transaction->credit>0? $transaction->credit: "" }}</td>
                     <td>
                         <a href="{{ route('transactions.edit', $transaction->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="{{ route('transactions.destroy', $transaction->id) }}" method="POST" style="display:inline;">

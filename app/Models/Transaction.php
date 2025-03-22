@@ -23,7 +23,12 @@ class Transaction extends Model{
     ];
 
     function account(){
-        return $this->belongsTo(Account::class);
+        return $this->belongsTo(Account::class, 'account_id');
+    }
+
+    public function againstAccount()
+    {
+        return $this->belongsTo(Account::class)->where('transaction_against', 'id');
     }
 }
 ?>

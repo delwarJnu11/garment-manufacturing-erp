@@ -67,7 +67,7 @@
                         @forelse ($transactions??[] as $item)
                             <tr>
                                 <td>{{ $item->transaction_date }}</td>
-                                <td>{{ $item->transaction_against }}</td>
+                                <td>{{ $item->account_name }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td>{{ $item->debit }}</td>
                                 <td>{{ $item->credit }}</td>
@@ -85,6 +85,7 @@
                             $closing_balance = $debit - $credit;
                         @endphp
                         <tr>
+                            <td></td>
                             <td></td>
                             <td>Closing Balance </td>
                             <td>{{ $closing_balance > 0 ? $closing_balance : 0.0 }}</td>

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
-    public function index()
+	public function index()
 	{
 		$accounts = Account::paginate(10);
 		return view("pages.accounts.accounts.index", ["accounts" => $accounts]);
@@ -26,7 +26,7 @@ class AccountController extends Controller
 			]
 		);
 	}
-	
+
 	public function store(Request $request)
 	{
 		//Account::create($request->all());
@@ -98,10 +98,10 @@ class AccountController extends Controller
 	}
 
 
-	public static function  createAccount(  $request, string $name = "", int $account_group_id = 0, string $description = "")
+	public static function  createAccount($request, string $name = "", int $account_group_id = 0, string $description = "")
 	{
 		// //Account::create($request->all());
-        
+
 		$lastAccount = DB::table('accounts')->where('account_group_id', $request['account_group_id'])->orderByDesc('code')->value('code');
 		$parentCode = AccountGroups::where('id', $request['account_group_id'])->value('code');
 		$gencode = $lastAccount ? str_pad((int)substr($lastAccount, -2) + 1, 2, 0, STR_PAD_LEFT) : "01";
@@ -127,11 +127,18 @@ class AccountController extends Controller
 
 	public function ledger_report(Request $request)
 	{
-		
+
 		$accounts = Account::all();
-         $transactions= transactions::where('account_id', $request->account_id)->whereBetween('transaction_date', [ $request->start_date,$request->end_date ])->with("account")->get();
-        //   echo json_encode($accounts);
+		// $transactions = transactions::where('account_id', $request->account_id)->whereBetween('transaction_date', [$request->start_date, $request->end_date])->with(["account", "againstAccount"])->get();
+
+		$transactions = DB::table('transactions')
+			->join('accounts as a', 'transactions.transaction_against', '=', 'a.id')
+			->where('transactions.account_id', $request->account_id)
+			->whereBetween('transactions.transaction_date', [$request->start_date, $request->end_date])
+			->select('transactions.*', 'a.name as account_name')
+			->get();
+		// echo "<pre>";
+		// print_r($transactions);
 		return view("pages.accounts.accounts.show", ["transactions" => $transactions, "accounts" => $accounts]);
 	}
-
 }
