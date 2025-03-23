@@ -177,7 +177,7 @@
 
         function clockIn() {
             $.ajax({
-                url: '/hrm_attendance_list/clock-in',
+                url: "{{ url('/hrm_attendance_list/clock-in') }}",
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -202,7 +202,7 @@
 
         function clockOut() {
             $.ajax({
-                url: '/hrm_attendance_list/clock-out',
+                url: "{{ url('/hrm_attendance_list/clock-out') }}",
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',

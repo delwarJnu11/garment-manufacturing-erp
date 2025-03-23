@@ -117,7 +117,7 @@
                 let id = $(this).attr('data-id');
 
                 $.ajax({
-                    url: '/hrm_leave_applications/leaveUpdate',
+                    url: "{{ url('/hrm_leave_applications/leaveUpdate') }}",
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',

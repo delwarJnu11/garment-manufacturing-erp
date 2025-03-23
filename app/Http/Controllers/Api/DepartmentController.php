@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hrm_departments;
+use App\Models\Hrm_statuses;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -30,7 +31,19 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'description' => 'required|string|max:200',
+            'statuses_id' => 'required|string|max:200'
+        ]);
+
+        $departments = new Hrm_departments();
+        $departments->name= $request->name;
+        $departments->statuses_id= $request->statuses_id;
+        $departments->description= $request->description;
+
+        $departments->save();
+
     }
 
     /**

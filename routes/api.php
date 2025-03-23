@@ -57,6 +57,7 @@ Route::post('purchase',[ PurchaseOrderController::class,'store']);
  Route::get('attendance', [AttendanceController::class, 'index']);
  Route::get('leaveapplication', [LeaveApplicationController::class, 'index']);
  Route::get('leavetype', [LeaveTypeController::class, 'index']);
+ Route::get('departmentcreate', [DepartmentController::class, 'store']);
 //  End React Api
 
  // End HRM Api Route
