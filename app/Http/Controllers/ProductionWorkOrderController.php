@@ -172,16 +172,13 @@ class ProductionWorkOrderController extends Controller
             $stock->lot_id = $productLot;
             $stock->save();
         }
-        echo "<pre>";
-        print_r($productLot);
 
 
 
         // Create Production Work Order
-        // ProductionWorkOrder::create($request->all());
+        ProductionWorkOrder::create($request->all());
 
-        // return redirect()->route('production-work-orders.index')
-        //     ->with('success', 'Production work order has been successfully created');
+        return redirect()->route('production-work-orders.index')->with('success', 'Production work order has been successfully created');
     }
 
 

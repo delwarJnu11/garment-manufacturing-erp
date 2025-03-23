@@ -30,14 +30,6 @@ return new class extends Migration
             'transaction_type_id' => 1,
             'total_value' => 7750.00
         ]);
-
-        Stock::create([
-            'product_id' => 2,
-            'lot_id' => 2,
-            'qty' => 10,
-            'transaction_type_id' => 2,
-            'total_value' => 7500.00
-        ]);
     }
 
     /**
