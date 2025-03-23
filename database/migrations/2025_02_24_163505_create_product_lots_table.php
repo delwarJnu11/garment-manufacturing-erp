@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Product_lot;
+
 use App\Models\ProductLot;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

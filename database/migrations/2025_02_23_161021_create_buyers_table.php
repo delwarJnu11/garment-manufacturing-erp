@@ -32,7 +32,7 @@ return new class extends Migration
                 [
                     'first_name' => 'Andrew',
                     'last_name' => 'Ray',
-                    'account_for_id' => '1',
+                    'bank_account_id' => '1',
                     'photo' => 'https://via.placeholder.com/150',
                     'email' => 'ray@example.com',
                     'phone' => '+1234567890',
