@@ -34,7 +34,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update Payment</button>
-                <a href="{{ url('sales-payments/sale_payment') }}" class="btn btn-secondary">Cancel</a>
+                <a href="{{ url('salesPayments') }}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>
