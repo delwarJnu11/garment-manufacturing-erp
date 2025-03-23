@@ -108,8 +108,14 @@
 
                             <x-nav-link :active="request()->is('orders*') ||
                                 request()->is('buyers*') ||
+<<<<<<< HEAD
                                 request()->is('sales-invoice*') ||
                                 request()->is('sales-payments*')">Orders & Buyers</x-nav-link>
+=======
+                                request()->is('sales-invoice*')
+                                ||
+                                request()->is('salesPayments*')">Orders & Buyers</x-nav-link>
+>>>>>>> 8584bea971dc7eed44f3d5f0b840b9c82bc0c611
 
 
 
@@ -131,10 +137,14 @@
                                 <li><x-link href="{{ route('order_status.index') }}" :active="request()->is('order_status.index')">Order
                                         Status</x-link></li>
 
-                                <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales
+                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-invoice')">Sales
                                         Invoices</x-link></li>
+<<<<<<< HEAD
                                 <li><x-link href="{{ url('/sales-payments') }}" :active="request()->is('sales-payments')">Payments</x-link>
                                 </li>
+=======
+                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link></li>
+>>>>>>> 8584bea971dc7eed44f3d5f0b840b9c82bc0c611
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color Lists</x-link>
 
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color
