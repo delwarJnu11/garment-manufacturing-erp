@@ -40,7 +40,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        \Log::info($request->all());
+        // \Log::info($request->all());
         // $validatedData = $request->validate([
         //     'name' => 'required|string|max:255',
         //     'sku' => 'required|string|max:255|unique:products,sku',
