@@ -50,14 +50,26 @@ class BomController extends Controller
      */
     public function create()
     {
-        $orders = Order::with([
-            'buyer',
-            'status',
-            'orderDetails.product',
-            'orderDetails.size',
-            'orderDetails.color',
-            'orderDetails.uom'
-        ])->groupBy('order_number')->get();
+        // $orders = Order::with([
+        //     'buyer',
+        //     'status',
+        //     'orderDetails.product',
+        //     'orderDetails.size',
+        //     'orderDetails.color',
+        //     'orderDetails.uom'
+        // ])->groupBy('order_number')->get();
+        $orders = Order::selectRaw('MIN(id) as id, order_number')
+            ->with([
+                'buyer',
+                'status',
+                'orderDetails.product',
+                'orderDetails.size',
+                'orderDetails.color',
+                'orderDetails.uom'
+            ])
+            ->groupBy('order_number')
+            ->get();
+
 
         // Extract product names and IDs and ensure uniqueness
         $products = $orders->flatMap(function ($order) {

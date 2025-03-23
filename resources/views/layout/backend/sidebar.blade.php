@@ -131,7 +131,7 @@
                                 <li><x-link href="{{ route('order_status.index') }}" :active="request()->is('order_status.index')">Order
                                         Status</x-link></li>
 
-                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-invoice')">Sales
+                                <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales
                                         Invoices</x-link></li>
                                 <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link>
                                 </li>
