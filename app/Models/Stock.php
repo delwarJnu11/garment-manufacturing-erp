@@ -9,9 +9,9 @@ class Stock extends Model
 {
     protected $fillable = [
         'product_id',
-        // 'warehouse_id',
+        
         'transaction_type_id',
-        'qty', //from lot get qty
+        'qty', 
         'lot_id',
         'total_value' //from lot get qty and * price get value
     ];
