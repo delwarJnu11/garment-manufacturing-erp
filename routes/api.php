@@ -46,3 +46,5 @@ Route::prefix('production-stages')->group(function () {
 Route::get('accounts', [AccountsController::class, 'index']);
 Route::post('transactions', [AccountsController::class, 'store']);
 Route::get('journal', [AccountsController::class, 'journal']);
+Route::get('trialBalance', [AccountsController::class, 'trialBalance']);
+Route::get('chartOfAccounts', [AccountsController::class, 'chartOfAccounts']);

@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
-
 class TransactionController extends Controller{
 	public function index(){
 		$transactions = Transaction::paginate(50);
