@@ -39,8 +39,8 @@ class SalesInvoiceController extends Controller
     public function store(Request $request)
     {
         try {
-            //     // Begin a database transaction
-                DB::beginTransaction();
+            // Begin a database transaction
+            DB::beginTransaction();
 
             print_r($request->all());
             // Create a new sales invoice record
@@ -73,10 +73,10 @@ class SalesInvoiceController extends Controller
                 $salesInvoiceDetail->order_id = $saleInvoice['order_id']; // Reference to the order
                 $salesInvoiceDetail->qty = $saleInvoiceDetail['qty'];
                 $salesInvoiceDetail->unit_price = $saleInvoiceDetail['unit_price'];
-                $salesInvoiceDetail->vat = $saleInvoiceDetail['vat'] ?? 0;  
-                $salesInvoiceDetail->percent_of_vat = $saleInvoiceDetail['vat_amount'] ?? 0; 
-                $salesInvoiceDetail->discount = $saleInvoiceDetail['discount']; 
-                $salesInvoiceDetail->percent_of_discount = $saleInvoiceDetail['discount_amount'];  
+                $salesInvoiceDetail->vat = $saleInvoiceDetail['vat'] ?? 0;
+                $salesInvoiceDetail->percent_of_vat = $saleInvoiceDetail['vat_amount'] ?? 0;
+                $salesInvoiceDetail->discount = $saleInvoiceDetail['discount'];
+                $salesInvoiceDetail->percent_of_discount = $saleInvoiceDetail['discount_amount'];
                 $salesInvoiceDetail->save();
 
                 $remainingQty = $saleInvoiceDetail['qty'];

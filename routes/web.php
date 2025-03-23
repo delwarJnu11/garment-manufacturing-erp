@@ -117,6 +117,7 @@ Route::resource('production_plan_status', ProductionPlanStatusesController::clas
 Route::resource('production_work_sections', ProductionWorkSectionController::class);
 Route::resource('production-work-status', ProductionWorkStatusController::class);
 Route::resource('bom', BomController::class);
+Route::get('/bom/{bom}', [BomController::class, 'show'])->name('bom.show');
 Route::resource('bom_details', BomDetailsController::class);
 Route::resource('production-plans', ProductionPlanController::class);
 Route::resource('production-work-orders', ProductionWorkOrderController::class);
@@ -319,6 +320,8 @@ Route::resource('order_details', OrderDetailController::class);
 Route::resource('colors', ColorController::class);
 Route::resource('order_status', OrderStatusController::class);
 Route::resource('fabric_types', FabricTypeController::class);
+//Download Order Details as PDF
+Route::get('/order/{order}', [OrderController::class, 'show'])->name('order.show');
 
 
 

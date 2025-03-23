@@ -10,8 +10,8 @@
 
                         <li class="submenu">
                             {{-- <a href="" class="subdrop"> --}}
-                       
-                        {{-- <li class="submenu">
+
+                            {{-- <li class="submenu">
                             <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
                                 <li>
@@ -23,7 +23,7 @@
                             </ul>
                         </li> --}}
 
-                        <!-- START Prodcution Module Menu -->
+                            <!-- START Prodcution Module Menu -->
                         <li class="submenu">
                             <x-nav-link icon="settings" :active="request()->is('production*')">Production
                                 Management</x-nav-link>
@@ -108,11 +108,10 @@
 
                             <x-nav-link :active="request()->is('orders*') ||
                                 request()->is('buyers*') ||
-                                request()->is('sales-invoice*')
-                                ||
+                                request()->is('sales-invoice*') ||
                                 request()->is('salesPayments*')">Orders & Buyers</x-nav-link>
 
-                           
+
 
                             <ul>
                                 <!-- 🔹 Orders -->
@@ -134,7 +133,8 @@
 
                                 <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-invoice')">Sales
                                         Invoices</x-link></li>
-                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link></li>
+                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link>
+                                </li>
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color Lists</x-link>
 
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color
@@ -408,7 +408,7 @@
     </div>
 </div>
 
-{{-- @section('script')
+@section('script')
     <script>
         $(document).ready(function() {
             var currentUrl = window.location.href;
@@ -430,4 +430,4 @@
             });
         });
     </script>
-@endsection --}}
+@endsection

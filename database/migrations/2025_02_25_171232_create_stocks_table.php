@@ -19,26 +19,16 @@ return new class extends Migration
             // $table->integer('warehouse_id'); // come from lot  table
             $table->integer('transaction_type_id');
             $table->integer('qty'); // come from lot  table
-            $table->decimal('total_value');
+            $table->decimal('total_value')->default(0);
 
             $table->timestamps();
         });
         Stock::create([
             'product_id' => 1,
             'lot_id' => 1,
-            // 'warehouse_id' => 1,
             'qty' => 50,
             'transaction_type_id' => 1,
             'total_value' => 7750.00
-        ]);
-
-        Stock::create([
-            'product_id' => 2,
-            'lot_id' => 2,
-            // 'warehouse_id' => 1,
-            'qty' => 10,
-            'transaction_type_id' => 2,
-            'total_value' => 7500.00
         ]);
     }
 
