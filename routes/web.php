@@ -297,13 +297,14 @@ Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
 
 //Purchase payment 
 Route::resource('payments', PaymentSalePurchaseController::class);
-// sales payment
-// Route::get('/salesPayments', [PaymentSalePurchaseController::class, 'salesPayment'])->name('salesPayments');
+
 
 Route::get('/salesPayments', [PaymentSalePurchaseController::class, 'salesPayment'])->name('salesPayments');
+Route::get('/salesPayments/edit/{id}', [PaymentSalePurchaseController::class, 'editSalesPayment'])
+    ->name('salesPayments.edit');
 
-Route::put('/sales-payments/update/{id}', [PaymentSalePurchaseController::class, 'updateSalesPayment'])
-    ->name('payments.update');
+Route::put('/salesPayments/update/{id}', [PaymentSalePurchaseController::class, 'updateSalesPayment'])
+    ->name('salesPayments.update');
 
 // Report
 Route::get('/purchase-report', [PurchaseReportController::class, 'index']);

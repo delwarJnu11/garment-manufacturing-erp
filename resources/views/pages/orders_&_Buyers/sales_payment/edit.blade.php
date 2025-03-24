@@ -7,7 +7,8 @@
         <div class="card flex-fill">
             <x-page-header heading="Edit Payment - PO-{{ $salesInvoice->id }}" btnText="{{ $btnText }}" />
 
-            <form action="{{ route('payments.update', $salesInvoice->id) }}" method="POST">
+                <form action="{{ route('salesPayments.update', $salesInvoice->id) }}" method="POST">
+
                 @csrf
                 @method('PUT')
 
@@ -22,7 +23,7 @@
                     <label for="payment_method_id">Payment Method</label>
         
 
-                    <select name="payment_method_id" id="payment_method_id" class="form-control">
+                    {{-- <select name="payment_method_id" id="payment_method_id" class="form-control">
                         <option value="">Select Method</option>
                         @foreach ($salesPayments as $salesPayment)
                             @if (isset($salesPayment->payment_method->id))
@@ -32,7 +33,17 @@
                                 </option>
                             @endif
                         @endforeach
+                    </select> --}}
+                    <select name="payment_method_id" id="payment_method_id" class="form-control">
+                        <option value="">Select Method</option>
+                        @foreach ($salesPayments as $salesPayment)
+                            <option value="{{ $salesPayment->id }}" 
+                                {{ (old('payment_method_id', $salesInvoice->payment_method_id) == $salesPayment->id) ? 'selected' : '' }}>
+                                {{ $salesPayment->name }}
+                            </option>
+                        @endforeach
                     </select>
+                    
                     
                     
                 </div>

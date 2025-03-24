@@ -4,14 +4,21 @@
     <x-message-banner />
 
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <div class="alert alert-danger" id="error-message">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            document.getElementById('error-message').style.display = 'none';
+        }, 4000); 
+    </script>
+@endif
+
 
     <div class="card flex-fill">
         {{-- <x-page-header heading="Payment Report" /> --}}
@@ -43,19 +50,25 @@
                         <td>{{ number_format(optional($payment->salesInvoice)->paid_amount ?? 0, 2) }}</td>
                         <td>{{ number_format((optional($payment->salesInvoice)->total_amount ?? 0) - (optional($payment->salesInvoice)->paid_amount ?? 0), 2) }}</td>
                         <td>
-                            @if (optional($payment->salesInvoice)->payment_status_id == 1)
+                            @php
+                                $dueAmount = optional($payment->salesInvoice)->total_amount - optional($payment->salesInvoice)->paid_amount;
+                            @endphp
+                        
+                            @if ($dueAmount == 0)
                                 <span class="badge badge-success">Paid</span>
-                            @elseif (optional($payment->salesInvoice)->payment_status_id == 2)
+                            @elseif ($dueAmount > 0 && $dueAmount < optional($payment->salesInvoice)->total_amount)
                                 <span class="badge badge-warning">Partially Paid</span>
                             @else
                                 <span class="badge badge-danger">Due</span>
                             @endif
                         </td>
+                        
                         <td>{{ optional(optional($payment->salesInvoice)->payment_method)->name ?? 'N/A' }}</td>
                         <td class="action-table-data">
-                            <a href="{{ route('payments.edit', optional($payment->salesInvoice)->id ?? 0) }}">
+                            <a href="{{ route('salesPayments.edit', optional($payment->salesInvoice)->id ?? 0) }}">
                                 <i data-feather="edit" class="feather-edit"></i>
                             </a>
+                            
                         </td>
                     </tr>
                 @empty

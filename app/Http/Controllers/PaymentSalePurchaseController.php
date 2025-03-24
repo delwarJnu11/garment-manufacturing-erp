@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaymentMethod;
 use App\Models\PurchaseOrder;
 use App\Models\SalesInvoice;
 use App\Models\SalesInvoiceDetail;
 // use Illuminate\Console\View\Components\Component;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class PaymentSalePurchaseController extends Controller
 {
     /**
@@ -54,13 +56,11 @@ class PaymentSalePurchaseController extends Controller
         return view('pages.orders_&_Buyers.sales_payment.sales_payment', compact('salesPayments'));
     }
 
-
-    public function editSalesPayment(SalesInvoice $salesInvoice, $id)
+    public function editSalesPayment($id)
     {
-        $salesInvoice = SalesInvoice::findOrFail($id); // Ensure it exists
-        $salesPayments = SalesInvoiceDetail::where('sales_invoice_id', $id)
-            ->with('salesInvoice.payment_method')
-            ->get();
+        $salesInvoice = SalesInvoice::with('payment_method')->findOrFail($id);
+
+        $salesPayments = PaymentMethod::all(); // Get all available payment methods
 
         return view('pages.orders_&_Buyers.sales_payment.edit', [
             'btnText' => 'Update Payment',
@@ -69,51 +69,41 @@ class PaymentSalePurchaseController extends Controller
         ]);
     }
 
-    // public function updateSalesPayment(Request $request, $id)
-    // {
-    //     // $salesInvoice = SalesInvoice::findOrFail($id); // Ensure the record exists
 
-    //     // $request->validate([
-    //     //     'paid_amount' => 'required|numeric|min:0|max:' . $salesInvoice->total_amount,
-    //     //     'payment_method_id' => 'nullable|exists:payment_methods,id',
-    //     // ]);
 
-    //     // // Add new paid amount to existing paid amount
-    //     // $newPaidAmount = $salesInvoice->paid_amount + $request->paid_amount;
 
-    //     // // Ensure total paid amount does not exceed total amount
-    //     // if ($newPaidAmount > $salesInvoice->total_amount) {
-    //     //     return redirect()->back()->with('error', 'Paid amount exceeds total amount.');
-    //     // }
 
-    //     // // Update sales invoice with new paid amount and payment method
-    //     // $salesInvoice->update([
-    //     //     'paid_amount' => $newPaidAmount,
-    //     //     'payment_method_id' => $request->payment_method_id,
-    //     // ]);
-
-    //     // return redirect()->route('salesPayments')->with('success', 'Payment updated successfully.');
-    //     dd($request->all());
-    // }
 
     public function updateSalesPayment(Request $request, $id)
     {
-        \Log::info('Payment Update Request:', $request->all());
-    
         $salesInvoice = SalesInvoice::findOrFail($id);
-    
+
         $request->validate([
             'paid_amount' => 'required|numeric|min:0|max:' . $salesInvoice->total_amount,
-            'payment_method_id' => 'required|exists:payment_methods,id', // Ensure ID is valid
+            'payment_method_id' => 'nullable|exists:payment_methods,id',
         ]);
-    
+
+        $newPaidAmount = $salesInvoice->paid_amount + $request->paid_amount; // Add old + new
+
+        if ($newPaidAmount > $salesInvoice->total_amount) {
+            return redirect()->route('salesPayments')->withErrors(['paid_amount' => 'Total paid amount cannot exceed the total invoice amount.']);
+        }
+
+        // Determine payment status
+        if ($newPaidAmount == $salesInvoice->total_amount) {
+            $paymentStatus = 1; // Paid
+        } elseif ($newPaidAmount > 0) {
+            $paymentStatus = 2; // Partially Paid
+        } else {
+            $paymentStatus = 3; // Due
+        }
+
         $salesInvoice->update([
-            'paid_amount' => $request->paid_amount,
-            'payment_method_id' => $request->payment_method_id, // Correctly updates ID
+            'paid_amount' => $newPaidAmount,
+            'payment_method_id' => $request->payment_method_id,
+            'payment_status_id' => $paymentStatus, // Update the status
         ]);
-    
+
         return redirect()->route('salesPayments')->with('success', 'Payment updated successfully.');
     }
-    
-
 }
