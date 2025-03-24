@@ -298,7 +298,10 @@ Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
 //Purchase payment 
 Route::resource('payments', PaymentSalePurchaseController::class);
 // sales payment
+// Route::get('/salesPayments', [PaymentSalePurchaseController::class, 'salesPayment'])->name('salesPayments');
+
 Route::get('/salesPayments', [PaymentSalePurchaseController::class, 'salesPayment'])->name('salesPayments');
+
 Route::put('/sales-payments/update/{id}', [PaymentSalePurchaseController::class, 'updateSalesPayment'])
     ->name('payments.update');
 

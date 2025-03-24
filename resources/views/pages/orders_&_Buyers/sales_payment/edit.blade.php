@@ -20,21 +20,26 @@
 
                 <div class="form-group">
                     <label for="payment_method_id">Payment Method</label>
+        
+
                     <select name="payment_method_id" id="payment_method_id" class="form-control">
                         <option value="">Select Method</option>
                         @foreach ($salesPayments as $salesPayment)
-                            @if (isset($salesPayment->payment_method->name))
+                            @if (isset($salesPayment->payment_method->id))
                                 <option value="{{ $salesPayment->payment_method->id }}" 
-                                    {{ old('payment_method_id', $salesInvoice->payment_method_id) == $salesPayment->payment_method->id ? 'selected' : '' }}>
+                                    {{ (old('payment_method_id', $salesInvoice->payment_method_id) == $salesPayment->payment_method->id) ? 'selected' : '' }}>
                                     {{ $salesPayment->payment_method->name }}
                                 </option>
                             @endif
                         @endforeach
                     </select>
+                    
+                    
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update Payment</button>
-                <a href="{{ url('salesPayments') }}" class="btn btn-secondary">Cancel</a>
+                <a href="{{ route('salesPayments') }}" class="btn btn-secondary">Cancel</a>
+
             </form>
         </div>
     </div>
