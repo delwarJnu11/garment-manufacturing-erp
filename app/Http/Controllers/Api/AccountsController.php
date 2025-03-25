@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\AccountGroup;
+use App\Models\AccountGroup;
 use App\Models\accountGroups;
 use App\Models\Transaction;
 use App\Models\transactions;
@@ -156,6 +157,46 @@ class AccountsController extends Controller
 		//   echo json_encode($accounts);
 		return view("pages.accounts.accounts.show", ["transactions" => $transactions, "accounts" => $accounts]);
 	}
+
+	public function trialBalance(Request $request)
+    {
+        // Get date range from request (default: current month)
+        $start_date = $request->input('start_date', date('Y-m-01'));
+        $end_date = $request->input('end_date', date('Y-m-t'));
+
+        // Fetch trial balance within the selected date range
+        $trialBalance = DB::table('accounts as a')
+            ->rightJoin('transactions', 'a.id', '=', 'transactions.account_id')
+            ->select(
+          
+				'a.id',
+                'a.code',
+                'a.name',
+				
+                DB::raw("SUM(CASE WHEN transaction_date BETWEEN '$start_date' AND '$end_date' THEN debit ELSE 0 END) as total_debit"),
+                DB::raw("SUM(CASE WHEN transaction_date BETWEEN '$start_date' AND '$end_date' THEN credit ELSE 0 END) as total_credit"),
+                DB::raw("(SUM(CASE WHEN transaction_date BETWEEN '$start_date' AND '$end_date' THEN debit ELSE 0 END) -
+                  SUM(CASE WHEN transaction_date BETWEEN '$start_date' AND '$end_date' THEN credit ELSE 0 END)) as balance")
+            )
+            ->groupBy('a.id', 'a.code', 'a.name')
+            ->orderBy('a.code', 'asc')
+            ->get();
+
+		return response()->json([$trialBalance, $start_date, $end_date]);
+
+        // return view('pages.accounts.trial_balance.index', compact('trialBalance', 'start_date', 'end_date'));
+    }
+
+	public function chartOfAccounts()
+    {
+        $groups = AccountGroup::whereNull('parent_id')->with('children', 'accounts')->get();
+
+        // echo  json_encode( $groups[0]->children);
+
+		return response()->json($groups);
+
+        // return View('pages.accounts.reports.chartofaccountpdf', compact('groups'));
+    }
 
 	public function trialBalance(Request $request)
 	{

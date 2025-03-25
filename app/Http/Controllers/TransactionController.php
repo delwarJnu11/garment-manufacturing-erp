@@ -13,10 +13,10 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 class TransactionController extends Controller{
 	public function index(){
-		$transactions = Transaction::paginate(50);
-		echo "<pre>";
-		print_r($transactions);
-		// return view("pages.accounts.transactions.index",["transactions"=>$transactions]);
+		$transactions = Transaction::orderBy('transaction_date', 'asc')->paginate(50);
+		// echo "<pre>";
+		// print_r($transactions);
+		return view("pages.accounts.transactions.index",["transactions"=>$transactions]);
 	}
 	public function create(){
 		return view("pages.accounts.transactions.create",["accounts"=>Account::all(),"users"=>User::all()]);

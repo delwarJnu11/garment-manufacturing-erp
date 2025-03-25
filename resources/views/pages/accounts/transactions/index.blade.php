@@ -15,27 +15,27 @@
                 <th>Description</th>
                 <th>Debit</th>
                 <th>Credit</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
             </tr>
         </thead>
         <tbody>
-            @foreach ($transactions as $transaction)
+            @foreach ($transactions as $key => $transaction)
                 <tr>
-                    <td>{{ $transaction->id }}</td>
+                    <td>{{ $key+1 }}</td>
                     <!-- <td>{{ $transaction->voucher_ref }}</td> -->
-                    <td>{{ $transaction->transaction_date }}</td>
+                    <td>{{ date("d-M-Y", strtotime(str_replace('/','-',$transaction->transaction_date))) }}</td>
                     <td>{{ $transaction->account->name }}</td>
                     <td>{{ $transaction->description }}</td>
-                    <td class="text-end">{{ $transaction->debit>0? $transaction->debit: "" }}</td>
-                    <td class="text-end">{{ $transaction->credit>0? $transaction->credit: "" }}</td>
-                    <td>
+                    <td class="text-end">{{ $transaction->debit>0? $transaction->debit." ৳": "" }}</td>
+                    <td class="text-end">{{ $transaction->credit>0? $transaction->credit." ৳": "" }}</td>
+                    <!-- <td>
                         <a href="{{ route('transactions.edit', $transaction->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="{{ route('transactions.destroy', $transaction->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
-                    </td>
+                    </td> -->
                 </tr>
             @endforeach
         </tbody>
