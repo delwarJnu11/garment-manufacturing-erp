@@ -18,7 +18,7 @@ use App\Http\Controllers\HrmPayslipsController;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Api\OrderController;
-
+use App\Http\Controllers\Api\Vue\RoleController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -83,4 +83,11 @@ Route::prefix('production-stages')->group(function () {
     Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');
 });
 // Route::post('/adjustment', [StockAdjustmentController::class, 'store']);
+
+//Vue api ca;;
+
+
+Route::prefix('vue')->group(function () {
+    Route::apiResource('roles', RoleController::class);
+});
 
