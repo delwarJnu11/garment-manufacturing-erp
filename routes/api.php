@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\HrmPayslipsController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\RawMaterialController;
+use App\Http\Controllers\Api\Vue\RoleController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -48,3 +49,5 @@ Route::post('transactions', [AccountsController::class, 'store']);
 Route::get('journal', [AccountsController::class, 'journal']);
 Route::get('trialBalance', [AccountsController::class, 'trialBalance']);
 Route::get('chartOfAccounts', [AccountsController::class, 'chartOfAccounts']);
+
+Route::apiResource('roles', RoleController::class);
