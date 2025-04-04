@@ -169,11 +169,14 @@
             });
 
             $('#order_id').on('change', function() {
+                // alert()
                 let order_id = $(this).val();
+                console.log("Selected Order ID:", order_id); // Logs selected order ID
                 if (!order_id) {
                     console.error("Order ID is not selected.");
                     return;
                 }
+                
                 $.ajax({
                     url: "{{ url('find_order') }}",
                     type: 'POST',

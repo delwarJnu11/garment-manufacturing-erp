@@ -84,10 +84,7 @@ Route::prefix('production-stages')->group(function () {
 });
 // Route::post('/adjustment', [StockAdjustmentController::class, 'store']);
 
-//Vue api ca;;
-
-
+//Vue api create;
 Route::prefix('vue')->group(function () {
     Route::apiResource('roles', RoleController::class);
 });
-

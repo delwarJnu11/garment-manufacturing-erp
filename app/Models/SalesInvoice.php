@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SalesInvoice extends Model
 {
     use HasFactory;
+    protected $casts = [
+        'sale_date' => 'datetime',
+    ];
 
 
     protected $fillable = [
@@ -35,12 +38,8 @@ class SalesInvoice extends Model
         return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
     }
 
-    public function salesInvoiceDetail()
+    public function salesInvoiceDetails()
     {
         return $this->hasMany(SalesInvoiceDetail::class, 'sales_invoice_id');
     }
-
-    // for payment 
-
-
 }

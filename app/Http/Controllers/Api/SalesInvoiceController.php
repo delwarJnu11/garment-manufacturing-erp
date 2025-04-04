@@ -55,7 +55,7 @@ class SalesInvoiceController extends Controller
             $salesInvoice->vat = $saleInvoice['vat'];;
             $salesInvoice->discount = $saleInvoice['discount'];;
             $salesInvoice->invoice_status_id = 1;  // Default invoice status
-            $salesInvoice->remark = "";
+            // $salesInvoice->remark = "";
             $salesInvoice->save();
 
             $last_id =  $salesInvoice->id;

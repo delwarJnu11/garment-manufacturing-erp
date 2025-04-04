@@ -49,11 +49,23 @@ class PaymentSalePurchaseController extends Controller
     }
 
     // sales payment
+    // public function salesPayment()
+    // {
+    //     $salesPayments = SalesInvoiceDetail::with('order.buyer', 'order', 'salesInvoice.invoice_status')->get();
+    //     // print_r($salesPayments->toArray());
+    //     return view('pages.orders_&_Buyers.sales_payment.sales_payment', compact('salesPayments'));
+    // }
+
+
     public function salesPayment()
     {
-        $salesPayments = SalesInvoiceDetail::with('order.buyer', 'salesInvoice.invoice_status')->get();
-        // print_r($salesPayments->toArray());
-        return view('pages.orders_&_Buyers.sales_payment.sales_payment', compact('salesPayments'));
+        $salesPayments = SalesInvoiceDetail::with('order.buyer', 'order', 'salesInvoice.invoice_status')
+            ->get()
+            ->unique(function ($payment) {
+                return $payment->sales_invoice_id . '-' . $payment->order_id;
+            });
+
+        return view('pages.orders_&_buyers.sales_payment.sales_payment', compact('salesPayments'));
     }
 
     public function editSalesPayment($id)
@@ -68,10 +80,6 @@ class PaymentSalePurchaseController extends Controller
             'salesPayments' => $salesPayments
         ]);
     }
-
-
-
-
 
 
     public function updateSalesPayment(Request $request, $id)
@@ -104,6 +112,6 @@ class PaymentSalePurchaseController extends Controller
             'payment_status_id' => $paymentStatus, // Update the status
         ]);
 
-        return redirect()->route('salesPayments')->with('success', 'Payment updated successfully.');
+        return redirect()->route('sales-invoice.index')->with('success', 'Payment updated successfully.');
     }
 }

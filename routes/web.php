@@ -260,6 +260,7 @@ Route::resource('buyers', BuyerController::class);
  */
 // sales invoice
 Route::resource('sales-invoice', SalesInvoiceController::class);
+Route::get('sales-invoice/{id}/generatePdf', [SalesInvoiceController::class, 'generateSalesPDF'])->name('sales-invoice.generatePDF');
 Route::post('find_buyer', [SalesInvoiceController::class, 'find_buyer']);
 
 Route::post('find_order', [SalesInvoiceController::class, 'find_order']);
@@ -267,6 +268,8 @@ Route::get('order/show', [SalesInvoiceController::class, 'show']);
 Route::get('getInvoiceId', [SalesInvoiceController::class, 'getInvoiceId']);
 
 Route::get('order/show', [SalesInvoiceController::class, 'show']);
+Route::get('pending', [SalesInvoiceController::class, 'invoicePending']);
+Route::post('/sales-invoice/update-status/{id}', [SalesInvoiceController::class, 'updateInvoiceStatus'])->name('sales-invoice.update-status');
 
 
 Route::resource('suppliers', InvSuppliersController::class);
