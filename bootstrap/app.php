@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then:function () {
-            Route::namespace('Vue')->prefix('vue')->name('vue.')->group(base_path('routes/vue.php'));
+            Route::prefix('vue')->name('vue.')->group(base_path('routes/vue.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
