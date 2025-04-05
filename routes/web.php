@@ -334,7 +334,7 @@ Route::get('/order/{order}', [OrderController::class, 'show'])->name('order.show
 
 // Route::get('orders', [OrderDetailsController::class, 'index']);
 
-Route::get('orders', [OrderDetailsController::class, 'index']);
+// Route::get('orders', [OrderDetailsController::class, 'index']);
 
 // Route::get('orders', [OrderDetailsController::class, 'index']);
 

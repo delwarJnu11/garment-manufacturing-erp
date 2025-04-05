@@ -78,9 +78,11 @@
                         </td>
                     </tr>
                 @empty
+
                     <tr>
                         <td colspan="10" class="text-center">No payments found.</td>
                     </tr>
+
                 @endforelse
             </tbody>
             
@@ -122,6 +124,7 @@
                     </tr>
                 @endforelse
             </tbody> --}}
+            
         </table>
 
         <div class="d-flex justify-content-end">
