@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\HrmPayslipsController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\RawMaterialController;
+use App\Http\Controllers\Api\vue\StatusController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -46,8 +47,8 @@ Route::post('purchase',[ PurchaseOrderController::class,'store']);
 
 
 //  Start React Api
+
  Route::get('payslip', [PayslipController::class,'store']);
-//  Route::get('payslip', [PayslipController::class, 'getPayslips']);
  Route::get('payslipindex', [PayslipController::class,'index']);
  Route::get('employeeapi', [EmployeeController::class,'index']);
  Route::get('payslip_itemsapi', [Payslip_ItemsController::class,'index']);
@@ -58,6 +59,12 @@ Route::post('purchase',[ PurchaseOrderController::class,'store']);
  Route::get('leaveapplication', [LeaveApplicationController::class, 'index']);
  Route::get('leavetype', [LeaveTypeController::class, 'index']);
  Route::get('departmentcreate', [DepartmentController::class, 'store']);
+
+
+
+Route::apiResource("status", StatusController::class);
+
+
 //  End React Api
 
  // End HRM Api Route

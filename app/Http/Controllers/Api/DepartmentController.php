@@ -31,11 +31,6 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:50',
-            'description' => 'required|string|max:200',
-            'statuses_id' => 'required|string|max:200'
-        ]);
 
         $departments = new Hrm_departments();
         $departments->name= $request->name;
@@ -43,6 +38,8 @@ class DepartmentController extends Controller
         $departments->description= $request->description;
 
         $departments->save();
+
+        return response()->json(['response' => $departments]);
 
     }
 
@@ -75,6 +72,11 @@ class DepartmentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $departments =Hrm_departments::destroy($id);
+            return response()->json(['response' => $departments]);
+        } catch (\Throwable $th) {
+            return response()->json(['response' => $th->getMessage()]);
+        }
     }
 }
