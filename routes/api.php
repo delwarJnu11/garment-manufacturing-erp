@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\Vue\RoleController;
+use App\Http\Controllers\Api\Vue\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -87,4 +88,5 @@ Route::prefix('production-stages')->group(function () {
 //Vue api create;
 Route::prefix('vue')->group(function () {
     Route::apiResource('roles', RoleController::class);
+    Route::apiResource('users', UserController::class);
 });

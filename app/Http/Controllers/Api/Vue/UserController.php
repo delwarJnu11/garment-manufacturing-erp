@@ -13,14 +13,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-       $usersQuery = User::query();
+        $usersQuery = User::query();
 
-       if($request->search){
-            $usersQuery->where('name','like', '%'. $request->search.'%');
-       }
-       $users = $usersQuery->paginate(5);
-       return response()->json($users);
-
+        if ($request->search) {
+            $usersQuery->where('name', 'like', '%' . $request->search . '%');
+        }
+        $users = $usersQuery->paginate(5);
+        return response()->json($users);
     }
 
     /**
