@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject; // this sould be imported
 
-class User extends Authenticatable {
+class User extends Authenticatable implements JWTSubject
+{
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
@@ -40,30 +42,49 @@ class User extends Authenticatable {
      *
      * @return array<string, string>
      */
-    protected function casts(): array {
+    protected function casts(): array
+    {
         return [
             'email_verified_at' => 'datetime',
             'password'          => 'hashed',
         ];
     }
 
-    public function role(): BelongsTo {
+    public function role(): BelongsTo
+    {
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    function isAdmin() {
+    function isAdmin()
+    {
         return $this->role_id == 1;
     }
 
-    function isHR() {
+    function isHR()
+    {
         return $this->role_id == 1;
     }
 
-    function isManager() {
+    function isManager()
+    {
         return $this->role_id == 1;
     }
 
-    function isEmployee(){
+    function isEmployee()
+    {
         return $this->role_id == 2;
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [
+            'email' => $this->email,
+            'name' => $this->name
+        ];
     }
 }

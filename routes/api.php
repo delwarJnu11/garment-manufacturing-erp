@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BomDetailsController;
 use App\Http\Controllers\Api\CuttingController;
 use App\Http\Controllers\Api\OrderDetailsController;
@@ -87,6 +88,11 @@ Route::prefix('production-stages')->group(function () {
 
 //Vue api create;
 Route::prefix('vue')->group(function () {
-    Route::apiResource('roles', RoleController::class);
+    Route::apiResource('roles', RoleController::class)->middleware('auth:api');
     Route::apiResource('users', UserController::class);
 });
+
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+Route::post('refresh', [AuthController::class, 'refresh']);
+Route::post('logout', [AuthController::class, 'logout']);

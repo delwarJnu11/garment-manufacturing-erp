@@ -29,8 +29,18 @@ class SalesInvoiceDetail extends Model
     {
         return $this->belongsTo(Order::class, 'order_id');
     }
-    public function orderDetails()
+    public function orderDetail()
     {
-        return $this->hasMany(OrderDetail::class, 'order_id');
+        return $this->belongsTo(OrderDetail::class, 'order_id');
+    }
+
+    public function product()
+    {
+        return $this->hasOneThrough(Product::class, OrderDetail::class, 'order_id', 'id', 'order_id', 'product_id');
+    }
+
+    public function size()
+    {
+        return $this->hasOneThrough(Size::class, OrderDetail::class, 'order_id', 'id', 'order_id', 'size_id');
     }
 }

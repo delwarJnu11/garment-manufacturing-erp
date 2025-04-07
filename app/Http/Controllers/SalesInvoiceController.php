@@ -148,37 +148,71 @@ class SalesInvoiceController extends Controller
 
     // public function show($id)
     // {
-    //     $salesInvoice = SalesInvoice::with(['buyer', 'salesInvoiceDetail.orderDetails.product'])->findOrFail($id);
+    // $salesInvoice = SalesInvoice::with([
+    //     'buyer',
+    //     'salesInvoiceDetails.order.orderDetails.product',
+    //     'salesInvoiceDetails.order.orderDetails.size'
+    // ])->findOrFail($id);
 
+    // // $salesInvoice = OrderDetail::where('order_id', 'order.buyer')->with('product', 'size', 'uom', 'color')->get()->groupBy('size_id');
 
     //     return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice'));
     // }
 
-    public function show($id, Order $order)
+    // public function show($id)
+    // {
+    //     $salesInvoice = OrderDetail::where('order_id', $id)
+    //         ->with('order', 'product', 'size', 'uom', 'color')
+    //         ->get()
+    //         ->groupBy('size_id');
+
+    //     $salesInvoiceDetails = SalesInvoice::with('buyer', 'invoice_status', 'payment_method', 'salesInvoiceDetails')
+    //         ->findOrFail($id);
+
+
+    //     // dd($salesInvoice);
+    //     return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice', 'salesInvoiceDetails'));
+    // }
+
+    public function show($id)
     {
-        $salesInvoice = SalesInvoice::where()->with([
+        $salesInvoice = OrderDetail::where('order_id', $id)
+            ->with('product', 'size') // Ensure these relations are loaded
+            ->get()
+            ->groupBy('size_id'); // Group by size_id
+
+        $salesInvoiceDetails = SalesInvoice::with([
             'buyer',
-            'salesInvoiceDetails.order.orderDetails.product',
-            'salesInvoiceDetails.order.orderDetails.size'
+            'invoice_status',
+            'payment_method',
+            'salesInvoiceDetails',
+            'salesInvoiceDetails.order',
+            'salesInvoiceDetails.orderDetail.product', // Eager load product through order detail
+            'salesInvoiceDetails.orderDetail.size',    // Eager load size through order detail
         ])->findOrFail($id);
 
-        // $salesInvoice = OrderDetail::where('order_id','order.buyer')->with('product','size','uom','color')->get()->groupBy('size_id');
-        
-        return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice'));
-    
-}
+        // dd($salesInvoiceDetails);
 
-// public function show($id)
-// {
-//     $orderDetails = OrderDetail::where('order_id', $id)
-//         ->with(['product', 'size', 'uom', 'color'])
-//         ->get()
-//         ->groupBy('size_id');
 
-//     return response()->json([
-//         'orderDetailsGrouped' => $orderDetails
-//     ]);
-// }
+        return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice', 'salesInvoiceDetails'));
+    }
+
+
+
+
+
+
+    // public function show($id)
+    // {
+    //     $orderDetails = OrderDetail::where('order_id', $id)
+    //         ->with(['product', 'size', 'uom', 'color'])
+    //         ->get()
+    //         ->groupBy('size_id');
+
+    //     return response()->json([
+    //         'orderDetailsGrouped' => $orderDetails
+    //     ]);
+    // }
 
 
     public function invoicePending()
@@ -241,56 +275,26 @@ class SalesInvoiceController extends Controller
     public function destroy(SalesInvoice $SalesInvoice) {}
 
 
-//     public function show2(Request $request, Order $order)
-//     {
-//         $buyer = $order->buyer;
+    //     public function show2(Request $request, Order $order)
+    //     {
+    //         $buyer = $order->buyer;
 
-//         $orderDetails = OrderDetail::where('order_id', $order->id)
-//             ->with('product', 'size', 'color', 'uom')
-//             ->get();
+    //         $orderDetails = OrderDetail::where('order_id', $order->id)
+    //             ->with('product', 'size', 'color', 'uom')
+    //             ->get();
 
-//         // Get BOM for this order
-//         $bom = $order->bom;
-//         // Initialize size-based costs
-//         $sizeData = [];
+    //         // Get BOM for this order
+    //         $bom = $order->bom;
+    //         // Initialize size-based costs
+    //         $sizeData = [];
 
-//         if ($bom) {
-//             // Fetch BOM details and join with Product table
-//             $bomDetails = $bom->bomDetails()
-//                 ->select('size_id', 'quantity_used', 'unit_price', 'wastage')
-//                 ->get()
-//                 ->groupBy('size_id');
+    //         if ($bom) {
+    //             // Fetch BOM details and join with Product table
+    //             $bomDetails = $bom->bomDetails()
+    //                 ->select('size_id', 'quantity_used', 'unit_price', 'wastage')
+    //                 ->get()
+    //                 ->groupBy('size_id');
 
 
 
-//         //     // Fetch dynamic operating costs from BOM
-//         //     $operatingCost = $bom->utility_cost + $bom->labour_cost + $bom->overhead_cost;
-
-//         //     // Calculate material costs per size
-//         //     foreach ($bomDetails as $sizeId => $materials) {
-//         //         $materialCost = $materials->sum(function ($material) {
-//         //             $wastageCost = ($material->quantity_used * ($material->wastage / 100)) * $material->unit_price;
-//         //             return ceil(($material->quantity_used * $material->unit_price) + $wastageCost);
-//         //         });
-
-//         //         $sizeData[$sizeId] = [
-//         //             'material_cost' => $materialCost,
-//         //             'operating_cost' => $operatingCost,
-//         //         ];
-//         //     }
-//         // }
-//         // // Check if PDF download is requested
-//         // if ($request->has('download')) {
-//         //     $pdf = Pdf::loadView('pages.orders_&_buyers.order.orderpdf', compact('order', 'buyer', 'orderDetails', 'sizeData'))
-//         //         ->setPaper('a4', 'portrait');
-
-//         //     return $pdf->download($order->order_number . '.pdf');
-//         // }
-
-//         return view('pages.orders_&_buyers.order.show', compact('order', 'buyer', 'orderDetails', 'sizeData'));
-//     }
-// }
 }
-
-
-
