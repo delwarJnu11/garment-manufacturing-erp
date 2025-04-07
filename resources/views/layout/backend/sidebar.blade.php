@@ -11,7 +11,7 @@
                         <li class="submenu">
                             {{-- <a href="" class="subdrop"> --}}
 
-                            {{-- <li class="submenu">
+                            <li class="submenu">
                             <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
                                 <li>
@@ -21,7 +21,7 @@
                                     <x-link href="{{ route('roles.index') }}" :active="request()->is('roles')">Roles Lists</x-link>
                                 </li>
                             </ul>
-                        </li> --}}
+                        </li>
 
                             <!-- START Prodcution Module Menu -->
                         <li class="submenu">
@@ -110,8 +110,6 @@
                                 request()->is('buyers*') ||
                                 request()->is('sales-invoice*') ||
                                 request()->is('salesPayments*')|| request()->is('pending') ">Orders & Buyers</x-nav-link>
-
-
 
                             <ul>
                                 <!-- 🔹 Orders -->

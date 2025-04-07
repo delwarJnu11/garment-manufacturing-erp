@@ -154,31 +154,31 @@ class SalesInvoiceController extends Controller
     //     return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice'));
     // }
 
-//     public function show($id, Order $order)
-//     {
-//         // $salesInvoice = SalesInvoice::with([
-//         //     'buyer',
-//         //     'salesInvoiceDetails.order.orderDetails.product',
-//         //     'salesInvoiceDetails.order.orderDetails.size'
-//         // ])->findOrFail($id);
+    public function show($id, Order $order)
+    {
+        $salesInvoice = SalesInvoice::where()->with([
+            'buyer',
+            'salesInvoiceDetails.order.orderDetails.product',
+            'salesInvoiceDetails.order.orderDetails.size'
+        ])->findOrFail($id);
 
-//         $salesInvoice = OrderDetail::where('order_id','order.buyer')->with('product','size','uom','color')->get()->groupBy('size_id');
+        // $salesInvoice = OrderDetail::where('order_id','order.buyer')->with('product','size','uom','color')->get()->groupBy('size_id');
         
-//         return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice'));
+        return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice'));
     
-// }
-
-public function show($id)
-{
-    $orderDetails = OrderDetail::where('order_id', $id)
-        ->with(['product', 'size', 'uom', 'color'])
-        ->get()
-        ->groupBy('size_id');
-
-    return response()->json([
-        'orderDetailsGrouped' => $orderDetails
-    ]);
 }
+
+// public function show($id)
+// {
+//     $orderDetails = OrderDetail::where('order_id', $id)
+//         ->with(['product', 'size', 'uom', 'color'])
+//         ->get()
+//         ->groupBy('size_id');
+
+//     return response()->json([
+//         'orderDetailsGrouped' => $orderDetails
+//     ]);
+// }
 
 
     public function invoicePending()

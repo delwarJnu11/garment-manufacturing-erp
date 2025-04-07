@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Vue;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -18,7 +20,7 @@ class UserController extends Controller
         if ($request->search) {
             $usersQuery->where('name', 'like', '%' . $request->search . '%');
         }
-        $users = $usersQuery->paginate(5);
+        $users = $usersQuery->paginate(3);
         return response()->json($users);
     }
 
@@ -27,7 +29,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $user = new User;
+            $user->name = $request->name;
+            $user->role_id = $request->role_id;
+            $user->email = $request->email;
+            $user->password = Hash::make($request['password']);
+
+
+            date_default_timezone_set("Asia/Dhaka");
+            $user->created_at = date('Y-m-d H:i:s');
+            $user->updated_at = date('Y-m-d H:i:s');
+
+            if(isset($request->image)){
+                $user->image = $request->image;
+            }
+            $user->save();
+            if(isset($request->image)){
+                $imageName = $user->id.'.'.$request->image->extension();
+                $user->image=$imageName;
+                $user->update();
+                $request->image->move(public_path('uploads/users'),$imageName);
+            }
+            return response()->json(['users'=>$user],201);
+
+        } catch (\Throwable $th) {
+            \Log::error($th->getMessage());
+            return response()->json(['error' => 'Something went wrong', 'message' => $th->getMessage()], 500);
+        }
     }
 
     /**
