@@ -10,34 +10,61 @@ use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $roles = Role::all();
-            if (!$roles) {
-                $roles = "No Data Found";
+            $query = Role::query();
+
+            if ($request->search) {
+                $query->where('name', 'like', "%{$request->search}%");
             }
-            return response()->json(['roles' => $roles]);
+
+            $roles = $query->paginate(3);
+
+            if ($roles->isEmpty()) {
+                return response()->json([
+                    'roles' => [],
+                    'success' => false,
+                    'status' => 404,
+                    'message' => 'No roles found.'
+                ]);
+            }
+
+            return response()->json([
+                'roles' => $roles,
+                'success' => true,
+                'status' => 200,
+                'message' => 'Roles retrieved successfully.'
+            ]);
         } catch (\Throwable $th) {
-            return response()->json(['error' => $th->getMessage()]);
+            return response()->json([
+                'success' => false,
+                'status' => 500,
+                'message' => 'Server Error: ' . $th->getMessage()
+            ]);
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
+        // Validate input
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
         try {
-            $role = new Role();
-            $role->name = $request->name;
-            $role->save();
-            return response()->json(['result' => $role->name]);
-        } catch (\Throwable $th) {
-            return response()->json(['error' => $th->getMessage()]);
+            Role::create($request->all());
+
+            return response()->json([
+                'message' => 'Role created successfully.',
+                'status' => 201,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to create role.',
+                'status' => 500,
+                'error' => $e->getMessage()
+            ]);
         }
     }
 
@@ -62,28 +89,29 @@ class RoleController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Role $role)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
         try {
-            $role = Role::find($id);
+            $role->update([
+                'name' => $request->name,
+            ]);
 
-            if (!$role) {
-                return response()->json(['error' => 'Role not found'], 404);
-            }
-
-            $role->name = $request->name;
-            $role->save();
-
-            return response()->json(['roles' => $role]);
+            return response()->json([
+                'message' => 'Role updated successfully.',
+                'status' => 200,
+            ]);
         } catch (\Throwable $th) {
-            return response()->json(['err' => $th->getMessage()], 500);
+            return response()->json([
+                'message' => 'Failed to create role.',
+                'status' => 500,
+                'error' => $th->getMessage()
+            ]);
         }
     }
-
 
     /**
      * Remove the specified resource from storage.
