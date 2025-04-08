@@ -104,82 +104,98 @@ class ProductionWorkOrderController extends Controller
         $request->validate([
             'order_id' => 'required|numeric',
             'production_plan_id' => 'required|numeric',
-            'work_order_status_id' => 'required|numeric',
             'assigned_to' => 'required|numeric',
             'total_pieces' => 'required|integer|min:1',
             'wastage' => 'nullable|integer|min:0',
         ]);
 
-        // Find BOM based on order_id
-        $bom = Bom::where('order_id', $request->order_id)->first();
+        DB::beginTransaction();
 
-        // Fetch raw material usage grouped by size_id
-        $materialUsedQuantities = BomDetails::where('bom_id', $bom->id)
-            ->select('size_id', DB::raw('SUM(quantity_used + (quantity_used * (wastage / 100))) as final_quantity'))
-            ->groupBy('size_id')
-            ->get()
-            ->keyBy('size_id');
+        try {
+            // Find BOM for the order
+            $bom = Bom::where('order_id', $request->order_id)->firstOrFail();
 
-        // Fetch order quantities by size_id
-        $orderQuantities = OrderDetail::where('order_id', $request->order_id)
-            ->pluck('qty', 'size_id')
-            ->toArray();
+            // Fetch raw material usage grouped by size_id
+            $materialUsedQuantities = BomDetails::where('bom_id', $bom->id)
+                ->select('size_id', DB::raw('SUM(quantity_used + (quantity_used * (wastage / 100))) as final_quantity'))
+                ->groupBy('size_id')
+                ->get()
+                ->keyBy('size_id');
 
-        // Initialize result array
-        $result = [];
+            // Fetch order quantities by size_id
+            $orderQuantities = OrderDetail::where('order_id', $request->order_id)
+                ->pluck('qty', 'size_id')
+                ->toArray();
 
-        // Calculate the material usage based on the order quantities
-        foreach ($materialUsedQuantities as $size_id => $item) {
-            $quantity = (float)$item->final_quantity;
+            $totalMaterialUsed = 0;
 
-            if (isset($orderQuantities[$size_id])) {
-                $orderQuantity = (int)$orderQuantities[$size_id];
-                // Perform the multiplication
-                $result[$size_id] = $quantity * $orderQuantity;
-            }
-        }
-
-        // Calculate total material used
-        $totalMaterialUsed = array_sum($result);
-
-        // Fetch the product ID for the BOM
-        $productId = BomDetails::where('bom_id', $bom->id)->value('material_id');
-
-        // Fetch product lot (if needed)
-        $productLot = ProductLot::where('product_id', $productId)
-            ->select('id', 'qty')
-            ->get();
-
-        while ($totalMaterialUsed > 0) {
-            $lot = ProductLot::where('product_id', $productId)
-                ->where('qty', '>', 0)
-                ->orderBy('created_at', 'asc')
-                ->first();
-            if (!$lot) {
-                throw new Exception('Not enough stock for product:');
+            // Calculate total material usage
+            foreach ($materialUsedQuantities as $size_id => $item) {
+                $quantity = (float) $item->final_quantity;
+                if (isset($orderQuantities[$size_id])) {
+                    $orderQuantity = (int) $orderQuantities[$size_id];
+                    $totalMaterialUsed += $quantity * $orderQuantity;
+                }
             }
 
-            $deductQty = min($lot->qty, $totalMaterialUsed);
-            $lot->decrement('qty', $deductQty);
+            dd($totalMaterialUsed);
 
-            $totalMaterialUsed -= $deductQty;
+            // Get the material ID used in BOM
+            $productId = BomDetails::where('bom_id', $bom->id)->value('material_id');
 
-            $stock = new Stock();
-            $stock->product_id = $productId;
-            $stock->qty = $totalMaterialUsed;
-            $stock->qty -= $deductQty;
-            $stock->transaction_type_id = 1;
-            $stock->lot_id = $productLot;
-            $stock->save();
+            // Deduct from ProductLot and Stock in FIFO order
+            while ($totalMaterialUsed > 0) {
+                $lot = ProductLot::where('product_id', $productId)
+                    ->where('qty', '>', 0)
+                    ->orderBy('created_at', 'asc')
+                    ->first();
+
+                if (!$lot) {
+                    throw new \Exception('Not enough stock for product ID: ' . $productId);
+                }
+
+                $deductQty = min($lot->qty, $totalMaterialUsed);
+
+                // Reduce qty from ProductLot
+                $lot->decrement('qty', $deductQty);
+
+                $stock = Stock::where('product_id', $productId)
+                    ->where('lot_id', $lot->id)
+                    ->where('qty', '>', 0)
+                    ->orderBy('created_at', 'asc')
+                    ->first();
+
+                if ($stock) {
+                    $stock->decrement('qty', $deductQty);
+                }
+
+                $totalMaterialUsed -= $deductQty;
+            }
+
+            // Create the Production Work Order
+            ProductionWorkOrder::create($request->all());
+
+            // Update Order status
+            Order::where('id', $request->order_id)
+                ->where('status_id', 1)
+                ->update(['status_id' => 2]);
+
+            // Find & Update Production Plan Status
+            ProductionPlan::where('order_id', $request->order_id)
+                ->where('production_plan_status_id', 1)
+                ->update(['production_plan_status_id' => 2]);
+
+            DB::commit();
+
+            return redirect()->route('production-work-orders.index')
+                ->with('success', 'Production work order created and order status updated successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
         }
-
-
-
-        // Create Production Work Order
-        ProductionWorkOrder::create($request->all());
-
-        return redirect()->route('production-work-orders.index')->with('success', 'Production work order has been successfully created');
     }
+
+
 
 
     /**
