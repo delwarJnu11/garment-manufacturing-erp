@@ -135,8 +135,6 @@ class SalesInvoiceController extends Controller
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
     }
-
-
     /**
      * Store a newly created resource in storage.
      */
@@ -146,34 +144,7 @@ class SalesInvoiceController extends Controller
      * Display the specified resource.
      */
 
-    // public function show($id)
-    // {
-    // $salesInvoice = SalesInvoice::with([
-    //     'buyer',
-    //     'salesInvoiceDetails.order.orderDetails.product',
-    //     'salesInvoiceDetails.order.orderDetails.size'
-    // ])->findOrFail($id);
-
-    // // $salesInvoice = OrderDetail::where('order_id', 'order.buyer')->with('product', 'size', 'uom', 'color')->get()->groupBy('size_id');
-
-    //     return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice'));
-    // }
-
-    // public function show($id)
-    // {
-    //     $salesInvoice = OrderDetail::where('order_id', $id)
-    //         ->with('order', 'product', 'size', 'uom', 'color')
-    //         ->get()
-    //         ->groupBy('size_id');
-
-    //     $salesInvoiceDetails = SalesInvoice::with('buyer', 'invoice_status', 'payment_method', 'salesInvoiceDetails')
-    //         ->findOrFail($id);
-
-
-    //     // dd($salesInvoice);
-    //     return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice', 'salesInvoiceDetails'));
-    // }
-
+   
     public function show($id)
     {
         $salesInvoice = OrderDetail::where('order_id', $id)
@@ -192,13 +163,8 @@ class SalesInvoiceController extends Controller
         ])->findOrFail($id);
 
         // dd($salesInvoiceDetails);
-
-
         return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice', 'salesInvoiceDetails'));
     }
-
-
-
 
 
 

@@ -88,8 +88,8 @@ Route::prefix('production-stages')->group(function () {
 
 //Vue api create;
 Route::prefix('vue')->group(function () {
-    Route::apiResource('roles', RoleController::class)->middleware('auth:api');
-    Route::apiResource('users', UserController::class);
+    Route::apiResource('roles', RoleController::class);
+    Route::apiResource('users', UserController::class)->middleware('auth:api');
 });
 
 Route::post('register', [AuthController::class, 'register']);
