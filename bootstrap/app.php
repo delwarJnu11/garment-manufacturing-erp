@@ -3,6 +3,7 @@
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\EmployeeMiddleware;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -23,7 +24,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
 
             'admin' => AdminMiddleware::class,
-
             'admin' => AdminMiddleware::class,
             'employee' => EmployeeMiddleware::class,
 
@@ -33,5 +33,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(HandleCors::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // Handle unauthenticated exception globally
+        $exceptions->renderable(function (AuthenticationException $e, $request) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized. Token is invalid or missing.',
+            ], 401);
+        });
     })->create();
