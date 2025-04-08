@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api\Vue;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\Log;
+
 
 class RoleController extends Controller
 {
@@ -46,7 +47,7 @@ class RoleController extends Controller
     public function show($id)
     {
         try {
-            \Log::info("Fetching role with ID: " . $id);
+            Log::info("Fetching role with ID: " . $id);
 
             $role = Role::find($id);
 
@@ -96,7 +97,6 @@ class RoleController extends Controller
         }
 
         $role->delete();
-
         return response()->json(['message' => 'Role deleted successfully']);
     }
 }

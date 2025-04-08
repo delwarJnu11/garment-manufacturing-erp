@@ -19,8 +19,7 @@ use App\Http\Controllers\HrmPayslipsController;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\Vue\RoleController;
-use App\Http\Controllers\Api\Vue\UserController;
+
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -39,7 +38,7 @@ Route::post('bom_details', [BomDetailsController::class, 'store']);
 //Get Raw Material
 Route::get('raw_material/{id}', [RawMaterialController::class, 'show']);
 // Route::get('order_details', [OrderDetailsController::class, 'index']);
-Route::get('order', [OrderDetailsController::class, 'index']);
+// Route::get('order', [OrderDetailsController::class, 'index']);
 
 
 // purchaseOrder  Api
@@ -62,7 +61,7 @@ Route::post('create-product', [ProductController::class, 'create']);
 Route::post('store-product', [ProductController::class, 'store']);
 Route::get('stocks', [ProductController::class, 'stock']);
 
-Route::get('/orders', [OrderDetailsController::class, 'getOrders']);
+// Route::get('/orders', [OrderDetailsController::class, 'getOrders']);
 Route::post('/orders', [OrderController::class, 'store']);
 Route::get('/buyers', [OrderController::class, 'getBuyers']);
 Route::get('/supervisors', [OrderController::class, 'getSupervisors']);
@@ -85,9 +84,3 @@ Route::prefix('production-stages')->group(function () {
     Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');
 });
 // Route::post('/adjustment', [StockAdjustmentController::class, 'store']);
-
-//Vue api create;
-Route::prefix('vue')->group(function () {
-    Route::apiResource('roles', RoleController::class);
-    Route::apiResource('users', UserController::class);
-});

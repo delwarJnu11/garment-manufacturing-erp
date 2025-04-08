@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject; // this sould be imported
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -26,6 +26,20 @@ class User extends Authenticatable implements JWTSubject
         'role_id',
         'image',
     ];
+
+    // Use For JWT
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    // Use For JWT
+    public function getJWTCustomClaims()
+    {
+        return [
+            'email' => $this->email,
+            'name' => $this->name
+        ];
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -73,18 +87,5 @@ class User extends Authenticatable implements JWTSubject
     function isEmployee()
     {
         return $this->role_id == 2;
-    }
-
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [
-            'email' => $this->email,
-            'name' => $this->name
-        ];
     }
 }
