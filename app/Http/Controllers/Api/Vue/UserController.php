@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\Vue;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class RoleController extends Controller
     public function index()
     {
         try {
-            return response()->json(Role::all());
+            return response()->json(User::all());
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }
@@ -27,11 +27,17 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         try {
-            $role = new Role();
-            // $role->id = $request->id;
-            $role->name = $request->name;
-            $role->save();
-            return response()->json($role);
+            $user = new User();
+            // $user->id = $request->id;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->role_id = $request->role_id;
+
+            if ($request->files) {
+                $user->image = $request->image;
+            }
+            $user->save();
+            return response()->json($user);
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }
@@ -42,7 +48,7 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        return response()->json(Role::find($id));
+        return response()->json(User::find($id));
     }
 
     /**
@@ -51,13 +57,19 @@ class RoleController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $role = new Role();
-            $role->id = $request->id;
-            $role->name = $request->name;
-            $role->updated_at = date('Y-m-d h:i:s');
-            $role->save();
-            return response()->json($role);
-        } catch (\Throwable $th) { 
+            $user = new User();
+            $user->id = $request->id;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->role_id = $request->role_id;
+
+            if ($request->files) {
+                $user->image = $request->image;
+            }
+            $user->updated_at = date('Y-m-d h:i:s');
+            $user->save();
+            return response()->json($user);
+        } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }
     }
@@ -68,8 +80,8 @@ class RoleController extends Controller
     public function destroy(string $id)
     {
         try {
-            $role = new Role();
-            $role->destroy($id);
+            $user = new User();
+            $user->destroy($id);
             return response()->json(["Success" => "User deleted successfully"]);
         } catch (\Throwable $th) {
             return response()->json(["Error" => $th->getMessage()]);

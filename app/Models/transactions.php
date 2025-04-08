@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Psy\Command\WhereamiCommand;
 
 class transactions extends Model
 {
@@ -20,5 +21,8 @@ class transactions extends Model
 
     function account(){
         return $this->belongsTo(Account::class);
+    }
+    function accountAgainst(){
+        return $this->belongsTo(Account::class, "transaction_against");
     }
 }

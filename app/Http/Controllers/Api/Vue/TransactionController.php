@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\Vue;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Models\transactions;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class RoleController extends Controller
     public function index()
     {
         try {
-            return response()->json(Role::all());
+            return response()->json(transactions::with(["Account", "AccountAgainst"])->get());
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }
@@ -27,11 +27,12 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         try {
-            $role = new Role();
-            // $role->id = $request->id;
-            $role->name = $request->name;
-            $role->save();
-            return response()->json($role);
+            $transaction = new transactions();
+            // $transaction->id = $request->id;
+            $transaction->name = $request->name;
+
+            $transaction->save();
+            return response()->json($transaction);
         } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }
@@ -42,7 +43,7 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        return response()->json(Role::find($id));
+        return response()->json(transactions::find($id));
     }
 
     /**
@@ -51,13 +52,13 @@ class RoleController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $role = new Role();
-            $role->id = $request->id;
-            $role->name = $request->name;
-            $role->updated_at = date('Y-m-d h:i:s');
-            $role->save();
-            return response()->json($role);
-        } catch (\Throwable $th) { 
+            $transaction = new transactions();
+            $transaction->id = $request->id;
+            $transaction->name = $request->name;
+            $transaction->updated_at = date('Y-m-d h:i:s');
+            $transaction->save();
+            return response()->json($transaction);
+        } catch (\Throwable $th) {
             return response()->json(['error' => $th->getMessage()]);
         }
     }
@@ -68,9 +69,9 @@ class RoleController extends Controller
     public function destroy(string $id)
     {
         try {
-            $role = new Role();
-            $role->destroy($id);
-            return response()->json(["Success" => "User deleted successfully"]);
+            $transaction = new transactions();
+            $transaction->destroy($id);
+            return response()->json(["Success" => "Transaction deleted successfully"]);
         } catch (\Throwable $th) {
             return response()->json(["Error" => $th->getMessage()]);
         }
