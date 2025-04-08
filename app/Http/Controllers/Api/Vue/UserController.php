@@ -53,7 +53,7 @@ class UserController extends Controller
             }
             return response()->json(['users' => $user], 201);
         } catch (\Throwable $th) {
-            \Log::error($th->getMessage());
+            Log::error($th->getMessage());
             return response()->json(['error' => 'Something went wrong', 'message' => $th->getMessage()], 500);
         }
     }
