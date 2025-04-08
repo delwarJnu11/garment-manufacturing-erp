@@ -89,10 +89,5 @@ Route::prefix('production-stages')->group(function () {
 //Vue api create;
 Route::prefix('vue')->group(function () {
     Route::apiResource('roles', RoleController::class);
-    Route::apiResource('users', UserController::class)->middleware('auth:api');
+    Route::apiResource('users', UserController::class);
 });
-
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
-Route::post('refresh', [AuthController::class, 'refresh']);
-Route::post('logout', [AuthController::class, 'logout']);
