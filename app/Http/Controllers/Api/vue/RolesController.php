@@ -17,7 +17,7 @@ class RolesController extends Controller
                 $query->where('name', 'like', "%{$request->search}%");
             }
 
-            $roles = $query->paginate(5);
+            $roles = $query->paginate(3);
 
             if ($roles->isEmpty()) {
                 return response()->json([
@@ -67,21 +67,36 @@ class RolesController extends Controller
     }
 
 
-    public function update(Request $request, Role $role)
+    public function update(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
         try {
-            $role->update([
-                'name' => $request->name,
-            ]);
+            $role = Role::findOrFail($request->id);
+            if ($role) {
+                $res = $role->update([
+                    'name' => $request->name,
+                ]);
 
-            return response()->json([
-                'message' => 'Role updated successfully.',
-                'status' => 200,
-            ]);
+                if ($res) {
+                    return response()->json([
+                        'message' => 'Role updated successfully.',
+                        'status' => 200,
+                    ]);
+                } else {
+                    return response()->json([
+                        'message' => 'Can not update Role',
+                        'status' => 403,
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'message' => 'Role Not Found',
+                    'status' => 404,
+                ]);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Failed to create role.',
