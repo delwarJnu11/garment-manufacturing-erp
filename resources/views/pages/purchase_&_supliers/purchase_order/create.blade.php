@@ -52,7 +52,18 @@
 
                         </div>
                       
-                        <p><strong>Warehouse Name:</strong> <span id="warehouse_name"></span></p>
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group">
+                                <select name="warehouse_id" class="form-select" required id="warehouse_id">
+                                    <option value="">Select Warehouse</option>
+                                    @foreach ($warehouses as $warehouse)
+                                        <option value="{{ $warehouse['id'] }}">
+                                            {{ $warehouse['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <a href="{{ route('warehouses.create') }}" class="btn btn-primary">
+                                    + </a>
+                            </div>
                         
                         </div>
                     </div>
@@ -63,7 +74,6 @@
                                 <thead class="thead-priamry">
                                     <tr>
                                         <th>Material Name</th>
-
                                         <th>Unit Price</th>
                                         <th>Quantity</th>
                                         <th>Discount (%)</th>
@@ -222,6 +232,28 @@
                 });
 
             })
+
+            $("#warehouse_id").on('change',function(){
+                let warehouse_id = $(this).val()
+                // alert(warehouse_id)
+                $.ajax({
+                    url:"{{url('find_warehouse')}}",
+                    type:"post",
+                    data:{
+                        id:warehouse_id,
+                        _token:"{{csrf_token()}}"
+                    },
+                    success:function(res){
+                        console.log(res)
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("API Error:", xhr.responseText);
+                    }
+
+
+                })
+           
+            })
             
             $("#product_id").on('change', function() {
                 let product_id = $(this).val();
@@ -234,7 +266,7 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(res) {
-                        console.log(res.product);
+                        // console.log(res.product);
                         if (res.product) {
                             $(".p_price").val(res.product.unit_price);
                             $(".p_qty").val(res.product.qty);
@@ -346,6 +378,7 @@
             $('.process_btn').on('click', function() {
 
                 let supplier_id = $("#supplier_id").val();
+                let warehouse_id = $("#warehouse_id").val();
                 let purchase_total = parseFloat($('.grand_total').text().replace('$', ''));
                 let paid_amount = parseFloat($('.grand_total').text().replace('$', ''));
                 let discount = parseFloat($('.discount').text().replace('-$', ''));
@@ -360,6 +393,7 @@
 
                 console.log("Final Data to API:", {
                     supplier_id,
+                    warehouse_id,
                     purchase_total,
                     paid_amount,
                     discount,
@@ -375,6 +409,7 @@
                     data: JSON.stringify({
                         // _token: '{{ csrf_token() }}',
                         supplier_id: supplier_id,
+                        warehouse_id: warehouse_id,
                         total_amount: purchase_total,
                         paid_amount: paid_amount,
                         discount: discount,

@@ -3,21 +3,15 @@
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
                 <li class="submenu-open">
-                    <a href="{{ url('/dashboard') }}" class="subdrop">
+                    <a href="{{ url('dashboard') }}" class="subdrop">
                         <i data-feather="grid"></i><span>Dashboard</span>
                     </a>
                     <ul>
-                        {{-- @if (Auth::user()->isEmployee()) --}}
-                        {{-- <li> --}}
-                        {{-- </li> --}}
-                        {{-- @endif --}}
-                        {{-- @if (Auth::user()->isAdmin()) --}}
-                        {{-- <li class="submenu">
-                            <a href="javascript:void(0);" class="subdrop">
-                                <i data-feather="grid"></i><span>Dashboard</span>
-                            </a>
-                        </li> --}}
+
                         <li class="submenu">
+                            {{-- <a href="" class="subdrop"> --}}
+
+                            {{-- <li class="submenu">
                             <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
                                 <li>
@@ -27,9 +21,9 @@
                                     <x-link href="{{ route('roles.index') }}" :active="request()->is('roles')">Roles Lists</x-link>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
 
-                        <!-- START Prodcution Module Menu -->
+                            <!-- START Prodcution Module Menu -->
                         <li class="submenu">
                             <x-nav-link icon="settings" :active="request()->is('production*')">Production
                                 Management</x-nav-link>
@@ -111,7 +105,14 @@
 
                         <!--START 🔸 Order & Customers -->
                         <li class="submenu">
-                            <x-nav-link :active="request()->is('orders*') || request()->is('buyers*')">Orders & Buyers</x-nav-link>
+
+                            <x-nav-link :active="request()->is('orders*') ||
+                                request()->is('buyers*') ||
+                                request()->is('sales-invoice*') ||
+                                request()->is('salesPayments*')">Orders & Buyers</x-nav-link>
+
+
+
                             <ul>
                                 <!-- 🔹 Orders -->
                                 <li><x-link href="{{ url('/buyers') }}" :active="request()->is('buyers')">Buyers</x-link></li>
@@ -129,8 +130,16 @@
                                         Orders</x-link></li>
                                 <li><x-link href="{{ route('order_status.index') }}" :active="request()->is('order_status.index')">Order
                                         Status</x-link></li>
+
+                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-invoice')">Sales
+                                        Invoices</x-link></li>
+                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link>
+                                </li>
+                                <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color Lists</x-link>
+
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color
                                         Lists</x-link>
+
                                 </li>
                                 <li><x-link href="{{ route('sizes.index') }}" :active="request()->is('sizes')">Size
                                         Lists</x-link>
@@ -344,7 +353,7 @@
 
                                 <!-- 🔹 Inventory Valuation -->
                                 <li class="submenu">
-                                    <a href="javascript:void(0);">Inventory Valuation <span class="menu-arrow"></span>
+                                    <a href="">Inventory Valuation <span class="menu-arrow"></span>
                                     </a>
                                     <ul>
                                         <li>

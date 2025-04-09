@@ -13,31 +13,19 @@ return new class extends Migration {
     {
         Schema::create('production_work_orders', function (Blueprint $table) {
             $table->id();
-<<<<<<< HEAD
-            $table->unsignedBigInteger('production_plan_id');
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('work_order_status_id');
-            $table->unsignedBigInteger('assigned_to');
-            $table->integer('total_pieces');
-=======
             $table->integer('production_plan_id');
             $table->integer('order_id');
-            $table->integer('work_order_status_id')->default(1); 
+            $table->integer('work_order_status_id')->default(1);
             $table->integer('assigned_to');
             $table->integer('total_pieces')->default(0);
->>>>>>> 5974f2b7ccea101babc15445f301e85a12c4dcb9
             $table->enum('cutting_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('sewing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('finishing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('packaging_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
-<<<<<<< HEAD
-            $table->decimal('wastage', 10, 2)->default(0);
-=======
             $table->integer('wastage')->default(0);
->>>>>>> 5974f2b7ccea101babc15445f301e85a12c4dcb9
             $table->timestamps();
         });
-        
+
 
         ProductionWorkOrder::create([
             'production_plan_id' => 1,
@@ -53,7 +41,6 @@ return new class extends Migration {
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
     }
 
 

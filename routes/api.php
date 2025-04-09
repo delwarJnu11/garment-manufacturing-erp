@@ -9,14 +9,22 @@ use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\LeaveApplicationController;
 use App\Http\Controllers\Api\LeaveTypeController;
 use App\Http\Controllers\Api\OrderDetailsController;
-use App\Http\Controllers\Api\Payslip_ItemsController;
+
+
+use App\Http\Controllers\Api\PurchaseInvoiceController;
+use App\Http\Controllers\Api\RawMaterialController;
+use App\Http\Controllers\Api\PurchaseOrderController;
+use App\Http\Controllers\Api\SalesInvoiceController;
+
+
 use App\Http\Controllers\Api\PayslipController;
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\PurchaseOrderController;
+
 use App\Http\Controllers\HrmPayslipsController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\RawMaterialController;
-use App\Http\Controllers\Api\vue\StatusController;
+
+use App\Http\Controllers\Api\OrderController;
+
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -35,42 +43,47 @@ Route::post('bom_details', [BomDetailsController::class, 'store']);
 //Get Raw Material
 Route::get('raw_material/{id}', [RawMaterialController::class, 'show']);
 // Route::get('order_details', [OrderDetailsController::class, 'index']);
-Route::get('order', [OrderDetailsController::class, 'index']);
+// Route::get('order', [OrderDetailsController::class, 'index']);
+
+
 // purchaseOrder  Api
-Route::post('purchase',[ PurchaseOrderController::class,'store']);
+Route::post('purchase', [PurchaseOrderController::class, 'store']);
+
+Route::post('salesinvoice', [SalesInvoiceController::class, 'store']);
 
 
 
- // Start HRM Api Route
+// FarzDev branch React Api
+Route::get('suppliers', [PurchaseInvoiceController::class, 'supplier']);
+Route::get('warehouses', [PurchaseInvoiceController::class, 'warehouse']);
+Route::get('products', [PurchaseInvoiceController::class, 'product']);
+Route::post('saveReactpurchase', [PurchaseInvoiceController::class, 'saveReactpurchase']);
+Route::get('purchaseOrder/{id}', [PurchaseInvoiceController::class, 'show']);
+Route::get('purchase_orders', [PurchaseInvoiceController::class, 'purchase_orders']);
+// Product Api
+Route::get('get-products', [ProductController::class, 'index']);
+Route::post('create-product', [ProductController::class, 'create']);
+Route::post('store-product', [ProductController::class, 'store']);
+Route::get('stocks', [ProductController::class, 'stock']);
 
- Route::post('payslip', [PayslipController::class,'store']);
-
-
-//  Start React Api
-
- Route::get('payslip', [PayslipController::class,'store']);
- Route::get('payslipindex', [PayslipController::class,'index']);
- Route::get('employeeapi', [EmployeeController::class,'index']);
- Route::get('payslip_itemsapi', [Payslip_ItemsController::class,'index']);
- Route::get('employeeapi', [EmployeeController::class,'index']);
- Route::get('departments', [DepartmentController::class, 'index']);
- Route::get('designations', [DesignationController::class, 'index']);
- Route::get('attendance', [AttendanceController::class, 'index']);
- Route::get('leaveapplication', [LeaveApplicationController::class, 'index']);
- Route::get('leavetype', [LeaveTypeController::class, 'index']);
- Route::get('departmentcreate', [DepartmentController::class, 'store']);
-
-
-
-Route::apiResource("status", StatusController::class);
-
-
-//  End React Api
-
- // End HRM Api Route
+// Route::get('/orders', [OrderDetailsController::class, 'getOrders']);
+Route::post('/orders', [OrderController::class, 'store']);
+Route::get('/buyers', [OrderController::class, 'getBuyers']);
+Route::get('/supervisors', [OrderController::class, 'getSupervisors']);
+Route::get('/order-statuses', [OrderController::class, 'getOrderStatuses']);
+Route::get('/fabrics', [OrderController::class, 'getFabricsTypes']);
+Route::get('/order-details/data', [OrderDetailsController::class, 'fetchData']);
+// purchaseOrder  Api
+Route::post('purchase', [PurchaseOrderController::class, 'store']);
 
 
 
+// Start Api Route
+
+//  Route::get('payslip', [PayslipController::class,'index']);
+Route::post('payslip', [PayslipController::class, 'store']);
+
+// End Api Route
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
 Route::prefix('production-stages')->group(function () {
     Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');

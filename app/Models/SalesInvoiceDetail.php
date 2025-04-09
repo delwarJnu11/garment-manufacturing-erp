@@ -11,28 +11,22 @@ class SalesInvoiceDetail extends Model
 
     protected $fillable = [
         'sales_invoice_id',
-        'production_work_order_id',
+        'order_id',
         'qty',
         'unit_price',
-        '%_of_discount',
+        'percent_of_discount',
         'discount',
-        '%_of_vat',
+        'percent_of_vat',
         'vat',
     ];
 
-    public function salesInvoice(){
-        return $this->belongsTo(SalesInvoice::class,'sales_invoice_id');
-
-    }
-    // public function productionWorkOrder(){
-    //     return $this->hasMany(ProductionWorkOrder::class,'production_work_order_id');
-
-    // }
-    public function productionWorkOrder()
+    public function salesInvoice()
     {
-        return $this->belongsTo(ProductionWorkOrder::class, 'production_work_order_id');
+        return $this->belongsTo(SalesInvoice::class, 'sales_invoice_id');
     }
-    
 
-
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
 }
