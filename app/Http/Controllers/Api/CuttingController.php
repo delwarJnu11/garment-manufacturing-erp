@@ -38,7 +38,7 @@ class CuttingController extends Controller
             Sweing::create([
                 'cutting_id'      => $updatedCutting->id,
                 'work_order_id'   => $workOrder->id,
-                'total_quantity'    => $updatedCutting->total_quantity,
+                'total_quantity'    => $updatedCutting->actual_quantity,
                 'target_quantity' => $updatedCutting->actual_quantity,
                 'sewing_status'   => 'In Progress',
                 'sewing_start_date' => now(),

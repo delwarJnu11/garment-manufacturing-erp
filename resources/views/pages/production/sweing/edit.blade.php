@@ -52,8 +52,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="swen_complete" class="form-label">Swen Completed (pcs)</label>
                             <input class="form-control" type="text" name="swen_complete" id="swen_complete"
-                                value="{{ old('swen_complete', $sweing->swen_complete ?? 0) }}"
-                                placeholder="swen_complete (e.g., 95.5)" />
+                                value="{{ old('swen_complete') }}" placeholder="swen_completed Number" />
                             <x-input-error :messages="$errors->get('swen_complete')" class="mt-2" />
                         </div>
                     </div>
@@ -62,7 +61,8 @@
                         <div class="col-md-6 mb-3">
                             <label for="actual_quantity" class="form-label">Actual Quantity</label>
                             <input class="form-control" type="number" name="actual_quantity" id="actual_quantity"
-                                value="{{ old('actual_quantity') }}" placeholder="Actual Quantity..." />
+                                value="{{ old('actual_quantity', $sweing->actual_quantity ?? 0) }}"
+                                placeholder="Actual Quantity..." />
                             <x-input-error :messages="$errors->get('actual_quantity')" class="mt-2" />
                         </div>
                         <div class="col-md-6 mb-3">
@@ -106,9 +106,12 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const swenQty = document.getElementById('swen_complete');
+            const initialSwenComplete = parseFloat(@json($sweing->swen_complete ?? 0));
+
             swenQty.addEventListener('change', function() {
-                const qty = swenQty.value;
-                document.getElementById('actual_quantity').value = qty;
+                const qty = parseFloat(swenQty.value) || 0;
+                const total = qty + initialSwenComplete;
+                document.getElementById('actual_quantity').value = total;
             });
         });
     </script>

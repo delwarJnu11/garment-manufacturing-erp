@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\vue\AuthController;
-use App\Http\Controllers\Api\vue\RolesController;
+use App\Http\Controllers\Api\Vue\AuthController;
+use App\Http\Controllers\Api\Vue\RolesController;
 use Illuminate\Support\Facades\Route;
 
 // ALL AUTH CONTROLLERS START
