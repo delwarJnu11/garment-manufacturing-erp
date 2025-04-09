@@ -17,6 +17,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProductionWorkOrderController extends Controller
 {
@@ -99,8 +100,12 @@ class ProductionWorkOrderController extends Controller
     //     return redirect()->route('production-work-orders.index')->with('success', 'Production work order has bee successfully created');
     // }
 
+
+
     public function store(Request $request)
     {
+        Log::info('Before creating production work order', $request->all());
+
         $request->validate([
             'order_id' => 'required|numeric',
             'production_plan_id' => 'required|numeric',
@@ -138,7 +143,7 @@ class ProductionWorkOrderController extends Controller
                 }
             }
 
-            dd($totalMaterialUsed);
+            // dd($totalMaterialUsed);
 
             // Get the material ID used in BOM
             $productId = BomDetails::where('bom_id', $bom->id)->value('material_id');
