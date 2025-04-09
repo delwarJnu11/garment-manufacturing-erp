@@ -66,6 +66,18 @@ class RolesController extends Controller
         }
     }
 
+    public function show(string $id)
+    {
+        try {
+            $role = Role::find($id);
+            if (!$role) {
+                return response()->json(['error' => 'No data found'], 404);
+            }
+            return response()->json(['success' => $role], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
+    }
 
     public function update(Request $request, Role $role)
     {
