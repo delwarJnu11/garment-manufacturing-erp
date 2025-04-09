@@ -78,11 +78,14 @@ class SweingController extends Controller
 
         $sewing_status = ($request->total_quantity == $request->actual_quantity) ? 'Completed' : $request->sewing_status;
 
+        // Add Prev Swen Qty and New swen Qty
+        $sewing_completed = $sewing->swen_complete + $request->swen_complete;
+
         // Update Sewing table
         $sewing->update([
             'sewing_status' => $sewing_status,
             'actual_quantity' => $request->actual_quantity,
-            'swen_complete' => $request->swen_complete,
+            'swen_complete' => $sewing_completed,
             'wastage' => $request->wastage,
             'efficiency' => round($efficiency, 2),
             'sewing_end_date' => $request->sewing_end_date,
