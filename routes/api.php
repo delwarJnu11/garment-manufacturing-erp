@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\SalesInvoiceController;
 
 
-use App\Http\Controllers\API\PayslipController;
+use App\Http\Controllers\Api\PayslipController;
 use App\Http\Controllers\Api\ProductController;
 
 use App\Http\Controllers\HrmPayslipsController;
