@@ -10,6 +10,7 @@
             <thead class="thead-primary">
                 <tr>
                     <th>#</th>
+                    <th>Order Number</th>
                     <th>Buyer</th>
                     <th>Sale Date</th>
                     <th>Total Amount</th>
@@ -24,7 +25,22 @@
                 @forelse ($sales_invoices as $invoice)
                     <tr>
                         <td>{{ $invoice->id }}</td>
+                        {{-- @foreach ($invoice->salesInvoiceDetails as $detail)
+                        <td>{{ $invoice->order->order_number ?? 'N/A' }}</td>
+                        @endforeach --}}
+
+                        {{-- @foreach ($invoice->salesInvoiceDetails as $detail)
+                            <td>{{ optional($invoice->salesInvoiceDetails->first()->order)->order_number ?? 'N/A'  }}</td>
+                        @endforeach --}}
+                        <td>
+                        @if ($invoice->salesInvoiceDetails->isNotEmpty())
+                            {{ optional($invoice->salesInvoiceDetails->first()->order)->order_number ?? 'N/A' }}
+                        @else
+                            N/A
+                        @endif
+                        </td>
                         <td>{{ $invoice->buyer->first_name . ' ' . $invoice->buyer->last_name ?? 'N/A' }}</td>
+
                         <td>{{ $invoice->sale_date ?? 'N/A' }}</td>
                         <td>{{ number_format($invoice->total_amount, 2) ?? 'N/A' }}</td>
                         <td>{{ number_format($invoice->paid_amount, 2) ?? 'N/A' }}</td>
@@ -38,7 +54,7 @@
                             @endif
                         </td>
                         <td class="action-table-data">
-                            <a href="">
+                            <a href="{{ route('sales-invoice.show', $invoice->id) }}">
                                 <i data-feather="eye" class="feather-eye"></i>
                             </a>
                             {{-- <form action="{{ route('sales.destroy', $invoice->id) }}" method="POST" style="margin-bottom: 0">

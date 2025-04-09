@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('buyer_id');
             $table->integer('supervisor_id');
             $table->integer('status_id');
-            $table->string('fabric_type_id', 100);
+            $table->integer('fabric_type_id', 100);
             $table->string('gsm', 30);
             $table->date('delivery_date')->nullable();
             $table->string('description')->nullable();

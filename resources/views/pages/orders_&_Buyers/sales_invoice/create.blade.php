@@ -105,6 +105,9 @@
             <div class="row mt-4">
                 <div class="col-md-6">
                     <p><strong>Notes:</strong> <span>Urgent delivery required.</span></p>
+                    <label for="">Paid Amount</label>
+                    <input type="number" class="form-control paid_amount" placeholder="0" >
+
                 </div>
                 <div class="col-md-6 text-end">
                     <h5>Invoice Summary:</h5>
@@ -166,11 +169,14 @@
             });
 
             $('#order_id').on('change', function() {
+                // alert()
                 let order_id = $(this).val();
+                console.log("Selected Order ID:", order_id); // Logs selected order ID
                 if (!order_id) {
                     console.error("Order ID is not selected.");
                     return;
                 }
+                
                 $.ajax({
                     url: "{{ url('find_order') }}",
                     type: 'POST',
@@ -270,6 +276,10 @@
 
                 let grandTotal = totalAmount - totalDiscount + totalVat;
                 $(".grand_total").text(grandTotal.toFixed(2));
+                 // Auto-fill Paid Amount if it hasn't been manually changed
+    if (!$(".paid_amount").data('manual')) {
+        $(".paid_amount").val(grandTotal.toFixed(2));
+    }
             }
 
             function saveSalesDetailsToLocalStorage() {
@@ -284,6 +294,7 @@
                         discount: row.find('.discount').val(),
                         vat: row.find('.vat').val(),
                         subtotal: row.find('.subtotal').val()
+                       
                     };
                     salesDetails.push(item);
                 });
@@ -316,7 +327,7 @@
     let buyer_id = $('#buyer_id').val();
     let invoice_total = parseFloat($('.grand_total').text()) || 0;
     let discount = parseFloat($('.total_discount').text()) || 0;
-    let paid_amount = parseFloat($('.grand_total').text()) || 0;
+    let paid_amount = parseFloat($('.paid_amount').text()) || 0;
     let vat = parseFloat($('.total_vat').text()) || 0;
     let order_id = $('#order_id').val();
 

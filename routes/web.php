@@ -260,6 +260,7 @@ Route::resource('buyers', BuyerController::class);
  */
 // sales invoice
 Route::resource('sales-invoice', SalesInvoiceController::class);
+Route::get('sales-invoice/{id}/generatePdf', [SalesInvoiceController::class, 'generateSalesPDF'])->name('sales-invoice.generatePDF');
 Route::post('find_buyer', [SalesInvoiceController::class, 'find_buyer']);
 
 Route::post('find_order', [SalesInvoiceController::class, 'find_order']);
@@ -267,6 +268,8 @@ Route::get('order/show', [SalesInvoiceController::class, 'show']);
 Route::get('getInvoiceId', [SalesInvoiceController::class, 'getInvoiceId']);
 
 Route::get('order/show', [SalesInvoiceController::class, 'show']);
+Route::get('pending', [SalesInvoiceController::class, 'invoicePending']);
+Route::post('/sales-invoice/update-status/{id}', [SalesInvoiceController::class, 'updateInvoiceStatus'])->name('sales-invoice.update-status');
 
 
 Route::resource('suppliers', InvSuppliersController::class);
@@ -297,10 +300,14 @@ Route::post('/purchase-report', [PurchaseReportController::class, 'show']);
 
 //Purchase payment 
 Route::resource('payments', PaymentSalePurchaseController::class);
-// sales payment
-Route::get('/salesPayments', [PaymentSalePurchaseController::class, 'salesPayment']);
-Route::put('/sales-payments/update/{id}', [PaymentSalePurchaseController::class, 'updateSalesPayment'])
-    ->name('payments.update');
+
+
+Route::get('/salesPayments', [PaymentSalePurchaseController::class, 'salesPayment'])->name('salesPayments');
+Route::get('/salesPayments/edit/{id}', [PaymentSalePurchaseController::class, 'editSalesPayment'])
+    ->name('salesPayments.edit');
+
+Route::put('/salesPayments/update/{id}', [PaymentSalePurchaseController::class, 'updateSalesPayment'])
+    ->name('salesPayments.update');
 
 // Report
 Route::get('/purchase-report', [PurchaseReportController::class, 'index']);

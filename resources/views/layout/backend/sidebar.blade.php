@@ -11,7 +11,7 @@
                         <li class="submenu">
                             {{-- <a href="" class="subdrop"> --}}
 
-                            {{-- <li class="submenu">
+                            <li class="submenu">
                             <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
                                 <li>
@@ -21,7 +21,7 @@
                                     <x-link href="{{ route('roles.index') }}" :active="request()->is('roles')">Roles Lists</x-link>
                                 </li>
                             </ul>
-                        </li> --}}
+                        </li>
 
                             <!-- START Prodcution Module Menu -->
                         <li class="submenu">
@@ -109,9 +109,7 @@
                             <x-nav-link :active="request()->is('orders*') ||
                                 request()->is('buyers*') ||
                                 request()->is('sales-invoice*') ||
-                                request()->is('salesPayments*')">Orders & Buyers</x-nav-link>
-
-
+                                request()->is('salesPayments*')|| request()->is('pending') ">Orders & Buyers</x-nav-link>
 
                             <ul>
                                 <!-- 🔹 Orders -->
@@ -131,8 +129,10 @@
                                 <li><x-link href="{{ route('order_status.index') }}" :active="request()->is('order_status.index')">Order
                                         Status</x-link></li>
 
-                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-invoice')">Sales
+                                <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales
                                         Invoices</x-link></li>
+                                <li><x-link href="{{ url('/pending') }}" :active="request()->is('pending')">Pending Invoice</x-link></li>
+                                        {{-- <li><x-link href="{{url('/pending')}}" :active="request()->is('pending')"></x-link>Pending Invoice</li> --}}
                                 <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link>
                                 </li>
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color Lists</x-link>

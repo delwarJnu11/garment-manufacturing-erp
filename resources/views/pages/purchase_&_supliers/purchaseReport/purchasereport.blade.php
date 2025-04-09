@@ -44,7 +44,7 @@
                                     @foreach ($purchases as $purchase)
                                         <tr>
                                             <td>{{ $purchase->id }}</td>
-                                            <td>{{ $purchase->inv_supplier->first_name . ' ' .$purchase->inv_supplier->last_name  ?? 'N/A' }}</td>
+                                            <td>{{$purchase->inv_supplier->id}}-{{ $purchase->inv_supplier->first_name . ' ' .$purchase->inv_supplier->last_name  ?? 'N/A' }}</td>
                                             <td>{{ \Carbon\Carbon::parse($purchase->purchase_date)->format('d M Y') }}</td>
                                             <td>{{ number_format($purchase->total_amount, 2) }}</td>
                                             <td>{{ number_format($purchase->paid_amount, 2) }}</td>
@@ -57,6 +57,9 @@
                             <p class="mt-4 text-center text-muted">No purchases found for the selected date range.</p>
                         @endif
 
+                    </div>
+                    <div class="m-3">
+                        <button class="btn btn-primary" onclick="window.print()">Print Report</button>
                     </div>
                 </div>
             </div>

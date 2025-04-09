@@ -109,8 +109,6 @@ class PurchaseOrderController extends Controller
      */
     public function show(PurchaseOrder $purchaseOrder, $id)
     {
-
-
         $purchaseOrder = PurchaseOrder::with(['inv_supplier', 'purchaseDetails.product'])->findOrFail($id);
         // dd($purchaseOrder);
         return view('pages.purchase_&_supliers.purchase_order.show', compact('purchaseOrder'));
