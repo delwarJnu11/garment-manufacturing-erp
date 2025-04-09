@@ -77,11 +77,32 @@ Route::get('/order-details/data', [OrderDetailsController::class, 'fetchData']);
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
 
 
+// Start HRM Api Route
+
+//  Start React Api
+ Route::post('payslip', [PayslipController::class,'store']);
+//  End React Api
+
+Route::get('payslip', [PayslipController::class,'store']);
+Route::post('payslip', [PayslipController::class, 'store']);
+
+//  Route::get('payslip', [PayslipController::class, 'getPayslips']);
+ Route::get('payslipindex', [PayslipController::class,'index']);
+ Route::get('employeeapi', [EmployeeController::class,'index']);
+ Route::get('payslip_itemsapi', [Payslip_ItemsController::class,'index']);
+ Route::get('employeeapi', [EmployeeController::class,'index']);
+ Route::get('departments', [DepartmentController::class, 'index']);
+ Route::get('designations', [DesignationController::class, 'index']);
+ Route::get('attendance', [AttendanceController::class, 'index']);
+ Route::get('leaveapplication', [LeaveApplicationController::class, 'index']);
+ Route::get('leavetype', [LeaveTypeController::class, 'index']);
+ Route::get('departmentcreate', [DepartmentController::class, 'store']);
+ // End HRM Api Route
+
 
 // Start Api Route
 
 //  Route::get('payslip', [PayslipController::class,'index']);
-Route::post('payslip', [PayslipController::class, 'store']);
 
 // End Api Route
 Route::post('purchase', [PurchaseOrderController::class, 'store']);
