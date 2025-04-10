@@ -105,4 +105,31 @@ class RolesController extends Controller
             ]);
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            $role = Role::find($id);
+
+            if (!$role) {
+                return response()->json([
+                    'message' => 'Role not found.',
+                    'status' => 404,
+                ]);
+            }
+
+            $role->delete();
+
+            return response()->json([
+                'message' => 'Role deleted successfully.',
+                'status' => 200,
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => 'Failed to delete role.',
+                'status' => 500,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
 }
