@@ -15,7 +15,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $usersQuery = User::query();
+        // $usersQuery = User::query();
+        $usersQuery = User::with('role');
 
         if ($request->search) {
             $usersQuery->where('name', 'like', '%' . $request->search . '%');
@@ -29,6 +30,13 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            "name" => "required|min:4|string",
+            "role_id" => "required|integer",
+            "email" => "required|email|string|unique:users,email",
+            "password" => "required|string|confirmed|min:6",
+            "image" => "nullable|image|mimes:jpg,jpeg,png,webp|max:2048", 
+        ]);
         try {
             $user = new User;
             $user->name = $request->name;

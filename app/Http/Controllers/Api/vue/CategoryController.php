@@ -30,8 +30,6 @@ class CategoryController extends Controller
             return response()->json(['err' => $th->getMessage()]);
         }
     }
-
-
     public function store(Request $request)
     {
         try {
