@@ -244,7 +244,6 @@ Route::prefix('stock')->group(function () {
 });
 // Route::resource('stock_adjustments', StockAdjustmentController::class);
 
-
 /**
  * Warehouse
  **/

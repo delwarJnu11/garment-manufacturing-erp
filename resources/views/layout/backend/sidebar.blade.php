@@ -302,7 +302,8 @@
                                 request()->is('stock/product_lots') ||
                                 request()->is('stock/raw_materials') ||
                                 request()->is('stock/productCatelogues') ||
-                                request()->is('products') ||
+                                request()->is('stock/products') ||
+                                request()->is('/stock/product_types') ||
                                 request()->is('stock/stocks') ||
                                 request()->is('stock/stock_adjustments')">Inventory & Warehouse</x-nav-link>
                             <ul>
@@ -331,13 +332,18 @@
                                     </x-link>
                                 </li>
                                 <li>
+                                    <x-link href="{{ url('stock/product_types') }}" :active="request()->is('/stock/product_types')">
+                                        Product Types
+                                    </x-link>
+                                </li>
+                                <li>
                                     <x-link href="{{ url('/stock/warehouses') }}" :active="request()->is('stock/warehouses')">Warehouses
                                     </x-link>
                                 </li>
 
                                 <!-- 🔹 Stock Management -->
                                 <li>
-                                    <x-link href="{{ url('/stock/stocks') }}" :active="request()->is('stock/stocks')">Stock Overview
+                                    <x-link href="{{ url('/stock/stocks') }}" :active="request()->is('stock/stocks')">Stock 
                                     </x-link>
                                 </li>
                                 <li>
@@ -352,7 +358,7 @@
                                 </li>
 
                                 <!-- 🔹 Inventory Valuation -->
-                                <li class="submenu">
+                                {{-- <li class="submenu">
                                     <a href="">Inventory Valuation <span class="menu-arrow"></span>
                                     </a>
                                     <ul>
@@ -362,7 +368,7 @@
                                         </li>
 
                                     </ul>
-                                </li>
+                                </li> --}}
 
                                 <!-- 🔹 Reports -->
                                 <li>

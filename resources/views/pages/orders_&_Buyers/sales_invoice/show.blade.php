@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($salesInvoiceDetails->salesInvoiceDetails->groupBy('order_detail.size_id') as $sizeGroup)
+                    {{-- @foreach ($salesInvoiceDetails->salesInvoiceDetails->groupBy('order_detail.size_id') as $sizeGroup)
             @foreach ($sizeGroup as $item)
                 <tr>
                     <!-- Access the product and size for each item -->
@@ -51,7 +51,28 @@
                     <td>{{ number_format(($item->unit_price * $item->qty) - $item->discount, 2) }}</td> <!-- Total calculation -->
                 </tr>
             @endforeach
+        @endforeach --}}
+
+        @foreach ($salesInvoiceDetails->salesInvoiceDetails->groupBy(function($item) {
+            return $item->orderDetail->size_id;
+        }) as $sizeGroup)
+            @foreach ($sizeGroup as $item)
+            {{-- @dd($item->orderDetail->size->name); --}}
+                <tr>
+                    <td>{{ $item->orderDetail->product->name ?? 'N/A' }}</td>
+                    <td>{{ $item->orderDetail->size->name ?? 'N/A' }}</td>
+                    <td>{{ $item->qty ?? 0 }}</td>
+                    <td>{{ number_format($item->unit_price, 2) }}</td>
+                    <td>{{ number_format($item->vat ?? 0, 2) }}</td>
+                    <td>{{ number_format($item->discount ?? 0, 2) }}</td>
+                    <td>{{ number_format($item->total, 2) }}</td>
+                </tr>
+            @endforeach
         @endforeach
+        
+
+
+        
                 </tbody>
             </table>
 
@@ -59,6 +80,9 @@
                 <div class="col-md-6">
                     <p><strong>Total Amount:</strong> {{ number_format($salesInvoiceDetails->total_amount, 2) }}</p>
                     <p><strong>Paid Amount:</strong> {{ number_format($salesInvoiceDetails->paid_amount, 2) }}</p>
+                    {{-- <p><strong>Due Amount:</strong>{{number_format($salesInvoiceDetails->total_amount)-($salesInvoiceDetails->paid_amount)}}</p> --}}
+                    <p><strong>Due Amount:</strong> {{ number_format($salesInvoiceDetails->total_amount - $salesInvoiceDetails->paid_amount, 2) }}</p>
+
                 </div>
                 <div class="col-md-6 text-end">
                     <h4>Total: {{ number_format($salesInvoiceDetails->total_amount, 2) }}</h4>

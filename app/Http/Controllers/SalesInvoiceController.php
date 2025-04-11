@@ -144,7 +144,7 @@ class SalesInvoiceController extends Controller
      * Display the specified resource.
      */
 
-   
+
     public function show($id)
     {
         $salesInvoice = OrderDetail::where('order_id', $id)
@@ -161,6 +161,7 @@ class SalesInvoiceController extends Controller
             'salesInvoiceDetails.orderDetail.product', // Eager load product through order detail
             'salesInvoiceDetails.orderDetail.size',    // Eager load size through order detail
         ])->findOrFail($id);
+
 
         // dd($salesInvoiceDetails);
         return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice', 'salesInvoiceDetails'));
