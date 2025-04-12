@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Vue\AuthController;
 use App\Http\Controllers\Api\Vue\CategoryController;
+use App\Http\Controllers\Api\vue\ProductController;
 use App\Http\Controllers\Api\Vue\RolesController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::apiResource('/roles', RolesController::class);
 Route::apiResource('users', UserController::class);
 
 Route::apiResource('categories', CategoryController::class);
+Route::apiResource('products', ProductController::class);

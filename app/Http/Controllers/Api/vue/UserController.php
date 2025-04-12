@@ -87,7 +87,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-    
+
         // Validate input
         $validatedData = $request->validate([
             'name' => 'required|string',
@@ -95,41 +95,54 @@ class UserController extends Controller
             'role_id' => 'required|exists:roles,id',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048', // Validation rule for image
         ]);
-    
+
         try {
             // Update user details
             $user->name = $validatedData['name'];
             $user->email = $validatedData['email'];
             $user->role_id = $validatedData['role_id'];
-    
+
             // Handle image upload if provided
             if ($request->hasFile('image')) {
                 // Delete the old image if exists
                 if ($user->image && file_exists(public_path('uploads/users/' . $user->image))) {
                     unlink(public_path('uploads/users/' . $user->image)); // Remove old image file
                 }
-    
+
                 $imageName = time() . '_' . $user->id . '.' . $request->image->extension();
                 $request->image->move(public_path('uploads/users'), $imageName); // Move image to the directory
                 $user->image = $imageName; // Update the image field in DB
             }
-    
+
             $user->save(); // Save the user with the updated data
-    
+
             return response()->json(['message' => 'User updated successfully', 'user' => $user]);
-    
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return response()->json(['error' => $th->getMessage()], 500); // Return error with status code 500
         }
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $user = User::findOrFail($id); // throws 404 if not found
+            $user->delete();
+
+            return response()->json([
+                'message' => 'User deleted successfully',
+            ], 200);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response()->json([
+                'error' => 'Something went wrong',
+                'message' => $th->getMessage(),
+            ], 500);
+        }
     }
 }
