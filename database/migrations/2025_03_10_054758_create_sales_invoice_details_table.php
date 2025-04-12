@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('sales_invoice_id');
             $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('order_detail_id');
             $table->integer('qty'); // Sold quantity
             $table->decimal('unit_price', 10, 2);
             $table->decimal('percent_of_discount', 5, 2)->default(0);
@@ -29,8 +30,20 @@ return new class extends Migration
         SalesInvoiceDetail::create([
             'sales_invoice_id' => 1,
             'order_id' => 1,
-            'qty' => 5,
-            'unit_price' => 1000.00,
+            'order_detail_id' => 1,
+            'qty' => 300,
+            'unit_price' =>702.80,
+            'percent_of_discount' => 0.00,
+            'discount' => 200.00,
+            'percent_of_vat' => 0.00,
+            'vat' => 250.00,
+        ]);
+        SalesInvoiceDetail::create([
+            'sales_invoice_id' => 1,
+            'order_id' => 1,
+            'order_detail_id' => 2,
+            'qty' => 400,
+            'unit_price' =>422.10,
             'percent_of_discount' => 0.00,
             'discount' => 200.00,
             'percent_of_vat' => 0.00,
@@ -46,3 +59,4 @@ return new class extends Migration
         Schema::dropIfExists('sales_invoice_details');
     }
 };
+

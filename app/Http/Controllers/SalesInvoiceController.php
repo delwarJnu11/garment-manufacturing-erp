@@ -167,21 +167,6 @@ class SalesInvoiceController extends Controller
         return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice', 'salesInvoiceDetails'));
     }
 
-
-
-    // public function show($id)
-    // {
-    //     $orderDetails = OrderDetail::where('order_id', $id)
-    //         ->with(['product', 'size', 'uom', 'color'])
-    //         ->get()
-    //         ->groupBy('size_id');
-
-    //     return response()->json([
-    //         'orderDetailsGrouped' => $orderDetails
-    //     ]);
-    // }
-
-
     public function invoicePending()
     {
         $salesInvoices = SalesInvoice::with('invoice_status', 'buyer', 'salesInvoiceDetails.order')->get();
@@ -242,26 +227,6 @@ class SalesInvoiceController extends Controller
     public function destroy(SalesInvoice $SalesInvoice) {}
 
 
-    //     public function show2(Request $request, Order $order)
-    //     {
-    //         $buyer = $order->buyer;
-
-    //         $orderDetails = OrderDetail::where('order_id', $order->id)
-    //             ->with('product', 'size', 'color', 'uom')
-    //             ->get();
-
-    //         // Get BOM for this order
-    //         $bom = $order->bom;
-    //         // Initialize size-based costs
-    //         $sizeData = [];
-
-    //         if ($bom) {
-    //             // Fetch BOM details and join with Product table
-    //             $bomDetails = $bom->bomDetails()
-    //                 ->select('size_id', 'quantity_used', 'unit_price', 'wastage')
-    //                 ->get()
-    //                 ->groupBy('size_id');
-
-
+    
 
 }

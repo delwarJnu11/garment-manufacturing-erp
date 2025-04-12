@@ -53,8 +53,11 @@
             @endforeach
         @endforeach --}}
 
-        @foreach ($salesInvoiceDetails->salesInvoiceDetails->groupBy(function($item) {
+        {{-- @foreach ($salesInvoiceDetails->salesInvoiceDetails->groupBy(function($item) {
             return $item->orderDetail->size_id;
+        }) as $sizeGroup) --}}
+        @foreach ($salesInvoiceDetails->salesInvoiceDetails->groupBy(function($item) {
+            return optional($item->orderDetail)->size_id ?? 'unknown';
         }) as $sizeGroup)
             @foreach ($sizeGroup as $item)
             {{-- @dd($item->orderDetail->size->name); --}}
