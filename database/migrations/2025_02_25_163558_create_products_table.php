@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image', 255)->nullable();
             $table->integer('product_type_id'); // Integer column for product_type_id 1=Raw material, 2= Finished Goods
             $table->integer('size_id')->nullable(); //For Finished goods only
             $table->string('sku')->unique();
@@ -26,6 +27,7 @@ return new class extends Migration
         });
         Product::create([
             'name' => 'Red Cotton Fabric',
+            'image' => "",
             'product_type_id' => 1, // Example: 1 for Raw Material
 
             'sku' => 'RCF-001',
@@ -35,6 +37,7 @@ return new class extends Migration
         ]);
         Product::create([
             'name' => 'Black T-shirt ',
+            'image' => "",
             'product_type_id' => 2, // Example: 2 for Finished Goods
             'size_id' => 3,
             'sku' => 'BTS-M-003',
@@ -45,6 +48,7 @@ return new class extends Migration
 
         Product::create([
             'name' => 'White Shirt ',
+            'image' => "",
             'product_type_id' => 2, // Example: 2 for Finished Goods
             'size_id' => 3,
             'sku' => 'WSH-L-004',
@@ -54,7 +58,8 @@ return new class extends Migration
         ]);
         Product::create([
             'name' => 'Denim fabric ',
-            'product_type_id' => 1, // Example: 2 for Finished Goods
+            'image' => "",
+            'product_type_id' => 1,
 
             'sku' => 'WSH-L-005',
             'qty' => 62,
@@ -63,8 +68,8 @@ return new class extends Migration
         ]);
         Product::create([
             'name' => 'Dyes & Pigments ',
-            'product_type_id' => 1, // Example: 2 for Finished Goods
-
+            'image' => "",
+            'product_type_id' => 1,
             'sku' => 'D-L-004',
             'qty' => 22,
             'uom_id' => 1,
@@ -72,7 +77,8 @@ return new class extends Migration
         ]);
         Product::create([
             'name' => 'Labels & Tags ',
-            'product_type_id' => 1, // Example: 2 for Finished Goods
+            'image' => "",
+            'product_type_id' => 1,
 
             'sku' => 'DL-004',
             'qty' => 20,
@@ -81,8 +87,8 @@ return new class extends Migration
         ]);
         Product::create([
             'name' => 'Carton boxes ',
-            'product_type_id' => 1, // Example: 2 for Finished Goods
-
+            'image' => "",
+            'product_type_id' => 1,
             'sku' => 'CL-004',
             'qty' => 20,
             'uom_id' => 1,

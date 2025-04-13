@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SalesInvoice extends Model
 {
     use HasFactory;
+    protected $casts = [
+        'sale_date' => 'datetime',
+    ];
 
 
     protected $fillable = [
@@ -35,25 +38,8 @@ class SalesInvoice extends Model
         return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
     }
 
-    public function salesInvoiceDetail()
+    public function salesInvoiceDetails()
     {
         return $this->hasMany(SalesInvoiceDetail::class, 'sales_invoice_id');
-    }
-
-    // for payment 
-
-    public function getDueAmountAttribute()
-    {
-        return  $this->total_amount - $this->paid_amount;
-    }
-    public function getPaymentStatusAttribute()
-    {
-        if ($this->paid_amount == 0) {
-            return "Due";
-        } elseif ($this->paid_amount < $this->total_amount) {
-            return "Partially Paid"; // Fixed casing
-        } else {
-            return "Paid";
-        }
     }
 }

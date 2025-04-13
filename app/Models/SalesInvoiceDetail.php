@@ -17,6 +17,7 @@ class SalesInvoiceDetail extends Model
         'percent_of_discount',
         'discount',
         'percent_of_vat',
+        'order_detail_id',
         'vat',
     ];
 
@@ -28,5 +29,13 @@ class SalesInvoiceDetail extends Model
     public function order()
     {
         return $this->belongsTo(Order::class, 'order_id');
+    }
+    // public function orderDetail()
+    // {
+    //     return $this->belongsTo(OrderDetail::class, 'order_id');
+    // }
+    public function orderDetail()
+    {
+        return $this->belongsTo(OrderDetail::class, 'order_detail_id');
     }
 }

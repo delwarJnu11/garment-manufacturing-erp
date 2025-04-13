@@ -11,7 +11,7 @@
                         <li class="submenu">
                             {{-- <a href="" class="subdrop"> --}}
 
-                            {{-- <li class="submenu">
+                            <li class="submenu">
                             <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
                                 <li>
@@ -21,7 +21,7 @@
                                     <x-link href="{{ route('roles.index') }}" :active="request()->is('roles')">Roles Lists</x-link>
                                 </li>
                             </ul>
-                        </li> --}}
+                        </li>
 
                             <!-- START Prodcution Module Menu -->
                         <li class="submenu">
@@ -109,9 +109,7 @@
                             <x-nav-link :active="request()->is('orders*') ||
                                 request()->is('buyers*') ||
                                 request()->is('sales-invoice*') ||
-                                request()->is('salesPayments*')">Orders & Buyers</x-nav-link>
-
-
+                                request()->is('salesPayments*')|| request()->is('pending') ">Orders & Buyers</x-nav-link>
 
                             <ul>
                                 <!-- 🔹 Orders -->
@@ -131,8 +129,10 @@
                                 <li><x-link href="{{ route('order_status.index') }}" :active="request()->is('order_status.index')">Order
                                         Status</x-link></li>
 
-                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-invoice')">Sales
+                                <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales
                                         Invoices</x-link></li>
+                                <li><x-link href="{{ url('/pending') }}" :active="request()->is('pending')">Pending Invoice</x-link></li>
+                                        {{-- <li><x-link href="{{url('/pending')}}" :active="request()->is('pending')"></x-link>Pending Invoice</li> --}}
                                 <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link>
                                 </li>
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color Lists</x-link>
@@ -302,7 +302,8 @@
                                 request()->is('stock/product_lots') ||
                                 request()->is('stock/raw_materials') ||
                                 request()->is('stock/productCatelogues') ||
-                                request()->is('products') ||
+                                request()->is('stock/products') ||
+                                request()->is('/stock/product_types') ||
                                 request()->is('stock/stocks') ||
                                 request()->is('stock/stock_adjustments')">Inventory & Warehouse</x-nav-link>
                             <ul>
@@ -331,13 +332,18 @@
                                     </x-link>
                                 </li>
                                 <li>
+                                    <x-link href="{{ url('stock/product_types') }}" :active="request()->is('/stock/product_types')">
+                                        Product Types
+                                    </x-link>
+                                </li>
+                                <li>
                                     <x-link href="{{ url('/stock/warehouses') }}" :active="request()->is('stock/warehouses')">Warehouses
                                     </x-link>
                                 </li>
 
                                 <!-- 🔹 Stock Management -->
                                 <li>
-                                    <x-link href="{{ url('/stock/stocks') }}" :active="request()->is('stock/stocks')">Stock Overview
+                                    <x-link href="{{ url('/stock/stocks') }}" :active="request()->is('stock/stocks')">Stock 
                                     </x-link>
                                 </li>
                                 <li>
@@ -352,7 +358,7 @@
                                 </li>
 
                                 <!-- 🔹 Inventory Valuation -->
-                                <li class="submenu">
+                                {{-- <li class="submenu">
                                     <a href="">Inventory Valuation <span class="menu-arrow"></span>
                                     </a>
                                     <ul>
@@ -362,7 +368,7 @@
                                         </li>
 
                                     </ul>
-                                </li>
+                                </li> --}}
 
                                 <!-- 🔹 Reports -->
                                 <li>
