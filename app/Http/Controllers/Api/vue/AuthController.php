@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -30,7 +31,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = Auth::guard('vue')->login($user);
+        $token = Auth::guard('api')->login($user);
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
@@ -44,29 +45,47 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-        $credentials = $request->only('email', 'password');
 
-        $token = Auth::guard('vue')->attempt($credentials);
-        if (!$token) {
+        //   print_r($request->all());
+        try {
+            $request->validate([
+                'email' => 'required|string|email',
+                'password' => 'required|string',
+            ]);
+            $credentials = $request->only('email', 'password');
+    
+            $token = Auth::guard('vue')->attempt($credentials);
+            if (!$token) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Unauthorized',
+                ], 401);
+            }
+    
+            // $user = Auth::guard('api')->user();
+            return response()->json([
+                'status' => 'success',
+               
+                'authorisation' => [
+                    'token' => $token,
+                    'type' => 'bearer',
+                ]
+            ]);
+        }catch (\Throwable $th) {
+            Log::error('Login Error', [
+                'message' => $th->getMessage(),
+                'file' => $th->getFile(),
+                'line' => $th->getLine(),
+                'trace' => $th->getTraceAsString(),
+            ]);
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 401);
+                'message' => 'Internal server error',
+            ], 500);
         }
+        
 
-        $user = Auth::guard('vue')->user();
-        return response()->json([
-            'status' => 'success',
-            'user' => $user,
-            'authorisation' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-        ]);
+      
     }
 
     public function logout()
