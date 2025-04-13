@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Vue\AuthController;
 use App\Http\Controllers\Api\Vue\CategoryController;
 use App\Http\Controllers\Api\vue\ProductController;
+use App\Http\Controllers\Api\Vue\BuyerController;
 use App\Http\Controllers\Api\Vue\RolesController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,7 @@ Route::apiResource('users', UserController::class);
 
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('products', ProductController::class);
+// Route::apiResource('/roles', RolesController::class)->middleware('auth:api');
+
+// Buyers
+Route::apiResource('/buyers', BuyerController::class);
