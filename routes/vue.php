@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Vue\AuthController;
+use App\Http\Controllers\Api\Vue\BuyerController;
 use App\Http\Controllers\Api\Vue\RolesController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,3 +15,6 @@ Route::post('logout', [AuthController::class, 'logout']);
 
 Route::apiResource('/roles', RolesController::class);
 // Route::apiResource('/roles', RolesController::class)->middleware('auth:api');
+
+// Buyers
+Route::apiResource('/buyers', BuyerController::class);
