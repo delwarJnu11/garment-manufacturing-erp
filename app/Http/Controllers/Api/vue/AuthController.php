@@ -30,7 +30,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = Auth::guard('api')->login($user);
+        $token = Auth::guard('vue')->login($user);
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
@@ -50,7 +50,7 @@ class AuthController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
 
-        $token = Auth::guard('api')->attempt($credentials);
+        $token = Auth::guard('vue')->attempt($credentials);
         if (!$token) {
             return response()->json([
                 'status' => 'error',
@@ -58,7 +58,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $user = Auth::guard('api')->user();
+        $user = Auth::guard('vue')->user();
         return response()->json([
             'status' => 'success',
             'user' => $user,
@@ -71,7 +71,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Auth::guard('api')->logout();
+        Auth::guard('vue')->logout();
         return response()->json([
             'status' => 'success',
             'message' => 'Successfully logged out',
@@ -83,9 +83,9 @@ class AuthController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'user' => Auth::guard('api')->user(),
+            'user' => Auth::guard('vue')->user(),
             'authorisation' => [
-                'token' => Auth::guard('api')->refresh(),
+                'token' => Auth::guard('vue')->refresh(),
                 'type' => 'bearer',
             ]
         ]);
