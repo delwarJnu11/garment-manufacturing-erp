@@ -51,6 +51,21 @@
                             </div>
 
                         </div>
+                      
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group">
+                                <select name="warehouse_id" class="form-select" required id="warehouse_id">
+                                    <option value="">Select Warehouse</option>
+                                    @foreach ($warehouses as $warehouse)
+                                        <option value="{{ $warehouse['id'] }}">
+                                            {{ $warehouse['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <a href="{{ route('warehouses.create') }}" class="btn btn-primary">
+                                    + </a>
+                            </div>
+                        
+                        </div>
                     </div>
                     <!-- Raw Material Table -->
                     <div class="container mt-5">
@@ -59,7 +74,6 @@
                                 <thead class="thead-priamry">
                                     <tr>
                                         <th>Material Name</th>
-
                                         <th>Unit Price</th>
                                         <th>Quantity</th>
                                         <th>Discount (%)</th>
@@ -116,7 +130,8 @@
                             <div class="row mt-4">
                                 <div class="col-md-6">
 
-                                    <p><strong >Delivery Address: </strong> <span >123 Factory Road, City Road, Bangladesh</span></p>
+                                    <p><strong>Delivery Address: </strong> <span>123 Factory Road, City Road,
+                                            Bangladesh</span></p>
                                     <p><strong>Notes:</strong> Urgent delivery required.</p>
                                 </div>
                                 <div class="col-md-6 text-end">
@@ -173,6 +188,7 @@
                 year: 'numeric'
             });
 
+
             // Format delivery date (7 days later)
             let deliveryDate = new Date();
             deliveryDate.setDate(today.getDate() + 7);
@@ -189,6 +205,7 @@
                     ' X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             })
+
 
             $('#supplier_id').on('change', function() {
                 let supplier_id = $(this).val();
@@ -215,6 +232,29 @@
                 });
 
             })
+
+            $("#warehouse_id").on('change',function(){
+                let warehouse_id = $(this).val()
+                // alert(warehouse_id)
+                $.ajax({
+                    url:"{{url('find_warehouse')}}",
+                    type:"post",
+                    data:{
+                        id:warehouse_id,
+                        _token:"{{csrf_token()}}"
+                    },
+                    success:function(res){
+                        console.log(res)
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("API Error:", xhr.responseText);
+                    }
+
+
+                })
+           
+            })
+            
             $("#product_id").on('change', function() {
                 let product_id = $(this).val();
                 console.log("Selected Product ID: " + product_id);
@@ -226,7 +266,7 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(res) {
-                        console.log(res.product);
+                        // console.log(res.product);
                         if (res.product) {
                             $(".p_price").val(res.product.unit_price);
                             $(".p_qty").val(res.product.qty);
@@ -269,11 +309,11 @@
                 cart.save(item);
                 printCart();
                 parseFloat($(".p_price").val(""));
-                 parseFloat($(".p_qty").val(""));
-                 parseFloat($(".p_discount").val("")) ;
-                parseFloat($(".p_vat").val("")) ;
+                parseFloat($(".p_qty").val(""));
+                parseFloat($(".p_discount").val(""));
+                parseFloat($(".p_vat").val(""));
 
-                
+
             });
 
             function printCart() {
@@ -319,7 +359,7 @@
                 }
             }
 
-            $("tbody").on('click','.remove', function() {
+            $("tbody").on('click', '.remove', function() {
                 let id = $(this).attr('data');
                 cart.delItem(id);
                 printCart();
@@ -338,6 +378,7 @@
             $('.process_btn').on('click', function() {
 
                 let supplier_id = $("#supplier_id").val();
+                let warehouse_id = $("#warehouse_id").val();
                 let purchase_total = parseFloat($('.grand_total').text().replace('$', ''));
                 let paid_amount = parseFloat($('.grand_total').text().replace('$', ''));
                 let discount = parseFloat($('.discount').text().replace('-$', ''));
@@ -352,6 +393,7 @@
 
                 console.log("Final Data to API:", {
                     supplier_id,
+                    warehouse_id,
                     purchase_total,
                     paid_amount,
                     discount,
@@ -359,27 +401,7 @@
                     products
                 });
 
-                // $.ajax({
-                //     url: "{{ url('api/purchase') }}",
-                //     type: "POST",
-                //     contentType: "application/json",
-                //     data: JSON.stringify({
-                //         _token: '{{ csrf_token() }}',
-                //         supplier_id: supplier_id,
-                //         total_amount: purchase_total, 
-                //         paid_amount: paid_amount,
-                //         discount: discount,
-                //         vat: vat,
-                //         products: JSON.stringify(products)
-                //     }),
-                //     success: function(res) {
-                //         console.log("API Response:", res);
-                //     },
-                //     error: function(xhr, status, error) {
-                //         console.log("API Error:", xhr
-                //         .responseText); 
-                //     }
-                // });
+            //retrive only purchase_order information
                 $.ajax({
                     url: "{{ url('api/purchase') }}",
                     type: "POST",
@@ -387,20 +409,21 @@
                     data: JSON.stringify({
                         // _token: '{{ csrf_token() }}',
                         supplier_id: supplier_id,
+                        warehouse_id: warehouse_id,
                         total_amount: purchase_total,
                         paid_amount: paid_amount,
                         discount: discount,
                         vat: vat,
-                        products: products 
+                        products: products
                     }),
                     success: function(res) {
-                        if(res.success){
+                        if (res.success) {
                             console.log("API Response:", res);
-                            window.location.href= res.redirect_url
-                        }else{
-                            alert("Error"+res.message)
+                            window.location.href = res.redirect_url
+                        } else {
+                            alert("Error" + res.message)
                         }
-                    
+
                     },
                     error: function(xhr, status, error) {
                         console.log("API Error:", xhr.responseText);
@@ -409,52 +432,9 @@
 
 
 
+
             });
 
-
-
-
-            //    $('.process_btn').on('click',function(){
-            //     // alert()
-            //     let supplier_id  = $("#supplier_id").val();
-            //     let purchase_total = $('.grand_total').text();
-            //     let paid_amount = $('.grand_total').text();
-            //     let discount = $('.discount').text();
-            //     let vat = $('.vat').text();
-            //     let products = cart.getCart();
-            //     // const newItems = products.map(item => ({
-            //     //     product_id: item.item_id,
-            //     //     discount: item.p_discount,
-            //     //     quantity: item.qty,
-            //     //     vat: item.p_vat,
-            //     //     price: item.price
-            //     // }));
-            //     // console.log(newItems);
-
-
-            //     $.ajax({
-            //         url:"{{ url('api/purchase') }}",
-            //         type:"POST",
-            //         data:{
-            //             supplier_id:supplier_id,
-            //             purchase_total:purchase_total,
-            //             paid_amount:paid_amount,
-            //             discount:discount,
-            //             vat:vat,
-            //             products:products,
-            //         },
-            //         success:function(res){
-            //             console.log(res)
-            //         },
-            //         error:function(xhr,status,error){
-            //             console.log(error)
-            //         }
-
-            //     })
-
-
-
-            //    })
         })
     </script>
     <script src="{{ asset('assets/js/cart_.js') }}"></script>

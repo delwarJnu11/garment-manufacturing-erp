@@ -62,9 +62,21 @@ CREATE TABLE prodcution_cost_estimations (
     overhead_cost DECIMAL(10,2),
     utility_cost DECIMAL(10,2),
     total_cost DECIMAL(10,2),
+    profit DECIMAL(10,2),
+    sales_price DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id)
+);
+
+CREATE TABLE material_usage (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    material_id INT,
+    quantity_used DECIMAL(10,2),
+    wastage DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
 );
 
 CREATE TABLE materials (
@@ -76,21 +88,10 @@ CREATE TABLE materials (
     wastage_allowance DECIMAL(5,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
-    FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
 );
 
-CREATE TABLE material_usage (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
-    material_id INT,
-    quantity_used DECIMAL(10,2),
-    wastage DECIMAL(10,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (order_id) REFERENCES orders(id),
-    FOREIGN KEY (material_id) REFERENCES materials(id)
-);
+-- Production
+
 
 -- Production Floor Management
 CREATE TABLE cutting_section (

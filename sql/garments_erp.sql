@@ -49,7 +49,7 @@ CREATE TABLE products (
     offer_price DECIMAL(10,2) DEFAULT(0.00), -- Discounted price
     weight INT NULL, -- Weight in grams/kilograms
     size_id INT, -- Reference to size table
-    is_raw_material INT NOT NULL, -- 1 = Raw Material, 0 = Finished Product
+    product_type_id INT NOT NULL, -- 1 = Raw Material, 0 = Finished Product
     barcode VARCHAR(255) UNIQUE NULL, -- Barcode for scanning
     rfid VARCHAR(255) UNIQUE NULL, -- RFID for tracking
     category_id INT NOT NULL, -- Reference to categories table
@@ -61,13 +61,13 @@ CREATE TABLE products (
 );
 
 
-CREATE TABLE product_variants (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL, -- Reference to products table
-    variant_name VARCHAR(255) NOT NULL, -- Variant name (e.g., Small, Medium, Large)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE product_variants (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     product_id INT NOT NULL, -- Reference to products table
+--     variant_name VARCHAR(255) NOT NULL, -- Variant name (e.g., Small, Medium, Large)
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
 
 CREATE TABLE uom(
@@ -105,7 +105,7 @@ CREATE TABLE warehouses (
 --End warehouses Management
 
 -- Inventory Stock
-CREATE TABLE stock_in (
+CREATE TABLE stock (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL, -- Reference to products table
     quantity INT NOT NULL, -- Quantity received
@@ -212,12 +212,12 @@ CREATE TABLE stock_transfers_details (
 
 
 -- Inventory Valuation 
-CREATE TABLE valuation_methods (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    method_name VARCHAR(255) NOT NULL, -- FIFO, LIFO, Weighted Average
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+-- CREATE TABLE valuation_methods (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     method_name VARCHAR(255) NOT NULL, -- FIFO, LIFO, Weighted Average
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
 
 -- CREATE TABLE stock_ledger (
 --     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -246,9 +246,6 @@ CREATE TABLE inventory_audit (
 
 
 -- END  Inventory & Warehouse Management Module
-
-
-
 
 
 CREATE TABLE purchase_returns (
@@ -288,6 +285,7 @@ CREATE TABLE inventory (
 );
 ________________________________________
 -- 1.5 Stock Movements Table
+
 
 ________________________________________
 -- 1.6 Stock Adjustment Table
@@ -561,7 +559,6 @@ CREATE TABLE bom (
     total_cost DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 
@@ -569,31 +566,18 @@ CREATE TABLE bom_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     bom_id INT,
     material_id INT,
+    size_id INT,
     quantity_used DECIMAL(10,2),
-    unit_cost
+    unit_cost DECIMAL(10,2),
     wastage DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id),
-    -- FOREIGN KEY (material_id) REFERENCES materials(id)
 );
 
 
 
--- Cost Estimation & Control
-CREATE TABLE prodcution_cost_estimations (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
-    bom_id INT,
-    material_cost DECIMAL(10,2),
-    labor_cost DECIMAL(10,2),
-    overhead_cost DECIMAL(10,2),
-    utility_cost DECIMAL(10,2),
-    total_cost DECIMAL(10,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (order_id) REFERENCES orders(id)
-);
+-- PRODUCTION
+
 
 
 CREATE TABLE material_usage (

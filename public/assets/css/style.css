@@ -163,7 +163,7 @@ ul .btn-primary:not(:disabled):not(.disabled).active:focus {
 }
 
 .bg-primary {
-    background-color: purple !important;
+    /* background-color: purple !important; */
 }
 
 .bg-secondary {
@@ -5802,10 +5802,11 @@ hr.text-danger {
 }
 .form-control:focus {
     box-shadow: none;
-    border-color: #e9edf6;
+    border-color: #800080;
+    outline: 1px solid #800080 !important;
     background-color: #ffffff;
-    box-shadow: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.05);
-    color: #5b6670;
+    box-shadow: 0 0.0625rem 0.125rem 0 rgba(128, 0, 128, 0.25);
+    /* color: #5b6670; */
 }
 
 .form-control[type="file"] {
@@ -6031,7 +6032,7 @@ fieldset:disabled .btn {
 
 .form-select:focus {
     border-color: rgba(var(purple), 0.5);
-    outline: 0;
+    outline: 1px solid rgba(var(#800080), 0.5);
     box-shadow: none;
 }
 

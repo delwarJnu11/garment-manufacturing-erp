@@ -213,6 +213,29 @@
                     uom_id: item.uom_id,
                     subtotal: 0
                 }));
+                console.log(newItems)
+
+                $.ajax({
+                    url: "{{ url('/api/order_details') }}",
+                    type: "POST",
+                    data: JSON.stringify({
+                        items: newItems
+                    }),
+                    contentType: "application/json",
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                    },
+                    success: function(response) {
+                        if (response.status === 201) {
+                            localStorage.clear();
+                            return window.location.assign("{{ url('/orders') }}");
+                        }
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                        alert("Error saving items.");
+                    }
+                });
 
             })
         });

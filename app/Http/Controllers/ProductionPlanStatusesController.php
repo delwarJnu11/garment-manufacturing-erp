@@ -57,7 +57,7 @@ class ProductionPlanStatusesController extends Controller
      */
     public function edit(Production_plan_statuses $production_plan_status)
     {
-        //
+        return view('pages.production.production_plan.production_plan_status.edit', compact('production_plan_status'));
     }
 
     /**
@@ -65,7 +65,14 @@ class ProductionPlanStatusesController extends Controller
      */
     public function update(Request $request, Production_plan_statuses $production_plan_status)
     {
-        //
+       $request->validate([
+            'status_name' => 'required|string|max:255',
+        ]);
+
+        $production_plan_status->name = $request->status_name;
+        $production_plan_status->save();
+        
+        return redirect()->route('production_plan_status.index')->with('success', 'Production Status has been updated successfully!');
     }
 
     /**

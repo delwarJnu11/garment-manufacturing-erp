@@ -13,8 +13,10 @@ class WarehouseController extends Controller
     public function index()
     {
         $warehouses = Warehouse::paginate(10);
-        return view('pages.inventory.warehouse.warehouse',compact('warehouses'));
+        return view('pages.inventory.warehouse.warehouse', compact('warehouses'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.

@@ -23,6 +23,7 @@ CREATE TABLE hrm_attendances_lists (
     leave_days TINYINT UNSIGNED DEFAULT 0,
     late_times TIME DEFAULT '00:00:00',
     leave_times TIME DEFAULT '00:00:00',
+    total_work_hours DECIMAL(5,2) DEFAULT '0.00',
     overtime_hours TIME DEFAULT '00:00:00',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -96,12 +97,13 @@ CREATE TABLE hrm_designations (
 CREATE TABLE hrm_employees (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    employee_id VARCHAR(100) NOT NULL,
+    employee_id_number VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     phone VARCHAR(20) UNIQUE NULL,
     gender VARCHAR(20) UNIQUE NULL,
     date_of_birth DATE NULL,
     joining_date DATE NOT NULL,
+    bank_account_id INT NOT NULL,
     department_id BIGINT UNSIGNED NOT NULL,
     salary DECIMAL(10,2) NOT NULL,
     designations_id BIGINT UNSIGNED NOT NULL,
@@ -296,6 +298,69 @@ CREATE TABLE hrm_payroll_employee_salaryes (
     FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
 );
 
+CREATE TABLE hrm_payslip_deductions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    employee_id INT,
+    amount DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE hrm_payslip_allowances (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    employee_id INT,
+    amount DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE hrm_payslip_items (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    employee_id INT,
+    factor INT not null,
+    amount DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE hrm_payslips (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    employee_id INT,
+    statuses_id VARCHAR(100) NOT NULL,
+    salary_month VARCHAR(10) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    basic_salary DECIMAL(10,2) NOT NULL,
+    payslip_items_id INT NOT NULL,
+    total_working_days TINYINT UNSIGNED DEFAULT 0,
+    working_days_attendance TINYINT UNSIGNED DEFAULT 0,
+    leaves_taken TINYINT UNSIGNED DEFAULT 0,
+    balance_leaves TINYINT UNSIGNED DEFAULT 0,
+    total_earnings DECIMAL(10,2),
+    total_deductions DECIMAL(10,2),
+    net_salary DECIMAL(10,2),
+    payment_method VARCHAR (50) NOT NULL,
+    generated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE hrm_payslip_details (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    payslip_id INT NOT NULL,
+    payslip_items_id INT NOT NULL,
+    factor INT not null,
+    allowance_amount DECIMAL(10,2),
+    deduction_amount DECIMAL(10,2),
+    total_amount DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 
  -- Recruitment
 
@@ -397,6 +462,7 @@ CREATE TABLE hrm_employee_timesheets (
     clock_out TIME DEFAULT '00:00:00',
     break_duration INT DEFAULT 0,
     total_work_hours DECIMAL(5,2) DEFAULT '0.00',
+    fixed_work_hours DECIMAL(5,2) DEFAULT '8',
     overtime_hours DECIMAL(5,2) DEFAULT '0.00',
     statuses_id BIGINT UNSIGNED NOT NULL,
     remarks TEXT NULL,

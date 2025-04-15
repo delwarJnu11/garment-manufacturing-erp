@@ -27,7 +27,7 @@
                         @forelse ($employees as $employee)
                             <tr>
                                 <td>{{ $employee->id }}</td>
-                                <td><a class="btn btn-outline-success" href="{{url('hrm_employees/' . $employee->id)}}">{{ $employee->employee_id }}</a></td>
+                                <td><a class="btn btn-outline-success" href="{{url('hrm_employees/' . $employee->id)}}">{{ $employee->employee_id_number}}</a></td>
                                 <td>{{ $employee->name }}</td>
                                 <td>{{ $employee->email }}</td>
                                 <td>{{ $employee->phone }}</td>

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Product_lot;
+
 use App\Models\ProductLot;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,25 +14,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_lots', function (Blueprint $table) {
-            $table->id(); // Auto-incrementing ID for the lot
-            $table->integer('product_id'); // Reference to raw_materials table (without foreign key constraint)
-            $table->integer('qty'); // Quantity of raw material received
-            $table->double('cost_price')->nullable(); // Cost price of the raw material
-            $table->double('sales_price')->nullable(); // Cost price of the raw material
-            $table->integer('transaction_type_id')->nullable(); // Cost price of the raw material
-            $table->integer('warehouse_id'); // Reference to warehouse (without foreign key constraint)
-            $table->text('description')->nullable(); // Optional description for the lot
-            $table->timestamps(); // Created at and updated at timestamps
+            $table->id();
+            $table->integer('product_id');
+            $table->integer('qty');
+            $table->double('cost_price')->nullable();
+            $table->double('sales_price')->nullable();
+            $table->integer('transaction_type_id')->nullable();
+            $table->integer('warehouse_id');
+            $table->text('description')->nullable();
+            $table->timestamps();
         });
 
         ProductLot::create([
-            'product_id' => 1,  // Raw Material ID (Ensure this ID exists in raw_materials table)
-            'qty' => 500,       // Quantity received
-            'cost_price' => 120.75,  // Cost price per unit
-            'sales_price' => 119.75,  // Cost price per unit
+            'product_id' => 1,
+            'qty' => 500,
+            'cost_price' => 120.75,
+            'sales_price' => 119.75,
             'warehouse_id' => 3,
             'transaction_type_id' => 3,
-            'description' => 'Batch of high-quality cotton fabric', // Optional description
+            'description' => 'Batch of high-quality cotton fabric',
         ]);
     }
 

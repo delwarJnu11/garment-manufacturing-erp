@@ -5,20 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class PurchaseOrderDetail extends Model
-{
+class PurchaseOrderDetail extends Model {
     // Define the fillable properties for mass assignment
     protected $fillable = [
         'purchase_id',
         'product_id',
         'lot_id',
         'quantity',
+        'percent_of_discount',
         'price',
+        'percent_of_vat',
         'vat',
         'discount',
     ];
-    function purchase(): BelongsTo
-    {
+    function purchase(): BelongsTo {
         return $this->belongsTo(PurchaseOrder::class, 'purchase_id');
+    }
+    // In PurchaseOrderDetail model
+    public function product() {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

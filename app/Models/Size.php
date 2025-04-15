@@ -10,4 +10,9 @@ class Size extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function bomDetails()
+    {
+        return $this->hasMany(BomDetails::class);
+    }
 }

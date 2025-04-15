@@ -41,10 +41,15 @@
 
                 <div class="row" id="column-append"></div>
 
-                <div class="col-md-12 mb-3">
+                <div class="row">
+                <div class="col-md-6 mb-3">
                     <label class="form-label">Total Price ($)</label>
                     <input type="number" step="0.01" id="total_value" name="total_value" class="form-control" readonly>
                 </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" id="qty" name="qty" class="form-control" value="" >
+            </div>
 
                 <button type="submit" class="btn btn-primary">Save Product</button>
             </form>

@@ -4,8 +4,8 @@
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xl-12 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="card flex-fill">
-            <div class="card-header">
-                <h5 class="card-title">Create Production Status</h5>
+            <div class="card-header bg-primary">
+                <h5 class="card-title">Create Production Staus</h5>
             </div>
             <div class="card-body">
                 <form action="{{route('production_plan_status.store')}}" method="POST">

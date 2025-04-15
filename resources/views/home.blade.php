@@ -10,6 +10,7 @@
             font-family: Arial, sans-serif;
             font-size: 1.3rem;
             font-weight: bold;
+            padding: 7px;
         }
 
         #day {
@@ -37,8 +38,8 @@
                 {{-- <span id="clock"></span> --}}
             </div>
             <div class="col-md-2 text-center">
-                <a id="clockButton" class="btn btn-warning btn-lg" href="javascript:void(0);" onclick="clockIn()">Clock In</a>
-                <a id="clockOutButton" class="btn btn-danger btn-lg" href="javascript:void(0);" onclick="clockOut()"
+                <a id="clockButton" class="btn btn-warning btn-lg p-4" href="javascript:void(0);" onclick="clockIn()">Clock In</a>
+                <a id="clockOutButton" class="btn btn-danger btn-lg p-4 " href="javascript:void(0);" onclick="clockOut()"
                     style="display:none;">Clock Out</a>
             </div>
         </div>
@@ -67,14 +68,14 @@
                     </div>
                     <div class="card-body">
                         <div class="avatar">
-                            <img src="https://demo.workdo.io/hrmgo/storage/uploads/avatar/user-2.jpg"
+                            <img src="{{asset('assets')}}/img/1740835090_avatar-11.png"
                                 class="img-fluid mx-4 rounded border-2 border-primary" width="200px" height= "200px">
                         </div>
                         <h4 class="mt-2 text-primary justify-content-center text-white">Lunea Todd</h4>
                         <small class="text-white">CEO</small>
                         <div class="row mt-2">
                             <div class="col-12">
-                                <a class="btn btn-outline-primary text-white mx-5" href="#">#EMP0000002</a>
+                                <a class="btn btn-outline-primary text-white mx-5" href="">#EMP0000002</a>
                             </div>
                         </div>
                     </div>

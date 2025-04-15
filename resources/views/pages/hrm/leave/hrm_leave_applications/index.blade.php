@@ -28,8 +28,8 @@
                         @forelse ($applications as $application)
                             <tr>
                                 <td>{{ $application->id }}</td>
-                                <td>{{ $application->employee_id }}</td>
-                                <td>{{ $application->leave_type_id }}</td>
+                                <td>{{ optional($application->employee)->name }}</td>
+                                <td>{{ optional($application->leave_type)->name }}</td>
                                 <td>{{ $application->date }}</td>
                                 <td>{{ $application->start_date }}</td>
                                 <td>{{ $application->end_date }}</td>
@@ -62,7 +62,7 @@
                                 @endphp
                                 <td>{{ $application->duration }}</td>
                                 <td>{{ $application->reason }}</td>
-                                <td>{{ $application->photo }}</td>
+                                <td><a href="#"  target="_blank">{{ $application->photo }}</a></td>
                                 <td class="action-table-data">
                                     <div class="edit-delete-action">
                                         <a class="me-2 p-2 mb-0"
