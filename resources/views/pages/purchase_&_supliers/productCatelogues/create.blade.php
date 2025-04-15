@@ -88,7 +88,8 @@
 @endsection
 
 
-    {{-- <script>
+@section('script')
+ {{-- <script>
         document.addEventListener("DOMContentLoaded", function () {
             let rawMaterialYes = document.getElementById("raw_material_yes");
             let rawMaterialNo = document.getElementById("raw_material_no");
@@ -122,6 +123,7 @@
             updateCategoryDropdown(false);
         });
     </script> --}}
+@endsection
 
 
 

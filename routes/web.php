@@ -341,9 +341,5 @@ Route::get('/order/{order}', [OrderController::class, 'show'])->name('order.show
  *END Invetory/category
  **/
 
-Route::resource('assetRegister', AssetStatusController::class);
-Route::resource('assetTypes', AssetTypesController::class);
-Route::resource('accountTypes', AccountTypesController::class);
-// Route::resource('createAssetType', AssetTypesController::class);
-
 require __DIR__ . '/auth.php';
+require __DIR__ . '/accounts.php';

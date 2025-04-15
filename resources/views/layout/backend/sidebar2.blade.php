@@ -964,7 +964,7 @@
 </div>
 
 
-@if (Auth::user()->isEmployee())
+@if (Auth::user()?->isEmployee())
 <ul>
     <li class="submenu">
         <a href="javascript:void(0);" class="subdrop">

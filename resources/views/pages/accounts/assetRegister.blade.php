@@ -91,24 +91,7 @@
     </div>
 
     <!-- jQuery for form validation -->
-    <script>
-        $(document).ready(function () {
-            // Submit form with validation
-            $("#asset-form").on("submit", function (event) {
-                event.preventDefault();
-                
-                // Check if the form is valid
-                if (this.checkValidity() === false) {
-                    event.stopPropagation();
-                } else {
-                    alert("Asset registered successfully!");
-                }
-
-                // Add bootstrap 'was-validated' class for showing invalid fields
-                this.classList.add("was-validated");
-            });
-        });
-    </script>
+   
 
 </body>
 

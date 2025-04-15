@@ -93,6 +93,7 @@
     </div>
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 @section('script')
     <script>
         $(document).ready(function() {
@@ -100,6 +101,25 @@
             $("#product_type").on('change', function() {
                 var selectType = $(this).val(); // Get the selected product type
                 var categories = []; // Initialize an empty array for categories
+
+
+
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function() {
+        // Handle product type selection change
+        $("#product_type").on('change', function() {
+            var selectType = $(this).val(); // Get the selected product type
+            var categories = []; // Initialize an empty array for categories
+            
+            // Load categories based on selected product type
+            if (selectType == 1) {  // Raw Material
+                categories = @json($rawMaterialCategories);  // Assign raw material categories
+            } else if (selectType == 2) {  // Finished Goods
+                categories = @json($finishedGoodsCategories);  // Assign finished goods categories
+            }
 
                 // Load categories based on selected product type
                 if (selectType == 1) { // Raw Material
@@ -113,7 +133,6 @@
 
                 // Append the default "Select Category" option
                 $('#category_dropdown').append('<option value="">Select Category</option>');
-
                 // Append the categories dynamically to the dropdown
                 categories.forEach(function(category) {
                     $('#category_dropdown').append('<option value="' + category.id + '">' + category
@@ -130,3 +149,15 @@
         });
     </script>
 @endsection
+
+            // Show/hide Size & UOM row based on product type
+            if (selectType == 2) {
+                $('#size_uom_row').removeClass('d-none');  // Show Size & UOM row if Finished Goods
+            } else {
+                $('#size_uom_row').addClass('d-none');  // Hide Size & UOM row if Raw Material
+            }
+        });
+    });
+</script>
+@endsection
+

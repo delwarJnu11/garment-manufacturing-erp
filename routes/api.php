@@ -1,16 +1,14 @@
 <?php
 
-
+use App\Http\Controllers\Api\AccountsController;
 use App\Http\Controllers\Api\BomDetailsController;
 use App\Http\Controllers\Api\CuttingController;
 use App\Http\Controllers\Api\OrderDetailsController;
-
 
 use App\Http\Controllers\Api\PurchaseInvoiceController;
 use App\Http\Controllers\Api\RawMaterialController;
 use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\SalesInvoiceController;
-
 
 use App\Http\Controllers\Api\PayslipController;
 use App\Http\Controllers\Api\ProductController;
@@ -18,14 +16,17 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\HrmPayslipsController;
 use Illuminate\Http\Request;
 
+
 use App\Http\Controllers\Api\OrderController;
+
+use App\Http\Controllers\Api\RawMaterialController;
+use App\Http\Controllers\Api\Vue\RoleController;
 
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
-
 
 
 // API FOR ORDER DETAILS
@@ -73,7 +74,8 @@ Route::post('purchase', [PurchaseOrderController::class, 'store']);
 
 
 
-// Start Api Route
+
+ // Start Api Route
 
 //  Route::get('payslip', [PayslipController::class,'index']);
 Route::post('payslip', [PayslipController::class, 'store']);
@@ -84,3 +86,11 @@ Route::prefix('production-stages')->group(function () {
     Route::put('cutting/update-status/{id}', [CuttingController::class, 'updateStatus'])->name('cutting.updateStatus');
 });
 // Route::post('/adjustment', [StockAdjustmentController::class, 'store']);
+
+Route::get('accounts', [AccountsController::class, 'index']);
+Route::post('transactions', [AccountsController::class, 'store']);
+Route::get('journal', [AccountsController::class, 'journal']);
+Route::get('trialBalance', [AccountsController::class, 'trialBalance']);
+Route::get('chartOfAccounts', [AccountsController::class, 'chartOfAccounts']);
+
+Route::apiResource('roles', RoleController::class);

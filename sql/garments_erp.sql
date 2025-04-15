@@ -793,8 +793,8 @@ CREATE TABLE transactions (
     amount DECIMAL(15, 2),
     description TEXT,
     transaction_against int(11) DEFAULT NULL,
-    debit decimal(10,2) NOT NULL DEFAULT '0.00'
-    credit decimal(10,2) NOT NULL DEFAULT '0.00'
+    debit decimal(10,2) NOT NULL DEFAULT '0.00',
+    credit decimal(10,2) NOT NULL DEFAULT '0.00',
     `user_id` int(11) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
