@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Vue;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -20,8 +21,8 @@ class ProductController extends Controller
                 $search = $request->search;
                 $productsQuery->where(function ($query) use ($search) {
                     $query->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('id', 'like', '%' . $search . '%')
-                        ->orWhere('sku', 'like', '%' . $search . '%');
+                        ->orWhere('id', 'like', '%' . $search . '%');
+                    // ->orWhere('sku', 'like', '%' . $search . '%');
                 });
             }
 
@@ -46,7 +47,33 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => "required|min:5",
+            'category_id' => "required|integer",
+            'product_type_id' => "required|integer",
+            'size_id' => "required|integer",
+            'squ' => "required|min:3",
+            'qty' => "required|integer",
+            'uom_id' => "required|integer",
+            'unit_price' => "required|numeric",
+        ]);
+        try {
+            Product::create([
+                'name' => $request->name,
+                'category_id' => $request->category_id,
+                'product_type_id' => $request->product_type_id,
+                'size_id' => $request->size_id,
+                'squ' => $request->squ,
+                'qty' => $request->qty,
+                'uom_id' => $request->uom_id,
+                'unit_price' => $request->unit_price,
+            ]);
+            return response()->json(['message' => 'products create successfully'], 200);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(['error' => $th->getMessage()], 500);
+            //throw $th;
+        }
     }
 
     /**
