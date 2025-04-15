@@ -41,18 +41,17 @@ class ProductController extends Controller
         }
     }
 
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         $request->validate([
-            'name' => "required|min:5",
-            'category_id' => "required|integer",
+            'name' => "required|min:4",
+            'category_type_id' => "required|integer",
             'product_type_id' => "required|integer",
             'size_id' => "required|integer",
-            'squ' => "required|min:3",
+            'sku' => "required|min:3",
             'qty' => "required|integer",
             'uom_id' => "required|integer",
             'unit_price' => "required|numeric",
@@ -60,10 +59,10 @@ class ProductController extends Controller
         try {
             Product::create([
                 'name' => $request->name,
-                'category_id' => $request->category_id,
+                'category_type_id' => $request->category_type_id,
                 'product_type_id' => $request->product_type_id,
                 'size_id' => $request->size_id,
-                'squ' => $request->squ,
+                'sku' => $request->sku,
                 'qty' => $request->qty,
                 'uom_id' => $request->uom_id,
                 'unit_price' => $request->unit_price,
