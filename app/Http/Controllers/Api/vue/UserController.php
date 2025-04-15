@@ -25,6 +25,35 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+    // Get All Superviors from User
+    public function getSupervisors()
+    {
+        try {
+            $supervisors = User::whereHas('role', function ($query) {
+                $query->where('name', 'Supervisor');
+            })->get();
+            if ($supervisors) {
+                return response()->json([
+                    "status" => 200,
+                    "message" => "Supervisors retrieved successfully",
+                    "superviosors" => $supervisors
+                ]);
+            } else {
+                return response()->json([
+                    "status" => 404,
+                    "message" => "Supervisors not Found",
+                    "superviosors" => []
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                "status" => 500,
+                "error" => true,
+                "message" => $th->getMessage(),
+            ]);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -123,7 +152,7 @@ class UserController extends Controller
         }
     }
 
-  
+
     /**
      * Remove the specified resource from storage.
      */
