@@ -3,7 +3,20 @@
 <div class="header" style="background: #e5e5e5">
     <!-- Logo -->
     <div class="header-left active">
+
         <a href="{{ url('/dashboard') }}" class="logo logo-normal">
+
+        <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html" class="logo logo-normal">
+            <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo.png" alt="" />
+        </a>
+        <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html" class="logo logo-white">
+            <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-white.png" alt="" />
+        </a>
+        <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html" class="logo-small">
+            <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-small.png"
+                alt="" />
+        <a href="dashboard" class="logo logo-normal">
+
             <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo.png" alt="" /> -->
             <h1 title="Manufacturing ERP" class="text-center ms-5" style="font-family: Sigmar;">M<span
                     class="text-primary">ERP</span></h1>
@@ -294,6 +307,12 @@
             <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
                 <span class="user-info">
                     <span class="user-letter">
+                        <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/profiles/avator1.jpg"
+                            alt="" class="img-fluid" />
+                    </span>
+                    <span class="user-detail">
+                        <span class="user-name">John Smilga</span>
+                        <span class="user-role">Super Admin</span>
                         <img src="{{ asset('uploads') }}/users/{{ Auth::user()->image }}" alt=""
                             class="img-fluid" />
                     </span>
@@ -306,6 +325,13 @@
             <div class="dropdown-menu menu-drop-user">
                 <div class="profilename">
                     <div class="profileset">
+                        <span class="user-img"><img
+                                src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/profiles/avator1.jpg"
+                                alt="" />
+                            <span class="status online"></span></span>
+                        <div class="profilesets">
+                            <h6>John Smilga</h6>
+                            <h5>Super Admin</h5>
                         <span class="user-img"><img src="{{ asset('uploads') }}/users/{{ Auth::user()->image }}"
                                 alt="" />
                             <span class="status online"></span></span>
@@ -319,8 +345,19 @@
                         href="https://dreamspos.dreamstechnologies.com/html/template/profile.html">
                         <i class="me-2" data-feather="user"></i>
                         My Profile</a>
+
                     <a class="dropdown-item" href="{{ route('companyProfile.index') }}"><i class="me-2"
                             data-feather="settings"></i>Settings</a>
+
+                    <a class="dropdown-item"
+                        href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html"><i
+                            class="me-2" data-feather="settings"></i>Settings</a>
+                    <hr class="m-0" />
+                    <a class="dropdown-item logout pb-0"
+                        href="https://dreamspos.dreamstechnologies.com/html/template/signin.html"><img
+                        href="{{route('companyProfile.index')}}"><i
+                            class="me-2" data-feather="settings"></i>Settings</a>
+
                     <hr class="m-0" />
                     <a class="dropdown-item logout pb-0" href="  {{ url('/logout') }}"><img
                             src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/log-out.svg"
