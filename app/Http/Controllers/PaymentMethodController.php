@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InvoiceStatus;
+use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 
-class InvoiceStatusController extends Controller
+class PaymentMethodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class InvoiceStatusController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(InvoiceStatus $InvoiceStatus)
+    public function show(PaymentMethod $paymentMethod)
     {
         //
     }
@@ -42,7 +42,7 @@ class InvoiceStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(InvoiceStatus $InvoiceStatus)
+    public function edit(PaymentMethod $paymentMethod)
     {
         //
     }
@@ -50,7 +50,7 @@ class InvoiceStatusController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, InvoiceStatus $InvoiceStatus)
+    public function update(Request $request, PaymentMethod $paymentMethod)
     {
         //
     }
@@ -58,7 +58,7 @@ class InvoiceStatusController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(InvoiceStatus $InvoiceStatus)
+    public function destroy(PaymentMethod $paymentMethod)
     {
         //
     }

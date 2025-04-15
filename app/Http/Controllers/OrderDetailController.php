@@ -26,8 +26,7 @@ class OrderDetailController extends Controller
      */
     public function create()
     {
-        //Product Type Id 1 = Raw Materials
-        //Product Type Id 2 = Finished Goods
+
         $products = Product::where('product_type_id', 2)->get();
         $orders = Order::all();
         $sizes = Size::all();

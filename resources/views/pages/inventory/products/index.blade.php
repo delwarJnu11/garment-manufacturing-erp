@@ -56,9 +56,7 @@
 
             <td class="action-table-data">
                 <div class="edit-delete-action">
-                    {{-- <a class="me-2 p-2 mb-0" href="{{ route('products.show', $product_type->id) }}">
-                        <i data-feather="eye" class="feather-eye"></i>
-                    </a> --}}
+                   
                     <a class="me-2 p-2" href="{{ route('products.edit', $product->id) }}">
                         <i data-feather="edit" class="feather-edit"></i>
                     </a>

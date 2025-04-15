@@ -21,15 +21,21 @@ class ProductTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.inventory.product_type.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, ProductType $productType)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:4|string',
+        ]);
+        $productType::create([
+            'name' => $request->name
+        ]);
+        return redirect()->route('product_types.index')->with('message', 'successfully create ');
     }
 
     /**
@@ -61,6 +67,7 @@ class ProductTypeController extends Controller
      */
     public function destroy(ProductType $productType)
     {
-        //
+        $productType->delete();
+        return redirect()->route('product_types.index')->with('message', 'successfully delete');
     }
 }

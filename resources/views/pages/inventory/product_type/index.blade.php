@@ -7,7 +7,7 @@
     <thead class="thead-primary">
         <tr>
             <th>#</th>
-            <th>Unit Of Mesure</th>
+            <th>Product Type</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -20,18 +20,14 @@
 
             <td class="action-table-data">
                 <div class="edit-delete-action">
-                    {{-- <a class="me-2 p-2 mb-0" href="{{ route('product_types.show', $product_type->id) }}">
-                        <i data-feather="eye" class="feather-eye"></i>
-                    </a> --}}
+                  
                     <a class="me-2 p-2" href="{{ route('product_types.edit', $product_type->id) }}">
                         <i data-feather="edit" class="feather-edit"></i>
                     </a>
-                    <form action="{{route('product_types.destroy',$product_type->id)}}" method="POST" class="d-inline">
+                    {{-- <form action="{{route('product_types.destroy',$product_type->id)}}" method="POST" class="d-inline"> --}}
                        
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class=" confirm-delete"  onclick="return confirm('Are you sure?')" style="color: red;width:10%; border:none">
-                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                     <x-delete action="{{url('product_types.destroy',$product_type->id)}}"/>
+                     {{-- <x-delete action="{{url('product_types.destroy',$product_type->id)}}"/> --}}
                         </button>
                     </form>
                    
@@ -43,7 +39,7 @@
     </tbody>
 </table>
     <div class="d-flex justify-content-end">
-        {{$product_types->links('vendor.pagination.bootstrap-5')}}
+        {{$product_types->links('vendor.pagination.custom')}}
     </div>
 @endsection
 

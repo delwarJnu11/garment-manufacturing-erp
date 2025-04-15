@@ -7,8 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+
+class User extends Authenticatable implements JWTSubject
+{
+
 use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable {
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
@@ -25,6 +32,20 @@ class User extends Authenticatable {
         'image',
     ];
 
+    // Use For JWT
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    // Use For JWT
+    public function getJWTCustomClaims()
+    {
+        return [
+            'email' => $this->email,
+            'name' => $this->name
+        ];
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -40,30 +61,36 @@ class User extends Authenticatable {
      *
      * @return array<string, string>
      */
-    protected function casts(): array {
+    protected function casts(): array
+    {
         return [
             'email_verified_at' => 'datetime',
             'password'          => 'hashed',
         ];
     }
 
-    public function role(): BelongsTo {
+    public function role(): BelongsTo
+    {
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    function isAdmin() {
+    function isAdmin()
+    {
         return $this->role_id == 1;
     }
 
-    function isHR() {
+    function isHR()
+    {
         return $this->role_id == 1;
     }
 
-    function isManager() {
+    function isManager()
+    {
         return $this->role_id == 1;
     }
 
-    function isEmployee(){
+    function isEmployee()
+    {
         return $this->role_id == 2;
     }
 }

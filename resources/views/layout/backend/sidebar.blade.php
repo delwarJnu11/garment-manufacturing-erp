@@ -3,21 +3,15 @@
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
                 <li class="submenu-open">
-                    <a href="{{ url('home') }}" class="subdrop">
+                    <a href="{{ url('dashboard') }}" class="subdrop">
                         <i data-feather="grid"></i><span>Dashboard</span>
                     </a>
                     <ul>
-                        {{-- @if (Auth::user()->isEmployee()) --}}
-                        {{-- <li> --}}
-                        {{-- </li> --}}
-                        {{-- @endif --}}
-                        {{-- @if (Auth::user()->isAdmin()) --}}
-                        {{-- <li class="submenu">
-                            <a href="javascript:void(0);" class="subdrop">
-                                <i data-feather="grid"></i><span>Dashboard</span>
-                            </a>
-                        </li> --}}
+
                         <li class="submenu">
+                            {{-- <a href="" class="subdrop"> --}}
+
+                            <li class="submenu">
                             <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
                                 <li>
@@ -29,7 +23,7 @@
                             </ul>
                         </li>
 
-                        <!-- START Prodcution Module Menu -->
+                            <!-- START Prodcution Module Menu -->
                         <li class="submenu">
                             <x-nav-link icon="settings" :active="request()->is('production*')">Production
                                 Management</x-nav-link>
@@ -111,7 +105,12 @@
 
                         <!--START 🔸 Order & Customers -->
                         <li class="submenu">
-                            <x-nav-link :active="request()->is('orders*') || request()->is('buyers*')">Orders & Buyers</x-nav-link>
+
+                            <x-nav-link :active="request()->is('orders*') ||
+                                request()->is('buyers*') ||
+                                request()->is('sales-invoice*') ||
+                                request()->is('salesPayments*')|| request()->is('pending') ">Orders & Buyers</x-nav-link>
+
                             <ul>
                                 <!-- 🔹 Orders -->
                                 <li><x-link href="{{ url('/buyers') }}" :active="request()->is('buyers')">Buyers</x-link></li>
@@ -129,8 +128,18 @@
                                         Orders</x-link></li>
                                 <li><x-link href="{{ route('order_status.index') }}" :active="request()->is('order_status.index')">Order
                                         Status</x-link></li>
+
+                                <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales
+                                        Invoices</x-link></li>
+                                <li><x-link href="{{ url('/pending') }}" :active="request()->is('pending')">Pending Invoice</x-link></li>
+                                        {{-- <li><x-link href="{{url('/pending')}}" :active="request()->is('pending')"></x-link>Pending Invoice</li> --}}
+                                <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link>
+                                </li>
+                                <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color Lists</x-link>
+
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color
                                         Lists</x-link>
+
                                 </li>
                                 <li><x-link href="{{ route('sizes.index') }}" :active="request()->is('sizes')">Size
                                         Lists</x-link>
@@ -286,7 +295,18 @@
 
                         {{-- End HR & Workforce Management --}}
 
-
+                        {{-- Start Inventory Module --}}
+                        <li class="submenu">
+                            <x-nav-link :active="request()->is('inventory*') ||
+                                request()->is('stock/warehouse*') ||
+                                request()->is('stock/category') ||
+                                request()->is('stock/product_lots') ||
+                                request()->is('stock/raw_materials') ||
+                                request()->is('stock/productCatelogues') ||
+                                request()->is('stock/products') ||
+                                request()->is('/stock/product_types') ||
+                                request()->is('stock/stocks') ||
+                                request()->is('stock/stock_adjustments')">Inventory & Warehouse</x-nav-link>
                         {{-- FINANCE & ACCOUNTS MODULE MENU START --}}
                         <li class="submenu"><a href="javascript:void(0);">
                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -327,7 +347,42 @@
                                     </ul>
                                 </li>
 
+                                <!-- 🔹 Warehouse & Stock -->
+                                <li>
+                                    <x-link href="{{ url('stock/products') }}" :active="request()->is('/stock/products')">All
+                                        Products
+                                    </x-link>
+                                </li>
+                                <li>
+                                    <x-link href="{{ url('stock/product_types') }}" :active="request()->is('/stock/product_types')">
+                                        Product Types
+                                    </x-link>
+                                </li>
+                                <li>
+                                    <x-link href="{{ url('/stock/warehouses') }}" :active="request()->is('stock/warehouses')">Warehouses
+                                    </x-link>
+                                </li>
 
+                                <!-- 🔹 Stock Management -->
+                                <li>
+                                    <x-link href="{{ url('/stock/stocks') }}" :active="request()->is('stock/stocks')">Stock 
+                                    </x-link>
+                                </li>
+                                <li>
+                                    <x-link href="{{ url('/stock/stock_adjustments') }}" :active="request()->is('stock/stock_adjustments')">Stock
+                                        Adjustment
+                                    </x-link>
+                                </li>
+                                <li>
+                                    <x-link href="{{ url('/stock/stock-movements') }}" :active="request()->is('stock/stock-movements')">Stock
+                                        movements
+                                    </x-link>
+                                </li>
+
+                                <!-- 🔹 Inventory Valuation -->
+                                {{-- <li class="submenu">
+                                    <a href="">Inventory Valuation <span class="menu-arrow"></span>
+                                    </a>
 
                                 <!-- <li class="submenu submenu-two"><a href="">Accounts Payable<span
                                             class="menu-arrow inside-submenu"></span></a>
@@ -364,6 +419,9 @@
                                         <li><a href="">Costing Methods</a></li>
                                         <li><a href="">Cost of Goods Manufactured</a></li>
                                     </ul>
+
+                                </li> --}}
+
                                 </li>
                                 <li class="submenu submenu-two"><a href="">Payroll & Employee Costing<span
                                             class="menu-arrow inside-submenu"></span></a>
@@ -385,6 +443,7 @@
                                         <li><a href="">Cash Flow Projections</a></li>
                                     </ul>
                                 </li> -->
+
 
                                 <!-- 🔹 Reports -->
                                 <!-- <li>
@@ -428,6 +487,7 @@
             </ul>
         </div>
     </div>
+</div>
 </div>
 
 @section('script')

@@ -41,13 +41,13 @@
                         @foreach ($sizes as $size)
                             <td>
                                 {{ $order->orderDetails->where('size.name', $size)->sum('qty') ?? 0 }}
-                                ({{ $order->orderDetails->pluck('uom.name')->unique()->implode(', ') }})
+                                (pcs)
                             </td>
                         @endforeach
                         <td>{{ $order->status->name ?? 'N/A' }}</td>
                         <td class="action-table-data">
                             <div class="edit-delete-action">
-                                <a class="me-2 p-2 mb-0" href="javascript:void(0);">
+                                <a class="me-2 p-2 mb-0" href="{{ route('orders.show', $order->id) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
