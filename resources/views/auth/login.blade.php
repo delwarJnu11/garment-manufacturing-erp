@@ -66,8 +66,8 @@
         type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon"
-        href="https://dreamspos.dreamstechnologies.com/html/template/assets/img/favicon.png" />
+    <!-- <link rel="shortcut icon" type="image/x-icon"
+        href="https://dreamspos.dreamstechnologies.com/html/template/assets/img/favicon.png" /> -->
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/bootstrap.min.css" />
@@ -106,9 +106,9 @@
     </div>
     <!-- Main Wrapper -->
     <div class="main-wrapper">
-        <div class="page-wrapper login-page-wrapper" style="min-height: 0 !important">
+        <div class="page-wrapper login-page-wrapper" style="min-height: 0 !important; display: flex; justify-content: center; align-items:center;">
             {{-- <div class="content"> --}}
-            <div class="account-content" style="background: #fff; border-radius: 5px">
+            <div class="account-content" style="background: #fff; border-radius: 5px; padding: 20px; width: 550px; margin: auto;">
                 <div class="login-wrapper">
                     <div class="login-content">
                         <form method="POST" action="{{ route('login') }}">

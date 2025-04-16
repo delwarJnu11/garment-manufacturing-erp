@@ -16,8 +16,8 @@
 			type="6bc737fdedebc88b41732761-text/javascript"></script>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon"
-        href="https://dreamspos.dreamstechnologies.com/html/template/assets/img/favicon.png" />
+    <!-- <link rel="shortcut icon" type="image/x-icon"
+        href="https://dreamspos.dreamstechnologies.com/html/template/assets/img/favicon.png" /> -->
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/bootstrap.min.css" />
@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/css/animate.css" />
 
     <!-- Select2 CSS -->
-    <link rel="stylesheet" href="{{ asset('assets') }}css/select2.min.css" />
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/select2.min.css" />
 
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/fontawesome.min.css" />
@@ -50,7 +50,7 @@
         <div class="account-content">
             <div class="login-wrapper register-wrap" style="margin: 10px 0;">
                 <div class="login-content"
-                    style="background-color: #fff; border-radius: 5px; box-shadow: 2px 2px 5px 2px #dedede;">
+                    style="background-color: #fff; border-radius: 5px; box-shadow: 2px 2px 5px 2px #dedede; padding: 20px">
                     {{-- <form action="{{ route('register') }}" method="POST" style="width: 100%;" enctype="multipart/form-data">
                         @csrf
                         <div class="login-userset">

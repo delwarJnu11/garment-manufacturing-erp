@@ -63,6 +63,11 @@
         </div> --}}
     </div>
 </div>
+
+@endsection
+
+
+@section('script')
 <script>
     function printPage() {
         var printContents = document.getElementById("printableArea").innerHTML;
@@ -75,5 +80,3 @@
 
 </script>
 @endsection
-
-

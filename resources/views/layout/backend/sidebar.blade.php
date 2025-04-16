@@ -12,7 +12,7 @@
                             {{-- <a href="" class="subdrop"> --}}
 
                             <li class="submenu">
-                            <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
+                            <x-nav-link icon="settings" :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
                                 <li>
                                     <x-link href="{{ route('users.index') }}" :active="request()->is('users')">User Lists</x-link>
@@ -429,7 +429,7 @@
                 }
             });
 
-            Toggle submenu on click
+            // Toggle submenu on click
             $(".submenu > a").click(function() {
                 $(this).toggleClass("active");
                 $(this).next("ul").slideToggle();

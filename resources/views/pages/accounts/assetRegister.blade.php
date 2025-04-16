@@ -91,7 +91,8 @@
     </div>
 
     <!-- jQuery for form validation -->
-    <script>
+@section('script')
+<script>
         $(document).ready(function () {
             // Submit form with validation
             $("#asset-form").on("submit", function (event) {
@@ -109,6 +110,8 @@
             });
         });
     </script>
+
+@endsection
 
 </body>
 

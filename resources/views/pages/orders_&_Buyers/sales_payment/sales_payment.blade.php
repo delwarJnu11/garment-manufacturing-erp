@@ -12,11 +12,7 @@
         </ul>
     </div>
 
-    <script>
-        setTimeout(function () {
-            document.getElementById('error-message').style.display = 'none';
-        }, 4000); 
-    </script>
+
 @endif
 
 
@@ -131,4 +127,13 @@
             {{-- {{ $salesPayments->links('vendor.pagination.custom') }} --}}
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+        setTimeout(function () {
+            document.getElementById('error-message').style.display = 'none';
+        }, 4000); 
+    </script>
+
 @endsection

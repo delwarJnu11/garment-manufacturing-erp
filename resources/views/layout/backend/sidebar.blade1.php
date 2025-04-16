@@ -338,6 +338,7 @@
     </div>
 </div> -->
 
+@section('script')
 <script>
     $(document).ready(function() {
         var currentUrl = window.location.href;
@@ -375,6 +376,7 @@
         });
     });
 </script>
+@endsection
 
 {{-- old sidebar --}}
 <div class="sidebar" id="sidebar">
@@ -1091,7 +1093,7 @@
             </ul>
         </div>
     </div>
-</div> -->
+</div>
 <!--
 @section('script')
     <script>

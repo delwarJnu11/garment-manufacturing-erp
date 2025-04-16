@@ -77,6 +77,9 @@
         </div>
     </div>
 
+@endsection
+
+@section('script')
     <!-- JavaScript to Select All Checkboxes -->
     <script>
         document.getElementById('select-all').addEventListener('click', function() {
@@ -84,4 +87,5 @@
             checkboxes.forEach(checkbox => checkbox.checked = this.checked);
         });
     </script>
+
 @endsection
