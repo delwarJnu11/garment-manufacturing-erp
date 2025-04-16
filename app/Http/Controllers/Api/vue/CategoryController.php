@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Vue;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Size;
+use App\Models\Uom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -30,6 +32,11 @@ class CategoryController extends Controller
             return response()->json(['err' => $th->getMessage()]);
         }
     }
+
+
+
+
+
     public function store(Request $request)
     {
         try {
@@ -77,37 +84,6 @@ class CategoryController extends Controller
         }
     }
 
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(Request $request, Category $category)
-    // {
-    //     Log::info('Request Data:', $request->all());
-
-    //     try {
-
-    //         $request->validate([
-    //             "name" => 'required|min:4|string',
-    //             "is_raw_material" => 'nullable|boolean',
-    //         ]);
-    //         $updated = $category->update([
-    //             "name" => $request->name,
-    //             "is_raw_material" => $request->isRawMaterial
-    //         ]);
-
-    //         if (!$updated) {
-    //             return response()->json(["error" => "Failed to update"], 500);
-    //         }
-
-    //         return response()->json(['category' => $category]);
-    //     } catch (\Throwable $th) {
-    //         Log::error('Update failed: ' . $th->getMessage());
-    //         return response()->json(['error' => $th->getMessage()]);
-    //     }
-    // }
-
     public function update(Request $request, $id)
     {
         try {
@@ -148,4 +124,29 @@ class CategoryController extends Controller
     {
         //
     }
+
+
+    public function all()
+    {
+        $categories = Category::all(); // fetch all, no pagination
+        return response()->json([
+            'categories' => $categories
+        ]);
+    }
+    public function size()
+    {
+        $sizes = Size::all(); // fetch all, no pagination
+        return response()->json([
+            'sizes' => $sizes
+        ]);
+    }
+    public function uom()
+    {
+        $uoms = Uom::all(); // fetch all, no pagination
+        return response()->json([
+            'uoms' => $uoms
+        ]);
+    }
+    
+    
 }

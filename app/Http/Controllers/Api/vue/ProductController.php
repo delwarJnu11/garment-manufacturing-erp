@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\vue;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -75,12 +76,21 @@ class ProductController extends Controller
         }
     }
 
+
+    public function productType()
+    {
+        $productTypes = ProductType::all(); // fetch all, no pagination
+        return response()->json([
+            'productTypes' => $productTypes
+        ]);
+    }
+    
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
