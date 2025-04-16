@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\vue;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductType;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -79,19 +80,23 @@ class ProductController extends Controller
 
     public function productType()
     {
-        $productTypes = ProductType::all(); // fetch all, no pagination
+        $productTypes = ProductType::all();
         return response()->json([
             'productTypes' => $productTypes
         ]);
     }
-    
+    public function warehouse()
+    {
+        $warehouses = Warehouse::all();
+        return response()->json([
+            'warehouses' => $warehouses
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        
-    }
+    public function show(string $id) {}
 
     /**
      * Update the specified resource in storage.
