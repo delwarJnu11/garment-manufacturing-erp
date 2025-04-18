@@ -30,6 +30,7 @@ Route::get('/all-categories', [CategoryController::class, 'all']);
 Route::get('/sizes', [CategoryController::class, 'size']);
 Route::get('/uoms', [CategoryController::class, 'uom']);
 Route::apiResource('products', ProductController::class);
+Route::get('allProducts', [ProductController::class, 'allProducts']);
 Route::get('productTypes', [ProductController::class, 'ProductType']);
 Route::get('warehouses', [ProductController::class, 'warehouse']);
 Route::apiResource('/suppliers', SupplierController::class);

@@ -42,6 +42,13 @@ class ProductController extends Controller
             ], 500);
         }
     }
+    public function allProducts()
+    {
+        $products = Product::with('product_type')->get();
+        return response()->json([
+            'products' => $products
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -76,7 +83,6 @@ class ProductController extends Controller
             //throw $th;
         }
     }
-
 
     public function productType()
     {

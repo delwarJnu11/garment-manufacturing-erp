@@ -48,7 +48,7 @@ class InvSuppliersController extends Controller
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
 
-            //         // Supplier name without spaces
+            // Supplier name without spaces
             $supplierName = preg_replace('/\s+/', '', $request->first_name); // remove space
             $fileName = time() . $supplierName . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/suppliers'), $fileName);
@@ -69,7 +69,6 @@ class InvSuppliersController extends Controller
 
         return redirect('suppliers')->with('success', "Creted suppliers successfully");
     }
-
     /**
      * Display the specified resource.
      */
@@ -104,7 +103,7 @@ class InvSuppliersController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            // পdelete old image
+
             if ($supplier->photo && $supplier->photo !== 'default.png') {
                 $oldPhotoPath = public_path('uploads/suppliers/' . $supplier->photo);
                 if (file_exists($oldPhotoPath)) {
@@ -113,11 +112,11 @@ class InvSuppliersController extends Controller
             }
 
             $file = $request->file('photo');
-            $supplierName = preg_replace('/\s+/', '', $request->first_name); // স্পেস রিমুভ করা হলো
+            $supplierName = preg_replace('/\s+/', '', $request->first_name);
             $fileName = time() . $supplierName . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/suppliers'), $fileName);
         } else {
-            $fileName = $supplier->photo; // পুরানো ছবিই থাকবে
+            $fileName = $supplier->photo; //old photo 
         }
 
         $supplier->update([

@@ -29,7 +29,7 @@ class SupplierController extends Controller
                 });
             }
 
-            $suppliers = $suppliersQuery->paginate(5);
+            $suppliers = $suppliersQuery->paginate(4);
             return response()->json([
                 'message' => 'Retrieve suppliers data successfully',
                 'suppliers' => $suppliers
@@ -39,6 +39,7 @@ class SupplierController extends Controller
             return response()->json(["erro" => $th->getMessage()], 500);
         }
     }
+
 
     /**
      * Store a newly created resource in storage.

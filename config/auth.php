@@ -40,11 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        // Added this for JWT
+        // Added this for JWT with api
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
+        // Added this for JWT with vue
         'vue' => [
             'driver' => 'jwt',
             'provider' => 'users',
