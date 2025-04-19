@@ -57,7 +57,7 @@ class ProductionWorkOrderController extends Controller
         $productionPlan = ProductionPlan::where('order_id', $order_id)->firstOrFail();
         $workStatuses = ProductionWorkStatus::all();
         $users = User::whereHas('role', function ($query) {
-            $query->where('name', 'Production');
+            $query->where('name', 'Production Manager');
         })->get();
 
         $single_order = Order::with('orderDetails')->findOrFail($order_id);
@@ -104,7 +104,7 @@ class ProductionWorkOrderController extends Controller
 
     public function store(Request $request)
     {
-        Log::info('Before creating production work order', $request->all());
+        // Log::info('Before creating production work order', $request->all());
 
         $request->validate([
             'order_id' => 'required|numeric',

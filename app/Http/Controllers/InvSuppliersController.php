@@ -39,16 +39,33 @@ class InvSuppliersController extends Controller
             "first_name" => "required|string|max:40",
             "last_name" => "required|string|max:40",
             "bank_account_id" => "nullable",
-            "email" => "required|email|unique:inv_suppliers,email,max:50",
-            "phone" => "required|string|unique:inv_suppliers,phone,max:20",
+            "email" => "required|email|unique:inv_suppliers,email|max:50",
+            "phone" => "required|string|unique:inv_suppliers,phone|max:20",
             "address" => "required|string|max:100",
             "photo" => "required|image|mimes:jpg,jpeg,png|max:2048"
+        ], [
+            'first_name.required' => 'First name is required.',
+            'last_name.required' => 'Last name is required.',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Enter a valid email address.',
+            'email.unique' => 'This email is already in use.',
+            'email.max' => 'Email cannot be more than 50 characters.',
+            'phone.required' => 'Phone number is required.',
+            'phone.unique' => 'This phone number is already in use.',
+            'phone.max' => 'Phone number cannot exceed 20 characters.',
+            'address.required' => 'Address is required.',
+            'address.max' => 'Address should not exceed 100 characters.',
+            'photo.required' => 'Photo is required.',
+            'photo.image' => 'The file must be an image.',
+            'photo.mimes' => 'Photo must be a JPG, JPEG, or PNG file.',
+            'photo.max' => 'Photo size should not exceed 2MB.'
         ]);
+
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
 
-            //         // Supplier name without spaces
+            // Supplier name without spaces
             $supplierName = preg_replace('/\s+/', '', $request->first_name); // remove space
             $fileName = time() . $supplierName . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/suppliers'), $fileName);
