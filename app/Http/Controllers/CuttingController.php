@@ -6,6 +6,7 @@ use App\Models\Bom;
 use App\Models\BomDetails;
 use App\Models\Cutting;
 use App\Models\ProductionWorkOrder;
+use App\Models\Uom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -71,6 +72,7 @@ class CuttingController extends Controller
 
         $bom_id = $bom->id;
 
+
         // Get order quanity based on Size
         $sizeQuantities = DB::table('order_details')
             ->where('order_id', $order_id)
@@ -81,9 +83,11 @@ class CuttingController extends Controller
         // Convert result into an array (size-wise quantity)
         $sizesWithQty = $sizeQuantities->toArray();
 
+        //Get UOM for ID
+        $uom = Uom::where('name', 'Meter')->first();
         // Get total quantity_used from BOMDetails based on bom_id
         $Quantities = BomDetails::where('bom_id', $bom_id)
-            ->where('uom_id', 2)
+            ->where('uom_id', $uom->id)
             ->select('size_id', DB::raw('SUM(quantity_used) as total_quantity_used'))
             ->groupBy('size_id')
             ->pluck('total_quantity_used', 'size_id');
@@ -99,10 +103,9 @@ class CuttingController extends Controller
                 $totalFabricsUsed += $orderQty * $sizesWithUsedQty[$sizeId];
             }
         }
-
         // Fetch all relevant data without averaging wastage
         $wastages = BomDetails::where('bom_id', $bom_id)
-            ->where('uom_id', 2)
+            ->where('uom_id', $uom->id)
             ->select('size_id', 'quantity_used', 'wastage')
             ->get();
 

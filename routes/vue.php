@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\Api\Vue\AuthController;
 use App\Http\Controllers\Api\Vue\CategoryController;
-use App\Http\Controllers\Api\vue\ProductController;
+use App\Http\Controllers\Api\Vue\ProductController;
 use App\Http\Controllers\Api\Vue\BuyerController;
+use App\Http\Controllers\Api\Vue\FabricsTypeController;
+use App\Http\Controllers\Api\Vue\OrderStatusController;
 use App\Http\Controllers\Api\Vue\RolesController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\Api\Vue\UserController;
 
 // ALL AUTH CONTROLLERS START
@@ -22,6 +23,7 @@ Route::apiResource('/roles', RolesController::class);
 
 // Farzana 
 Route::apiResource('users', UserController::class);
+Route::get('/supervisors', [UserController::class, 'getSupervisors']);
 
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('products', ProductController::class);
@@ -29,3 +31,11 @@ Route::apiResource('products', ProductController::class);
 
 // Buyers
 Route::apiResource('/buyers', BuyerController::class);
+
+// Orders
+Route::prefix('orders')->group(function () {
+    Route::apiResource('/status', OrderStatusController::class);
+});
+
+// Fabrics Type Route
+Route::apiResource('/fabrics/types', FabricsTypeController::class);

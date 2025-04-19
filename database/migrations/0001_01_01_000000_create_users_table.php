@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->integer('role_id');
+            $table->string('image')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -35,6 +38,15 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'role_id' => '1',
+            'password' => '$2y$12$BkKbqneroySzfD/iLtkZw./0o0AF4RRWF4UPSMQTWrTaSc70TDwDu',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**

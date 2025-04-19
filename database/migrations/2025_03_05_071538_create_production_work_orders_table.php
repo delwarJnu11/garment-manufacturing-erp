@@ -27,20 +27,20 @@ return new class extends Migration {
         });
 
 
-        ProductionWorkOrder::create([
-            'production_plan_id' => 1,
-            'order_id' => 101,
-            'work_order_status_id' => 1,
-            'assigned_to' => 5,
-            'total_pieces' => 500,
-            'cutting_status' => 'Completed',
-            'sewing_status' => 'In Progress',
-            'finishing_status' => 'Pending',
-            'packaging_status' => 'Pending',
-            'wastage' => 10,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // ProductionWorkOrder::create([
+        //     'production_plan_id' => 1,
+        //     'order_id' => 101,
+        //     'work_order_status_id' => 1,
+        //     'assigned_to' => 5,
+        //     'total_pieces' => 500,
+        //     'cutting_status' => 'Completed',
+        //     'sewing_status' => 'In Progress',
+        //     'finishing_status' => 'Pending',
+        //     'packaging_status' => 'Pending',
+        //     'wastage' => 10,
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
     }
 
 
