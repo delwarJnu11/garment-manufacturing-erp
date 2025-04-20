@@ -13,7 +13,7 @@ class Sweing extends Model
         'cutting_id',
         'work_order_id',
         'sewing_status',
-        'total_pieces',
+        'total_quantity',
         'target_quantity',
         'actual_quantity',
         'swen_complete',

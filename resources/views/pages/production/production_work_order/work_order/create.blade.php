@@ -59,7 +59,7 @@
                         <x-input-error :messages="$errors->get('total_pieces')" class="mt-2" />
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <button type="btn" id="create_btn" class="btn btn-primary">Create Work Order</button>
+                        <button type="submit" id="create_btn" class="btn btn-primary">Create Work Order</button>
                     </div>
                 </form>
             </div>

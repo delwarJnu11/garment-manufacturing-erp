@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->integer('order_id');
             $table->integer('work_order_status_id')->default(1);
             $table->integer('assigned_to');
-            $table->integer('total_pieces')->default(0);
+            $table->integer('total_quantity')->default(0);
             $table->enum('cutting_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('sewing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('finishing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
@@ -32,7 +32,7 @@ return new class extends Migration {
             'order_id' => 101,
             'work_order_status_id' => 1,
             'assigned_to' => 5,
-            'total_pieces' => 500,
+            'total_quantity' => 500,
             'cutting_status' => 'Completed',
             'sewing_status' => 'In Progress',
             'finishing_status' => 'Pending',

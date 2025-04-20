@@ -29,16 +29,25 @@ class SupplierController extends Controller
                 });
             }
 
-            $suppliers = $suppliersQuery->paginate(4);
+            $suppliers = $suppliersQuery->paginate(5);
             return response()->json([
                 'message' => 'Retrieve suppliers data successfully',
                 'suppliers' => $suppliers
             ], 200);
         } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+            // Log::error($th->getMessage());
             return response()->json(["erro" => $th->getMessage()], 500);
         }
     }
+
+    public function allSuppliers()
+    {
+        Log::info('allSuppliers route hit!');
+        return response()->json([
+            'suppliers' => InvSupplier::all()
+        ]);
+    }
+    
 
 
     /**

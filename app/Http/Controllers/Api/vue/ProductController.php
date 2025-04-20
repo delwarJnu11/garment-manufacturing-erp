@@ -78,7 +78,7 @@ class ProductController extends Controller
             ]);
             return response()->json(['message' => 'products create successfully'], 200);
         } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+            // Log::error($th->getMessage());
             return response()->json(['error' => $th->getMessage()], 500);
             //throw $th;
         }

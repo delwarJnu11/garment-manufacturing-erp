@@ -44,29 +44,10 @@ class PurchaseInvoiceController extends Controller
             DB::beginTransaction();
 
             // Log incoming request for debugging
-            Log::info('Received Purchase Data:', $request->all());
+            // Log::info('Received Purchase Data:', $request->all());
 
             // Decode JSON products if necessary
             $products = is_string($request->products) ? json_decode($request->products, true) : $request->products;
-
-            // Validate the request
-            // $validated = $request->validate([
-            //     'supplier_id' => 'required|exists:inv_suppliers,id',
-            //     'total_amount' => 'required|numeric',
-            //     'paid_amount' => 'required|numeric',
-            //     'discount' => 'sometimes|numeric',
-            //     'vat' => 'sometimes|numeric',
-            //     'products' => 'required|array',
-            //     'products.*.item_id' => 'required|exists:products,id',
-            //     'products.*.qty' => 'required|numeric|min:1',
-            //     'products.*.price' => 'required|numeric|min:0',
-            //     // 'products.*.lot_id' => 'nullable|exists:product_lots,id',
-            //     'products.*.total_discount' => 'sometimes|numeric'
-            // ]);
-
-            // Log::info('Validation Passed:', $validated);
-
-
             $purchaseDate = now();
             $pendingAmount = $request->total_amount - $request->paid_amount;
 

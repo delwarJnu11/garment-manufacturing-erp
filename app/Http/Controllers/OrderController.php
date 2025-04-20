@@ -28,12 +28,15 @@ class OrderController extends Controller
             'orderDetails.uom'
         ])->whereHas('status', function ($query) {
             $query->where('name', 'Pending');
-        })->groupBy('order_number')->paginate(4);
-
+        })->distinct('order_number')->paginate(4);
+        // dd($orders);
         // Get all unique sizes dynamically
         $sizes = Size::pluck('name')->toArray();
 
         return view('pages.orders_&_buyers.order.index', compact('orders', 'sizes'));
+
+       
+        
     }
     /**
      * In Progress Orders

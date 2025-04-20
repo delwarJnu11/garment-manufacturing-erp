@@ -4,8 +4,9 @@ use App\Http\Controllers\Api\Vue\AuthController;
 use App\Http\Controllers\Api\Vue\CategoryController;
 use App\Http\Controllers\Api\vue\ProductController;
 use App\Http\Controllers\Api\Vue\BuyerController;
+use App\Http\Controllers\Api\Vue\PurchaseInvoiceController;
 use App\Http\Controllers\Api\Vue\RolesController;
-use App\Http\Controllers\Api\vue\SupplierController;
+use App\Http\Controllers\Api\Vue\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\Vue\UserController;
@@ -34,7 +35,14 @@ Route::get('allProducts', [ProductController::class, 'allProducts']);
 Route::get('productTypes', [ProductController::class, 'ProductType']);
 Route::get('warehouses', [ProductController::class, 'warehouse']);
 Route::apiResource('/suppliers', SupplierController::class);
+Route::get('/allSuppliers', [SupplierController::class,'allSuppliers']);
 // Route::apiResource('/roles', RolesController::class)->middleware('auth:api');
 
 // Buyers
 Route::apiResource('/buyers', BuyerController::class);
+
+
+// purchaseOrder invoice 
+
+Route::get('/invoice-id', [PurchaseInvoiceController::class, 'createInvoice']);
+Route::post('/purchaseInvoice', [PurchaseInvoiceController::class, 'process']);
