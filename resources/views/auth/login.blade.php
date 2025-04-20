@@ -38,18 +38,21 @@
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/style.css" />
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/custom.css" />
     @yield('css')
 </head>
 
 <body
     style="
-    background: linear-gradient(rgba(0, 0, 0,0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('assets') }}/img/login-bg.jpg'), center/cover no-repeat fixed;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                    url('{{ asset('assets') }}/img/login-bg.jpg') no-repeat center center fixed;
+        background-size: cover;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
 ">
     <div id="global-loader">
         <div class="whirly-loader"></div>

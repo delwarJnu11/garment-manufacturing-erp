@@ -24518,7 +24518,7 @@ body.mini-sidebar.expand-menu
 .login-wrapper {
     width: 100%;
     overflow: hidden;
-    height: 100vh;
+    /* height: 100vh; */
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     display: -webkit-box;
@@ -24548,8 +24548,8 @@ body.mini-sidebar.expand-menu
     background-image: url(../img/authentication/email-verification-img.jpg);
 }
 .login-wrapper .login-content {
-    width: 50%;
-    height: 100vh;
+    width: 100%;
+    /* height: 100vh; */
     padding: 24px;
     overflow: auto;
     display: -webkit-box;
