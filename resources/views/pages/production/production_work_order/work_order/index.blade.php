@@ -17,7 +17,6 @@
                     <th>Finishing</th>
                     <th>Packaging</th>
                     <th>Wastage</th>
-                    <th>Order Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -71,10 +70,7 @@
                                 {{ $order->packaging_status }}
                             </span>
                         </td>
-                        <td>{{ $order->wastage }}</td>
-                        <td>
-                            {{ $order->packaging_status }}
-                        </td>
+                        <td>{{ $order->wastage }}(pcs)</td>
                         <td>
                             @if ($order->cutting_status == 'Pending' || $order->cutting_status == 'In Progress')
                                 <button data-id="{{ encrypt($order->id) }}" class="btn btn-warning cutting">Cutting

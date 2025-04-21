@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\OrderDetail;
 use App\Models\ProductionWorkOrder;
 use App\Models\Sweing;
+use App\Models\Wastage;
 use App\Services\WastageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -94,24 +95,44 @@ class SweingController extends Controller
             if ($request->wastage > 0) {
                 $wastageService = new WastageService();
 
-                $wastageService->createWastage([
-                    'order_id' => optional($workOrder)->order_id,
-                    'product_id' => $productId,
-                    'work_order_id' => $request->work_order_id,
-                    'quantity' => $request->wastage,
-                    'section' => 'Sewing',
-                    'wastage_type_name' => 'Sweing Defect',
-                    'remarks' => 'Defect found while sweinging',
-                    'is_sellable' => true,
-                ]);
+                // find wastage based on Order id
+                $result = Wastage::where('order_id', $workOrder->order_id)->exists();
+                if (!$result) {
+                    $wastageService->createWastage([
+                        'order_id' => optional($workOrder)->order_id,
+                        'product_id' => $productId,
+                        'work_order_id' => $request->work_order_id,
+                        'quantity' => $request->wastage,
+                        'section' => 'Sewing',
+                        'wastage_type_name' => 'Sweing Defect',
+                        'remarks' => 'Defect found while sweinging',
+                        'is_sellable' => true,
+                    ]);
+
+                    // Update Work Order Wastage
+                    $workOrder->wastage = $request->wastage;
+                    $workOrder->save();
+                } else {
+                    $wastage = Wastage::where('order_id', $workOrder->order_id)->first();
+                    $newQty = $wastage->quantity + $request->wastage;
+
+                    $wastage->quantity = $newQty;
+                    $wastage->save();
+
+                    // Update Work Order Wastage
+                    $workOrder->wastage = $newQty;
+                    $workOrder->save();
+                }
             }
+
+            $wastageQty = ($request->wastage ?? 0) + ($sewing->wastage ?? 0);
 
             // Sewing update
             $sewing->update([
                 'sewing_status' => $sewing_status,
                 'actual_quantity' => $request->actual_quantity,
                 'swen_complete' => $sewing_completed,
-                'wastage' => $request->wastage,
+                'wastage' => $wastageQty,
                 'efficiency' => round($efficiency, 2),
                 'sewing_end_date' => $request->sewing_end_date,
                 'remarks' => $request->remarks,
