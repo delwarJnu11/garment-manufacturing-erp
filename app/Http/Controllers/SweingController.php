@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderDetail;
 use App\Models\ProductionWorkOrder;
 use App\Models\Sweing;
+use App\Services\WastageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SweingController extends Controller
 {
@@ -13,7 +16,7 @@ class SweingController extends Controller
      */
     public function index()
     {
-        $sweings = Sweing::paginate(4);
+        $sweings = Sweing::orderBy('id', 'desc')->paginate(4);
         return view('pages.production.sweing.index', compact('sweings'));
     }
 
@@ -52,9 +55,9 @@ class SweingController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, $id)
     {
-        // Validate the form data
         $request->validate([
             'cutting_id' => 'required|integer',
             'work_order_id' => 'required|integer',
@@ -69,38 +72,67 @@ class SweingController extends Controller
             'remarks' => 'nullable|string',
         ]);
 
-        // Find the existing sewing
-        $sewing = Sweing::findOrFail($id);
+        DB::beginTransaction();
 
-        $efficiency = ($request->total_quantity > 0)
-            ? ($request->actual_quantity / $request->total_quantity) * 100
-            : 0;
+        try {
+            $sewing = Sweing::findOrFail($id);
 
-        $sewing_status = ($request->total_quantity == $request->actual_quantity) ? 'Completed' : $request->sewing_status;
+            $efficiency = ($request->total_quantity > 0)
+                ? ($request->actual_quantity / $request->total_quantity) * 100
+                : 0;
 
-        // Add Prev Swen Qty and New swen Qty
-        $sewing_completed = $sewing->swen_complete + $request->swen_complete;
+            $sewing_status = ($request->total_quantity == $request->actual_quantity)
+                ? 'Completed'
+                : $request->sewing_status;
 
-        // Update Sewing table
-        $sewing->update([
-            'sewing_status' => $sewing_status,
-            'actual_quantity' => $request->actual_quantity,
-            'swen_complete' => $sewing_completed,
-            'wastage' => $request->wastage,
-            'efficiency' => round($efficiency, 2),
-            'sewing_end_date' => $request->sewing_end_date,
-            'remarks' => $request->remarks,
-        ]);
+            $sewing_completed = $sewing->swen_complete + $request->swen_complete;
 
-        // Update Production Work Order Status when completed
-        if ($sewing_status == 'Completed') {
-            ProductionWorkOrder::where('id', $request->work_order_id)
-                ->update(['sewing_status' => 'Completed']);
+            $workOrder = ProductionWorkOrder::find($request->work_order_id);
+            $productId = OrderDetail::where('order_id', $workOrder->order_id)->value('product_id');
+
+            // Wastage Create
+            if ($request->wastage > 0) {
+                $wastageService = new WastageService();
+
+                $wastageService->createWastage([
+                    'order_id' => optional($workOrder)->order_id,
+                    'product_id' => $productId,
+                    'work_order_id' => $request->work_order_id,
+                    'quantity' => $request->wastage,
+                    'section' => 'Sewing',
+                    'wastage_type_name' => 'Sweing Defect',
+                    'remarks' => 'Defect found while sweinging',
+                    'is_sellable' => true,
+                ]);
+            }
+
+            // Sewing update
+            $sewing->update([
+                'sewing_status' => $sewing_status,
+                'actual_quantity' => $request->actual_quantity,
+                'swen_complete' => $sewing_completed,
+                'wastage' => $request->wastage,
+                'efficiency' => round($efficiency, 2),
+                'sewing_end_date' => $request->sewing_end_date,
+                'remarks' => $request->remarks,
+            ]);
+
+            // Update Work Order Status if Completed
+            if ($sewing_status == 'Completed') {
+                $workOrder->update([
+                    'sewing_status' => 'Completed'
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('sweing.index')->with('success', 'Sweing details updated successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong: ' . $e->getMessage());
         }
-
-        // Redirect with success message
-        return redirect()->route('sweing.index')->with('success', 'Sweing details updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.

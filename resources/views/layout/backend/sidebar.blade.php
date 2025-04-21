@@ -98,6 +98,24 @@
                                         </li>
                                     </ul>
                                 </li>
+                                {{-- Production Wastage Management Menu --}}
+                                <li>
+                                    <x-nav-link icon="list" :active="request()->is('wastages*')">
+                                        Wastage Management
+                                    </x-nav-link>
+                                    <ul style="margin-left: 20px;">
+                                        <li>
+                                            <x-link href="{{ route('wastage.index') }}" :active="request()->is('wastages/wastage')">
+                                                Wastage Lists
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('wastage-types.index') }}" :active="request()->is('wastage/wastage-types')">
+                                                Wastage Type Lists
+                                            </x-link>
+                                        </li>
+                                    </ul>
+                                </li>
 
                             </ul>
                         </li>

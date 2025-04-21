@@ -75,6 +75,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseReportController;
 use App\Http\Controllers\SalesInvoiceController;
 use App\Http\Controllers\StockAdjustmentController;
+use App\Http\Controllers\WastageController;
+use App\Http\Controllers\WastageTypeController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -127,6 +129,13 @@ Route::prefix('production-stages')->group(function () {
 
     // Custom route for completed cuttings
     Route::get('cutting-completed', [CuttingController::class, 'completed'])->name('cutting.completed');
+});
+
+Route::prefix('wastages')->group(function () {
+    Route::resource('wastage', WastageController::class);
+    Route::resource('wastage-types', WastageTypeController::class);
+
+    // Custom route for completed cuttings
 });
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bom;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\Raw_material;
 use App\Models\Size;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -17,58 +18,69 @@ class BomController extends Controller
     public function index()
     {
         $sizes = Size::all();
-        $boms = BOM::with(['order.buyer', 'orderDetails', 'bomDetails'])
-            ->get()
-            ->map(function ($bom) {
-                $sizes = $bom->bomDetails->groupBy('size_id');
 
-                // Dynamically generate size-based costs
-                $sizeCosts = [];
-                foreach ($sizes as $sizeId => $details) {
-                    $sizeCosts["size_{$sizeId}"] = $details->sum(fn($detail) => ($detail->quantity_used + (($detail->wastage * $detail->quantity_used) / 100)) * $detail->unit_price) ?? 0;
-                }
+        $boms = BOM::with(['order.buyer', 'orderDetails', 'bomDetails'])->orderBy('id', 'desc')->paginate(3);
 
-                return array_merge([
-                    'bom_id' => $bom->id,
-                    'order_id' => $bom->order->order_number,
-                    'buyer_name' => $bom->order->buyer->first_name . " " . $bom->order->buyer->last_name,
-                    'product_name' => optional($bom->orderDetails->first())->product->name,
-                    'labour_cost' => $bom->labour_cost,
-                    'overhead_cost' => $bom->overhead_cost,
-                    'utility_cost' => $bom->utility_cost,
-                    'total_cost' => $bom->total_cost,
-                    'delivery_date' => optional($bom->order->delivery_date)->format('d M Y'),
-                    'status' => $bom->order->status,
-                ], $sizeCosts);
-            });
+        $mappedBoms = $boms->getCollection()->map(function ($bom) {
+            $sizes = $bom->bomDetails->groupBy('size_id');
+
+            // Dynamically generate size-based costs
+            $sizeCosts = [];
+            foreach ($sizes as $sizeId => $details) {
+                $sizeCosts["size_{$sizeId}"] = $details->sum(
+                    fn($detail) => ($detail->quantity_used + (($detail->wastage * $detail->quantity_used) / 100)) * $detail->unit_price
+                ) ?? 0;
+            }
+
+            return array_merge([
+                'bom_id' => $bom->id,
+                'order_id' => $bom->order->order_number,
+                'buyer_name' => $bom->order->buyer->first_name . " " . $bom->order->buyer->last_name,
+                'product_name' => optional($bom->orderDetails->first())->product->name,
+                'labour_cost' => $bom->labour_cost,
+                'overhead_cost' => $bom->overhead_cost,
+                'utility_cost' => $bom->utility_cost,
+                'total_cost' => $bom->total_cost,
+                'delivery_date' => optional($bom->order->delivery_date)->format('d M Y'),
+                'status' => $bom->order->status,
+            ], $sizeCosts);
+        });
+
+        // Replace original collection with mapped version
+        $boms->setCollection($mappedBoms);
 
         return view('pages.production.bom.index', compact('boms', 'sizes'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        // $orders = Order::with([
-        //     'buyer',
-        //     'status',
-        //     'orderDetails.product',
-        //     'orderDetails.size',
-        //     'orderDetails.color',
-        //     'orderDetails.uom'
-        // ])->groupBy('order_number')->get();
-        $orders = Order::selectRaw('MIN(id) as id, order_number')
-            ->with([
-                'buyer',
-                'status',
-                'orderDetails.product',
-                'orderDetails.size',
-                'orderDetails.color',
-                'orderDetails.uom'
-            ])
-            ->groupBy('order_number')
-            ->get();
+        // Find Pending Order Status
+        $orderStatus = OrderStatus::where('name', 'Pending')->first();
+
+        // Get Order with details Eager Loading 
+        $orders = Order::with([
+            'buyer',
+            'status',
+            'orderDetails.product',
+            'orderDetails.size',
+            'orderDetails.color',
+            'orderDetails.uom'
+        ])->where('status_id', $orderStatus->id)->get();
+        // $orders = Order::selectRaw('MIN(id) as id, order_number')
+        //     ->with([
+        //         'buyer',
+        //         'status',
+        //         'orderDetails.product',
+        //         'orderDetails.size',
+        //         'orderDetails.color',
+        //         'orderDetails.uom'
+        //     ])
+        //     ->groupBy('order_number')
+        //     ->get();
 
 
         // Extract product names and IDs and ensure uniqueness
@@ -76,10 +88,11 @@ class BomController extends Controller
             return $order->orderDetails->map(function ($detail) use ($order) {
                 return [
                     'order_id' => $order->id,
+                    'order_number' => $order->order_number,
                     'name' => $detail->product->name,
                 ];
             });
-        })->unique('name')->values();
+        })->unique('order_number')->values();
 
         return view('pages.production.bom.create', compact('orders', 'products'));
     }
