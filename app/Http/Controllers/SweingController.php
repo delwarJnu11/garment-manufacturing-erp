@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderDetail;
 use App\Models\ProductionWorkOrder;
+use App\Models\QualityCheck;
 use App\Models\Sweing;
 use App\Models\Wastage;
 use App\Services\WastageService;
@@ -17,8 +18,26 @@ class SweingController extends Controller
      */
     public function index()
     {
-        $sweings = Sweing::orderBy('id', 'desc')->paginate(4);
+        $sweings = Sweing::where('sewing_status', 'In Progress')->orderBy('id', 'desc')->paginate(4);
         return view('pages.production.sweing.index', compact('sweings'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function completedSweings()
+    {
+        $sweings = Sweing::where('sewing_status', 'Completed')->orderBy('id', 'desc')->paginate(4);
+
+        foreach ($sweings as $sweing) {
+            $workOrderId = $sweing->work_order_id;
+
+            // Check if work_order_id exists in the QualityCheck table
+            $qcExists = QualityCheck::where('work_order_id', $workOrderId)->exists();
+
+            $sweing->qc_exists = $qcExists;
+        }
+        return view('pages.production.sweing.completed', compact('sweings'));
     }
 
     /**

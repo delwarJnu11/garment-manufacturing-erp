@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($cuttingOrders as $cutting)
+                @forelse ($cuttingOrders as $cutting)
                     <tr>
                         <td>{{ $cutting->workOrder && $cutting->workOrder->order ? $cutting->workOrder->order->order_number : 'N/A' }}
                         </td>
@@ -53,7 +53,11 @@
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td class="text-danger" colspan="9">No cutting In Progress</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

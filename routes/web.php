@@ -20,6 +20,7 @@ use App\Http\Controllers\CategoryTypeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CompanyProfileController;
 use App\Http\Controllers\CuttingController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FabricTypeController;
 use App\Http\Controllers\HrmAttendanceListController;
 use App\Http\Controllers\HrmDepartmentController;
@@ -73,6 +74,7 @@ use App\Http\Controllers\SweingController;
 use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\PurchaseReportController;
+use App\Http\Controllers\QualityCheckController;
 use App\Http\Controllers\SalesInvoiceController;
 use App\Http\Controllers\StockAdjustmentController;
 use App\Http\Controllers\WastageController;
@@ -87,9 +89,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard-home');
-})->middleware(['auth', 'verified', 'admin'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -126,16 +126,16 @@ Route::resource('production-work-orders', ProductionWorkOrderController::class);
 Route::prefix('production-stages')->group(function () {
     Route::resource('cutting', CuttingController::class);
     Route::resource('sweing', SweingController::class);
+    Route::resource('qc', QualityCheckController::class);
 
     // Custom route for completed cuttings
     Route::get('cutting-completed', [CuttingController::class, 'completed'])->name('cutting.completed');
+    Route::get('sweing-completed', [SweingController::class, 'completedSweings'])->name('sweing.complete');
 });
 
 Route::prefix('wastages')->group(function () {
     Route::resource('wastage', WastageController::class);
     Route::resource('wastage-types', WastageTypeController::class);
-
-    // Custom route for completed cuttings
 });
 
 

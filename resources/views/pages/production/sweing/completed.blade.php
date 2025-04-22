@@ -8,7 +8,6 @@
                 <tr>
                     <th>Order No.</th>
                     <th>Total Qty (pcs)</th>
-                    <th>Target Qty (pcs)</th>
                     <th>Swen Completed</th>
                     <th>Actual Qty</th>
                     <th>Efficiency (%)</th>
@@ -23,7 +22,6 @@
                         <td>{{ $sweing->workOrder && $sweing->workOrder->order ? $sweing->workOrder->order->order_number : 'N/A' }}
                         </td>
                         <td id="qty">{{ $sweing->total_quantity }} (pcs)</td>
-                        <td>{{ $sweing->target_quantity }} (pcs)</td>
                         <td>{{ $sweing->swen_complete }} (pcs)</td>
                         <td>{{ $sweing->actual_quantity }} (pcs)</td>
                         <td>
@@ -37,26 +35,15 @@
                         {{-- <td>{{ $sweing->efficiency ?? 0 }}</td> --}}
                         <td>{{ $sweing->wastage }} (pcs)</td>
                         <td>
-                            <span class="badge badges-warning">
+                            <span class="badge badges-success">
                                 {{ $sweing->sewing_status }}
                             </span>
                         </td>
                         <td class="action-table-data">
-                            <div class="edit-delete-action">
-                                <a class="me-2 p-2 mb-0" href={{ route('sweing.edit', $sweing->id) }}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-eye action-eye">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                        <circle cx="12" cy="12" r="3"></circle>
-                                    </svg>
-                                </a>
-                                <a class="me-2 p-2" href={{ route('sweing.edit', $sweing->id) }}>
-                                    <i data-feather="edit" class="feather-edit"></i>
-                                </a>
-                                <x-delete />
-                            </div>
+                            <button class="btn btn-secondary btn-check-qc"
+                                data-work-order-id="{{ $sweing->work_order_id }}">
+                                {{ $sweing->qc_exists ? 'QC Added' : 'Check QC' }}
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -102,6 +89,8 @@
 @endsection
 
 @section('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const bars = document.querySelectorAll('.efficiency-bar');
@@ -120,6 +109,34 @@
                     bar.classList.add("high");
                 }
             });
+        });
+
+        // Jquery
+        $(function() {
+            $('tbody').on('click', '.btn-check-qc', function() {
+                const workOrderId = $(this).data('work-order-id');
+                const button = $(this);
+
+                $.ajax({
+                    url: "{{ route('qc.store') }}",
+                    method: "POST",
+                    data: {
+                        work_order_id: workOrderId,
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                        } else {
+                            alert("Something went wrong.");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        alert("Error occurred. Check console.");
+                    }
+                });
+            })
         });
     </script>
 @endsection
