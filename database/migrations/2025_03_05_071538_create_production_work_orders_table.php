@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->integer('total_pieces')->default(0);
             $table->enum('cutting_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('sewing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
-            $table->enum('finishing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
+            $table->enum('qc_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('packaging_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->integer('wastage')->default(0);
             $table->timestamps();
@@ -35,7 +35,7 @@ return new class extends Migration {
         //     'total_pieces' => 500,
         //     'cutting_status' => 'Completed',
         //     'sewing_status' => 'In Progress',
-        //     'finishing_status' => 'Pending',
+        //     'qc_status' => 'Pending',
         //     'packaging_status' => 'Pending',
         //     'wastage' => 10,
         //     'created_at' => now(),

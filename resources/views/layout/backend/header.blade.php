@@ -5,18 +5,18 @@
     <div class="header-left active">
         <a href="{{ url('/dashboard') }}" class="logo logo-normal">
             <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo.png" alt="" /> -->
-            <h1 title="Manufacturing ERP" class="text-center ms-5" style="font-family: Sigmar;">M<span
+            <h1 title="Manufacturing ERP" class="text-center ms-5" style="font-family: Sigmar; color: #ff9900">GM<span
                     class="text-primary">ERP</span></h1>
         </a>
         <a href="{{ url('/dashboard') }}" class="logo logo-white">
             <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-white.png" alt="" /> -->
-            <h1 title="Manufacturing ERP" class="text-center ms-5" style="font-family: Sigmar;">M<span
+            <h1 title="Manufacturing ERP" class="text-center ms-5" style="font-family: Sigmar; color: #ff9900">GM<span
                     class="text-primary">ERP</span></h1>
         </a>
         <a href="{{ url('/dashboard') }}" class="logo-small">
             <!-- <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/logo-small.png" -->
             <!-- alt="" /> -->
-            <h4 title="Manufacturing ERP" class="text-center" style="font-family: Sigmar;">M<span
+            <h4 title="Manufacturing ERP" class="text-center" style="font-family: Sigmar; color: #ff9900">GM<span
                     class="text-primary">ERP</span></h4>
         </a>
         <a id="toggle_btn" href="javascript:void(0);">

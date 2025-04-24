@@ -16,7 +16,8 @@
                             <select name="order_id" class="form-select" id="order_dropdown">
                                 <option value="">Select a Product</option>
                                 @foreach ($products as $product)
-                                    <option value="{{ $product['order_id'] }}">{{ $product['name'] }}</option>
+                                    <option value="{{ $product['order_id'] }}">{{ $product['order_number'] }}
+                                        {{ $product['name'] }}</option>
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('order_id')" class="mt-2" />

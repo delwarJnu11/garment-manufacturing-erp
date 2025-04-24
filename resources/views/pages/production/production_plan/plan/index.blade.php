@@ -29,7 +29,7 @@
                         <td>{{ $plan->allocated_workers }}</td>
                         <td>{{ $plan->start_date }}</td>
                         <td>{{ $plan->end_date }}</td>
-                        <td>{{ $plan->status->name }}</td>
+                        <td><span class="badge badges-warning">{{ $plan->status->name }}</span></td>
                         <td>
                             <button class="btn btn-success create-work-order" data-id="{{ encrypt($plan->order->id) }}">
                                 Production
@@ -39,6 +39,10 @@
                 @endforeach
             </tbody>
         </table>
+        <!-- Pagination Links -->
+        <div class="d-flex justify-content-end p-3">
+            {{ $plans->links('vendor.pagination.custom') }}
+        </div>
     </div>
 @endsection
 @section('script')

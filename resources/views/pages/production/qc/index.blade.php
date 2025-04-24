@@ -1,49 +1,57 @@
 @extends('layout.backend.main')
 
 @section('page_content')
-    <h2 class="mb-2">Production Sweing Lists</h2>
+    <h2 class="mb-2">Production Quality Controll Lists</h2>
     <div class="card flex-fill">
         <table class="table table-striped table-bordered">
             <thead class="thead-primary">
                 <tr>
                     <th>Order No.</th>
                     <th>Total Qty (pcs)</th>
-                    <th>Target Qty (pcs)</th>
-                    <th>Swen Completed</th>
-                    <th>Actual Qty</th>
+                    <th>Checked Qty (pcs)</th>
+                    <th>Passed Qty (pcs)</th>
+                    <th>Rejected (pcs)</th>
                     <th>Efficiency (%)</th>
-                    <th>Wastage (pcs)</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($sweings as $sweing)
+                @foreach ($qcProducts as $qualityCheck)
                     <tr>
-                        <td>{{ $sweing->workOrder && $sweing->workOrder->order ? $sweing->workOrder->order->order_number : 'N/A' }}
+                        <td>{{ $qualityCheck->order->order_number }}
                         </td>
-                        <td id="qty">{{ $sweing->total_quantity }} (pcs)</td>
-                        <td>{{ $sweing->target_quantity }} (pcs)</td>
-                        <td>{{ $sweing->swen_complete }} (pcs)</td>
-                        <td>{{ $sweing->actual_quantity }} (pcs)</td>
+                        <td id="qty">{{ $qualityCheck->total_quantity }} (pcs)</td>
+                        <td>{{ $qualityCheck->checked_quantity }} (pcs)</td>
+                        <td>{{ $qualityCheck->passed_quantity }} (pcs)</td>
+                        <td>{{ $qualityCheck->rejected_quantity }} (pcs)</td>
                         <td>
                             <div class="progress mt-2">
-                                <div class="progress-bar efficiency-bar" role="progressbar" style="width: 0%;"
-                                    data-efficiency="{{ round($sweing->efficiency) }}" aria-valuemin="0" aria-valuemax="100">
-                                    0%
+                                @php
+                                    $efficiency =
+                                        $qualityCheck->checked_quantity > 0
+                                            ? round(
+                                                ($qualityCheck->checked_quantity * 100) / $qualityCheck->total_quantity,
+                                            )
+                                            : 0;
+                                @endphp
+
+                                <div class="progress-bar efficiency-bar" role="progressbar"
+                                    style="width: {{ $efficiency }}%;" data-efficiency="{{ $efficiency }}"
+                                    aria-valuemin="0" aria-valuemax="100">
+                                    {{ $efficiency }}%
                                 </div>
                             </div>
                         </td>
-                        {{-- <td>{{ $sweing->efficiency ?? 0 }}</td> --}}
-                        <td>{{ $sweing->wastage }} (pcs)</td>
+
                         <td>
                             <span class="badge badges-warning">
-                                {{ $sweing->sewing_status }}
+                                {{ $qualityCheck->status }}
                             </span>
                         </td>
                         <td class="action-table-data">
                             <div class="edit-delete-action">
-                                <a class="me-2 p-2 mb-0" href={{ route('sweing.edit', $sweing->id) }}>
+                                <a class="me-2 p-2 mb-0" href={{ route('qc.show', $qualityCheck->id) }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
@@ -52,7 +60,7 @@
                                         <circle cx="12" cy="12" r="3"></circle>
                                     </svg>
                                 </a>
-                                <a class="me-2 p-2" href={{ route('sweing.edit', $sweing->id) }}>
+                                <a class="me-2 p-2" href={{ route('qc.edit', $qualityCheck->id) }}>
                                     <i data-feather="edit" class="feather-edit"></i>
                                 </a>
                                 <x-delete />
@@ -64,7 +72,7 @@
         </table>
         <!-- Pagination Links -->
         <div class="d-flex justify-content-end p-3">
-            {{ $sweings->links('vendor.pagination.custom') }}
+            {{ $qcProducts->links('vendor.pagination.custom') }}
         </div>
     </div>
 @endsection

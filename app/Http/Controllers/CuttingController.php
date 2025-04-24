@@ -176,7 +176,10 @@ class CuttingController extends Controller
             // Update cutting_status in ProductionWorkOrder
             $workOrder = ProductionWorkOrder::find($request->work_order_id);
             if ($workOrder) {
-                $workOrder->update(['cutting_status' => 'In Progress']);
+                $workOrder->update([
+                    'cutting_status' => 'In Progress',
+                    'work_order_status_id' => 2,
+                ]);
             }
 
             DB::commit();

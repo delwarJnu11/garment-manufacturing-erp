@@ -59,5 +59,9 @@
                 @endforeach
             </tbody>
         </table>
+        <!-- Pagination Links -->
+        <div class="d-flex justify-content-end p-3">
+            {{ $boms->links('vendor.pagination.custom') }}
+        </div>
     </div>
 @endsection

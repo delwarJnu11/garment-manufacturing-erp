@@ -14,7 +14,7 @@ class ProductionPlanController extends Controller
      */
     public function index()
     {
-        $plans = ProductionPlan::with('order', 'status')->paginate(5);
+        $plans = ProductionPlan::with('order', 'status')->orderBy('id', 'desc')->paginate(3);
         return view('pages.production.production_plan.plan.index', compact('plans'));
     }
 
