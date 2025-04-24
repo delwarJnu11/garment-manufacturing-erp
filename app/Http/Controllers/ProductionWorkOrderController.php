@@ -32,7 +32,7 @@ class ProductionWorkOrderController extends Controller
             'order',
             'productionPlan',
             'workStatus'
-        ])->get();
+        ])->orderBy('id', 'desc')->paginate(4);
 
         return view('pages.production.production_work_order.work_order.index', compact('workOrders'));
     }
