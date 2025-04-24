@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('passed_quantity')->nullable();
             $table->integer('rejected_quantity')->nullable();
             $table->text('remarks')->nullable();
-            $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
+            $table->enum('status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->integer('checked_by')->nullable();
             $table->timestamps();
         });

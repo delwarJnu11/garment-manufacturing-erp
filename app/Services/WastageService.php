@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class WastageService
 {
+    // private $rate;
+
+    // public function __construct($rate = 5)
+    // {
+    //     $this->rate = $rate;
+    // }
+
     public function createWastage($data)
     {
         $wastageType = WastageType::where('name', $data['wastage_type_name'])->first();

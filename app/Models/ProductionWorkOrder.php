@@ -9,7 +9,7 @@ class ProductionWorkOrder extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['production_plan_id', 'order_id', 'assigned_to', 'work_order_status_id', 'total_pieces', 'cutting_status', 'sewing_status', 'finishing_status', 'packaging_status', 'wastage'];
+    protected $fillable = ['production_plan_id', 'order_id', 'assigned_to', 'work_order_status_id', 'total_pieces', 'cutting_status', 'sewing_status', 'qc_status', 'packaging_status', 'wastage'];
 
     public function productionPlan()
     {

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderDetail;
 use App\Models\ProductionWorkOrder;
 use App\Models\QualityCheck;
+use App\Models\Wastage;
+use App\Services\WastageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class QualityCheckController extends Controller
 {
@@ -14,7 +18,9 @@ class QualityCheckController extends Controller
      */
     public function index()
     {
-        //
+        $qcProducts = QualityCheck::with(['order'])->paginate(3);
+
+        return view('pages.production.qc.index', compact('qcProducts'));
     }
 
     /**
@@ -35,9 +41,31 @@ class QualityCheckController extends Controller
                 'work_order_id' => 'required|exists:production_work_orders,id',
             ]);
 
+            DB::beginTransaction();
+
             $workOrder = ProductionWorkOrder::with('order')->findOrFail($request->work_order_id);
 
-            // Create QC for check
+            // Check if QC already exists for this work order
+            if (QualityCheck::where('work_order_id', $workOrder->id)->exists()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Quality Check already initiated for this Work Order.',
+                ], 400);
+            }
+
+            // Ensure the order exists
+            if (!$workOrder->order) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Associated order not found.',
+                ], 404);
+            }
+
+            // Update QC status on work order
+            $workOrder->qc_status = 'In Progress';
+            $workOrder->save();
+
+            // Create Quality Check entry
             QualityCheck::create([
                 'order_id' => $workOrder->order->id,
                 'work_order_id' => $workOrder->id,
@@ -50,15 +78,14 @@ class QualityCheckController extends Controller
                 'checked_by' => Auth::id(),
             ]);
 
+            DB::commit();
+
             return response()->json([
                 'success' => true,
-                'message' => 'Work Order fetched',
-                'work_order' => [
-                    'id' => $workOrder->id,
-                    'order_no' => optional($workOrder->order)->order_number,
-                ]
+                'message' => 'Quality Check initiated successfully.',
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
 
             return response()->json([
                 'success' => false,
@@ -67,6 +94,7 @@ class QualityCheckController extends Controller
             ], 500);
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -79,9 +107,10 @@ class QualityCheckController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(QualityCheck $qualityCheck)
+    public function edit(QualityCheck $qualityCheck, $id)
     {
-        //
+        $qualityCheck = QualityCheck::with('order')->find($id);
+        return view('pages.production.qc.edit', compact('qualityCheck'));
     }
 
     /**
@@ -89,7 +118,90 @@ class QualityCheckController extends Controller
      */
     public function update(Request $request, QualityCheck $qualityCheck)
     {
-        //
+        $request->validate([
+            'order_id' => 'required|exists:orders,id',
+            'total_quantity' => 'required|integer|min:1',
+            'checked_quantity' => 'required|integer|min:0',
+            'passed_quantity' => 'required|integer|min:0',
+            'rejected_quantity' => 'required|integer|min:0',
+            'status' => 'required|in:Pending,In Progress,Completed',
+            'remarks' => 'nullable|string|max:1000',
+        ]);
+
+        DB::beginTransaction();
+        $section = 'QC';
+
+        try {
+            $workOrder  =  ProductionWorkOrder::find($request->work_order_id);
+            // Wastage Create
+            if ($request->rejected_quantity > 0) {
+                $wastageService = new WastageService();
+
+                $productId = OrderDetail::where('order_id', $request->order_id)->first()?->product_id;
+
+                // find wastage based on Order id
+                $result = Wastage::where('order_id', $request->order_id)->where('section', $section)->exists();
+
+                if (!$result) {
+                    $wastageService->createWastage([
+                        'order_id' => $request->order_id,
+                        'product_id' => $productId,
+                        'work_order_id' => $request->work_order_id,
+                        'quantity' => $request->rejected_quantity,
+                        'section' => $section,
+                        'wastage_type_name' => 'QC Fail',
+                        'remarks' => $request->remarks,
+                        'is_sellable' => false,
+                    ]);
+
+                    // Update Work Order Wastage
+                    $workOrder->wastage = ($workOrder->wastage ?? 0) + $request->rejected_quantity;
+                    $workOrder->save();
+                } else {
+                    $wastage = Wastage::where('order_id', $request->order_id)->where('section', $section)->first();
+                    $newQty = $wastage->quantity + $request->rejected_quantity;
+
+                    $wastage->quantity = $newQty;
+                    $wastage->save();
+
+                    // Update Work Order Wastage
+                    $workOrder->wastage = ($workOrder->wastage ?? 0) + $request->rejected_quantity;
+                    $workOrder->save();
+                }
+            }
+
+            $qualityCheck = QualityCheck::find($request->id);
+            // dd($qualityCheck);
+            // Calculate Wastage Quantity
+            $wastageQty = ($request->rejected_quantity ?? 0) + ($qualityCheck->rejected_quantity ?? 0);
+
+            // Sewing update
+            $qualityCheck->update([
+                'checked_quantity' => $request->checked_quantity,
+                'passed_quantity' => $request->passed_quantity,
+                'rejected_quantity' => $wastageQty,
+                'status' => $request->status,
+                'remarks' => $request->remarks,
+            ]);
+
+            // Update Work Order Status if Completed
+            if ($request->status == 'Completed') {
+                $workOrder->update([
+                    'qc_status' => 'Completed'
+                ]);
+            } else {
+                $workOrder->update([
+                    'qc_status' => $request->status
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('qc.index')->with('success', 'Qc Check Started.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong: ' . $e->getMessage());
+        }
     }
 
     /**

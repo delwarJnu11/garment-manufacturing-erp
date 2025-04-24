@@ -94,6 +94,8 @@ class SweingController extends Controller
 
         DB::beginTransaction();
 
+        $section = 'Sewing';
+
         try {
             $sewing = Sweing::findOrFail($id);
 
@@ -115,31 +117,31 @@ class SweingController extends Controller
                 $wastageService = new WastageService();
 
                 // find wastage based on Order id
-                $result = Wastage::where('order_id', $workOrder->order_id)->exists();
+                $result = Wastage::where('order_id', $request->order_id)->where('section', $section)->exists();
                 if (!$result) {
                     $wastageService->createWastage([
                         'order_id' => optional($workOrder)->order_id,
                         'product_id' => $productId,
                         'work_order_id' => $request->work_order_id,
                         'quantity' => $request->wastage,
-                        'section' => 'Sewing',
+                        'section' => $section,
                         'wastage_type_name' => 'Sweing Defect',
                         'remarks' => 'Defect found while sweinging',
-                        'is_sellable' => true,
+                        'is_sellable' => false,
                     ]);
 
                     // Update Work Order Wastage
                     $workOrder->wastage = $request->wastage;
                     $workOrder->save();
                 } else {
-                    $wastage = Wastage::where('order_id', $workOrder->order_id)->first();
+                    $wastage = Wastage::where('order_id', $workOrder->order_id)->where('section', $section)->first();
                     $newQty = $wastage->quantity + $request->wastage;
 
                     $wastage->quantity = $newQty;
                     $wastage->save();
 
                     // Update Work Order Wastage
-                    $workOrder->wastage = $newQty;
+                    $workOrder->wastage = ($workOrder->wastage ?? 0) + $request->wastage;
                     $workOrder->save();
                 }
             }

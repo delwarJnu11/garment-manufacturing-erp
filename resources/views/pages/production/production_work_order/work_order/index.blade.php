@@ -14,7 +14,7 @@
                     <th>Total Pieces</th>
                     <th>Cutting</th>
                     <th>Sewing</th>
-                    <th>Finishing</th>
+                    <th>QC</th>
                     <th>Packaging</th>
                     <th>Wastage</th>
                     <th>Actions</th>
@@ -51,12 +51,12 @@
                         <td>
                             <span
                                 class="badge 
-                                    @if ($order->finishing_status == 'Pending') badge-soft-danger
-                                    @elseif ($order->finishing_status == 'In Progress')
+                                    @if ($order->qc_status == 'Pending') badge-soft-danger
+                                    @elseif ($order->qc_status == 'In Progress')
                                         badge-soft-warning
-                                    @elseif ($order->finishing_status == 'Completed')
+                                    @elseif ($order->qc_status == 'Completed')
                                         badge-soft-success @endif">
-                                {{ $order->finishing_status }}
+                                {{ $order->qc_status }}
                             </span>
                         </td>
                         <td>
@@ -80,9 +80,13 @@
                                 <button data-id="{{ encrypt($order->id) }}" class="btn btn-info sweing">Sweing
                                     {{ $order->sewing_status }}</button>
                             @endif
-                            @if ($order->finishing_status == 'Pending' || $order->finishing_status == 'In Progress')
-                                <button data-id="{{ encrypt($order->id) }}" class="btn btn-success finishing">Finishing
-                                    {{ $order->finishing_status }}</button>
+                            @if ($order->qc_status == 'Pending' || $order->qc_status == 'In Progress')
+                                <button data-id="{{ encrypt($order->id) }}" class="btn btn-success finishing">QC
+                                    {{ $order->qc_status }}</button>
+                            @endif
+                            @if ($order->packaging_status == 'Pending' || $order->packaging_status == 'In Progress')
+                                <button data-id="{{ encrypt($order->id) }}" class="btn btn-success finishing">Packaging
+                                    {{ $order->packaging_status }}</button>
                             @endif
                         </td>
                     </tr>
