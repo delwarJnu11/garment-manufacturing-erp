@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bom;
 use App\Models\Buyer;
 use App\Models\InvoiceStatus;
 use App\Models\Order;
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
-
 
 class SalesInvoiceController extends Controller
 {
@@ -46,7 +46,6 @@ class SalesInvoiceController extends Controller
     public function find_order(Request $request)
     {
         $order_id = $request->order_id;
-
         // Find the order with details and BOM
         $order = Order::with('orderDetails.product', 'bom.bomDetails', 'orderDetails.size')->find($order_id);
 
@@ -60,8 +59,10 @@ class SalesInvoiceController extends Controller
             return response()->json(['error' => 'BOM not found for this order'], 404);
         }
 
+        $material_cost = $bom->material_cost;
         $overhead_cost = $bom->overhead_cost;
         $labour_cost = $bom->labour_cost;
+        $utility_cost = $bom->utility_cost;
 
         $order_details = [];
 
@@ -72,20 +73,17 @@ class SalesInvoiceController extends Controller
 
             // Find the BOM detail based on size_id and color_id (if relevant)
             $bom_detail = $bom->bomDetails->where('size_id', $size_id)->first();
-
-            // Skip if no matching BOM detail for this size
             if (!$bom_detail) {
                 continue;
             }
-            // Extract unit price from BOM detail
             $unit_price_bom = $bom_detail->unit_price;
             $total_quantity = $detail->qty;
 
             // Calculate cost per unit (overhead + labor) for the specific quantity
-            $cost_per_unit = ($overhead_cost + $labour_cost) / max($total_quantity, 1);
-
+            $cost_per_unit = ($overhead_cost + $labour_cost + $utility_cost) / max($total_quantity, 1);
             // markup 40% profit
             $final_unit_price = ($unit_price_bom + $cost_per_unit) * 1.4;
+
 
             // Prepare order details for response
             $order_details[] = [
@@ -96,7 +94,6 @@ class SalesInvoiceController extends Controller
                 'unit_price' => round($final_unit_price, 2)
             ];
         }
-
         return response()->json(['order_details' => $order_details]);
     }
 
@@ -138,7 +135,44 @@ class SalesInvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {}
+    public function salesReport()
+    {
+        return view('pages.orders_&_Buyers.sales_invoice.report', [
+            'startDate' => null,
+            'endDate' => null,
+            'bom_total' => [],
+            'salesReport' => []
+        ]);
+    }
+
+    // Handle the report generation on form submit (POST)
+    public function showReport(Request $request)
+    {
+        // Parse the date range from request
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+        $startDate = $startDate ? Carbon::parse($startDate)->startOfDay() : null;
+        $endDate = $endDate ? Carbon::parse($endDate)->endOfDay() : null;
+
+
+        $salesReport = collect(SalesInvoice::with([
+            'salesInvoiceDetails.order.buyer',
+            'salesInvoiceDetails.order.bom.bomDetails'
+        ])->when($startDate && $endDate, fn($q) => $q->whereBetween('sale_date', [$startDate, $endDate]))
+            ->when($startDate && !$endDate, fn($q) => $q->where('sale_date', '>=', $startDate))
+            ->when(!$startDate && $endDate, fn($q) => $q->where('sale_date', '<=', $endDate))
+            ->orderBy('sale_date', 'asc')
+            ->get()); // Collect the results as a collection
+
+
+        return view('pages.orders_&_Buyers.sales_invoice.report', compact(
+            'startDate',
+            'endDate',
+            'salesReport'
+        ));
+    }
+
+
 
     /**
      * Display the specified resource.
@@ -225,8 +259,4 @@ class SalesInvoiceController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(SalesInvoice $SalesInvoice) {}
-
-
-    
-
 }

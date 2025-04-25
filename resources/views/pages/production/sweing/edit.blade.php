@@ -68,7 +68,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="wastage" class="form-label">Wastage</label>
                             <input class="form-control" type="number" name="wastage" id="wastage"
-                                value="{{ old('wastage', $sweing->wastage) }}" placeholder="Wastage..." />
+                                value="{{ old('wastage') }}" placeholder="Wastage..." />
                             <x-input-error :messages="$errors->get('wastage')" class="mt-2" />
                         </div>
                     </div>

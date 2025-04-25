@@ -30,7 +30,7 @@ class PurchaseOrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-   
+
 
 
 
@@ -98,7 +98,7 @@ class PurchaseOrderController extends Controller
             ]);
 
 
-            Log::info('Purchase Order Created:', ['id' => $purchase->id]);
+            // Log::info('Purchase Order Created:', ['id' => $purchase->id]);
 
             // Insert Purchase Order Details & Update Stock
             foreach ($products as $product) {

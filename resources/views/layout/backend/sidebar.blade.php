@@ -11,7 +11,7 @@
                         <li class="submenu">
                             {{-- <a href="" class="subdrop"> --}}
 
-                            <li class="submenu">
+                        <li class="submenu">
                             <x-nav-link :active="request()->is('users*')">User Management</x-nav-link>
                             <ul>
                                 <li>
@@ -23,7 +23,7 @@
                             </ul>
                         </li>
 
-                            <!-- START Prodcution Module Menu -->
+                        <!-- START Prodcution Module Menu -->
                         <li class="submenu">
                             <x-nav-link icon="settings" :active="request()->is('production*')">Production
                                 Management</x-nav-link>
@@ -83,17 +83,46 @@
                                     <ul style="margin-left: 20px;">
                                         <li>
                                             <x-link href="{{ route('cutting.index') }}" :active="request()->is('production-stages/cutting')">
-                                                Cutting Lists
-                                            </x-link>
-                                        </li>
-                                        <li>
-                                            <x-link href="{{ route('sweing.index') }}" :active="request()->is('production-stages/sweing')">
-                                                Sweing Lists
+                                                Running Cutting Lists
                                             </x-link>
                                         </li>
                                         <li>
                                             <x-link href="{{ route('cutting.completed') }}" :active="request()->is('production-stages/completed')">
-                                                Cutting Completed List
+                                                Completed Cutting List
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('sweing.index') }}" :active="request()->is('production-stages/sweing')">
+                                                Running Sweing Lists
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('sweing.complete') }}" :active="request()->is('production-stages/complete')">
+                                                Completed Sweing Lists
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('qc.index') }}" :active="request()->is('production-stages/qc')">
+                                                Quality Check
+                                            </x-link>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                                {{-- Production Wastage Management Menu --}}
+                                <li>
+                                    <x-nav-link icon="list" :active="request()->is('wastages*')">
+                                        Wastage Management
+                                    </x-nav-link>
+                                    <ul style="margin-left: 20px;">
+                                        <li>
+                                            <x-link href="{{ route('wastage.index') }}" :active="request()->is('wastages/wastage')">
+                                                Wastage Lists
+                                            </x-link>
+                                        </li>
+                                        <li>
+                                            <x-link href="{{ route('wastage-types.index') }}" :active="request()->is('wastage/wastage-types')">
+                                                Wastage Type Lists
                                             </x-link>
                                         </li>
                                     </ul>
@@ -109,7 +138,9 @@
                             <x-nav-link :active="request()->is('orders*') ||
                                 request()->is('buyers*') ||
                                 request()->is('sales-invoice*') ||
-                                request()->is('salesPayments*')|| request()->is('pending') ">Orders & Buyers</x-nav-link>
+                                request()->is('salesPayments*') ||
+                                request()->is('salesReport*') ||
+                                request()->is('pending')">Orders & Buyers</x-nav-link>
 
                             <ul>
                                 <!-- 🔹 Orders -->
@@ -131,8 +162,11 @@
 
                                 <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales
                                         Invoices</x-link></li>
-                                <li><x-link href="{{ url('/pending') }}" :active="request()->is('pending')">Pending Invoice</x-link></li>
-                                        {{-- <li><x-link href="{{url('/pending')}}" :active="request()->is('pending')"></x-link>Pending Invoice</li> --}}
+                                <li><x-link href="{{ url('/pending') }}" :active="request()->is('pending')">Pending Invoice</x-link>
+                                </li>
+                                <li><x-link href="{{ url('/salesReport') }}" :active="request()->is('salesReport')">Sales Report</x-link>
+                                </li>
+                                {{-- <li><x-link href="{{url('/pending')}}" :active="request()->is('pending')"></x-link>Pending Invoice</li> --}}
                                 <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link>
                                 </li>
                                 <li><x-link href="{{ route('colors.index') }}" :active="request()->is('colors')">Color Lists</x-link>
@@ -343,7 +377,7 @@
 
                                 <!-- 🔹 Stock Management -->
                                 <li>
-                                    <x-link href="{{ url('/stock/stocks') }}" :active="request()->is('stock/stocks')">Stock 
+                                    <x-link href="{{ url('/stock/stocks') }}" :active="request()->is('stock/stocks')">Stock
                                     </x-link>
                                 </li>
                                 <li>
@@ -428,7 +462,7 @@
                 }
             });
 
-            Toggle submenu on click
+            // Toggle submenu on click
             $(".submenu > a").click(function() {
                 $(this).toggleClass("active");
                 $(this).next("ul").slideToggle();

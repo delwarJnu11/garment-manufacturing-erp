@@ -8,8 +8,7 @@
                     <thead>
                         <tr>
                             <th>Photo</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Supplier Name</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Bank Account</th>
@@ -23,17 +22,16 @@
                             <tr>
                                 <td>
                                     <div class="userimgname">
-                                      
+
                                         <a href="javascript:void(0);" class="userslist-img bg-img">
-                                          
+
                                             <img width="60" height="60" style="border-radius: 50%"
-                                                src="{{ asset('uploads') }}/suppliers/{{ $supplier->photo }}" alt="supplier">
+                                                src="{{ asset('uploads') }}/suppliers/{{ $supplier->photo }}"
+                                                alt="supplier">
                                         </a>
-                                        <span>#00{{$supplier->id}}</span>
                                     </div>
                                 </td>
-                                <td>{{ $supplier->first_name }}</td>
-                                <td>{{ $supplier->last_name }}</td>
+                                <td>{{ $supplier->first_name }} {{ $supplier->last_name }}</td>
                                 <td><a href="mailto:{{ $supplier->email }}">{{ $supplier->email }}</a></td>
                                 <td>{{ $supplier->phone }}</td>
                                 <td>{{ $supplier->bankAccount->name ?? 'N/A' }}</td>
@@ -47,11 +45,14 @@
                                         <a class="me-2 p-2" href="{{ route('suppliers.edit', $supplier->id) }}">
                                             <i data-feather="edit" class="feather-edit"></i>
                                         </a>
-                                        <form action="{{ route('suppliers.destroy',$supplier->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this size?')" style="margin-bottom: 0px">
+                                        <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this size?')"
+                                            style="margin-bottom: 0px">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"  style="background: transparent; border: none; color: red;">
-                                                <i data-feather="trash-2" class="feather-trash-2 delete_icon" ></i>
+                                            <button type="submit"
+                                                style="background: transparent; border: none; color: red;">
+                                                <i data-feather="trash-2" class="feather-trash-2 delete_icon"></i>
                                             </button>
                                         </form>
                                     </div>
@@ -71,4 +72,3 @@
         {{ $suppliers->links('vendor.pagination.custom') }}
     </div>
 @endsection
-

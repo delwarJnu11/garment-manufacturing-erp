@@ -1,7 +1,7 @@
 @extends('layout.backend.main')
 
 @section('page_content')
-    <h2>Production Sweing Lists</h2>
+    <h2 class="mb-2">Production Sweing Lists</h2>
     <div class="card flex-fill">
         <table class="table table-striped table-bordered">
             <thead class="thead-primary">
@@ -28,8 +28,8 @@
                         <td>{{ $sweing->actual_quantity }} (pcs)</td>
                         <td>
                             <div class="progress mt-2">
-                                <div id="efficiency_progress" class="progress-bar" role="progressbar" style="width: 0%;"
-                                    aria-valuenow={{ round($sweing->efficiency) }} aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar efficiency-bar" role="progressbar" style="width: 0%;"
+                                    data-efficiency="{{ round($sweing->efficiency) }}" aria-valuemin="0" aria-valuemax="100">
                                     0%
                                 </div>
                             </div>
@@ -62,6 +62,10 @@
                 @endforeach
             </tbody>
         </table>
+        <!-- Pagination Links -->
+        <div class="d-flex justify-content-end p-3">
+            {{ $sweings->links('vendor.pagination.custom') }}
+        </div>
     </div>
 @endsection
 
@@ -84,7 +88,7 @@
         }
 
         .progress-bar.low {
-            background: linear-gradient(to right, #01fa0d77, #02ac4e);
+            background: linear-gradient(to right, #f8452d77, #fc2727);
         }
 
         .progress-bar.medium {
@@ -92,7 +96,7 @@
         }
 
         .progress-bar.high {
-            background: linear-gradient(to right, #28a745, #04fd6c);
+            background: linear-gradient(to right, #20bb44, #016411);
         }
     </style>
 @endsection
@@ -100,22 +104,22 @@
 @section('script')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const efficiencyBar = document.getElementById('efficiency_progress');
-            let efficiency = parseFloat(efficiencyBar.getAttribute('aria-valuenow')) || 0;
+            const bars = document.querySelectorAll('.efficiency-bar');
 
-            // Update progress bar width
-            efficiencyBar.style.width = efficiency + "%";
-            efficiencyBar.setAttribute("aria-valuenow", efficiency);
-            efficiencyBar.textContent = efficiency + "%";
+            bars.forEach(function(bar) {
+                let efficiency = parseFloat(bar.dataset.efficiency) || 0;
+                bar.style.width = efficiency + "%";
+                bar.textContent = efficiency + "%";
+                bar.setAttribute("aria-valuenow", efficiency);
 
-            // Assign color class based on efficiency
-            if (efficiency < 40) {
-                efficiencyBar.classList.add("low");
-            } else if (efficiency < 70) {
-                efficiencyBar.classList.add("medium");
-            } else {
-                efficiencyBar.classList.add("high");
-            }
+                if (efficiency < 40) {
+                    bar.classList.add("low");
+                } else if (efficiency < 70) {
+                    bar.classList.add("medium");
+                } else {
+                    bar.classList.add("high");
+                }
+            });
         });
     </script>
 @endsection

@@ -61,7 +61,7 @@
         <div class="col-xl-3 col-sm-6 col-12 d-flex">
             <div class="dash-count">
                 <div class="dash-counts">
-                    <h4>100</h4>
+                    <h4 class="text-center">{{ $totalBuyers }}</h4>
                     <h5>Customers</h5>
                 </div>
                 <div class="dash-imgs">
@@ -72,7 +72,7 @@
         <div class="col-xl-3 col-sm-6 col-12 d-flex">
             <div class="dash-count das1">
                 <div class="dash-counts">
-                    <h4>110</h4>
+                    <h4 class="text-center">{{ count($suppliers) }}</h4>
                     <h5>Suppliers</h5>
                 </div>
                 <div class="dash-imgs">
@@ -83,8 +83,8 @@
         <div class="col-xl-3 col-sm-6 col-12 d-flex">
             <div class="dash-count das2">
                 <div class="dash-counts">
-                    <h4>150</h4>
-                    <h5>Purchase Invoice</h5>
+                    <h4 class="text-center">{{ $totalorders }}</h4>
+                    <h5>Orders</h5>
                 </div>
                 <div class="dash-imgs">
                     <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/file-text-icon-01.svg"
@@ -147,7 +147,7 @@
         <div class="col-xl-5 col-sm-12 col-12 d-flex">
             <div class="card flex-fill default-cover mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title mb-0">Recent Products</h4>
+                    <h4 class="card-title mb-0">Recent Products Catalouge</h4>
                     <div class="view-all-link">
                         <a href="javascript:void(0);" class="view-all d-flex align-items-center">
                             View All<span class="ps-2 d-flex align-items-center"><i data-feather="arrow-right"
@@ -162,62 +162,29 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Products</th>
-                                    <th>Price</th>
+                                    <th>SKU</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="productimgname">
-                                        <a href="https://dreamspos.dreamstechnologies.com/html/template/product-list.html"
-                                            class="product-img">
-                                            <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/products/stock-img-01.png"
-                                                alt="product" />
-                                        </a>
-                                        <a href="https://dreamspos.dreamstechnologies.com/html/template/product-list.html">Lenevo
-                                            3rd Generation</a>
-                                    </td>
-                                    <td>$12500</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td class="productimgname">
-                                        <a href="https://dreamspos.dreamstechnologies.com/html/template/product-list.html"
-                                            class="product-img">
-                                            <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/products/stock-img-06.png"
-                                                alt="product" />
-                                        </a>
-                                        <a href="https://dreamspos.dreamstechnologies.com/html/template/product-list.html">Bold
-                                            V3.2</a>
-                                    </td>
-                                    <td>$1600</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td class="productimgname">
-                                        <a href="https://dreamspos.dreamstechnologies.com/html/template/product-list.html"
-                                            class="product-img">
-                                            <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/products/stock-img-02.png"
-                                                alt="product" />
-                                        </a>
-                                        <a href="https://dreamspos.dreamstechnologies.com/html/template/product-list.html">Nike
-                                            Jordan</a>
-                                    </td>
-                                    <td>$2000</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td class="productimgname">
-                                        <a href="https://dreamspos.dreamstechnologies.com/html/template/product-list.html"
-                                            class="product-img">
-                                            <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/products/stock-img-03.png"
-                                                alt="product" />
-                                        </a>
-                                        <a href="https://dreamspos.dreamstechnologies.com/html/template/product-list.html">Apple
-                                            Series 5 Watch</a>
-                                    </td>
-                                    <td>$800</td>
-                                </tr>
+                                @forelse ($productCatalogs as $product)
+                                    <tr>
+                                        <td>{{ $product->id }}</td>
+                                        <td class="productimgname">
+                                            <a href="" class="product-img">
+                                                <img src="{{ asset('uploads') }}/products/{{ $product->photo }}"
+                                                    alt="product" />
+                                            </a>
+                                            <a href="">{{ $product->name }}</a>
+                                        </td>
+                                        <td>{{ $product->sku }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td class="text-danger" colspan="4">1</td>
+
+                                    </tr>
+                                @endforelse
+
                             </tbody>
                         </table>
                     </div>
@@ -227,7 +194,7 @@
     </div>
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Expired Products</h4>
+            <h4 class="card-title">Our Suppliers</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive dataview">
@@ -240,167 +207,55 @@
                                     <span class="checkmarks"></span>
                                 </label>
                             </th>
-                            <th>Product</th>
-                            <th>SKU</th>
-                            <th>Manufactured Date</th>
-                            <th>Expired Date</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
                             <th class="no-sort">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <label class="checkboxs">
-                                    <input type="checkbox" />
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </td>
-                            <td>
-                                <div class="productimgname">
-                                    <a href="javascript:void(0);" class="product-img stock-img">
-                                        <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/products/expire-product-01.png"
-                                            alt="product" />
-                                    </a>
-                                    <a href="javascript:void(0);">Red Premium Handy </a>
-                                </div>
-                            </td>
-                            <td><a href="javascript:void(0);">PT006</a></td>
-                            <td>17 Jan 2023</td>
-                            <td>29 Mar 2023</td>
-                            <td class="action-table-data">
-                                <div class="edit-delete-action">
-                                    <a class="me-2 p-2" href="#">
-                                        <i data-feather="edit" class="feather-edit"></i>
-                                    </a>
-                                    <a class="confirm-text p-2" href="javascript:void(0);">
-                                        <i data-feather="trash-2" class="feather-trash-2"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkboxs">
-                                    <input type="checkbox" />
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </td>
-                            <td>
-                                <div class="productimgname">
-                                    <a href="javascript:void(0);" class="product-img stock-img">
-                                        <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/products/expire-product-02.png"
-                                            alt="product" />
-                                    </a>
-                                    <a href="javascript:void(0);">Iphone 14 Pro</a>
-                                </div>
-                            </td>
-                            <td><a href="javascript:void(0);">PT007</a></td>
-                            <td>22 Feb 2023</td>
-                            <td>04 Apr 2023</td>
-                            <td class="action-table-data">
-                                <div class="edit-delete-action">
-                                    <a class="me-2 p-2" href="#">
-                                        <i data-feather="edit" class="feather-edit"></i>
-                                    </a>
-                                    <a class="confirm-text p-2" href="javascript:void(0);">
-                                        <i data-feather="trash-2" class="feather-trash-2"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkboxs">
-                                    <input type="checkbox" />
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </td>
-                            <td>
-                                <div class="productimgname">
-                                    <a href="javascript:void(0);" class="product-img stock-img">
-                                        <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/products/expire-product-03.png"
-                                            alt="product" />
-                                    </a>
-                                    <a href="javascript:void(0);">Black Slim 200 </a>
-                                </div>
-                            </td>
-                            <td><a href="javascript:void(0);">PT008</a></td>
-                            <td>18 Mar 2023</td>
-                            <td>13 May 2023</td>
-                            <td class="action-table-data">
-                                <div class="edit-delete-action">
-                                    <a class="me-2 p-2" href="#">
-                                        <i data-feather="edit" class="feather-edit"></i>
-                                    </a>
-                                    <a class="confirm-text p-2" href="javascript:void(0);">
-                                        <i data-feather="trash-2" class="feather-trash-2"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkboxs">
-                                    <input type="checkbox" />
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </td>
-                            <td>
-                                <div class="productimgname">
-                                    <a href="javascript:void(0);" class="product-img stock-img">
-                                        <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/products/expire-product-04.png"
-                                            alt="product" />
-                                    </a>
-                                    <a href="javascript:void(0);">Woodcraft Sandal</a>
-                                </div>
-                            </td>
-                            <td><a href="javascript:void(0);">PT009</a></td>
-                            <td>29 Mar 2023</td>
-                            <td>27 May 2023</td>
-                            <td class="action-table-data">
-                                <div class="edit-delete-action">
-                                    <a class="me-2 p-2" href="#">
-                                        <i data-feather="edit" class="feather-edit"></i>
-                                    </a>
-                                    <a class="confirm-text p-2" href="javascript:void(0);">
-                                        <i data-feather="trash-2" class="feather-trash-2"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="checkboxs">
-                                    <input type="checkbox" />
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </td>
-                            <td>
-                                <div class="productimgname">
-                                    <a href="javascript:void(0);" class="product-img stock-img">
-                                        <img src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/products/stock-img-03.png"
-                                            alt="product" />
-                                    </a>
-                                    <a href="javascript:void(0);">Apple Series 5 Watch </a>
-                                </div>
-                            </td>
-                            <td><a href="javascript:void(0);">PT010</a></td>
-                            <td>24 Mar 2023</td>
-                            <td>26 May 2023</td>
-                            <td class="action-table-data">
-                                <div class="edit-delete-action">
-                                    <a class="me-2 p-2" href="#" data-bs-toggle="modal"
-                                        data-bs-target="#edit-units">
-                                        <i data-feather="edit" class="feather-edit"></i>
-                                    </a>
-                                    <a class="confirm-text p-2" href="javascript:void(0);">
-                                        <i data-feather="trash-2" class="feather-trash-2"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                        @forelse ($suppliers as $supplier)
+                            <tr>
+                                <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox" />
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <div class="productimgname">
+                                        <a href="javascript:void(0);" class="product-img stock-img">
+                                            <img src="{{ asset('uploads') }}/suppliers/{{ $supplier->photo }}"
+                                                alt="product" />
+                                        </a>
+                                        <a href="javascript:void(0);">{{ $supplier->first_name }}
+                                            {{ $supplier->last_name }}</a>
+                                    </div>
+                                </td>
+                                <td>{{ $supplier->email }}</td>
+                                <td>{{ $supplier->phone }}</td>
+                                <td>{{ $supplier->address }}</td>
+                                <td class="action-table-data">
+                                    <div class="edit-delete-action">
+                                        <a class="me-2 p-2" href="#">
+                                            <i data-feather="edit" class="feather-edit"></i>
+                                        </a>
+                                        <a class="confirm-text p-2" href="javascript:void(0);">
+                                            <i data-feather="trash-2" class="feather-trash-2"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                        @endforelse
+
+
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end">
+                    {{ $suppliers->links('vendor.pagination.custom') }}
+                </div>
             </div>
         </div>
     </div>

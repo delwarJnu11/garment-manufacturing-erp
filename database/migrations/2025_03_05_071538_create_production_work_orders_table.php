@@ -20,27 +20,27 @@ return new class extends Migration {
             $table->integer('total_quantity')->default(0);
             $table->enum('cutting_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('sewing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
-            $table->enum('finishing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
+            $table->enum('qc_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('packaging_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->integer('wastage')->default(0);
             $table->timestamps();
         });
 
 
-        ProductionWorkOrder::create([
-            'production_plan_id' => 1,
-            'order_id' => 101,
-            'work_order_status_id' => 1,
-            'assigned_to' => 5,
-            'total_quantity' => 500,
-            'cutting_status' => 'Completed',
-            'sewing_status' => 'In Progress',
-            'finishing_status' => 'Pending',
-            'packaging_status' => 'Pending',
-            'wastage' => 10,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // ProductionWorkOrder::create([
+        //     'production_plan_id' => 1,
+        //     'order_id' => 101,
+        //     'work_order_status_id' => 1,
+        //     'assigned_to' => 5,
+        //     'total_pieces' => 500,
+        //     'cutting_status' => 'Completed',
+        //     'sewing_status' => 'In Progress',
+        //     'qc_status' => 'Pending',
+        //     'packaging_status' => 'Pending',
+        //     'wastage' => 10,
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
     }
 
 
