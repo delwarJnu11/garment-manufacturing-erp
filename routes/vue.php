@@ -4,11 +4,14 @@ use App\Http\Controllers\Api\Vue\AuthController;
 use App\Http\Controllers\Api\Vue\CategoryController;
 use App\Http\Controllers\Api\Vue\ProductController;
 use App\Http\Controllers\Api\Vue\BuyerController;
+use App\Http\Controllers\Api\Vue\PurchaseInvoiceController;
 use App\Http\Controllers\Api\Vue\FabricsTypeController;
 use App\Http\Controllers\Api\Vue\OrderStatusController;
 use App\Http\Controllers\Api\Vue\RolesController;
+use App\Http\Controllers\Api\Vue\SupplierController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Vue\UserController;
+use App\Models\ProductType;
 
 // ALL AUTH CONTROLLERS START
 Route::post('register', [AuthController::class, 'register']);
@@ -26,12 +29,25 @@ Route::apiResource('users', UserController::class);
 Route::get('/supervisors', [UserController::class, 'getSupervisors']);
 
 Route::apiResource('categories', CategoryController::class);
+Route::get('/all-categories', [CategoryController::class, 'all']);
+Route::get('/sizes', [CategoryController::class, 'size']);
+Route::get('/uoms', [CategoryController::class, 'uom']);
 Route::apiResource('products', ProductController::class);
+Route::get('allProducts', [ProductController::class, 'allProducts']);
+Route::get('productTypes', [ProductController::class, 'ProductType']);
+Route::get('warehouses', [ProductController::class, 'warehouse']);
+Route::apiResource('/suppliers', SupplierController::class);
+Route::get('/allSuppliers', [SupplierController::class, 'allSuppliers']);
 // Route::apiResource('/roles', RolesController::class)->middleware('auth:api');
 
 // Buyers
 Route::apiResource('/buyers', BuyerController::class);
 
+
+// purchaseOrder invoice 
+
+Route::get('/invoice-id', [PurchaseInvoiceController::class, 'createInvoice']);
+Route::post('/purchaseInvoice', [PurchaseInvoiceController::class, 'process']);
 // Orders
 Route::prefix('orders')->group(function () {
     Route::apiResource('/status', OrderStatusController::class);

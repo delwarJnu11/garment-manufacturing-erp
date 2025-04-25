@@ -279,6 +279,9 @@ Route::get('order/show', [SalesInvoiceController::class, 'show']);
 Route::get('pending', [SalesInvoiceController::class, 'invoicePending']);
 Route::post('/sales-invoice/update-status/{id}', [SalesInvoiceController::class, 'updateInvoiceStatus'])->name('sales-invoice.update-status');
 
+Route::get('salesReport', [SalesInvoiceController::class, 'salesReport'])->name('salesReport');
+Route::post('salesReport', [SalesInvoiceController::class, 'showReport'])->name('salesReport.post');
+
 
 Route::resource('suppliers', InvSuppliersController::class);
 Route::resource('uoms', UOMController::class);

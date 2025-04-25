@@ -139,6 +139,7 @@
                                 request()->is('buyers*') ||
                                 request()->is('sales-invoice*') ||
                                 request()->is('salesPayments*') ||
+                                request()->is('salesReport*') ||
                                 request()->is('pending')">Orders & Buyers</x-nav-link>
 
                             <ul>
@@ -162,6 +163,8 @@
                                 <li><x-link href="{{ url('/sales-invoice') }}" :active="request()->is('sales-invoice')">Sales
                                         Invoices</x-link></li>
                                 <li><x-link href="{{ url('/pending') }}" :active="request()->is('pending')">Pending Invoice</x-link>
+                                </li>
+                                <li><x-link href="{{ url('/salesReport') }}" :active="request()->is('salesReport')">Sales Report</x-link>
                                 </li>
                                 {{-- <li><x-link href="{{url('/pending')}}" :active="request()->is('pending')"></x-link>Pending Invoice</li> --}}
                                 <li><x-link href="{{ url('/salesPayments') }}" :active="request()->is('sales-payments')">Payments</x-link>

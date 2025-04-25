@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\vue;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductType;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -40,6 +42,13 @@ class ProductController extends Controller
             ], 500);
         }
     }
+    public function allProducts()
+    {
+        $products = Product::with('product_type')->get();
+        return response()->json([
+            'products' => $products
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -69,19 +78,31 @@ class ProductController extends Controller
             ]);
             return response()->json(['message' => 'products create successfully'], 200);
         } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+            // Log::error($th->getMessage());
             return response()->json(['error' => $th->getMessage()], 500);
             //throw $th;
         }
     }
 
+    public function productType()
+    {
+        $productTypes = ProductType::all();
+        return response()->json([
+            'productTypes' => $productTypes
+        ]);
+    }
+    public function warehouse()
+    {
+        $warehouses = Warehouse::all();
+        return response()->json([
+            'warehouses' => $warehouses
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(string $id) {}
 
     /**
      * Update the specified resource in storage.

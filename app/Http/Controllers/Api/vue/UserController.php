@@ -166,7 +166,7 @@ class UserController extends Controller
                 'message' => 'User deleted successfully',
             ], 200);
         } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+            // Log::error($th->getMessage());
 
             return response()->json([
                 'error' => 'Something went wrong',
