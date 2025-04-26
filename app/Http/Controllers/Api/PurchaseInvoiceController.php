@@ -64,7 +64,7 @@ class PurchaseInvoiceController extends Controller
                 'vat' => $request->vat ?? 0,
             ]);
 
-            //sir finish above
+            // finish above
 
             Log::info('Purchase Order Created:', ['id' => $purchase->id]);
 

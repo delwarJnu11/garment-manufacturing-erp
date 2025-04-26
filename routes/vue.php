@@ -45,7 +45,7 @@ Route::apiResource('/buyers', BuyerController::class);
 
 
 // purchaseOrder invoice 
-
+Route::get('/showInvoice', [PurchaseInvoiceController::class, 'index']);
 Route::get('/invoice-id', [PurchaseInvoiceController::class, 'createInvoice']);
 Route::post('/purchaseInvoice', [PurchaseInvoiceController::class, 'process']);
 // Orders

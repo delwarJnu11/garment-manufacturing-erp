@@ -25,7 +25,7 @@ class SalesInvoiceController extends Controller
     {
         $sales_invoices = SalesInvoice::with('buyer', 'salesInvoiceDetails.order',  'invoice_status')->paginate(10);
         // dd($sales_invoices);
-        return view('pages.orders_&_buyers.sales_invoice.salesinvoice', compact('sales_invoices'));
+        return view('pages.orders_&_Buyers.sales_invoice.salesinvoice', compact('sales_invoices'));
     }
 
     /**
@@ -66,34 +66,65 @@ class SalesInvoiceController extends Controller
 
         $order_details = [];
 
-        foreach ($order->orderDetails as $detail) {
-            // Ensure we are working with size name and size ID correctly
-            $size_name = $detail->size ? $detail->size->name : 'No size';
-            $size_id = $detail->size ? $detail->size->id : null;
+        // foreach ($order->orderDetails as $detail) {
+        //     // Ensure we are working with size name and size ID correctly
+        //     $size_name = $detail->size ? $detail->size->name : 'No size';
+        //     $size_id = $detail->size ? $detail->size->id : null;
 
-            // Find the BOM detail based on size_id and color_id (if relevant)
+        //     // Find the BOM detail based on size_id and color_id (if relevant)
+        //     $bom_detail = $bom->bomDetails->where('size_id', $size_id)->first();
+        //     if (!$bom_detail) {
+        //         continue;
+        //     }
+        //     $unit_price_bom = $bom_detail->unit_price;
+        //     $total_quantity = $detail->qty;
+
+        //     // Calculate cost per unit (overhead + labor) for the specific quantity
+        //     $cost_per_unit = ($overhead_cost + $labour_cost + $utility_cost) / max($total_quantity, 1);
+        //     // markup 40% profit
+        //     $final_unit_price = ($unit_price_bom + $cost_per_unit) * 1.4;
+
+
+        //     // Prepare order details for response
+        //     $order_details[] = [
+        //         'product_name' => $detail->product->name,
+        //         'product_id' => $detail->product->id,
+        //         'size' => $size_name, // Use size name here
+        //         'qty' => $total_quantity,
+        //         'unit_price' => round($final_unit_price, 2)
+        //     ];
+        // }
+        foreach ($order->orderDetails as $detail) {
+            $size = $detail->size;
+            $size_name = $size ? $size->name : 'No size';
+            $size_id = $size ? $size->id : null;
+
             $bom_detail = $bom->bomDetails->where('size_id', $size_id)->first();
+
             if (!$bom_detail) {
                 continue;
             }
+
             $unit_price_bom = $bom_detail->unit_price;
             $total_quantity = $detail->qty;
 
-            // Calculate cost per unit (overhead + labor) for the specific quantity
-            $cost_per_unit = ($overhead_cost + $labour_cost + $utility_cost) / max($total_quantity, 1);
-            // markup 40% profit
+            if ($total_quantity <= 0) {
+                continue;
+            }
+
+            $cost_per_unit = ($overhead_cost + $labour_cost + $utility_cost) / $total_quantity;
             $final_unit_price = ($unit_price_bom + $cost_per_unit) * 1.4;
 
-
-            // Prepare order details for response
             $order_details[] = [
+                'order_detail_id' => $detail->id, // 👈 added here
                 'product_name' => $detail->product->name,
                 'product_id' => $detail->product->id,
-                'size' => $size_name, // Use size name here
+                'size' => $size_name,
                 'qty' => $total_quantity,
-                'unit_price' => round($final_unit_price, 2)
+                'unit_price' => round($final_unit_price, 2),
             ];
         }
+
         return response()->json(['order_details' => $order_details]);
     }
 
@@ -198,7 +229,7 @@ class SalesInvoiceController extends Controller
 
 
         // dd($salesInvoiceDetails);
-        return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice', 'salesInvoiceDetails'));
+        return view('pages.orders_&_Buyers.sales_invoice.show', compact('salesInvoice', 'salesInvoiceDetails'));
     }
 
     public function invoicePending()

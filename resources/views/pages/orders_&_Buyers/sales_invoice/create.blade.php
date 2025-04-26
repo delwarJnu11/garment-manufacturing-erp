@@ -106,7 +106,7 @@
                 <div class="col-md-6">
                     <p><strong>Notes:</strong> <span>Urgent delivery required.</span></p>
                     <label for="">Paid Amount</label>
-                    <input type="number" class="form-control paid_amount" placeholder="0" >
+                    <input type="number" class="form-control paid_amount" placeholder="0">
 
                 </div>
                 <div class="col-md-6 text-end">
@@ -130,7 +130,7 @@
     </div>
 @endsection
 @section('script')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             loadSalesDetailsFromLocalStorage();
@@ -176,7 +176,7 @@
                     console.error("Order ID is not selected.");
                     return;
                 }
-                
+
                 $.ajax({
                     url: "{{ url('find_order') }}",
                     type: 'POST',
@@ -196,6 +196,7 @@
                             let newRow = `
                             <tr>
                                 <input type="hidden" class="product_id" value="${detail.product_id}">
+                                   <input type="hidden" class="order_detail_id" value="${detail.order_detail_id}">
                                 <td>${detail.product_name}</td>
                                 <td><input type="number" class="form-control unit_price" value="${detail.unit_price}" readonly></td>
                                 <td>${detail.size}</td>
@@ -276,10 +277,10 @@
 
                 let grandTotal = totalAmount - totalDiscount + totalVat;
                 $(".grand_total").text(grandTotal.toFixed(2));
-                 // Auto-fill Paid Amount if it hasn't been manually changed
-    if (!$(".paid_amount").data('manual')) {
-        $(".paid_amount").val(grandTotal.toFixed(2));
-    }
+                // Auto-fill Paid Amount if it hasn't been manually changed
+                if (!$(".paid_amount").data('manual')) {
+                    $(".paid_amount").val(grandTotal.toFixed(2));
+                }
             }
 
             function saveSalesDetailsToLocalStorage() {
@@ -293,8 +294,9 @@
                         qty: row.find('td:eq(3)').text(),
                         discount: row.find('.discount').val(),
                         vat: row.find('.vat').val(),
-                        subtotal: row.find('.subtotal').val()
-                       
+                        subtotal: row.find('.subtotal').val(),
+                        order_detail_id: row.find('.order_detail_id').val()
+
                     };
                     salesDetails.push(item);
                 });
@@ -324,68 +326,68 @@
             }
 
             $('.btn_process').on('click', function() {
-    let buyer_id = $('#buyer_id').val();
-    let invoice_total = parseFloat($('.grand_total').text()) || 0;
-    let discount = parseFloat($('.total_discount').text()) || 0;
-    let paid_amount = parseFloat($('.paid_amount').text()) || 0;
-    let vat = parseFloat($('.total_vat').text()) || 0;
-    let order_id = $('#order_id').val();
+                let buyer_id = $('#buyer_id').val();
+                let invoice_total = parseFloat($('.grand_total').text()) || 0;
+                let discount = parseFloat($('.total_discount').text()) || 0;
+                let paid_amount = parseFloat($('.paid_amount').text()) || 0;
+                let vat = parseFloat($('.total_vat').text()) || 0;
+                let order_id = $('#order_id').val();
 
-    let products = [];
-    $(".sales-details tr").each(function() {
-        let row = $(this);
-        let unitPrice = parseFloat(row.find('.unit_price').val()) || 0;
-        let qty = parseInt(row.find('td:eq(3)').text()) || 0;
-        let discountPercentage = parseFloat(row.find('.discount').val()) || 0;
-        let vatPercentage = parseFloat(row.find('.vat').val()) || 0;
+                let products = [];
+                $(".sales-details tr").each(function() {
+                    let row = $(this);
+                    let unitPrice = parseFloat(row.find('.unit_price').val()) || 0;
+                    let qty = parseInt(row.find('td:eq(3)').text()) || 0;
+                    let discountPercentage = parseFloat(row.find('.discount').val()) || 0;
+                    let vatPercentage = parseFloat(row.find('.vat').val()) || 0;
 
-        let totalAmount = unitPrice * qty;
-        let discountAmount = (totalAmount * discountPercentage) / 100;
-        let vatAmount = ((totalAmount - discountAmount) * vatPercentage) / 100;
+                    let totalAmount = unitPrice * qty;
+                    let discountAmount = (totalAmount * discountPercentage) / 100;
+                    let vatAmount = ((totalAmount - discountAmount) * vatPercentage) / 100;
 
-        products.push({//push in api
-            product_name: row.find('td:eq(0)').text(),
-            product_id: row.find('.product_id').val(),
-            unit_price: unitPrice.toFixed(2),
-            size: row.find('td:eq(2)').text(),
-            qty: qty,
-            discount: discountPercentage.toFixed(2),
-            discount_amount: discountAmount.toFixed(2),
-            vat: vatPercentage.toFixed(2),
-            vat_amount: vatAmount.toFixed(2),
-            subtotal: (totalAmount - discountAmount + vatAmount).toFixed(2)
-        });
-    });
+                    products.push({
+                        product_name: row.find('td:eq(0)').text(),
+                        product_id: row.find('.product_id').val(),
+                        order_detail_id: row.find('.order_detail_id').val(), // <<< ADD THIS
+                        unit_price: unitPrice,
+                        size: row.find('td:eq(2)').text(),
+                        qty: qty,
+                        discount: discountPercentage,
+                        discount_amount: discountAmount.toFixed(2),
+                        vat: vatPercentage,
+                        vat_amount: vatAmount.toFixed(2),
+                        subtotal: (totalAmount - discountAmount + vatAmount).toFixed(2)
+                    });
 
-    let invoiceData = {
-        order_id:order_id,
-        buyer_id: buyer_id,
-        invoice_total: invoice_total,
-        paid_amount: paid_amount,
-        discount: discount,
-        vat: vat,
-        products: products
-    };
+                });
 
-    $.ajax({
-        url: "{{ url('api/salesinvoice') }}",
-        type: 'POST',
-        data: {
-            invoiceData,
-            _token: "{{ csrf_token() }}"
-        },
-        success: function(res) {
-            console.log(res);
-        },
-        error: function(xhr, status, error) {
-            console.log("API Error:", xhr.responseText);
-        }
-    });
-});
+                let invoiceData = {
+                    order_id: order_id,
+                    buyer_id: buyer_id,
+                    invoice_total: invoice_total,
+                    paid_amount: paid_amount,
+                    discount: discount,
+                    vat: vat,
+                    products: products
+                };
+
+                $.ajax({
+                    url: "{{ url('api/salesinvoice') }}",
+                    type: 'POST',
+                    data: {
+                        invoiceData,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(res) {
+                        console.log(res);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("API Error:", xhr.responseText);
+                    }
+                });
+            });
 
 
         });
     </script>
 @endsection
-
-

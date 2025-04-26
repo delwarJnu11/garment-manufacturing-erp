@@ -27,7 +27,7 @@ class BomDetailsController extends Controller
      */
     public function create()
     {
-        $products = Raw_material::all();
+        $products = Product::where('product_type_id', 1)->get();
         $sizes = Size::all();
         $uoms = Uom::all();
         return view('pages.production.bom_details.create', compact('products', 'sizes', 'uoms'));
