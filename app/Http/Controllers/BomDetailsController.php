@@ -27,12 +27,13 @@ class BomDetailsController extends Controller
      */
     public function create()
     {
-        $products = Raw_material::all();
+        $rawMaterialId = Product::where('name', 'Raw Material')->first()?->id;
+        $products = Product::where('product_type_id', $rawMaterialId)->get();
         $sizes = Size::all();
         $uoms = Uom::all();
         return view('pages.production.bom_details.create', compact('products', 'sizes', 'uoms'));
     }
-    
+
 
     /**
      * Store a newly created resource in storage.

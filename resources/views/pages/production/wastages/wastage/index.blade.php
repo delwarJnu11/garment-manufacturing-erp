@@ -36,20 +36,12 @@
                                 <td>{{ $wastage->unit_price * $wastage->quantity }}</td>
                                 <td>{{ Carbon::parse($wastage->created_at)->format('d M, Y') }}</td>
                                 <td class="action-table-data">
-                                    <div class="edit-delete-action">
-                                        <!-- Show -->
-                                        <a class="me-2 p-2 mb-0" href="{{ route('wastage.show', $wastage->id) }}">
-                                            <i data-feather="eye" class="feather-eye"></i>
-                                        </a>
-
-                                        <!-- Edit -->
-                                        <a class="me-2 p-2" href="{{ route('wastage.edit', $wastage->id) }}">
-                                            <i data-feather="edit" class="feather-edit"></i>
-                                        </a>
-
-                                        <!-- Delete -->
-                                        <x-delete action="{{ route('wastage.destroy', $wastage->id) }}" />
-                                    </div>
+                                    <button class="btn btn-secondary process-sell-button"
+                                        data-wastage-id="{{ $wastage->id }}" data-order-id="{{ $wastage->order->id }}"
+                                        data-unit-price="{{ $wastage->unit_price }}"
+                                        data-quantity="{{ $wastage->quantity }}"
+                                        data-product-name="{{ $wastage->product->name }}"
+                                        data-wastage-type="{{ $wastage->wastageType->name }}">Process Sell</button>
                                 </td>
                             </tr>
                         @empty
@@ -59,7 +51,114 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end mt-3">
+                    {{ $wastageProducts->links('vendor.pagination.custom') }}
+                </div>
             </div>
         </div>
-    </div>
-@endsection
+
+        <!-- Process Sell Modal -->
+        <div class="modal fade" id="processSellModal" tabindex="-1" role="dialog" aria-labelledby="processSellModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="processSellForm" method="POST" action="">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="processSellModalLabel">Process Wastage Sell</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <input type="hidden" name="wastage_id" id="wastage_id">
+                            <input type="hidden" name="order_id" id="order_id">
+                            <input type="hidden" name="product_name" id="product_name">
+                            <input type="hidden" name="quantity" id="quantity">
+                            <input type="hidden" name="unit_price" id="unit_price">
+                            {{-- <input type="hidden" name="ware_id" id="ware_id"> --}}
+
+                            <div class="form-group">
+                                <label for="profit_rate">Profit Rate (%)</label>
+                                <input type="text" class="form-control" name="profit_rate" id="profit_rate" required>
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <label for="warehouse_id">Warehouse</label>
+                                <select class="form-control" name="warehouse_id" id="warehouse_id">
+                                    <option value="">Select Warehouse</option>
+                                    @foreach ($warehouses as $warehouse)
+                                        <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mt-2">
+                                <label for="wastage-type">Wastage Type</label>
+                                <input type="text" class="form-control" name="wastage_type" id="wastage-type" readonly>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="confirm_sell">Confirm Sell</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endsection
+
+    @section('script')
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('tbody').on('click', '.process-sell-button', function() {
+                    const wastageId = $(this).data('wastage-id');
+                    const orderId = $(this).data('order-id');
+                    const productName = $(this).data('product-name');
+                    const quantity = $(this).data('quantity');
+                    const unitPrice = $(this).data('unit-price');
+                    const wastageType = $(this).data('wastage-type');
+                    const warehouseId = $('#warehouse_id option:selected').val();
+
+                    // Set values into hidden fields
+                    $('#wastage_id').val(wastageId);
+                    $('#order_id').val(orderId);
+                    $('#product_name').val(productName);
+                    $('#quantity').val(quantity);
+                    $('#unit_price').val(unitPrice);
+                    $('#wastage-type').val(wastageType);
+                    // $('#ware_id').val(warehouseId);
+
+                    $('#profit_rate').val('');
+                    // Open the modal
+                    $('#processSellModal').modal('show');
+                });
+
+                // When click Confirm Sell button
+                $('#processSellForm').submit(function(e) {
+                    e.preventDefault();
+
+                    const formData = $(this).serialize();
+
+                    $.ajax({
+                        url: "/api/product",
+                        type: 'POST',
+                        data: formData,
+                        success: function(response) {
+                            // console.log(response)
+                            $('#processSellModal').modal('hide');
+                            alert('Wastage sold successfully!');
+                            window.location.href = "{{ url('stock/products') }}";
+                        },
+                        error: function(e) {
+                            console.log(e)
+                        }
+                    });
+                });
+
+            });
+        </script>
+    @endsection

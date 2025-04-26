@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductType;
+use App\Models\Warehouse;
 use App\Models\Wastage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +16,10 @@ class WastageController extends Controller
      */
     public function index()
     {
-        $wastageProducts = Wastage::with(['product', 'order', 'wastageType'])->get();
-        return view('pages.production.wastages.wastage.index', compact('wastageProducts'));
+        $wastageProducts = Wastage::with(['product', 'order', 'wastageType'])->paginate(4);
+
+        $warehouses = Warehouse::all();
+        return view('pages.production.wastages.wastage.index', compact('wastageProducts', 'warehouses'));
     }
 
     /**

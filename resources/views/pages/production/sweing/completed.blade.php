@@ -127,6 +127,8 @@
                     success: function(response) {
                         if (response.success) {
                             alert(response.message);
+                            // redirect to the QC page
+                            window.location.href = "{{ route('qc.index') }}";
                         } else {
                             alert("Something went wrong.");
                         }
