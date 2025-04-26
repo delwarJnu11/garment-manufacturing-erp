@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Uom extends Model
 {
-    protected $table = 'uoms'; // Make sure this is set to 'uoms'
+    // Make sure this is set to 'uoms'
+    protected $table = 'uoms';
     use HasFactory;
     protected $fillable = ['name'];
 }
