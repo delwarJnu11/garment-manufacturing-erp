@@ -88,6 +88,10 @@
                                 <button data-id="{{ encrypt($order->id) }}" class="btn btn-success finishing">Packaging
                                     {{ $order->packaging_status }}</button>
                             @endif
+                            @if ($order->packaging_status == 'Completed')
+                                <button data-id="{{ encrypt($order->id) }}" class="btn btn-success production-ready">Read
+                                    For Shipment</button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

@@ -43,6 +43,7 @@ use App\Http\Controllers\MovementTypeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\OrderStatusController;
+use App\Http\Controllers\PackagingController;
 use App\Http\Controllers\PaymentSalePurchaseController;
 use App\Http\Controllers\ProductionPlanController;
 use App\Http\Controllers\ProductionWorkSectionController;
@@ -127,6 +128,7 @@ Route::prefix('production-stages')->group(function () {
     Route::resource('cutting', CuttingController::class);
     Route::resource('sweing', SweingController::class);
     Route::resource('qc', QualityCheckController::class);
+    Route::resource('packaging', PackagingController::class);
 
     // Custom route for completed cuttings
     Route::get('cutting-completed', [CuttingController::class, 'completed'])->name('cutting.completed');
@@ -138,6 +140,15 @@ Route::prefix('wastages')->group(function () {
     Route::resource('wastage-types', WastageTypeController::class);
 });
 
+
+// Notification Related Routes
+Route::get('/notifications/read/{id}', function ($id) {
+    $notification = auth()->user()->notifications()->findOrFail($id);
+    $notification->markAsRead();
+
+    // Redirect to original notification destination
+    return redirect($notification->data['route'] ?? '/');
+})->name('notifications.read');
 
 /**
  * Production Memu END

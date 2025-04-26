@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\ProductionWorkOrder;
 use App\Models\QualityCheck;
+use App\Models\Role;
+use App\Models\User;
 use App\Models\Wastage;
+use App\Notifications\QualityCheckCompleted;
 use App\Services\WastageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class QualityCheckController extends Controller
 {
@@ -193,6 +198,21 @@ class QualityCheckController extends Controller
                 $workOrder->update([
                     'qc_status' => $request->status
                 ]);
+            }
+
+            if ($request->total_quantity == $request->checked_quantity) {
+                // here send a notification in the Packaging Menu
+                $roleId = Role::where('name', 'Admin')->first()?->id;
+                if ($roleId) {
+                    $packagingUsers = User::where('role_id', $roleId)->get();
+                } else {
+                    throw new \Exception('Packaging Manager role not found.');
+                }
+
+                // Get Order Number from Order Table based on Order ID
+                $orderNumber = Order::find($request->order_id)->first()?->order_number;
+
+                Notification::send($packagingUsers, new QualityCheckCompleted($workOrder, $orderNumber));
             }
 
             DB::commit();

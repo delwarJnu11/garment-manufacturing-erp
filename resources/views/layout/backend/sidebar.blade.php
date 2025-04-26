@@ -106,6 +106,11 @@
                                                 Quality Check
                                             </x-link>
                                         </li>
+                                        <li>
+                                            <x-link href="{{ route('packaging.index') }}" :active="request()->is('production-stages/packaging')">
+                                                Packaging Lists
+                                            </x-link>
+                                        </li>
 
                                     </ul>
                                 </li>
