@@ -170,7 +170,7 @@
             </a>
         </li>
         <li class="nav-item nav-item-box">
-            <a href="https://dreamspos.dreamstechnologies.com/html/template/email.html">
+            <a href="javascript:void(0);">
                 <i data-feather="mail"></i>
                 <span class="badge rounded-pill">1</span>
             </a>
@@ -190,7 +190,7 @@
                 <div class="noti-content">
                     <ul class="notification-list">
                         <li class="notification-message">
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/activities.html">
+                            <a href="javascript:void(0);">
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
                                         <img alt=""
@@ -207,7 +207,7 @@
                             </a>
                         </li>
                         <li class="notification-message">
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/activities.html">
+                            <a href="javascript:void(0);">
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
                                         <img alt=""
@@ -224,7 +224,7 @@
                             </a>
                         </li>
                         <li class="notification-message">
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/activities.html">
+                            <a href="javascript:void(0);">
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
                                         <img alt=""
@@ -243,7 +243,7 @@
                             </a>
                         </li>
                         <li class="notification-message">
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/activities.html">
+                            <a href="javascript:void(0);">
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
                                         <img alt=""
@@ -260,7 +260,7 @@
                             </a>
                         </li>
                         <li class="notification-message">
-                            <a href="https://dreamspos.dreamstechnologies.com/html/template/activities.html">
+                            <a href="javascript:void(0);">
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0">
                                         <img alt=""
@@ -279,7 +279,7 @@
                     </ul>
                 </div>
                 <div class="topnav-dropdown-footer">
-                    <a href="https://dreamspos.dreamstechnologies.com/html/template/activities.html">View all
+                    <a href="javascript:void(0);">View all
                         Notifications</a>
                 </div>
             </div>
@@ -287,7 +287,7 @@
         <!-- /Notifications -->
 
         <li class="nav-item nav-item-box">
-            <a href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html"><i
+            <a href="javascript:void(0);"><i
                     data-feather="settings"></i></a>
         </li>
         <li class="nav-item dropdown has-arrow main-drop">
@@ -316,7 +316,7 @@
                     </div>
                     <hr class="m-0" />
                     <a class="dropdown-item"
-                        href="https://dreamspos.dreamstechnologies.com/html/template/profile.html">
+                        href="javascript:void(0);">
                         <i class="me-2" data-feather="user"></i>
                         My Profile</a>
                     <a class="dropdown-item" href="{{ route('companyProfile.index') }}"><i class="me-2"
@@ -336,12 +336,12 @@
         <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="https://dreamspos.dreamstechnologies.com/html/template/profile.html">My
+            <a class="dropdown-item" href="javascript:void(0);">My
                 Profile</a>
             <a class="dropdown-item"
-                href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html">Settings</a>
+                href="javascript:void(0);">Settings</a>
             <a class="dropdown-item"
-                href="https://dreamspos.dreamstechnologies.com/html/template/signin.html">Logout</a>
+                href="javascript:void(0);">Logout</a>
         </div>
     </div>
     <!-- /Mobile Menu -->
