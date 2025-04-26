@@ -71,6 +71,7 @@ class SalesInvoiceController extends Controller
                 $salesInvoiceDetail = new SalesInvoiceDetail();
                 $salesInvoiceDetail->sales_invoice_id =  $last_id;
                 $salesInvoiceDetail->order_id = $saleInvoice['order_id']; // Reference to the order
+                $salesInvoiceDetail->order_detail_id = $saleInvoiceDetail['order_detail_id'];
                 $salesInvoiceDetail->qty = $saleInvoiceDetail['qty'];
                 $salesInvoiceDetail->unit_price = $saleInvoiceDetail['unit_price'];
                 $salesInvoiceDetail->vat = $saleInvoiceDetail['vat'] ?? 0;

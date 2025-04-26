@@ -34,33 +34,18 @@ class BomController extends Controller
 
 
             return array_merge([
-                // 'bom_id' => $bom->id,
-                // 'order_id' => $bom->order->order_number,
-                // 'buyer_name' => $bom->order->buyer->first_name . " " . $bom->order->buyer->last_name,
-                // 'product_name' => optional($bom->orderDetails->first())->product->name,
-                // 'labour_cost' => $bom->labour_cost,
-                // 'overhead_cost' => $bom->overhead_cost,
-                // 'utility_cost' => $bom->utility_cost,
-                // 'total_cost' => $bom->total_cost,
-                // 'delivery_date' => optional($bom->order->delivery_date)->format('d M Y'),
-                // 'status' => $bom->order->status,
+
                 'bom_id' => $bom->id ?? 'N/A',
-
                 'order_id' => $bom->order?->order_number ?? 'N/A',
-
                 'buyer_name' => optional($bom->order?->buyer)->first_name && optional($bom->order?->buyer)->last_name
                     ? optional($bom->order?->buyer)->first_name . ' ' . optional($bom->order?->buyer)->last_name
                     : 'N/A',
-
                 'product_name' => optional(optional($bom->orderDetails)->first()?->product)->name ?? 'N/A',
-
                 'labour_cost' => $bom->labour_cost ?? 0,
                 'overhead_cost' => $bom->overhead_cost ?? 0,
                 'utility_cost' => $bom->utility_cost ?? 0,
                 'total_cost' => $bom->total_cost ?? 0,
-
                 'delivery_date' => optional($bom->order?->delivery_date)?->format('d M Y') ?? 'N/A',
-
                 'status' => $bom->order?->status ?? 'N/A',
             ], $sizeCosts);
         });

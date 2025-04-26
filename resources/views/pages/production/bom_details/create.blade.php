@@ -16,7 +16,8 @@
                             <select name="material_id" class="form-select" id="material_dropdown">
                                 <option value="">Select Raw Material</option>
                                 @forelse ($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->material_name }}
+                                    <option value="{{ $product->id }}">{{ $product->name }}
+                                        {{-- 'material_name' --}}
                                     </option>
                                 @empty
                                     <option value="">No raw material Found!</option>
