@@ -1,4 +1,3 @@
-
 <?php
 
 use App\Http\Controllers\AccountTypesController;
@@ -7,9 +6,6 @@ use App\Http\Controllers\AccountTypesController;
 
 
 use App\Http\Controllers\Api\OrderDetailsController;
-
-use App\Http\Controllers\AssetStatusController;
-use App\Http\Controllers\AssetTypesController;
 use App\Http\Controllers\BomController;
 use App\Http\Controllers\BomDetailsController;
 use App\Http\Controllers\BuyerController;
@@ -23,7 +19,6 @@ use App\Http\Controllers\CuttingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FabricTypeController;
 use App\Http\Controllers\HrmAttendanceListController;
-use App\Http\Controllers\HrmDepartmentController;
 use App\Http\Controllers\HrmDepartmentsController;
 use App\Http\Controllers\HrmDesignationsController;
 use App\Http\Controllers\HrmEmployeeBankAccountsController;
@@ -65,9 +60,6 @@ use App\Http\Controllers\UOMController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuationMethodsController;
 use App\Http\Controllers\WarehouseController;
-use App\Models\Hrm_leave_types;
-use Illuminate\Support\Facades\Auth;
-use App\Models\ProductType;
 // use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseStateController;
 use App\Http\Controllers\SweingController;
@@ -353,9 +345,6 @@ Route::get('/order/{order}', [OrderController::class, 'show'])->name('order.show
  *END Invetory/category
  **/
 
-Route::resource('assetRegister', AssetStatusController::class);
-Route::resource('assetTypes', AssetTypesController::class);
-Route::resource('accountTypes', AccountTypesController::class);
-// Route::resource('createAssetType', AssetTypesController::class);
-
+ 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/accounts.php';
