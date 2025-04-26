@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AccountGroupsController;
 use App\Http\Controllers\Api\Vue\AuthController;
 use App\Http\Controllers\Api\Vue\CategoryController;
 use App\Http\Controllers\Api\Vue\ProductController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Api\Vue\FabricsTypeController;
 use App\Http\Controllers\Api\Vue\OrderStatusController;
 use App\Http\Controllers\Api\Vue\RolesController;
 use App\Http\Controllers\Api\Vue\SupplierController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Vue\UserController;
 use App\Models\ProductType;
@@ -55,3 +58,9 @@ Route::prefix('orders')->group(function () {
 
 // Fabrics Type Route
 Route::apiResource('/fabrics/types', FabricsTypeController::class);
+
+
+// Accounts Module
+Route::apiResource('accounts', AccountController::class);
+Route::apiResource('accountGroups', AccountGroupsController::class);
+Route::apiResource('transactions', TransactionController::class);
