@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\ProductLot;
+use App\Models\ProductType;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderDetail;
+use App\Models\Size;
 use App\Models\Stock;
-
-
+use App\Models\Uom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -28,10 +30,7 @@ class PurchaseOrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+   
 
 
 
@@ -47,6 +46,14 @@ class PurchaseOrderController extends Controller
 
     public function store(Request $request)
     {
+        // \Log::info('Received request data:', $request->all());
+
+        // // Return JSON response
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Data received successfully',
+        //     'data' => $request->all()
+        // ], 200);
         try {
             DB::beginTransaction();
 
@@ -101,9 +108,9 @@ class PurchaseOrderController extends Controller
                     'quantity' => $product['qty'],
                     'lot_id' =>  1,
                     'price' => $product['price'],
-                    '%_of_discount' => $product['p_discount'],
+                    'percent_of_discount' => $product['p_discount'],
                     'vat' =>  $product['total_vat'] ?? 0,
-                    '%_of_vat' =>  $product['p_vat'] ?? 0,
+                    'percent_of_vat' =>  $product['p_vat'] ?? 0,
                     'discount' => $product['total_discount'] ?? 0
                 ]);
 
@@ -112,7 +119,7 @@ class PurchaseOrderController extends Controller
                     'qty' => $product['qty'],
                     'cost_price' => $product['price'],
                     'sales_price' => $product['sales_price'] ?? 0.0,
-                    'warehouse_id' => 1,
+                    'warehouse_id' => $product['warehouse_id'] ?? 1,
                     'transaction_type_id' => 3,
                     'description' => '',
                     'created_at' => now(),
@@ -128,11 +135,11 @@ class PurchaseOrderController extends Controller
 
                 Stock::create([
                     'product_id' => $product['item_id'],
-                    'qty' => $product['qty'],
+                    'qty' =>  $lot->qty,
                     'transaction_type_id' => 3,
                     'created_at' => now(),
                     'updated_at' => now(),
-                    // 'wearhouse_id' => 1,
+                    'wearhouse_id' => $lot->warehouse_id,
                     'lot_id' => $lastId,
                 ]);
             }
@@ -159,9 +166,6 @@ class PurchaseOrderController extends Controller
             ], 500);
         }
     }
-
-
-
 
 
     /**

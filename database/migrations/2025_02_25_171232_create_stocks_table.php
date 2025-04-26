@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Stock;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,15 +15,23 @@ return new class extends Migration
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
-            $table->integer('warehouse_id')->nullable();
-            $table->integer('transaction_type_id');
-            $table->integer('qty');
             $table->integer('lot_id');
-            $table->decimal('total_value', 10, 2)->default(0);
+            // $table->integer('warehouse_id'); // come from lot  table
+            $table->integer('transaction_type_id');
+            $table->integer('qty')->default(0); // come from lot  table
+            $table->decimal('total_value');
+
             $table->timestamps();
         });
-    }
+        Stock::create([
+            'product_id' => 1,
+            'lot_id' => 1,
 
+            'qty' => 50,
+            'transaction_type_id' => 1,
+            'total_value' => 7750.00
+        ]);
+    }
     /**
      * Reverse the migrations.
      */

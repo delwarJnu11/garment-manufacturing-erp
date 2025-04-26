@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hrm_departments;
+use App\Models\Hrm_statuses;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -13,7 +14,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Hrm_departments::all();
+        $departments = Hrm_departments::with('statuses')->get();
         return response()->json(['departments' => $departments]);
     }
 
@@ -30,7 +31,16 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $departments = new Hrm_departments();
+        $departments->name= $request->name;
+        $departments->statuses_id= $request->statuses_id;
+        $departments->description= $request->description;
+
+        $departments->save();
+
+        return response()->json(['response' => $departments]);
+
     }
 
     /**
@@ -62,6 +72,11 @@ class DepartmentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $departments =Hrm_departments::destroy($id);
+            return response()->json(['response' => $departments]);
+        } catch (\Throwable $th) {
+            return response()->json(['response' => $th->getMessage()]);
+        }
     }
 }

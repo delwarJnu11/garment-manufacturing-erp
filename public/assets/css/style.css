@@ -160,7 +160,7 @@ ul .btn-primary:not(:disabled):not(.disabled).active:focus {
 }
 
 .bg-primary {
-    background-color: purple !important;
+    /* background-color: purple !important; */
 }
 
 .bg-secondary {

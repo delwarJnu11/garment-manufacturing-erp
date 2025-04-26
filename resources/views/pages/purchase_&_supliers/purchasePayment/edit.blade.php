@@ -3,6 +3,7 @@
 @section('page_content')
     <x-message-banner />
 
+    <div class="row">
     <div class="card flex-fill">
         {{-- <x-page-header heading="Edit Payment - PO-{{ $purchaseOrder->id }}" /> --}}
                 {{-- <x-page-header heading="Edit Payment - PO-{{ $purchaseOrder->id }}" btnText="Update Payment" /> --}}
@@ -31,4 +32,5 @@
             <a href="{{ route('payments.index') }}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
+</div>
 @endsection

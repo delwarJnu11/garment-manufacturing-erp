@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Hrm_departments;
 use App\Models\Hrm_employees;
 use Illuminate\Http\Request;
 
@@ -13,13 +14,21 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees=Hrm_employees::all();
+        $employees=Hrm_employees::with('department','designations','statuses', 'bank_accounts')->get();
         return response()->json(['employees' => $employees]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
+
+    //  public function department()
+    //  {
+    //     $departments = Hrm_departments::with('department')->get();
+    //     return response()->json(['department' => $departments]);
+    //  }
+
+
     public function create()
     {
         //

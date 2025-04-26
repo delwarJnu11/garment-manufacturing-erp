@@ -13,7 +13,7 @@ class DesignationController extends Controller
      */
     public function index()
     {
-        $designations = Hrm_designations::all();
+        $designations = Hrm_designations::with('statuses', 'department')->get();
         return response()->json(['designations' => $designations]);
     }
 

@@ -15,7 +15,6 @@ class HrmDepartmentsController extends Controller
     {
         $departments = Hrm_departments::paginate(5);
          //print_r($departments);
-
         return view('pages.hrm.department.hrm_department.index', compact('departments'));
     }
 

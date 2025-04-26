@@ -30,11 +30,11 @@ class Hrm_attendances_lists extends Model
     public $timestamps = false;
 
     public function statuses(){
-        return $this->belongsTo(Hrm_statuses::class);
+        return $this->belongsTo(Hrm_statuses::class, 'statuses_id');
     }
 
     public function employee(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'employee_id');
     }
 
     public function employees(){

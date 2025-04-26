@@ -216,11 +216,7 @@
                 console.log(newItems)
 
                 $.ajax({
-<<<<<<< HEAD
-                    url: '/api/order_details',
-=======
-                    url: "/api/order_details",
->>>>>>> 5974f2b7ccea101babc15445f301e85a12c4dcb9
+                    url: "{{ url('/api/order_details') }}",
                     type: "POST",
                     data: JSON.stringify({
                         items: newItems
@@ -232,7 +228,7 @@
                     success: function(response) {
                         if (response.status === 201) {
                             localStorage.clear();
-                            return window.location.assign('/orders');
+                            return window.location.assign("{{ url('/orders') }}");
                         }
                     },
                     error: function(xhr) {

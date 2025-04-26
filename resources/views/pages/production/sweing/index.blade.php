@@ -29,7 +29,7 @@
                         <td>
                             <div class="progress mt-2">
                                 <div id="efficiency_progress" class="progress-bar" role="progressbar" style="width: 0%;"
-                                    aria-valuenow={{ $sweing->efficiency }} aria-valuemin="0" aria-valuemax="100">
+                                    aria-valuenow={{ round($sweing->efficiency) }} aria-valuemin="0" aria-valuemax="100">
                                     0%
                                 </div>
                             </div>
@@ -68,6 +68,7 @@
 @section('css')
     <style>
         .progress {
+            background: #c1bebe;
             height: 20px;
             border-radius: 5px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -83,7 +84,7 @@
         }
 
         .progress-bar.low {
-            background: linear-gradient(to right, #ff0000, #f53d1d);
+            background: linear-gradient(to right, #01fa0d77, #02ac4e);
         }
 
         .progress-bar.medium {

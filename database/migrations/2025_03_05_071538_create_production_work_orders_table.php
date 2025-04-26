@@ -13,11 +13,6 @@ return new class extends Migration {
     {
         Schema::create('production_work_orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('production_plan_id');
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('work_order_status_id');
-            $table->unsignedBigInteger('assigned_to');
-            $table->integer('total_pieces');
             $table->integer('production_plan_id');
             $table->integer('order_id');
             $table->integer('work_order_status_id')->default(1);
@@ -27,7 +22,6 @@ return new class extends Migration {
             $table->enum('sewing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('finishing_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
             $table->enum('packaging_status', ['Pending', 'In Progress', 'Completed'])->default('Pending');
-            $table->decimal('wastage', 10, 2)->default(0);
             $table->integer('wastage')->default(0);
             $table->timestamps();
         });
@@ -47,7 +41,6 @@ return new class extends Migration {
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
     }
 
 
