@@ -171,26 +171,58 @@ class HrmEmployeesController extends Controller
             'designations_id' => 'required|string|max:200',
         ]);
 
-        $employees = Hrm_employees::find($id);
-        $employees->employee_id_number= $request->employee_id_number;
-        $employees->name= $request->name;
-        $employees->email= $request->email;
-        $employees->phone= $request->phone;
-        $employees->gender= $request->gender;
-        $employees->date_of_birth= $request->date_of_birth;
-        $employees->joining_date= $request->joining_date;
-        $employees->positions_id= $request->positions_id;
-        $employees->designations_id= $request->designations_id;
-        $employees->salary= $request->salary;
-        $employees->branch= $request->branch;
-        $employees->statuses_id= $request->statuses_id;
-        $employees->department_id= $request->department_id;
-        $employees->address= $request->address;
-        $employees->city= $request->city;
 
+    $employee = Hrm_employees::findOrFail($id);
 
+    // Upload new files if provided
+    if ($request->hasFile('photo')) {
+        if ($employee->photo && file_exists(public_path($employee->photo))) {
+            unlink(public_path($employee->photo)); // delete old photo
+        }
+        $file = $request->file('photo');
+        $photoName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/employee'), $photoName);
+        $employee->photo = 'uploads/employee/' . $photoName;
+    }
 
-        if($employees->save()){
+    if ($request->hasFile('certificate')) {
+        if ($employee->certificate && file_exists(public_path($employee->certificate))) {
+            unlink(public_path($employee->certificate)); // delete old certificate
+        }
+        $file = $request->file('certificate');
+        $certName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/employee'), $certName);
+        $employee->certificate = 'uploads/employee/' . $certName;
+    }
+
+    if ($request->hasFile('resume')) {
+        if ($employee->resume && file_exists(public_path($employee->resume))) {
+            unlink(public_path($employee->resume)); // delete old resume
+        }
+        $file = $request->file('resume');
+        $resumeName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/employee'), $resumeName);
+        $employee->resume = 'uploads/employee/' . $resumeName;
+    }
+
+    // Update other fields
+    $employee->employee_id_number = $request->employee_id_number;
+    $employee->name = $request->name;
+    $employee->email = $request->email;
+    $employee->phone = $request->phone;
+    $employee->gender = $request->gender;
+    $employee->date_of_birth = $request->date_of_birth;
+    $employee->joining_date = $request->joining_date;
+    $employee->positions_id = $request->positions_id;
+    $employee->designations_id = $request->designations_id;
+    $employee->salary = $request->salary;
+    $employee->branch = $request->branch;
+    $employee->statuses_id = $request->statuses_id;
+    $employee->department_id = $request->department_id;
+    $employee->address = $request->address;
+    $employee->city = $request->city;
+
+        if($employee->save()){
             return redirect('hrm_employees')->with('success', 'employee has been updated successfully!');
          } ;
     }

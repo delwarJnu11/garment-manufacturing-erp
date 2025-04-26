@@ -16,6 +16,9 @@ use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\HrmPayslipsController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\RawMaterialController;
+use App\Http\Controllers\Api\Vue\DepartmentController as VueDepartmentController;
+use App\Http\Controllers\Api\Vue\DesignationController as VueDesignationController;
+use App\Http\Controllers\Api\Vue\EmployeeController as VueEmployeeController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -58,6 +61,13 @@ Route::post('purchase',[ PurchaseOrderController::class,'store']);
  Route::get('leaveapplication', [LeaveApplicationController::class, 'index']);
  Route::get('leavetype', [LeaveTypeController::class, 'index']);
 //  End React Api
+
+
+// Start Vue Api
+Route::apiResource('department', VueDepartmentController::class);
+Route::apiResource('designation', VueDesignationController::class);
+Route::apiResource('employee', VueEmployeeController::class);
+// End Vue Api
 
  // End HRM Api Route
 
