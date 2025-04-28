@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($orders as $order)
+                @forelse ($orders as $order)
                     <tr>
                         <td>{{ $order->order_number }}</td>
                         <td>{{ $order->buyer->first_name . ' ' . $order->buyer->last_name ?? 'N/A' }}</td>
@@ -63,7 +63,11 @@
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="9"><span class="text-danger">No Orders is in Pending...</span></td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
 

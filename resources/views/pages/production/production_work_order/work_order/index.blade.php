@@ -89,8 +89,8 @@
                                     {{ $order->packaging_status }}</button>
                             @endif
                             @if ($order->packaging_status == 'Completed')
-                                <button data-id="{{ encrypt($order->id) }}" class="btn btn-success production-ready">Read
-                                    For Shipment</button>
+                                <button data-id="{{ $order->id }}" class="btn btn-secondary production-ready">Add
+                                    In Stock</button>
                             @endif
                         </td>
                     </tr>
@@ -100,6 +100,54 @@
         <!-- Pagination Links -->
         <div class="d-flex justify-content-end p-3">
             {{ $workOrders->links('vendor.pagination.custom') }}
+        </div>
+        <!-- Add In Stock Modal -->
+        <div class="modal fade" id="addInStock" tabindex="-1" role="dialog" aria-labelledby="addInStockLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="addInStockForm" method="POST" action="">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addInStockLabel">Add Product In Stock</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <input type="hidden" name="order_id" id="order_id">
+
+                            <div class="form-group">
+                                <label for="profit_rate">Profit Rate (%)</label>
+                                <input type="text" class="form-control" name="profit_rate" id="profit_rate" required>
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <label for="warehouse_id">Warehouse</label>
+                                <select class="form-control" name="warehouse_id" id="warehouse_id">
+                                    <option value="">Select Warehouse</option>
+                                    @foreach ($warehouses as $warehouse)
+                                        <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group mt-2">
+                                <label for="product-type">Product Type</label>
+                                <input type="text" class="form-control" name="product_type" value="Finished Goods"
+                                    id="product-type" readonly>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="confirm_sell">Confirm Sell</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @endsection
@@ -115,6 +163,40 @@
                     encryptedWorkOrderId);
                 window.location.href = url;
             });
+
+            // Added in The products, ProductLot and Stock Table
+            $('tbody').on('click', '.production-ready', function() {
+                const orderId = $(this).data('id');
+
+                $('#order_id').val(orderId);
+                $('#profit_rate').val('');
+                $('#addInStock').modal('show');
+
+            });
+
+            // Add In the Stock
+            $('#addInStockForm').submit(function(e) {
+                e.preventDefault();
+
+                const formData = $(this).serialize();
+                console.log(formData)
+                // $.ajax({
+                //     url: "{{ url('/api/product') }}",
+                //     type: 'POST',
+                //     data: formData,
+                //     success: function(response) {
+                //         // console.log(response)
+                //         $('#processSellModal').modal('hide');
+                //         alert('Wastage sold successfully!');
+                //         window.location.href = "{{ url('stock/products') }}";
+                //     },
+                //     error: function(e) {
+                //         console.log(e)
+                //     }
+                // });
+            });
+
+
         });
     </script>
 @endsection

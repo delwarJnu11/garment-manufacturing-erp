@@ -36,12 +36,14 @@
                                 <td>{{ $wastage->unit_price * $wastage->quantity }}</td>
                                 <td>{{ Carbon::parse($wastage->created_at)->format('d M, Y') }}</td>
                                 <td class="action-table-data">
-                                    <button class="btn btn-secondary process-sell-button"
-                                        data-wastage-id="{{ $wastage->id }}" data-order-id="{{ $wastage->order->id }}"
+                                    <button
+                                        style="{{ $wastage->is_sellable ? 'cursor: not-allowed !important; background-color: #878584 !important; pointer-events: none;!important' : '' }}"
+                                        class="btn btn-secondary process-sell-button" data-wastage-id="{{ $wastage->id }}"
+                                        data-order-id="{{ $wastage->order->id }}"
                                         data-unit-price="{{ $wastage->unit_price }}"
                                         data-quantity="{{ $wastage->quantity }}"
                                         data-product-name="{{ $wastage->product->name }}"
-                                        data-wastage-type="{{ $wastage->wastageType->name }}">Process Sell</button>
+                                        data-wastage-type="{{ $wastage->wastageType->name }}">{{ $wastage->is_sellable ? 'Processed' : 'Process Sell' }}</button>
                                 </td>
                             </tr>
                         @empty
@@ -144,7 +146,7 @@
                     const formData = $(this).serialize();
 
                     $.ajax({
-                        url: "/api/product",
+                        url: "{{ url('/api/product') }}",
                         type: 'POST',
                         data: formData,
                         success: function(response) {

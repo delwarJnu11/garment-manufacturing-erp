@@ -117,7 +117,8 @@ class SweingController extends Controller
                 $wastageService = new WastageService();
 
                 // find wastage based on Order id
-                $result = Wastage::where('order_id', $request->order_id)->where('section', $section)->exists();
+                $result = Wastage::where('work_order_id', $request->work_order_id)->where('section', $section)->exists();
+
                 if (!$result) {
                     $wastageService->createWastage([
                         'order_id' => optional($workOrder)->order_id,

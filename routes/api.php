@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\OrderDetailsController;
 
 
 use App\Http\Controllers\Api\PurchaseInvoiceController;
-use App\Http\Controllers\Api\RawMaterialController;
 use App\Http\Controllers\Api\PurchaseOrderController;
 use App\Http\Controllers\Api\SalesInvoiceController;
 
@@ -19,6 +18,7 @@ use App\Http\Controllers\HrmPayslipsController;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\ProductController as ControllersProductController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -35,7 +35,7 @@ Route::post('order_details', [OrderDetailsController::class, 'store']);
 Route::post('bom_details', [BomDetailsController::class, 'store']);
 
 //Get Raw Material
-Route::get('raw_material/{id}', [RawMaterialController::class, 'show']);
+Route::get('raw_material/{id}', [ProductController::class, 'findRaw']);
 // Route::get('order_details', [OrderDetailsController::class, 'index']);
 // Route::get('order', [OrderDetailsController::class, 'index']);
 

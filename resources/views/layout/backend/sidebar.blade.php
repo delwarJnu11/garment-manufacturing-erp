@@ -155,8 +155,6 @@
                                 <li><x-link href="{{ url('/orders/create') }}" :active="request()->is('orders/create')">Create
                                         Orders</x-link>
                                 </li>
-                                <li><x-link href="{{ url('/orders/pending') }}" :active="request()->is('orders/pending')">Pending
-                                        Orders</x-link></li>
                                 <li><x-link href="{{ url('/orders/running') }}" :active="request()->is('orders/running')">Running
                                         Orders</x-link></li>
                                 <li><x-link href="{{ url('/orders/completed') }}" :active="request()->is('orders/completed')">Completed

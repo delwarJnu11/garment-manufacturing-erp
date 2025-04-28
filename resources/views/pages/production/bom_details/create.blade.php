@@ -16,7 +16,7 @@
                             <select name="material_id" class="form-select" id="material_dropdown">
                                 <option value="">Select Raw Material</option>
                                 @forelse ($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->material_name }}
+                                    <option value="{{ $product->id }}">{{ $product->name }}
                                     </option>
                                 @empty
                                     <option value="">No raw material Found!</option>
@@ -109,20 +109,27 @@
                 const materialId = $(this).val();
                 if (materialId) {
                     $.ajax({
-                        url: `/api/raw_material/${materialId}`,
+                        url: "{{ url('/api/raw_material') }}/" + materialId,
                         type: "GET",
                         contentType: "application/json",
                         headers: {
                             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
                         },
                         success: function(response) {
-                            $("#unit_price").val(response.cost_per_unit);
+                            // Check if the response contains expected data
+                            if (response && response.unit_price) {
+                                $("#unit_price").val(response.unit_price);
+                            } else {
+                                alert("Unit price not available.");
+                            }
                         },
                         error: function(xhr) {
-                            console.log(xhr.responseText);
-                            alert("Error Getting Raw materials information");
+                            console.error(xhr);
+                            alert("Error fetching raw materials information");
                         }
                     });
+                } else {
+                    $("#unit_price").val('');
                 }
             });
 
@@ -244,7 +251,7 @@
                 const maxTotalCost = Math.max(...Object.values(totalCostBySize)).toFixed(2);
 
                 $.ajax({
-                    url: "/api/bom_details",
+                    url: "{{ url('/api/bom_details') }}",
                     type: "POST",
                     data: JSON.stringify({
                         items: newItems,

@@ -7,7 +7,7 @@ use App\Models\BomDetails;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
-use App\Models\Raw_material;
+use App\Models\ProductType;
 use App\Models\Size;
 use App\Models\Uom;
 use Illuminate\Http\Request;
@@ -27,7 +27,7 @@ class BomDetailsController extends Controller
      */
     public function create()
     {
-        $rawMaterialId = Product::where('name', 'Raw Material')->first()?->id;
+        $rawMaterialId = ProductType::where('name', 'Raw Material')->first()?->id;
         $products = Product::where('product_type_id', $rawMaterialId)->get();
         $sizes = Size::all();
         $uoms = Uom::all();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bom;
 use App\Models\Category;
 use App\Models\OrderDetail;
 use App\Models\Product;
@@ -148,6 +149,91 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['message' => $th->getMessage()], 500);
+        }
+    }
+
+    // Store Finished Products
+    public function storeFinishedProduct(Request $request)
+    {
+        $request->validate([
+            'order_id' => 'required|exists:orders,id',
+            'product_type' => 'required|string',
+            'warehouse_id' => 'required|numeric',
+            'profit_rate' => 'required|numeric|min:1',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $sizeId = OrderDetail::where('order_id', $request->order_id)->first()?->size_id;
+            $uomId = OrderDetail::where('order_id', $request->order_id)->first()?->uom_id;
+            $productTypeId = ProductType::where('name', $request->product_type)->first()?->id;
+            $sku = "FNSG-" . time();
+
+            // Get Unit Price From BOM
+            $price = Bom::where('order_id', $request->order_id)->first()?->total_price;
+            $unitPrice = $price + ($request->profit_rate * $price) / 100;
+            //Here PRoduct NAme needed TODO
+            Product::create([
+                'name' => $request->product_name,
+                'sku' => $sku,
+                'product_type_id' => $productTypeId,
+                'qty' => $request->quantity,
+                'unit_price' => $unitPrice,
+                'uom_id' => $uomId,
+                'size_id' => $sizeId,
+            ]);
+
+            $productId = Product::where('name', $request->product_name)->first()?->id;
+            // dd($productId);
+
+            $transactionTypeId = TransactionType::where('name', 'Wastage products')->first()?->id;
+
+            $productLot = ProductLot::create([
+                "product_id" => $productId,
+                "qty" => $request->quantity,
+                "cost_price" => $request->unit_price,
+                "sales_price" => $unitPrice,
+                "transaction_type_id" => $transactionTypeId,
+                "warehouse_id" => $request->warehouse_id,
+                "description" => "Wastage Product",
+            ]);
+
+            $lastId = $productLot->id;
+
+            Stock::create([
+                "product_id" => $productId,
+                'lot_id' => $lastId,
+                'transaction_type_id' => $transactionTypeId,
+                "qty" => $request->quantity,
+                'total_value' => $request->quantity * $request->unit_price,
+            ]);
+
+
+
+            $wastage = Wastage::find($request->wastage_id);
+            $wastage->is_sellable = true;
+            $wastage->save();
+
+            DB::commit();
+
+            return response()->json(['message' => 'Wastage sold successfully!']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['message' => $th->getMessage()], 500);
+        }
+    }
+
+    public function findRaw($id)
+    {
+        try {
+            $rawMaterial = Product::find($id);
+            if ($rawMaterial) {
+                return response()->json($rawMaterial);
+            } else {
+                return response()->json(['message' => 'Raw material not found.'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
         }
     }
 }

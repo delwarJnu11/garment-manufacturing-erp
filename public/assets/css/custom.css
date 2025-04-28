@@ -39,3 +39,8 @@
 .login-page-wrapper {
     margin: 0px !important;
 }
+.disabled-btn {
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    opacity: 0.65 !important;
+}

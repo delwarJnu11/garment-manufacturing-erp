@@ -59,7 +59,6 @@ class CuttingController extends Controller
         if (!$workOrder) {
             return redirect()->route('production-work-orders.index')->with('error', 'Work Order not found.');
         }
-
         // Get work Order Id and total pieces
         $order_id = $workOrder->order_id;
         $total_pieces = $workOrder->total_pieces;
@@ -71,7 +70,6 @@ class CuttingController extends Controller
         }
 
         $bom_id = $bom->id;
-
 
         // Get order quanity based on Size
         $sizeQuantities = DB::table('order_details')
@@ -87,11 +85,9 @@ class CuttingController extends Controller
         $uom = Uom::where('name', 'Meter')->first();
         // Get total quantity_used from BOMDetails based on bom_id
         $Quantities = BomDetails::where('bom_id', $bom_id)
-            ->where('uom_id', $uom->id)
             ->select('size_id', DB::raw('SUM(quantity_used) as total_quantity_used'))
             ->groupBy('size_id')
             ->pluck('total_quantity_used', 'size_id');
-
         // Convert to an array
         $sizesWithUsedQty = $Quantities->toArray();
 
@@ -126,7 +122,6 @@ class CuttingController extends Controller
 
             $totalWastageBySize[$sizeId] += $wastage;
         }
-
         $totalWastage = 0;
 
         foreach ($sizeQuantities as $sizeId => $quantity) {

@@ -28,7 +28,7 @@ class OrderController extends Controller
             'orderDetails.uom'
         ])->whereHas('status', function ($query) {
             $query->where('name', 'Pending');
-        })->groupBy('order_number')->paginate(4);
+        })->paginate(4);
 
         // Get all unique sizes dynamically
         $sizes = Size::pluck('name')->toArray();
@@ -49,7 +49,7 @@ class OrderController extends Controller
             'orderDetails.uom'
         ])->whereHas('status', function ($query) {
             $query->where('name', 'In Progress');
-        })->groupBy('order_number')->paginate(4);
+        })->paginate(4);
 
         // Get all unique sizes dynamically
         $sizes = Size::pluck('name')->toArray();
@@ -71,7 +71,7 @@ class OrderController extends Controller
             'orderDetails.uom'
         ])->whereHas('status', function ($query) {
             $query->where('name', 'Completed');
-        })->groupBy('order_number')->paginate(4);
+        })->paginate(4);
 
         // Get all unique sizes dynamically
         $sizes = Size::pluck('name')->toArray();

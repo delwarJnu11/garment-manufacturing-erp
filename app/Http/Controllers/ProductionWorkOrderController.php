@@ -13,6 +13,7 @@ use App\Models\ProductionWorkStatus;
 use App\Models\ProductLot;
 use App\Models\Stock;
 use App\Models\User;
+use App\Models\Warehouse;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -34,7 +35,9 @@ class ProductionWorkOrderController extends Controller
             'workStatus'
         ])->orderBy('id', 'desc')->paginate(4);
 
-        return view('pages.production.production_work_order.work_order.index', compact('workOrders'));
+        $warehouses = Warehouse::all();
+
+        return view('pages.production.production_work_order.work_order.index', compact('workOrders', 'warehouses'));
     }
 
     /**
@@ -104,7 +107,6 @@ class ProductionWorkOrderController extends Controller
 
     public function store(Request $request)
     {
-        // Log::info('Before creating production work order', $request->all());
 
         $request->validate([
             'order_id' => 'required|numeric',
