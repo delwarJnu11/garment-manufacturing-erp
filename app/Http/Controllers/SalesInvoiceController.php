@@ -25,7 +25,7 @@ class SalesInvoiceController extends Controller
     {
         $sales_invoices = SalesInvoice::with('buyer', 'salesInvoiceDetails.order',  'invoice_status')->paginate(10);
         // dd($sales_invoices);
-        return view('pages.orders_&_Buyers.sales_invoice.salesinvoice', compact('sales_invoices'));
+        return view('pages.orders_&_buyers.sales_invoice.salesinvoice', compact('sales_invoices'));
     }
 
     /**
@@ -40,7 +40,7 @@ class SalesInvoiceController extends Controller
         $buyers = Buyer::all();
         $invoiceStatus = InvoiceStatus::all();
 
-        return view('pages.orders_&_Buyers.sales_invoice.create', compact('buyers', 'orders', 'invoiceStatus'));
+        return view('pages.orders_&_buyers.sales_invoice.create', compact('buyers', 'orders', 'invoiceStatus'));
     }
 
     public function find_order(Request $request)
@@ -168,7 +168,7 @@ class SalesInvoiceController extends Controller
      */
     public function salesReport()
     {
-        return view('pages.orders_&_Buyers.sales_invoice.report', [
+        return view('pages.orders_&_buyers.sales_invoice.report', [
             'startDate' => null,
             'endDate' => null,
             'bom_total' => [],
@@ -196,7 +196,7 @@ class SalesInvoiceController extends Controller
             ->get()); // Collect the results as a collection
 
 
-        return view('pages.orders_&_Buyers.sales_invoice.report', compact(
+        return view('pages.orders_&_buyers.sales_invoice.report', compact(
             'startDate',
             'endDate',
             'salesReport'
@@ -229,7 +229,7 @@ class SalesInvoiceController extends Controller
 
 
         // dd($salesInvoiceDetails);
-        return view('pages.orders_&_Buyers.sales_invoice.show', compact('salesInvoice', 'salesInvoiceDetails'));
+        return view('pages.orders_&_buyers.sales_invoice.show', compact('salesInvoice', 'salesInvoiceDetails'));
     }
 
     public function invoicePending()
@@ -237,7 +237,7 @@ class SalesInvoiceController extends Controller
         $salesInvoices = SalesInvoice::with('invoice_status', 'buyer', 'salesInvoiceDetails.order')->get();
         $invoiceStatuses = InvoiceStatus::all();
 
-        return view('pages.orders_&_Buyers.sales_invoice.salesPending', compact('salesInvoices', 'invoiceStatuses'));
+        return view('pages.orders_&_buyers.sales_invoice.salesPending', compact('salesInvoices', 'invoiceStatuses'));
     }
 
     public function updateInvoiceStatus(Request $request, $id)
@@ -267,7 +267,7 @@ class SalesInvoiceController extends Controller
         ])->findOrFail($invoiceId);
 
         // Pass the data to the view
-        $pdf = FacadePdf::loadView('pages.orders_&_Buyers.sales_invoice.pdf', compact('salesInvoice'));
+        $pdf = FacadePdf::loadView('pages.orders_&_buyers.sales_invoice.pdf', compact('salesInvoice'));
 
         // Option 1: Download the PDF
         return $pdf->download('invoice_' . $salesInvoice->id . '.pdf');

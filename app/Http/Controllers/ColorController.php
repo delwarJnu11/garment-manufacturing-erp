@@ -12,7 +12,7 @@ class ColorController extends Controller
      */
     public function index()
     {
-        $colors = Color::paginate(4);
+        $colors = Color::paginate(10);
         return view('pages.orders_&_Buyers.color.index', compact('colors'));
     }
 
@@ -21,7 +21,7 @@ class ColorController extends Controller
      */
     public function create()
     {
-        return view('pages.sales-and-orders.color.create');
+        return view('pages.orders_&_buyers.color.create');
     }
 
     /**

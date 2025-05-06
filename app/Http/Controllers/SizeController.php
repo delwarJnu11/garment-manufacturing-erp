@@ -13,7 +13,7 @@ class SizeController extends Controller
     public function index()
     {
         $sizes = Size::all();
-        return view('pages.orders_&_Buyers.sizes.index', compact('sizes'));
+        return view('pages.orders_&_buyers.sizes.index', compact('sizes'));
     }
     // public function index()
     // {
@@ -26,7 +26,7 @@ class SizeController extends Controller
      */
     public function create()
     {
-        return view('pages.orders_&_Buyers.sizes.create');
+        return view('pages.orders_&_buyers.sizes.create');
     }
 
     /**
@@ -64,7 +64,7 @@ class SizeController extends Controller
     public function edit(string $id)
     {
         $size = Size::find($id);
-        return view('pages.orders_&_Buyers.sizes.edit', compact('size'));
+        return view('pages.orders_&_buyers.sizes.edit', compact('size'));
     }
 
     /**

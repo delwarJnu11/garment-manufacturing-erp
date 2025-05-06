@@ -51,6 +51,8 @@ Route::apiResource('/buyers', BuyerController::class);
 Route::get('/showInvoice', [PurchaseInvoiceController::class, 'index']);
 Route::get('/invoice-id', [PurchaseInvoiceController::class, 'createInvoice']);
 Route::post('/purchaseInvoice', [PurchaseInvoiceController::class, 'process']);
+Route::get('/purchaseInvoice/{id}', [PurchaseInvoiceController::class, 'show'])->name('invoice');
+
 // Orders
 Route::prefix('orders')->group(function () {
     Route::apiResource('/status', OrderStatusController::class);

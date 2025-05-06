@@ -129,7 +129,16 @@ class PurchaseInvoiceController extends Controller
     }
   }
 
-  public function show(string $id) {}
+  public function show(string $id)
+  {
+    try {
+      $invoiceShow = PurchaseOrder::with('purchaseDetails', 'inv_supplier', 'purchaseDetails.product:id,name')->findOrFail($id);
+      return response()->json(['purchaseInvoiceGet' => $invoiceShow], 200);
+    } catch (\Throwable $th) {
+      Log::error($th->getMessage());
+      return response()->json(['Purchase order not found.' => $th->getMessage()], 400);
+    }
+  }
 
   public function update(Request $request) {}
 }
